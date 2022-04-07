@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Business Logic Vulnerabilities</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de la lógica de la empresa.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Business Logic Vulnerabilities">
+  <meta property="og:description" content="Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de la lógica de la empresa.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-04-07T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-04-07-5.Business_logic_vulnerabilities/">
+  <link rel="canonical" href="http://localhost:4000/2022-04-07-5.Business_logic_vulnerabilities/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Business Logic Vulnerabilities">
+  <meta property="twitter:description" content="Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de la lógica de la empresa.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RedTeam</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blueteam</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Basics</a>
+                  <a class="dropdown-item" href="/INGINVIDApage">Reversing</a>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="/REDESpage">Redes</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WarGames</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/HTBpage">Htb</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/OTWpage">Otw</a>
+                  <a class="dropdown-item" href="/OTHERSWARGAMESpage">Other</a>
+            </div>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="/PROJECTSpage">Projectos</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "Business Logic Vulnerabilities", \
+          "category" : "burp", \
+          "url"      : "/2022-04-07-5.Business_logic_vulnerabilities/", \
+          "date"     : "April  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Command Injection", \
+          "category" : "burp", \
+          "url"      : "/2022-04-07-4.Command_Injection/", \
+          "date"     : "April  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Directory Traversal Vulnerabilities", \
+          "category" : "burp", \
+          "url"      : "/2022-04-07-3.Directory_Traversal/", \
+          "date"     : "April  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Authentication", \
+          "category" : "burp", \
+          "url"      : "/2022-04-07-2.Authentication/", \
+          "date"     : "April  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-1.SQLInjection/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Certificate", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox Machines", \
+          "category" : "page", \
+          "url"      : "/HTBpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Ingenieria Inversa con IDA", \
+          "category" : "page", \
+          "url"      : "/INGINVIDApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Others Wargames Posts", \
+          "category" : "page", \
+          "url"      : "/OTHERSWARGAMESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "OverTheWire wargames", \
+          "category" : "page", \
+          "url"      : "/OTWpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe wargames", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Wargames Posts", \
+          "category" : "page", \
+          "url"      : "/WARGAMEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Business Logic Vulnerabilities</h1>
+          
+            
+              <h2 class="post-subheading">Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de la lógica de la empresa.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on April 7, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+<p>1 Vulnerabilidades de la lógica de la empresa
+	1.1. Concepto de Business Logic Vulnerability
+	1.2. Tipos y ejemplos.
+		1.2.1. Confianza excesiva en el cliente.
+		1.2.2.  Fallo en manejar input no convencional.
+		1.2.3 Hacer malas asunciones sobre el comportamiento del usuario
+		1.2.4. Usuarios no siempre rellenan todos los campos requeridos
+		1.2.5. Los usuarios no siempre sigue la secuencia intencionada
+		1.2.6. Fallas específicas del dominio del negocio
+		1.2.7 Proveyendo un cifrado de Oracle</p>
+
+<h3 id="1-vulnerabilidades-de-la-lógica-de-empresa">1. Vulnerabilidades de la lógica de empresa.</h3>
+
+<p>En este apéndice vamos a tratar el concepto de <strong>vulnerabilidades de la  lógica de la empresa</strong>(Business Logic Vulnerabilities) y como estas se crean a apartir de fallas en la asunción del comportamiento de los usuarios en la web.</p>
+
+<p><br /></p>
+
+<h4 id="11-concepto-de-business-logic-vulnerabilities">1.1. Concepto de Business Logic Vulnerabilities.</h4>
+
+<p>En este contexto, el concepto de <strong>lógica de la empresa</strong> simplemente se refiere al conjunto de reglas que definen cómo opera una aplicación web en un contexto determinado. De forma que una vulnerabilidad de esta lógica no es más que una falla en dicho procedimiento provocada por una mala asunción del comportamiento que los usuarios normales tienen al interactuar con la aplicación.</p>
+
+<p>Estas fallas generalmente no son visibles para nadie más que para aquellos que estan pendientes de encontrarlas ya que no estan expuestas explícitamente. Son explotadas por un atacante que interactúa con la web provocando que esta se comporte de formas que los desarrolladores de la misma nunca hubieran pensado.</p>
+
+<p><br /></p>
+
+<h4 id="12-tipos-y-ejemplos">1.2. Tipos y ejemplos.</h4>
+
+<p>Para comprender mejor los tipos de vulnerabilidades que hay vamos a ver algunos ejemplos.</p>
+
+<p>En general, estas vulnerabilidades son relativamente específicas, tanto a nivel técnico como a nivel de impacto, del contexto en el que estas ocurren. Sin embargo, todas ellas guardan aspectos en común que nos van a permitir agruparlas en distintas temáticas.</p>
+
+<p><br /></p>
+
+<h5 id="121-confianza-excesiva-en-el-cliente">1.2.1. Confianza excesiva en el cliente.</h5>
+
+<p><strong>Un error muy común consiste en pensar que el cliente sólo va a interactuar con la aplicación a través de la interfaz web</strong>. Esto es especialmente peligroso porque se asume que tan sólo a través del saneamiento de código front-end se inhabilita la posibilidad de introducir input malicioso a la aplicación.</p>
+
+<p>Sin embargo, mediante un proxy puede interceptarse la petición que se envía desde el navegador al servidor, modificarla y liberarla para que esta se reciba modificada volviéndo inútiles los controles del front-end.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1</strong></p>
+
+<p>En este laboratorio nos encontramos ante una página que no válida adecuadamente el input introducido. Vamos a explotar una falla lógica intentando comprar un producto por menos del valor pedido. Vamos a suponer que tenemos cierta información y hemos obtenido las credenciales: wiener:peter.</p>
+
+<p>Una vez nos logeamos en nuestra cuenta observamos que tenemos un monto de 100 euros de crédito y el producto que queremos comprar cuesta 1337.</p>
+
+<p>Sin embargo, existe una falla y es que cuando se añade un producto al “carrito” de la tienda se realiza una request en la que se añade el nombre del producto y el precio. Podemos interceptar la request que se realiza al añadir el producto al carrito,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220325111328.png" text-align="center" />
+</div>
+
+<p>modificar el precio de 133700 a 100 para posteriormente proceder a la compra.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220325111504.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220325111532.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2</strong></p>
+
+<p>El factor de doble autenticación de este laboratorio es vulnerable debido a una falla lógica. Vamos a aprovecharnos de eso para introducirnos a la cuenta de un usuario (Carlos) además, tenemos acceso a su email.</p>
+
+<p>La web opera de la siguiente manera. Verifica la identidad de un usuario llevando a cabo una request con unas credenciales y un parámetro (cookie) que indican a quién pertenece dichas credenciales. Por su parte, las credenciales constan de un usuario:contraseña y un factor de segunda autenticación.</p>
+
+<p>Por ejemplo, para autenticarnos como nuestro usuario wiener:peter, acudimos a la sección “My account”, introducimos nuestras credenciales y capturamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326114427.png" text-align="center" />
+</div>
+
+<p>Seguidamente, el proxy de burpsuite intercepta una segunda request que se envía automáticamente y que contiene la cookie <strong>verify</strong> con nuestro nombre de usuario:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326114618.png" text-align="center" />
+</div>
+
+<p>Presumiblemente podemos asumir que este parámetro indica a la web a quién pertenece las credenciales enviadas para saber a quién pedir un código de segunda autenticación.</p>
+
+<p>Podemos probar a cambiar el valor de dicha cookie de ‘wiener’ a ‘carlos’ y liberar la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326115518.png" text-align="center" />
+</div>
+
+<p>de esta forma, como las credenciales son autenticas se darán por válidas (ya que existen en la base de datos aunque no pertenezcan al usuario carlos) el único problema es el factor de segunda autenticación que será envíado a carlos en lugar de a nosotros.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326115541.png" text-align="center" />
+</div>
+
+<p>Sin embargo, en citeriores intentos hemos podido comprobar que dicho código está únicamente compuesto por números y sólo tiene cuatro cifras con lo que puede ser fácilmente crackeado utilizando un ataque de fuerza bruta.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326115601.png" text-align="center" />
+</div>
+
+<p>Así, interceptamos una request de logeo con BurpSuite y la mandamos al intruder en la que definimos 1 posición para un payload tipo BruteForcer en el que definimos un set sólo de 10 números, del 0 al 9.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326130705.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326130738.png" text-align="center" />
+</div>
+
+<p>Si tenemos la versión Pro, de pago, podríamos modificar el número de hilos e iría mucho más rápido. Una estratagia que podemos emplear es realizar 10 ataques de payloads de 3 números y dejando uno estático (que varíe para cada hilo). Eso sería similar a tener 10 threads en lugar de 1.</p>
+
+<p>Finalmente, obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326131912.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326131930.png" text-align="center" />
+</div>
+
+<p>Así, acudimos a la web, introducimos el código, interceptamos la request con Burpsuite y cambiamos el valor de la cookie de wiener a carlos y finalmente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220326131829.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="122--fallo-en-manejar-input-no-convencional">1.2.2.  Fallo en manejar input no convencional.</h5>
+
+<p>Uno de los objetivos de la lógica de la aplicación es la restringir el input que el cliente/usuario puede introducir en la aplicación de acuerdo al contexto y a los intereses de la empresa, por ejemplo, a una tienda online le conviene restringir el número de pedidos que pueden hacerse de un producto en función del número que halla de estos en stock.</p>
+
+<p>Para poder implementar este tipo de reglas de restricción, los desarrolladores deben anticipar el contexto para poder indicar a la aplicación cómo actuar en tal situación y esto significa que una situación no contemplada por los desarrolladores (como por ejemplo impedir que un usuario introduzca un número de pedidos negativo) puede desembocar en un comportamiento anómalo (y muchas veces potencialmente perjudicial) por parte de la aplicación.</p>
+
+<p>De esta forma, una buena manera de identificar este tipo de fallas cuando se realiza una auditoría de una aplicación web es realizar las siguientes preguntas:</p>
+
+<ul>
+  <li>¿Existen límites sobre los datos que se pueden enviar?</li>
+  <li>¿Si existen, cuál es el comportamiento de la aplicación en tales casos?</li>
+  <li>¿Se realiza alguna transformación sobre los datos que se envían a la aplicación?</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3</strong></p>
+
+<p>Este laboratorio no filtra adecuadamente el tipo de input que podemos introducir. De esta forma podemos provocar un comportamiento anómalo en la web para solicitar un pedido negativo que descuente precio de la “cesto”:</p>
+
+<ul>
+  <li>
+    <p>Interceptamos la request para enviar a la cesta un pedido:</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220328112902.png" text-align="center" />
+  </div>
+  </li>
+  <li>
+    <p>Finalmente, en la cesta podemos observar que tenemos un pedido y el precio a pagar y solicitamos el pedido:</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220328112955.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220328113014.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4</strong></p>
+
+<p>En este laboratorio tenemos la misma premisa que en los anteriores, comprar un articulo por un precio menor del que originalmente tiene en la tienda.</p>
+
+<p>En el el laboratorio anterior hemos procedido a bajar el precio añadiendo al “carrito de la compra” un número negativo de elementos que han añadido a la suma del precio total un sumando negativo con la correspondiente bajada del precio. Sin embargo, la cesta ya no admite valores negativos de productos, el valor más bajo es el 0.</p>
+
+<p>Sin embargo, podemos emplear otro recurso, la memoria designada a almacenar el precio del carrito es limitada y eso significa que tiene un valor máximo y cuando este se alcanza y se pasa se va directamente al valor mínimo. Si esto no se ha regulado convenientemente, el valor mínimo puede ser o bien un número negativo, o el mismo 0 permitiéndonos así hacer un pedido por un valor menor que el correspondiente.</p>
+
+<p>Veamos cómo podemos plantear esto con el Intruder de BurpSuite:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar se captura una request de pedido en el carrito con el proxy:</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329105953.png" text-align="center" />
+  </div>
+
+    <p>el máximo valor que puede tener el parámeto de ‘quantity’ antes de saltar un error es 99. Así, ajustamos el valor del parámetro y envíamos la request al Intruder.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Una vez en el Intruder, limpiamos todas las posiciones para los conjuntos de payloads</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329110120.png" text-align="center" />
+  </div>
+
+    <p>Y cambiamos el tipo de payload a Null Payload, en opciones del payload le damos a continuar indefinidamente:</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329110226.png" text-align="center" />
+  </div>
+    <p>Y por último, para conocer la respuesta del servidor, en Options le indicamos que siga las redirecciones:</p>
+
+    <div style="text-align:center">
+      <img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329110312.png" text-align="center" />
+  </div>
+
+    <p>Y comenzamos el ataque.</p>
+  </li>
+</ul>
+
+<p>Podemos comprobar que al envíar esta serie de request en batería al servidor, todos los cambios en las distintas request que envíamos están teniendo su repercusión en la propia página del buscador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329110452.png" text-align="center" />
+</div>
+
+<p>El objetivo ahora es comprobar si el valor de un precio muy alto está bien gestionado, de lo contrario, dicho valor se reiniciará o pasará a ser negativo lo que nos permitirá aproximarnos al cero para realizar una compra por un precio mucho menor del establecido.</p>
+
+<p>Finalmente, a la request 161:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329111859.png" text-align="center" />
+</div>
+
+<p>De esta forma, la página tiene esta falla y vamos a completar el laboratorio haciendo el pedido, realizando más request nos acercamos al 0 y de ahí formamos un carrito con un precio entre 0 y 100 euros:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329113841.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220329113856.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5</strong></p>
+
+<p>Se necesita la versión Pro para hacer este laboratorio.</p>
+
+<p><br /></p>
+
+<h5 id="123-hacer-malas-asunciones-sobre-el-comportamiento-del-usuario">1.2.3 Hacer malas asunciones sobre el comportamiento del usuario</h5>
+
+<p>Una de las principales causas de las vulnerabilidades lógicas es hacer suposiciones erróneas sobre cúal va a ser el comportamiento del usuario. O pensar que unos controles iniciales van a hacer que el usuario sea indefinidamente de confianza quitando otros controles de seguridad alternativos.</p>
+
+<p>Esto conduce a eliminar una serie de escenarios o contextos del planetamiento del comportamiento de la web lo cual puede ser muy peligroso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6</strong></p>
+
+<p>SE NECESITA LA VERSIÓN PRO</p>
+
+<p><br /></p>
+
+<h5 id="124-usuarios-no-siempre-rellenan-todos-los-campos-requeridos">1.2.4. Usuarios no siempre rellenan todos los campos requeridos</h5>
+
+<p>Una idea errónea es suponer que los usuarios siempre van a rellenar campos de entrada de datos requeridos. Un navegador puede hacer que un usuario no envíe un formulario sin que se hallan rellenado una serie de campos, pero sabemos que un atacante tiene herramientas que le permiten sortear los controles del navegador.</p>
+
+<p>Esto es un problema particularmente importante debido a que en el servidor existen scripts que se ejecutan en función de qué campos estén rellenados y de qué valor tengan. <strong>Así, enviar un formulario sin rellenar adecuadamente o rellenador de una manera no convencional puede provocar fallas que permitan a un atacante tener acceso a rutas de código que en principio deberían de estar fuera de alcance</strong>.</p>
+
+<p>Así, puede ser buena idea a la hora de buscar fallas lógicas el intentar quitar parámetros y ver cuál es la reacción del sitio web. Se deberían seguir los siguientes puntos:</p>
+
+<ul>
+  <li>
+    <p>Sólo quitar un parámetro a la vez para asegurarse de agotar todas las posibilidades.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Intentar borrar el nombre de un parámetro al mismo tiempo que no se le da valor. (No es lo mismo tener una variable sin valor que no tenerla).</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Seguir un procedimiento “multi-etapa” para de nuevo agotar todas las posibilidades, quizá quitar un parámetro pueda tener repercusiones en otro proceso.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7</strong></p>
+
+<p>Este laboratiorio hace una asunción defectuosa sobre el nivel de privilegios del usuario basado en su input. Como resultado, se puede elevar hasta la cuenta de administrador. Este laboratorio se completa mediante el borrado de la cuenta de Carlos.</p>
+
+<p>Para completarlo vemos que podemos logearnos en una sitio web mediante las credenciales wiener:peter.</p>
+
+<p>Una vez dentro, tenemos una sección para cambiar de contraseña; interceptando la petición con Burp nos encontramos con los siguientes parámetros:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330173100.png" text-align="center" />
+</div>
+
+<p>El enunciado de la teoría nos propele a eliminar los valores o los parámetros en si de esta request y observar cómo se comporta la web.</p>
+
+<p>Para la mayoría de parámetros tenemos diversos errores</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330173325.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330173359.png" text-align="center" />
+</div>
+
+<p>Sin embargo, eliminando el parámetro contraseña obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330173513.png" text-align="center" />
+</div>
+
+<p>De esta forma, podemos enviar la siguiente request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330173616.png" text-align="center" />
+</div>
+
+<p>Así, nos logeamos como el adminstrador y borramos la cuenta de Carlos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330174021.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8</strong></p>
+
+<p>En este laboratorio existe una falla de control de los valores de parámetros a la hora de resetear la contraseña. El laboratorio se completa logeándote como Carlos.</p>
+
+<p>En primer lugar, intentamos logearnos y le damos al botín de “Forgot password”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330181641.png" text-align="center" />
+</div>
+
+<p>Una vez ahí, introducimos el email proporcionado por el laboratorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330181710.png" text-align="center" />
+</div>
+
+<p>Y nos darán un link, en el email, que nos redirigirá a un sitio pata cambiar nuestra contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330181847.png" text-align="center" />
+</div>
+
+<p>Introducimos la nueva contraseña e interceptamos la request con la esperanza de que en ella se envie algún tipo de identificador del usuario de la cuenta que podamos modificar para cambiar el usuario al que cambiamos la contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330182228.png" text-align="center" />
+</div>
+
+<p>Así, cambiamos el valor del parámetro ‘username’ a Carlos y cambiamos sus credenciales para acto seguido logearnos como Carlos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220330182342.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="125-los-usuarios-no-siempre-sigue-la-secuencia-intencionada">1.2.5. Los usuarios no siempre sigue la secuencia intencionada</h5>
+
+<p>Generalmente, muchas transacciones se llevan a cabo en una secuencia de pasos que los usuarios siguen guiados a través del navegador. Sin embargo, un atacante puede saltarse dicha secuencia a conveniencia lo cual puede ser peligroso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9</strong></p>
+
+<p>Vamos a ver con este laboratorio práctico cómo saltándonos ciertos pasos podemos hacer un bypass de un factor de segunda autenticación.</p>
+
+<p>Tenemos las credenciales wiener:peter y queremos logearnos en la cuenta carlos:montoya.</p>
+
+<p>Sencillamente nos logeamos como wiener:peter y copiamos la URL de la página /my_account. Seguidamente, nos logeamos como Carlos, y en lugar de introducir de nuevo el código de segunda autenticación nos camos a la URL de /my_account y habríamos completado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10</strong></p>
+
+<p>Este laboratorio tiene fallas acerca de la secuencia de pasos a seguir en la compra de un producto. Para resolver el laboratorio debemos comprar el producto: “Lightweight I33t leather jacket”.</p>
+
+<p>Tenemos las credenciales wiener:peter.</p>
+
+<p>Para resolver este laboratorio, hemos de estudiar la secuencia de pasos que se dan a la hora de comprar un producto. Con ese objetivo, compramos un producto a nuestro alcance.</p>
+
+<p>Cuando elegimos un producto y le damos al botón de “Place order”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331102118.png" text-align="center" />
+</div>
+
+<p>obtenemos la siguiente request</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331102348.png" text-align="center" />
+</div>
+
+<p>Y al continuar automáticamente se realiza otra request para seguir a “order-confirmation”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331102434.png" text-align="center" />
+</div>
+
+<p>De esta manera, la falla en la secuencia de pasos puede estar en el “checkout” del carrito, si nos saltáramos esa parte y continuarámos directamente al “order-confirmation” step podríamos realizar el pedido sin necesidad de tener el suficiente dinero en la cuenta.</p>
+
+<p>Así, añadimos el producto que queremos al carrito y en la URL del sitio web nos dirigimos al subfichero /cart/order-confirmation?order-confirmed=true</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331103042.png" text-align="center" />
+</div>
+
+<p>y le damos a enter completando el laboratorio.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331103053.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11</strong></p>
+
+<p>Este laboratorio realiza asunciones acerca de los pasos en el procedimiento de logeo. Para resolver este laboratorio hay que explotar esta lógica de asunciones para conseguir meterte en la cuenta de administrador y borrar a Carlos. Tenemos las credenciales: wiener:peter.</p>
+
+<p>NECESITAMOS LA VERSIÓN PRO PARA RESOLVER ESTE LABORATORIO.</p>
+
+<p><br /></p>
+
+<h5 id="126-fallas-específicas-del-dominio-del-negocio">1.2.6. Fallas específicas del dominio del negocio.</h5>
+
+<p>En muchos casos se pueden encontrar fallas en el dominio o propósito del negocio. Por ejemplo, en una tienda online que ofrece descuentos del 10% al llegar a los 1000 euros, podría haber una falla si no se registra el valor del pedido, de forma que una persona puede llenar el carrito de la compra hasta llegar a los 1000 euros, pedir el descuento, y acto seguido eliminar todos los articulos que no quiere y llevarse lo que necesita con un precio rebajado.</p>
+
+<p>Vamos a ver unos cuantos laboratorios a modo de ejemplos:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 12</strong></p>
+
+<p>En este laboratorio hay una mala gestion de la validación de cupones de descuento. Hay dos cupones de descuento en total, uno que te dan por ser nuevo comprador y otro que te dan por suscribirte a un periodico.</p>
+
+<p>La falla consiste en que la página comprueba si un cupón es válido comprobando si lo has metido inmediatamente antes, de esta forma, se puede alternar ambos cupones en el carrito para obtener un descuento mucho mayor del ofrecido por la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331192737.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/ServerTopics/Pasted%20image%2020220331192756.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13</strong></p>
+
+<p>SE NECESITA LA VERSIÓN PRO</p>
+
+<p><br /></p>
+
+<h5 id="127-proveyendo-un-cifrado-de-oracle">1.2.7 Proveyendo un cifrado de Oracle.</h5>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 14</strong></p>
+
+<p><br /></p>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Business+Logic+Vulnerabilities&url=http%3A%2F%2Flocalhost%3A4000%2F2022-04-07-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-04-07-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-04-07-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-04-07-4.Command_Injection/" data-toggle="tooltip" data-placement="top" title="Command Injection">&larr; Previous Post</a>
+        </li>
+        
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

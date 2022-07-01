@@ -12,6 +12,17 @@
     
     
       <item>
+        <title>Burp Certified Practitioner Practice Exam.</title>
+        <description>
+          Practice Exam Burp Certified Practitioner. - 
+          Practice Exam. El examen consta de una aplicación con tres vulnerabilidades que deben de ser explotadas secuencialmente con los siguientes propósitos: Robar la cuenta de un usuario sin privilegios. Elevar privilegios a la cuenta del administrador. Robar el flag contenido en el fichero /home/carlos/secret del servidor que hostea la aplicación...
+        </description>
+        <pubDate>Wed, 30 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-30-PracticeExam/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-30-PracticeExam/</guid>
+      </item>
+    
+      <item>
         <title>21. OAuth Authentication.</title>
         <description>
           Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite. - 
@@ -218,17 +229,6 @@
         <pubDate>Wed, 09 Mar 2022 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2022-03-09-4.Command_Injection/</link>
         <guid isPermaLink="true">http://localhost:4000/2022-03-09-4.Command_Injection/</guid>
-      </item>
-    
-      <item>
-        <title>3. Directory Traversal.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de directorio cruzado a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Introducción. 2 Directory Traversal. 2.1. Concepto de Directory Traversal Vulnerability. 2.2. Leyendo ficheros arbitrarios via directory traversal. 2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal. 1. Introducción. En esta sección explicaremos qué es una vulnerabilidad Directory Traversal (o de cruce de directorios), describiriemos como se...
-        </description>
-        <pubDate>Tue, 08 Mar 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-03-08-3.Directory_Traversal/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-08-3.Directory_Traversal/</guid>
       </item>
     
   </channel>

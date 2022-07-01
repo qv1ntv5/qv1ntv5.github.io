@@ -1,11 +1,17 @@
+---
+layout: post
+title: 15.DOM-based XSS vulnerabilities.
+subtitle: Detección y explotación de vulnerabilidades XSS basados en DOM través de la herramienta BurpSuite.
+tags: [burp]
+---
 ## 0. Índice.
 - 1. Introducción al DOM.
 - 2. Taint-flow vulnerabilities.
-- 2.1. Web message source.
-- 2.2. DOM-based open redirection.
-- 2.3. DOM-Based cookie manipulation.
+	- 2.1. Web message source.
+	- 2.2. DOM-based open redirection.
+	- 2.3. DOM-Based cookie manipulation.
 
-<br />
+	<br />
 
 ### 1. Introducción al DOM.
 El modelo de objeto de documento (DOM) es la representación jerárquica de los elementos de la página renderizada por el navegador web. Los sitios web pueden usar JavaScript para manipular los nodos y objetos del DOM, así como sus propiedades. La manipulación de DOM en sí misma no es un problema. De hecho, es una parte integral de cómo funcionan los sitios web modernos. Sin embargo, JavaScript que maneja datos de manera insegura puede permitir varios ataques. Las vulnerabilidades basadas en DOM surgen cuando un sitio web contiene JavaScript que toma un valor controlable por el atacante, conocido como fuente, y lo pasa a una función peligrosa, conocida como sumidero.

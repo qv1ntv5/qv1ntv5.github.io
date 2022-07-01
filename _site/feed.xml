@@ -12,9 +12,9 @@
     
     
       <item>
-        <title>22.oauth_authentication</title>
+        <title>21. OAuth Authentication.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite. - 
           0. Indice. Introducción. Presentación del marco OAuth. 2.1. Introducción al OAuth. 2.2. Funcionamiento del marco OAuth. 2.3. OAuth authentication. Explotando vulnerabilidades OAuth básicas. 3.1. Vulnerabilidades en la aplicación cliente. 1. Introducción. Mientras navega por la web, es casi seguro que se ha topado con sitios que le permiten iniciar sesión...
         </description>
         <pubDate>Sun, 27 Mar 2022 00:00:00 -0400</pubDate>
@@ -23,9 +23,9 @@
       </item>
     
       <item>
-        <title>21.http_request_smuggling</title>
+        <title>21. HTTP Request Smuggling.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite. - 
           0. Índice. Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. Planteamiento de la vulnerabilidad. Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades. Exploiting HTTP Request Smuggling....
         </description>
         <pubDate>Sat, 26 Mar 2022 00:00:00 -0400</pubDate>
@@ -34,9 +34,9 @@
       </item>
     
       <item>
-        <title>20.http_host_header_attacks</title>
+        <title>20. HTTP Host Header Attacks.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades basadas en la cabecera Host a través de la herramienta BurpSuite. - 
           0. Índice. Cabecera HTTP Host. HTTP Host Header Attack. Exploiting HTTP Host header vulnerabilities. 3.1. Testeo de vulnerabilidades empleando la cabecera HTTP Host header. Exploiting HTTP Host header. 4.1. Pasword reset poisoning. 4.2. Web cache poisoning via the Host header. 4.3. Exploiting classic server-side vulnerabilities. 4.4. Accediendo a funcionalidades restringidas....
         </description>
         <pubDate>Fri, 25 Mar 2022 00:00:00 -0400</pubDate>
@@ -45,9 +45,9 @@
       </item>
     
       <item>
-        <title>19.web_cache_poisoning</title>
+        <title>19. Web Cache Poisoning.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de envenamiento de cache a través de la herramienta BurpSuite. - 
           0. Índice. Presentación del concepto. Web Caché. 2.1. Servicio de caché web. 2.2. Pasos de actuación del web cache. Construyendo un web cache poisoning attack. 3.1. Identificar unkeyed input. 3.2. Obtener una respuesta ponzoñosa del servidor. 3.3. Obtener la respuesta en caché. Explotación de vulnerabilidades de web cache poisoning. 4.1....
         </description>
         <pubDate>Thu, 24 Mar 2022 00:00:00 -0400</pubDate>
@@ -56,9 +56,9 @@
       </item>
     
       <item>
-        <title>18.serve Side_template_injection</title>
+        <title>18. Server-Side Template Injection.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades inyección de comandos en motor plantilla a través de la herramienta BurpSuite. - 
           0. Índice. Presentación del Server-side template injection. Mecanismo de acción del Server-side template injection. Planteamiento del ataque de Server-side template injection. 3.1. Detección. 3.2. Identificación. 3.3. Explotación. 3.4. Lectura sobre implicaciones de seguridad. 3.5. Explore. 1. Presentación del Server-side template injection. El Server-side template injection o inyección de plantilla del...
         </description>
         <pubDate>Wed, 23 Mar 2022 00:00:00 -0400</pubDate>
@@ -67,9 +67,9 @@
       </item>
     
       <item>
-        <title>17.insecure_deserialization</title>
+        <title>17. Insecure Deserialization.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite. - 
           0. Índice. Antecedentes. 1.1. Concepto de serialización y deserialización. 1.2. Deserialización Insegura. Explotación de vulnerabilidades de deserialización inseguras. 2.1. Antecedentes. Formatos de serialización. 2.2. Manipulación de objetos serializados. Trabajando con dispositivos en cadena. 3.1. ysoserial. 3.2. PHP Generic Gadget Chain. 3.3. Trabajando con gadget chains documentadas. 1. Antecedentes. 1.1. Concepto...
         </description>
         <pubDate>Tue, 22 Mar 2022 00:00:00 -0400</pubDate>
@@ -78,9 +78,9 @@
       </item>
     
       <item>
-        <title>16.websockets</title>
+        <title>16. WebSockets.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de WebSockets a través de la herramienta BurpSuite. - 
           0.Índice WebSockets. 1.1. Concepto de WebScokets. 1.2. Diferencia entre HTTP y WebSockets. 1.3. Conexiones con WebSockets. 1.4. Cómo son los mensajes de WebSocket. Vulnerabilidades WebSockets. 2.1. Manipulando los mensajes de WebSockets. 2.2. Manipulando las conexiónes entre WebSockets. 2.3. Cross-site WebSocket hijacking. 1. WebSockets. 1.1. Concepto de WebScokets. Los WebSockets son...
         </description>
         <pubDate>Mon, 21 Mar 2022 00:00:00 -0400</pubDate>
@@ -89,9 +89,9 @@
       </item>
     
       <item>
-        <title>15 Dom Based_vulnerabilities</title>
+        <title>15.DOM-based XSS vulnerabilities.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades XSS basados en DOM través de la herramienta BurpSuite. - 
           0. Índice. Introducción al DOM. Taint-flow vulnerabilities. 2.1. Web message source. 2.2. DOM-based open redirection. 2.3. DOM-Based cookie manipulation. 1. Introducción al DOM. El modelo de objeto de documento (DOM) es la representación jerárquica de los elementos de la página renderizada por el navegador web. Los sitios web pueden usar JavaScript...
         </description>
         <pubDate>Sun, 20 Mar 2022 00:00:00 -0400</pubDate>
@@ -100,9 +100,9 @@
       </item>
     
       <item>
-        <title>14.clickjacking</title>
+        <title>14. Clickjacking.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades Clickjacking a través de la herramienta BurpSuite. - 
           0. Índice. Introducción. Construcción de un clickjacking básico. 2.1. Iframe manual. 2.2. Clickbandit. 2.3. Clickjacking con entrada de formulario prellenado. 2.4. Frame busting scripts. 2.5. Combinación de clickjacking com DOM XSS attack. 2.6. Clickjacking en varios pasos. 1. Introducción. El Clickjacking es un tipo de ataque basado en interfaz en...
         </description>
         <pubDate>Sat, 19 Mar 2022 00:00:00 -0400</pubDate>
@@ -111,9 +111,9 @@
       </item>
     
       <item>
-        <title>13.cross Origin_resource_sharing_(cors)</title>
+        <title>13. Cross-Origin Resource Sharing.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite. - 
           0. Índice. Presentación del concepto. 1.1. Introducción. 1.2.Antecedentes: Same Origin Policy. 1.2.1. Introducción al SOP. 1.2.2. Implementación del mecanismo. 1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin. 1.2.4. Implementación del intercambio simple de recursos de origen cruzado. Vulnerabilidades planteadas desde la configuración CORS. 1. Presentación del concepto. 1.1. Introducción. Cross-Origin Resource...
         </description>
         <pubDate>Fri, 18 Mar 2022 00:00:00 -0400</pubDate>
@@ -122,9 +122,9 @@
       </item>
     
       <item>
-        <title>12.cross Site_request_forgery_(csrf)</title>
+        <title>12. Cross-Site Request Forgery.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite. - 
           0. Índice. Definición del concepto. Planteamiento de la vulnerabilidad. Planteamiento del ataque. 3.1. CSRF PoC Generator. 3.2. Cómo compartir un exploit CSRF. XSS vs CSRF. Previniendo ataques CSRF. 4.2. CSRF tokens. 4.2.1. Presentación. 4.2.2. Transmisión del token. 4.2.3. Tokens CSRF y ataques XSS. Vulnerabilidades comúnes. 1. Definición del concepto. La...
         </description>
         <pubDate>Thu, 17 Mar 2022 00:00:00 -0400</pubDate>
@@ -133,10 +133,10 @@
       </item>
     
       <item>
-        <title>11.cross Site_scripting_(xss)</title>
+        <title>11. Cross-Site Scripting.</title>
         <description>
-          
-          0. Índice. Concepto de Cross-Site Scripting (XSS). 1.1. Definición de la vulnerabilidad. 1.2. Detectando vulnerabilidades XSS. Tipos de ataques XSS. 2.1. Reflected XSS. 2.1.1. Presentación. 2.1.2. Impacto del reflected XSS. 2.1.3. Exploración de Reflected XSS. 2.2. Stored XSS. 2.2.1. Definición. 2.2.2. Diferencias entre el Stored y el Reflected XSS. 2.2.3....
+          Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite. - 
+          0. Índice. Concepto de Cross-Site Scripting (XSS). 1.1. Definición de la vulnerabilidad. 1.2. Detectando vulnerabilidades XSS. Tipos de ataques XSS. 2.1. Reflected XSS. 2.1.1. Presentación. 2.1.2. Impacto del reflected XSS. 2.1.3. Exploración de Reflected XSS. - 2.2. Stored XSS. 2.2.1. Definición. 2.2.2. Diferencias entre el Stored y el Reflected XSS....
         </description>
         <pubDate>Wed, 16 Mar 2022 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/</link>
@@ -144,9 +144,9 @@
       </item>
     
       <item>
-        <title>10.xxe_injection</title>
+        <title>10. XXE Injection.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de inyección XML a través de la herramienta BurpSuite. - 
           0. Índice. Concepto de XXE. Cómo se plantean las vulnerabilidades XXE. Entidades XML. 3.1. Qué es el XML. 3.2. Entidades XML. 3.3. Definición del tipo de documento. 3.4. Entidades comunes XML. 3.5. Entidades externas de XML. Tipos de ataques XXE. 4.1. Explotando XXE para recuperar ficheros. 4.2. Explotando XXE para...
         </description>
         <pubDate>Tue, 15 Mar 2022 00:00:00 -0400</pubDate>
@@ -155,9 +155,9 @@
       </item>
     
       <item>
-        <title>9.server Side_request_forgery</title>
+        <title>9. Server-Side Request Forgery.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de redirección a través de la herramienta BurpSuite. - 
           0. Índice. Concepto de SSRF 1.1. Introducción al concepto. 1.2. Impacto. Ataques SSRF comunes. 2.1. Ataque SSRF contra el mismo servidor. 2.2. Ataques SSRF contra otros sistemas back-end. Evitando defensas comunes SSRF. 3.1. Defensa de SSRF basada en un filtro basado en lista negra. 3.2. Defensa de SSRF basada en...
         </description>
         <pubDate>Mon, 14 Mar 2022 00:00:00 -0400</pubDate>
@@ -166,9 +166,9 @@
       </item>
     
       <item>
-        <title>8.file_upload_vulnerabilities</title>
+        <title>8. File Upload.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite. - 
           0. Índice. Introducción al concepto de File Upload Vulnerability. 1.1. Concepto. 1.2. Impacto de la vulnerabilidad. 1.3. Planteamiento de las vulnerabilidades. Procesamiento de ficheros estáticos por parte de los servidores. Explotando vulnerabilidades de subida de ficheros. 3.1. Explotando vulnerabilidades que permiten la ejecución de código. 3.2. Explotando fallas de validación...
         </description>
         <pubDate>Sun, 13 Mar 2022 00:00:00 -0500</pubDate>
@@ -177,9 +177,9 @@
       </item>
     
       <item>
-        <title>7.access_control</title>
+        <title>7. Access Control.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de control de acceso a través de la herramienta BurpSuite. - 
           0. Índice. Concepto de Access Control 1.1. Definición. 1.2. Categorías. Ejemplos de vulnerabilidades en el control de acceso. 2.1. Escalada de privilegios vertical. 2.2. Elevación de privilegios horizontal. 2.3. Elevación de privilegios vertical partiendo de una escalada horizontal. 1. Concepto de Access Control. 1.1. Definición. Access control o Access authorization...
         </description>
         <pubDate>Sat, 12 Mar 2022 00:00:00 -0500</pubDate>
@@ -188,9 +188,9 @@
       </item>
     
       <item>
-        <title>6.information_disclosure</title>
+        <title>6. Information Disclosure.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite. - 
           0. Índice. 1 Introducción. 2 Concepto de Information Disclosure. 2.1. Presentación de la vulnerabilidad. 2.2. Ejemplos de escapes de información. Explotando brechas de información. 3.1. Reglas generales a la hora de testear brechas de información. 3.1.1. Fuzzing. 3.1.2. Usar herramientas de engagement de burp. 3.1.3. Obteniendo información via Ingienieria informática....
         </description>
         <pubDate>Fri, 11 Mar 2022 00:00:00 -0500</pubDate>
@@ -199,9 +199,9 @@
       </item>
     
       <item>
-        <title>5.business_logic_vulnerabilities</title>
+        <title>5. Bussiness Logic Vulnerabilities.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite. - 
           0. Índice. Concepto de Business Logic Vulnerability Tipos y ejemplos. 1. Concepto de Business Logic Vulnerabilities. En este contexto, el concepto de lógica de la empresa simplemente se refiere al conjunto de reglas que definen cómo opera una aplicación web en un contexto determinado. De forma que una vulnerabilidad de...
         </description>
         <pubDate>Thu, 10 Mar 2022 00:00:00 -0500</pubDate>
@@ -210,9 +210,9 @@
       </item>
     
       <item>
-        <title>4.command_injection</title>
+        <title>4. Command Injection.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de inyección de comandos a través de la herramienta BurpSuite. - 
           0. Índice. 1 Introducción. 2 Concepto de OS Command. 3 Inyección de comandos. 3.1. Explotando una vulnerabilidad de inyección de comandos 3.2. Comandos útiles 4 Inyección de comandos ciega 4.1. Concepto de vulnerabilidad de inyección de comandos ciega 4.2. Técnicas de detección y explotación de vulnerabilidades ciega 4.2.1. Detectando OS...
         </description>
         <pubDate>Wed, 09 Mar 2022 00:00:00 -0500</pubDate>
@@ -221,9 +221,9 @@
       </item>
     
       <item>
-        <title>3.directory_traversal</title>
+        <title>3. Directory Traversal.</title>
         <description>
-          
+          Detección y explotación de vulnerabilidades de directorio cruzado a través de la herramienta BurpSuite. - 
           0. Índice. 1 Introducción. 2 Directory Traversal. 2.1. Concepto de Directory Traversal Vulnerability. 2.2. Leyendo ficheros arbitrarios via directory traversal. 2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal. 1. Introducción. En esta sección explicaremos qué es una vulnerabilidad Directory Traversal (o de cruce de directorios), describiriemos como se...
         </description>
         <pubDate>Tue, 08 Mar 2022 00:00:00 -0500</pubDate>

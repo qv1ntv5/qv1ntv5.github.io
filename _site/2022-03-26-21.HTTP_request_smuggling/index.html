@@ -9,13 +9,13 @@
 
   
 
-  <title>21.http_request_smuggling</title>
+  <title>21. HTTP Request Smuggling.</title>
 
   
   <meta name="author" content="Qv1nTv5">
   
 
-  <meta name="description" content="0. Índice. Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. Planteamiento de la vulnerabilidad. Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades. Exploiting HTTP Request Smuggling....">
+  <meta name="description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
 
   
 
@@ -76,8 +76,8 @@
 
   
   <meta property="og:site_name" content="Home">
-  <meta property="og:title" content="21.http_request_smuggling">
-  <meta property="og:description" content="0. Índice. Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. Planteamiento de la vulnerabilidad. Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades. Exploiting HTTP Request Smuggling....">
+  <meta property="og:title" content="21. HTTP Request Smuggling.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
 
   
 
@@ -95,8 +95,8 @@
   <meta name="twitter:site" content="@Qvintvs1">
   <meta name="twitter:creator" content="@Qvintvs1">
 
-  <meta property="twitter:title" content="21.http_request_smuggling">
-  <meta property="twitter:description" content="0. Índice. Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. Planteamiento de la vulnerabilidad. Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades. Exploiting HTTP Request Smuggling....">
+  <meta property="twitter:title" content="21. HTTP Request Smuggling.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
 
   
 
@@ -181,141 +181,141 @@
     var searchjson = '[ \
        \
         { \
-          "title"    : "22.oauth_authentication", \
-          "category" : "", \
+          "title"    : "21. OAuth Authentication.", \
+          "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
         }, \
        \
         { \
-          "title"    : "21.http_request_smuggling", \
-          "category" : "", \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
           "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
           "date"     : "March 26, 2022" \
         }, \
        \
         { \
-          "title"    : "20.http_host_header_attacks", \
-          "category" : "", \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
           "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
           "date"     : "March 25, 2022" \
         }, \
        \
         { \
-          "title"    : "19.web_cache_poisoning", \
-          "category" : "", \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
           "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
           "date"     : "March 24, 2022" \
         }, \
        \
         { \
-          "title"    : "18.serve Side_template_injection", \
-          "category" : "", \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
           "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
           "date"     : "March 23, 2022" \
         }, \
        \
         { \
-          "title"    : "17.insecure_deserialization", \
-          "category" : "", \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
           "url"      : "/2022-03-22-17.Insecure_deserialization/", \
           "date"     : "March 22, 2022" \
         }, \
        \
         { \
-          "title"    : "16.websockets", \
-          "category" : "", \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
           "url"      : "/2022-03-21-16.WebSockets/", \
           "date"     : "March 21, 2022" \
         }, \
        \
         { \
-          "title"    : "15 Dom Based_vulnerabilities", \
-          "category" : "", \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
           "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
           "date"     : "March 20, 2022" \
         }, \
        \
         { \
-          "title"    : "14.clickjacking", \
-          "category" : "", \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
           "url"      : "/2022-03-19-14.Clickjacking/", \
           "date"     : "March 19, 2022" \
         }, \
        \
         { \
-          "title"    : "13.cross Origin_resource_sharing_(cors)", \
-          "category" : "", \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
           "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
           "date"     : "March 18, 2022" \
         }, \
        \
         { \
-          "title"    : "12.cross Site_request_forgery_(csrf)", \
-          "category" : "", \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
           "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
           "date"     : "March 17, 2022" \
         }, \
        \
         { \
-          "title"    : "11.cross Site_scripting_(xss)", \
-          "category" : "", \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
           "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
           "date"     : "March 16, 2022" \
         }, \
        \
         { \
-          "title"    : "10.xxe_injection", \
-          "category" : "", \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
           "url"      : "/2022-03-15-10.XXE_injection/", \
           "date"     : "March 15, 2022" \
         }, \
        \
         { \
-          "title"    : "9.server Side_request_forgery", \
-          "category" : "", \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
           "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
           "date"     : "March 14, 2022" \
         }, \
        \
         { \
-          "title"    : "8.file_upload_vulnerabilities", \
-          "category" : "", \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
           "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
           "date"     : "March 13, 2022" \
         }, \
        \
         { \
-          "title"    : "7.access_control", \
-          "category" : "", \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
           "url"      : "/2022-03-12-7.Access_control/", \
           "date"     : "March 12, 2022" \
         }, \
        \
         { \
-          "title"    : "6.information_disclosure", \
-          "category" : "", \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
           "url"      : "/2022-03-11-6.Information_disclosure/", \
           "date"     : "March 11, 2022" \
         }, \
        \
         { \
-          "title"    : "5.business_logic_vulnerabilities", \
-          "category" : "", \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
           "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
           "date"     : "March 10, 2022" \
         }, \
        \
         { \
-          "title"    : "4.command_injection", \
-          "category" : "", \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
           "url"      : "/2022-03-09-4.Command_Injection/", \
           "date"     : "March  9, 2022" \
         }, \
        \
         { \
-          "title"    : "3.directory_traversal", \
-          "category" : "", \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
           "url"      : "/2022-03-08-3.Directory_Traversal/", \
           "date"     : "March  8, 2022" \
         }, \
@@ -624,7 +624,11 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>21.http_request_smuggling</h1>
+          <h1>21. HTTP Request Smuggling.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.</h2>
+            
           
 
           
@@ -657,11 +661,14 @@
 <ul>
   <li>
     <ol>
-      <li>Planteamiento del concepto.</li>
+      <li>Planteamiento del concepto.
+        <ul>
+          <li>1.1. Introducción.</li>
+          <li>1.2. Proceso al detalle.</li>
+        </ul>
+      </li>
     </ol>
   </li>
-  <li>1.1. Introducción.</li>
-  <li>1.2. Proceso al detalle.</li>
   <li>
     <ol>
       <li>Planteamiento de la vulnerabilidad.</li>
@@ -669,38 +676,52 @@
   </li>
   <li>
     <ol>
-      <li>Ejecutando el ataque.</li>
+      <li>Ejecutando el ataque.
+        <ul>
+          <li>3.2. Vulnerabilidades CL.TE.</li>
+          <li>3.3. TE.CL Vulnerabilities.</li>
+          <li>3.4. TE.TE. Ofuscación de la cabecera TE.</li>
+        </ul>
+      </li>
     </ol>
   </li>
-  <li>3.2. Vulnerabilidades CL.TE.</li>
-  <li>3.3. TE.CL Vulnerabilities.</li>
-  <li>3.4. TE.TE. Ofuscación de la cabecera TE.</li>
   <li>
     <ol>
-      <li>Identificación de vulnerabilidades HTTP request smuggling.</li>
+      <li>Identificación de vulnerabilidades HTTP request smuggling.
+        <ul>
+          <li>4.1. Técnicas basadas en sincronización.</li>
+          <li>4.2. Confirmación de vulnerabilidades.</li>
+        </ul>
+      </li>
     </ol>
   </li>
-  <li>4.1. Técnicas basadas en sincronización.</li>
-  <li>4.2. Confirmación de vulnerabilidades.</li>
   <li>
     <ol>
-      <li>Exploiting HTTP Request Smuggling.</li>
+      <li>Exploiting HTTP Request Smuggling.
+        <ul>
+          <li>5.1. Bypass front-end security controls.</li>
+          <li>5.2. Revealing front-end request rewriting.</li>
+          <li>5.3. Capturando requests de otros usuarios.</li>
+          <li>5.4. Using HTTP Request smuggler to perfom XSS attacks.</li>
+        </ul>
+      </li>
     </ol>
   </li>
-  <li>5.1. Bypass front-end security controls.</li>
-  <li>5.2. Revealing front-end request rewriting.</li>
-  <li>5.3. Capturando requests de otros usuarios.</li>
-  <li>5.4. Using HTTP Request smuggler to perfom XSS attacks.</li>
   <li>
     <ol>
-      <li>Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.</li>
+      <li>Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.
+        <ul>
+          <li>6.1. Introducción.</li>
+          <li>6.2. HTTP/2 message length.</li>
+          <li>6.3. HTTP/2 Downgrading.</li>
+          <li>6.4. Vulnerabilidades.</li>
+        </ul>
+        <ul>
+          <li>6.4.1. Vulnerabilidades H2.CL.</li>
+        </ul>
+      </li>
     </ol>
   </li>
-  <li>6.1. Introducción.</li>
-  <li>6.2. HTTP/2 message length.</li>
-  <li>6.3. HTTP/2 Downgrading.</li>
-  <li>6.4. Vulnerabilidades.</li>
-  <li>6.4.1. Vulnerabilidades H2.CL.</li>
 </ul>
 
 <p><br /></p>
@@ -1421,6 +1442,13 @@ Foo: X
       </article>
 
       
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
 
       
 
@@ -1434,7 +1462,7 @@ Foo: X
   <span class="sr-only">Share: </span>
 
   
-    <a href="https://twitter.com/intent/tweet?text=21.http_request_smuggling&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-26-21.HTTP_request_smuggling%2F"
+    <a href="https://twitter.com/intent/tweet?text=21.+HTTP+Request+Smuggling.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-26-21.HTTP_request_smuggling%2F"
       class="btn btn-social-icon btn-twitter" title="Share on Twitter">
       <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
       <span class="sr-only">Twitter</span>
@@ -1470,12 +1498,12 @@ Foo: X
       <ul class="pagination blog-pager">
         
         <li class="page-item previous">
-          <a class="page-link" href="/2022-03-25-20.HTTP_Host_header_attacks/" data-toggle="tooltip" data-placement="top" title="20.http_host_header_attacks">&larr; Previous Post</a>
+          <a class="page-link" href="/2022-03-25-20.HTTP_Host_header_attacks/" data-toggle="tooltip" data-placement="top" title="20. HTTP Host Header Attacks.">&larr; Previous Post</a>
         </li>
         
         
         <li class="page-item next">
-          <a class="page-link" href="/2022-03-27-22.OAuth_authentication/" data-toggle="tooltip" data-placement="top" title="22.oauth_authentication">Next Post &rarr;</a>
+          <a class="page-link" href="/2022-03-27-22.OAuth_authentication/" data-toggle="tooltip" data-placement="top" title="21. OAuth Authentication.">Next Post &rarr;</a>
         </li>
         
       </ul>

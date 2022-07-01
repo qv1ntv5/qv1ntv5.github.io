@@ -12,223 +12,223 @@
     
     
       <item>
-        <title>Business Logic Vulnerabilities</title>
+        <title>22.oauth_authentication</title>
         <description>
-          Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de la lógica de la empresa. - 
-          0. Índice. 1 Vulnerabilidades de la lógica de la empresa 1.1. Concepto de Business Logic Vulnerability 1.2. Tipos y ejemplos. 1.2.1. Confianza excesiva en el cliente. 1.2.2. Fallo en manejar input no convencional. 1.2.3 Hacer malas asunciones sobre el comportamiento del usuario 1.2.4. Usuarios no siempre rellenan todos los campos...
+          
+          0. Indice. Introducción. Presentación del marco OAuth. 2.1. Introducción al OAuth. 2.2. Funcionamiento del marco OAuth. 2.3. OAuth authentication. Explotando vulnerabilidades OAuth básicas. 3.1. Vulnerabilidades en la aplicación cliente. 1. Introducción. Mientras navega por la web, es casi seguro que se ha topado con sitios que le permiten iniciar sesión...
         </description>
-        <pubDate>Thu, 07 Apr 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-04-07-5.Business_logic_vulnerabilities/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04-07-5.Business_logic_vulnerabilities/</guid>
+        <pubDate>Sun, 27 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-27-22.OAuth_authentication/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-27-22.OAuth_authentication/</guid>
       </item>
     
       <item>
-        <title>Command Injection</title>
+        <title>21.http_request_smuggling</title>
         <description>
-          Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de inyección de comandos. - 
-          0. Índice. 1 Introducción. 2 Concepto de OS Command. 3 Inyección de comandos. 3.1. Explotando una vulnerabilidad de inyección de comandos 3.2. Comandos útiles 4 Inyección de comandos ciega 4.1. Concepto de vulnerabilidad de inyección de comandos ciega 4.2. Técnicas de detección y explotación de vulnerabilidades ciega 4.2.1. Detectando OS...
+          
+          0. Índice. Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. Planteamiento de la vulnerabilidad. Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades. Exploiting HTTP Request Smuggling....
         </description>
-        <pubDate>Thu, 07 Apr 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-04-07-4.Command_Injection/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04-07-4.Command_Injection/</guid>
+        <pubDate>Sat, 26 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/</guid>
       </item>
     
       <item>
-        <title>Directory Traversal Vulnerabilities</title>
+        <title>20.http_host_header_attacks</title>
         <description>
-          Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades de directorio cruzado. - 
-          0. Índice. 1 Introducción. 2 Directory Traversal. 2.1. Concepto de Directory Traversal Vulnerability. 2.2. Leyendo ficheros arbitrarios via directory traversal. 2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal. 1. Introducción. En esta sección explicaremos qué es una vulnerabilidad Directory Traversal (o de cruce de directorios), describiriemos como se...
+          
+          0. Índice. Cabecera HTTP Host. HTTP Host Header Attack. Exploiting HTTP Host header vulnerabilities. 3.1. Testeo de vulnerabilidades empleando la cabecera HTTP Host header. Exploiting HTTP Host header. 4.1. Pasword reset poisoning. 4.2. Web cache poisoning via the Host header. 4.3. Exploiting classic server-side vulnerabilities. 4.4. Accediendo a funcionalidades restringidas....
         </description>
-        <pubDate>Thu, 07 Apr 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-04-07-3.Directory_Traversal/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04-07-3.Directory_Traversal/</guid>
+        <pubDate>Fri, 25 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/</guid>
       </item>
     
       <item>
-        <title>Authentication</title>
+        <title>19.web_cache_poisoning</title>
         <description>
-          Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades en mecanismos de autenticación. - 
-          0. Índice 1 Introducción. 2 Concepto de autenticación. 2.1. Factores de autenticación. 2.2. Diferencias entre la autenticación y la autorización. 3 Vulnerabilidades de autenticación 3.1. Cómo se plantean las vulnerabilidades de autenticación. 3.2. Vulnerabilidades en los mecanismos de autenticación. 3.2.1. Vulnerabilidades en los mecanismos basados en contraseñas. 3.2.1.1. Ataques de...
+          
+          0. Índice. Presentación del concepto. Web Caché. 2.1. Servicio de caché web. 2.2. Pasos de actuación del web cache. Construyendo un web cache poisoning attack. 3.1. Identificar unkeyed input. 3.2. Obtener una respuesta ponzoñosa del servidor. 3.3. Obtener la respuesta en caché. Explotación de vulnerabilidades de web cache poisoning. 4.1....
         </description>
-        <pubDate>Thu, 07 Apr 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-04-07-2.Authentication/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-04-07-2.Authentication/</guid>
+        <pubDate>Thu, 24 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-24-19.Web_cache_poisoning/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-24-19.Web_cache_poisoning/</guid>
       </item>
     
       <item>
-        <title>SQLInjection</title>
+        <title>18.serve Side_template_injection</title>
         <description>
-          Aplicaciones de la herramienta BurpSuite a la detección de vulnerabilidades SQLi. - 
-          0. Índice. 1 Concepto de SQLInjection. 2 Ejemplos de SQLInjection. 2.1. Extracción de datos ocultos. 2.2. Subversión de la lógica de la aplicación. 2.3. Extrayendo datos de otras tablas. 2.3.2. Apéndice búsquedas con UNION. 2.4. Examinando la base de datos 2.4.2. Querys para determinar la version y el tipo. 2.4.3....
+          
+          0. Índice. Presentación del Server-side template injection. Mecanismo de acción del Server-side template injection. Planteamiento del ataque de Server-side template injection. 3.1. Detección. 3.2. Identificación. 3.3. Explotación. 3.4. Lectura sobre implicaciones de seguridad. 3.5. Explore. 1. Presentación del Server-side template injection. El Server-side template injection o inyección de plantilla del...
+        </description>
+        <pubDate>Wed, 23 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-23-18.Serve-side_template_injection/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-23-18.Serve-side_template_injection/</guid>
+      </item>
+    
+      <item>
+        <title>17.insecure_deserialization</title>
+        <description>
+          
+          0. Índice. Antecedentes. 1.1. Concepto de serialización y deserialización. 1.2. Deserialización Insegura. Explotación de vulnerabilidades de deserialización inseguras. 2.1. Antecedentes. Formatos de serialización. 2.2. Manipulación de objetos serializados. Trabajando con dispositivos en cadena. 3.1. ysoserial. 3.2. PHP Generic Gadget Chain. 3.3. Trabajando con gadget chains documentadas. 1. Antecedentes. 1.1. Concepto...
+        </description>
+        <pubDate>Tue, 22 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-22-17.Insecure_deserialization/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-22-17.Insecure_deserialization/</guid>
+      </item>
+    
+      <item>
+        <title>16.websockets</title>
+        <description>
+          
+          0.Índice WebSockets. 1.1. Concepto de WebScokets. 1.2. Diferencia entre HTTP y WebSockets. 1.3. Conexiones con WebSockets. 1.4. Cómo son los mensajes de WebSocket. Vulnerabilidades WebSockets. 2.1. Manipulando los mensajes de WebSockets. 2.2. Manipulando las conexiónes entre WebSockets. 2.3. Cross-site WebSocket hijacking. 1. WebSockets. 1.1. Concepto de WebScokets. Los WebSockets son...
         </description>
         <pubDate>Mon, 21 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-21-1.SQLInjection/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-21-1.SQLInjection/</guid>
+        <link>http://localhost:4000/2022-03-21-16.WebSockets/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-21-16.WebSockets/</guid>
       </item>
     
       <item>
-        <title>Seguridad Perimetral</title>
+        <title>15 Dom Based_vulnerabilities</title>
         <description>
-          Concepto de seguridad perimetral y herramientas. - 
-          1. Antecedentes. Conceptos previos. WAN: Se trata de un acrónimo para Wide Area Network, se tratan de redes a gran escala que muchas veces abarcan países o continentes. Se suele utilizar para hacer referencia a una red externa en el contexto de dos redes, una interna y otra externa. LAN:...
+          
+          0. Índice. Introducción al DOM. Taint-flow vulnerabilities. 2.1. Web message source. 2.2. DOM-based open redirection. 2.3. DOM-Based cookie manipulation. 1. Introducción al DOM. El modelo de objeto de documento (DOM) es la representación jerárquica de los elementos de la página renderizada por el navegador web. Los sitios web pueden usar JavaScript...
         </description>
-        <pubDate>Wed, 09 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-09-Seguridad_Perimetral/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-09-Seguridad_Perimetral/</guid>
+        <pubDate>Sun, 20 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/</guid>
       </item>
     
       <item>
-        <title>Hardening de sistemas</title>
+        <title>14.clickjacking</title>
         <description>
-          Teoría y ejemplos del concepto de hardening. - 
-          1. Preparación. Nos descargamos la máquina del enlace: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/ y descargamos ![[Pasted image 20220208094223.png]]. Seguidamente comparamos el hash extraído con el hash proporcionado por la página web. Y podemos observar que son idénticos aunque también podemos meter ambos strings en un fichero y pedir que se extraiga el contenido del...
+          
+          0. Índice. Introducción. Construcción de un clickjacking básico. 2.1. Iframe manual. 2.2. Clickbandit. 2.3. Clickjacking con entrada de formulario prellenado. 2.4. Frame busting scripts. 2.5. Combinación de clickjacking com DOM XSS attack. 2.6. Clickjacking en varios pasos. 1. Introducción. El Clickjacking es un tipo de ataque basado en interfaz en...
         </description>
-        <pubDate>Wed, 09 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-09-Hardening_de_sistemas/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-09-Hardening_de_sistemas/</guid>
+        <pubDate>Sat, 19 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-19-14.Clickjacking/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-19-14.Clickjacking/</guid>
       </item>
     
       <item>
-        <title>Bandit</title>
+        <title>13.cross Origin_resource_sharing_(cors)</title>
         <description>
-          Wargame de Overthewire Bandit. - 
-          Bandit0 In this first level of bandit, bandit0, we have de goal of login in the bandit server through ssh. To achieve this goal we have the following tools: HOST: bandit.labs.overthewire.org PORT: 2220 USERNAME: bandit0 PASSWORD: bandit0 SOLUTION: Atending to the sintaxis of the ssh comand, to connect to a...
+          
+          0. Índice. Presentación del concepto. 1.1. Introducción. 1.2.Antecedentes: Same Origin Policy. 1.2.1. Introducción al SOP. 1.2.2. Implementación del mecanismo. 1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin. 1.2.4. Implementación del intercambio simple de recursos de origen cruzado. Vulnerabilidades planteadas desde la configuración CORS. 1. Presentación del concepto. 1.1. Introducción. Cross-Origin Resource...
         </description>
-        <pubDate>Tue, 08 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-08-Bandit/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-08-Bandit/</guid>
+        <pubDate>Fri, 18 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/</guid>
       </item>
     
       <item>
-        <title>Proxy</title>
+        <title>12.cross Site_request_forgery_(csrf)</title>
         <description>
-          Presentación de los proxys como herramienta. - 
-          Proxy. Proxy como concepto. Un proxy es un servidor que gestiona el acceso a la red ante la solicitud de un cliente. Es decir, es una máquina que ofrece un servicio; servir de puente entre el origen y el destino de una solicitud. Por ejemplo, en el contexto de una...
+          
+          0. Índice. Definición del concepto. Planteamiento de la vulnerabilidad. Planteamiento del ataque. 3.1. CSRF PoC Generator. 3.2. Cómo compartir un exploit CSRF. XSS vs CSRF. Previniendo ataques CSRF. 4.2. CSRF tokens. 4.2.1. Presentación. 4.2.2. Transmisión del token. 4.2.3. Tokens CSRF y ataques XSS. Vulnerabilidades comúnes. 1. Definición del concepto. La...
         </description>
-        <pubDate>Mon, 07 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-07-Proxys/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-07-Proxys/</guid>
+        <pubDate>Thu, 17 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/</guid>
       </item>
     
       <item>
-        <title>Protocolos Relevantes</title>
+        <title>11.cross Site_scripting_(xss)</title>
         <description>
-          Presentación de los protocolos de red más importantes. - 
-          1. Introducción. Los protocolos son un conjunto de reglas o pautas de actuación que permite a las máquinas y aplicaciones intercambiar información entre ellas. Tales protocolos deben de ser llevados a cabo por cualquier máquina que forme parte de la comunicación. on estos protocolos se consigue un intercambio ordenado de...
+          
+          0. Índice. Concepto de Cross-Site Scripting (XSS). 1.1. Definición de la vulnerabilidad. 1.2. Detectando vulnerabilidades XSS. Tipos de ataques XSS. 2.1. Reflected XSS. 2.1.1. Presentación. 2.1.2. Impacto del reflected XSS. 2.1.3. Exploración de Reflected XSS. 2.2. Stored XSS. 2.2.1. Definición. 2.2.2. Diferencias entre el Stored y el Reflected XSS. 2.2.3....
         </description>
-        <pubDate>Mon, 07 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-07-Protocolos_Importantes/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-07-Protocolos_Importantes/</guid>
+        <pubDate>Wed, 16 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/</guid>
       </item>
     
       <item>
-        <title>Curso Básico Redes</title>
+        <title>10.xxe_injection</title>
         <description>
-          Introducción a conceptos básicos de redes. - 
-          1. Modelo OSI. El modelo OSI acrónimo de Open Systems Interconnection es un modelo conceptual que caracteriza y estandariza la función de comunicación entre sistemas computacionales (es decir, comunicación de redes) sin entrar en consideraciones acerca de la estructura interna de cada máquina desarrollado por ISO (International Standards Organization). Asienta...
+          
+          0. Índice. Concepto de XXE. Cómo se plantean las vulnerabilidades XXE. Entidades XML. 3.1. Qué es el XML. 3.2. Entidades XML. 3.3. Definición del tipo de documento. 3.4. Entidades comunes XML. 3.5. Entidades externas de XML. Tipos de ataques XXE. 4.1. Explotando XXE para recuperar ficheros. 4.2. Explotando XXE para...
         </description>
-        <pubDate>Mon, 07 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-07-Precurso_Redes/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-07-Precurso_Redes/</guid>
+        <pubDate>Tue, 15 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-15-10.XXE_injection/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-15-10.XXE_injection/</guid>
       </item>
     
       <item>
-        <title>IPs</title>
+        <title>9.server Side_request_forgery</title>
         <description>
-          Introducción a IPs. - 
-          1. Protocolo Internet. Empezamos diciendo que la finalidad de la red internet consiste en compartir información entre dispositivos y para ello empleamos el protocolo IP (Internet Protocol) que se trata de un protocolo de comunicación de datos digitales clasficado en capas según el modelo OSI Capa física: Transmisión de streams...
+          
+          0. Índice. Concepto de SSRF 1.1. Introducción al concepto. 1.2. Impacto. Ataques SSRF comunes. 2.1. Ataque SSRF contra el mismo servidor. 2.2. Ataques SSRF contra otros sistemas back-end. Evitando defensas comunes SSRF. 3.1. Defensa de SSRF basada en un filtro basado en lista negra. 3.2. Defensa de SSRF basada en...
         </description>
-        <pubDate>Mon, 07 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-07-IPs/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-07-IPs/</guid>
+        <pubDate>Mon, 14 Mar 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-03-14-9.Server-side_request_forgery/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-14-9.Server-side_request_forgery/</guid>
       </item>
     
       <item>
-        <title>Movimientos Laterales</title>
+        <title>8.file_upload_vulnerabilities</title>
         <description>
-          Introducción a pivoting y tunneling. - 
-          1. Movimientos Laterales. 1.1. Concepto: Pivoting. El pivoting es una técnica muy utilizada por pentesters que consiste en utilizar un sistema comprometido para atacar otros sistemas diferetes de la misma red que de otra forma serían inaccesibles por otros medios de seguridad, como firewalls, etc. Técnicamente se define como el...
+          
+          0. Índice. Introducción al concepto de File Upload Vulnerability. 1.1. Concepto. 1.2. Impacto de la vulnerabilidad. 1.3. Planteamiento de las vulnerabilidades. Procesamiento de ficheros estáticos por parte de los servidores. Explotando vulnerabilidades de subida de ficheros. 3.1. Explotando vulnerabilidades que permiten la ejecución de código. 3.2. Explotando fallas de validación...
         </description>
-        <pubDate>Sun, 06 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/</guid>
+        <pubDate>Sun, 13 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/</guid>
       </item>
     
       <item>
-        <title>Evasión de Defensas</title>
+        <title>7.access_control</title>
         <description>
-          Introduccióna evasión de Antivirus y UAC. - 
-          1. Antivirus. 1.1.1. Antivirus como concepto. Un antivirus es un programa que tiene la finalidad de detectar malware, código mal intencionado capaz de perjudicar la integridad de la máquina en la que esta se ejecuta. Un software antivirus comienza comparando tus archivos y programas informáticos con una base de datos...
+          
+          0. Índice. Concepto de Access Control 1.1. Definición. 1.2. Categorías. Ejemplos de vulnerabilidades en el control de acceso. 2.1. Escalada de privilegios vertical. 2.2. Elevación de privilegios horizontal. 2.3. Elevación de privilegios vertical partiendo de una escalada horizontal. 1. Concepto de Access Control. 1.1. Definición. Access control o Access authorization...
         </description>
-        <pubDate>Sat, 05 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-05-Evasi%C3%B3n_de_Defensas/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-05-Evasi%C3%B3n_de_Defensas/</guid>
+        <pubDate>Sat, 12 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-12-7.Access_control/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-12-7.Access_control/</guid>
       </item>
     
       <item>
-        <title>Escalada de privilegios</title>
+        <title>6.information_disclosure</title>
         <description>
-          Introducción a Escalada de Privilegios. - 
-          1. Escalada de privilegios. 1.1. Concepto. En ciberseguridad, elevación de privilegios es un intento malicioso de abusar de un error de configuración de una aplicación o sistema operativo para obtener la capacidad de acceder a regiones del sistema antes inaccesibles como información confidencial o la cuenta del administrador. Es importante...
+          
+          0. Índice. 1 Introducción. 2 Concepto de Information Disclosure. 2.1. Presentación de la vulnerabilidad. 2.2. Ejemplos de escapes de información. Explotando brechas de información. 3.1. Reglas generales a la hora de testear brechas de información. 3.1.1. Fuzzing. 3.1.2. Usar herramientas de engagement de burp. 3.1.3. Obteniendo información via Ingienieria informática....
         </description>
-        <pubDate>Sat, 05 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-05-Escalada_de_privilegios/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-05-Escalada_de_privilegios/</guid>
+        <pubDate>Fri, 11 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-11-6.Information_disclosure/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-11-6.Information_disclosure/</guid>
       </item>
     
       <item>
-        <title>Metasploit</title>
+        <title>5.business_logic_vulnerabilities</title>
         <description>
-          Introducción a la herramienta Metasploit. - 
-          1. Metasploit Básico. 1.1. Antecedentes. 1.1. Exploits. Denominamos como exploit a un programa informático, una parte de software o una secuencia de comandos que se aprovecha de un error o vulnerabilidad para provocar un comportamiento no intencionado o imprevisto en un software, hardware o en cualquier dispositivo electrónico. 1.1.2. Payload....
+          
+          0. Índice. Concepto de Business Logic Vulnerability Tipos y ejemplos. 1. Concepto de Business Logic Vulnerabilities. En este contexto, el concepto de lógica de la empresa simplemente se refiere al conjunto de reglas que definen cómo opera una aplicación web en un contexto determinado. De forma que una vulnerabilidad de...
         </description>
-        <pubDate>Fri, 04 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/</guid>
+        <pubDate>Thu, 10 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/</guid>
       </item>
     
       <item>
-        <title>Ataques a aplicaciones Android</title>
+        <title>4.command_injection</title>
         <description>
-          Introducción al sistema operativo Android y sus aplicaciones. - 
-          1. Sistema operativo Android. Android es un sistema operativo diseñado para teléfonos móviles que tiene un kernel de linux. 1.2. Fundamentos de las aplicaciones android. 1.2.1. Intro. Recordamos que una aplicación no es más que un programa diseñado con una funcionalidad específica. Así, una aplicación andriod es una aplicación diseñada...
+          
+          0. Índice. 1 Introducción. 2 Concepto de OS Command. 3 Inyección de comandos. 3.1. Explotando una vulnerabilidad de inyección de comandos 3.2. Comandos útiles 4 Inyección de comandos ciega 4.1. Concepto de vulnerabilidad de inyección de comandos ciega 4.2. Técnicas de detección y explotación de vulnerabilidades ciega 4.2.1. Detectando OS...
         </description>
-        <pubDate>Thu, 03 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-03-Ataques_aplicaciones_android/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-03-Ataques_aplicaciones_android/</guid>
+        <pubDate>Wed, 09 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-09-4.Command_Injection/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-09-4.Command_Injection/</guid>
       </item>
     
       <item>
-        <title>Ataque a aplicaciones web.</title>
+        <title>3.directory_traversal</title>
         <description>
-          Introducción a estructuras y ataques de aplicaciones web. - 
-          1. Introducción a las aplicaciones web, dirb y burpsuite I. 1.1. Fundamentos de aplicaciones web. 1.1.1. Esquema de protocolos de comunicación de servidores web. Recordamos que en internet las relaciones entre servidores y clientes existen peticiones y respuestas, estas peticiones y respuestas se concretan mediante un protocolo de comunicaciones entre...
+          
+          0. Índice. 1 Introducción. 2 Directory Traversal. 2.1. Concepto de Directory Traversal Vulnerability. 2.2. Leyendo ficheros arbitrarios via directory traversal. 2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal. 1. Introducción. En esta sección explicaremos qué es una vulnerabilidad Directory Traversal (o de cruce de directorios), describiriemos como se...
         </description>
-        <pubDate>Wed, 02 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/</guid>
-      </item>
-    
-      <item>
-        <title>Ataques a Infraestructuras y Redes</title>
-        <description>
-          Introducción a webs, análsis de puertos. - 
-          1. Escaneo de puertos con Nmap. 1.1. Antecedentes. 1.1.1. Concepto de puertos. Dentro del contexto de redes, un puerto es una interfaz a través de la cual se produce la transferencia de datos en una máquina (Recordamos que una interfaz es un entorno software que facilita la conexión entre dos...
-        </description>
-        <pubDate>Tue, 01 Feb 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/</guid>
-      </item>
-    
-      <item>
-        <title>Análisis de Objetivos</title>
-        <description>
-          Introducción a OSINT y análisis de objetivos de ataque. - 
-          1. Introducción OSINT. 1.1 Análisis de Objetivos. 1.1.1. Índice. Qué es. Para qué sirve. Qué es OSINT. Google Hacking. Búsqueda de información por buscadores. Perfil Social Perfil Tecnologico. Información adicional a obtener. 1.1.2. Qué es el análisis de objetivos. Se trata de una fase en la que se busca recopilar...
-        </description>
-        <pubDate>Fri, 28 Jan 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/</guid>
+        <pubDate>Tue, 08 Mar 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-03-08-3.Directory_Traversal/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-03-08-3.Directory_Traversal/</guid>
       </item>
     
   </channel>

@@ -5,8 +5,8 @@ subtitle: Detección y explotación de vulnerabilidades XSS basados en DOM trav�
 tags: [burp]
 ---
 ## 0. Índice.
-- 1. Introducción al DOM.
-- 2. Taint-flow vulnerabilities.
+- 1 Introducción al DOM.
+- 2 Taint-flow vulnerabilities.
 	- 2.1. Web message source.
 	- 2.2. DOM-based open redirection.
 	- 2.3. DOM-Based cookie manipulation.

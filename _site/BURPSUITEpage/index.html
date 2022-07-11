@@ -124,7 +124,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -179,6 +179,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -186,7 +193,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -326,7 +333,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -544,6 +551,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -658,6 +672,10 @@
 <div class="posts-list">
     
     
+    
+        
+    
+    
      <!-- Esta página lista todos los posts que contengan a modo de tag el string que aparece a la izquierda.-->
             <article class="post-preview">
                 
@@ -714,7 +732,7 @@
                 
 
                 <a href="http://localhost:4000/2022-03-27-22.OAuth_authentication/">
-                <h2 class="post-title">21. OAuth Authentication.</h2>
+                <h2 class="post-title">22. OAuth Authentication.</h2>
 
                 
                     <h3 class="post-subtitle">
@@ -1031,27 +1049,19 @@
                 
                 0.Índice
 
-  
+  1 WebSockets.
     
-      WebSockets.
-        
-          1.1. Concepto de WebScokets.
-          1.2. Diferencia entre HTTP y WebSockets.
-          1.3. Conexiones con WebSockets.
-          1.4. Cómo son los mensajes de WebSocket.
-        
-      
+      1.1. Concepto de WebScokets.
+      1.2. Diferencia entre HTTP y WebSockets.
+      1.3. Conexiones con WebSockets.
+      1.4. Cómo son los mensajes de WebSocket.
     
   
-  
+  2 Vulnerabilidades WebSockets.
     
-      Vulnerabilidades WebSockets.
-        
-          2.1. Manipulando los mensajes de WebSockets.
-          2.2. Manipulando las conexiónes entre WebSockets.
-          2.3. Cross-site WebSocket hijacking.
-        
-      
+      2.1. Manipulando los mensajes de WebSockets.
+      2.2. Manipulando las conexiónes entre WebSockets.
+      2.3. Cross-site WebSocket hijacking.
     
   
 
@@ -1105,20 +1115,12 @@
                 
                 0. Índice.
 
-  
+  1 Introducción al DOM.
+  2 Taint-flow vulnerabilities.
     
-      Introducción al DOM.
-    
-  
-  
-    
-      Taint-flow vulnerabilities.
-        
-          2.1. Web message source.
-          2.2. DOM-based open redirection.
-          2.3. DOM-Based cookie manipulation.
-        
-      
+      2.1. Web message source.
+      2.2. DOM-based open redirection.
+      2.3. DOM-Based cookie manipulation.
     
   
 
@@ -1221,13 +1223,10 @@
                 
                 0. Índice.
 
-  
+  1 Presentación del concepto.
     
-      Presentación del concepto.
-        
-          1.1. Introducción.
-          1.2.Antecedentes: Same Origin Policy.
-        
+      1.1. Introducción.
+      1.2.Antecedentes: Same Origin Policy.
         
           1.2.1. Introducción al SOP.
           1.2.2. Implementación del mecanismo.
@@ -1237,11 +1236,7 @@
       
     
   
-  
-    
-      Vulnerabilidades planteadas desde la configuración CORS.
-    
-  
+  2 Vulnerabilidades planteadas desde la configuración CORS.
 
 
 
@@ -1291,50 +1286,7 @@
 
                 <div class="post-entry">
                 
-                0. Índice.
-
-  
-    
-      Definición del concepto.
-    
-  
-  
-    
-      Planteamiento de la vulnerabilidad.
-    
-  
-  
-    
-      Planteamiento del ataque.
-        
-          3.1. CSRF PoC Generator.
-          3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.
-        
-      
-    
-  
-  
-    
-      Previniendo ataques CSRF.
-        
-          4.2. CSRF tokens.
-        
-        
-          4.2.1. Presentación.
-          4.2.2. Transmisión del token.
-          4.2.3. Tokens CSRF y ataques XSS.
-        
-      
-    
-  
-  
-    
-      Vulnerabilidades comúnes.
-    
-  
-
-
-
+                0. Índice. 1 Definición del concepto. 2 Planteamiento de la vulnerabilidad. 3 Planteamiento del ataque. 3.1. CSRF PoC Generator. 3.2. Cómo compartir un exploit CSRF. XSS vs CSRF. 4 Previniendo ataques CSRF. 4.2. CSRF tokens. 4.2.1. Presentación. 4.2.2. Transmisión del token. 4.2.3. Tokens CSRF y ataques XSS. 5 Vulnerabilidades comúnes....
                 
                 </div>
                 
@@ -1579,25 +1531,17 @@
                 
                 0. Índice.
 
-  
+  1 Concepto de Access Control
     
-      Concepto de Access Control
-        
-          1.1. Definición.
-          1.2. Categorías.
-        
-      
+      1.1. Definición.
+      1.2. Categorías.
     
   
-  
+  2 Ejemplos de vulnerabilidades en el control de acceso.
     
-      Ejemplos de vulnerabilidades en el control de acceso.
-        
-          2.1. Escalada de privilegios vertical.
-          2.2. Elevación de privilegios horizontal.
-          2.3. Elevación de privilegios vertical partiendo de una escalada horizontal.
-        
-      
+      2.1. Escalada de privilegios vertical.
+      2.2. Elevación de privilegios horizontal.
+      2.3. Elevación de privilegios vertical partiendo de una escalada horizontal.
     
   
 
@@ -1824,7 +1768,7 @@
                 
 
                 <a href="http://localhost:4000/2022-03-07-2.Authentication/">
-                <h2 class="post-title">1. Authentication.</h2>
+                <h2 class="post-title">2. Authentication.</h2>
 
                 
                     <h3 class="post-subtitle">

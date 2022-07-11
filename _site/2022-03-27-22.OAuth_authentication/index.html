@@ -9,7 +9,7 @@
 
   
 
-  <title>21. OAuth Authentication.</title>
+  <title>22. OAuth Authentication.</title>
 
   
   <meta name="author" content="Qv1nTv5">
@@ -76,7 +76,7 @@
 
   
   <meta property="og:site_name" content="Home">
-  <meta property="og:title" content="21. OAuth Authentication.">
+  <meta property="og:title" content="22. OAuth Authentication.">
   <meta property="og:description" content="Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite.">
 
   
@@ -95,7 +95,7 @@
   <meta name="twitter:site" content="@Qvintvs1">
   <meta name="twitter:creator" content="@Qvintvs1">
 
-  <meta property="twitter:title" content="21. OAuth Authentication.">
+  <meta property="twitter:title" content="22. OAuth Authentication.">
   <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite.">
 
   
@@ -126,7 +126,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -181,6 +181,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -188,7 +195,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -328,7 +335,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -546,6 +553,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -631,7 +645,7 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="post-heading">
-          <h1>21. OAuth Authentication.</h1>
+          <h1>22. OAuth Authentication.</h1>
           
             
               <h2 class="post-subheading">Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite.</h2>
@@ -666,30 +680,18 @@
         <h2 id="0-indice">0. Indice.</h2>
 
 <ul>
-  <li>
-    <ol>
-      <li>Introducción.</li>
-    </ol>
+  <li>1 Introducción.</li>
+  <li>2 Presentación del marco OAuth.
+    <ul>
+      <li>2.1. Introducción al OAuth.</li>
+      <li>2.2. Funcionamiento del marco OAuth.</li>
+      <li>2.3. OAuth authentication.</li>
+    </ul>
   </li>
-  <li>
-    <ol>
-      <li>Presentación del marco OAuth.
-        <ul>
-          <li>2.1. Introducción al OAuth.</li>
-          <li>2.2. Funcionamiento del marco OAuth.</li>
-          <li>2.3. OAuth authentication.</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Explotando vulnerabilidades OAuth básicas.
-        <ul>
-          <li>3.1. Vulnerabilidades en la aplicación cliente.</li>
-        </ul>
-      </li>
-    </ol>
+  <li>3 Explotando vulnerabilidades OAuth básicas.
+    <ul>
+      <li>3.1. Vulnerabilidades en la aplicación cliente.</li>
+    </ul>
 
     <p><br /></p>
   </li>
@@ -919,7 +921,7 @@
   <span class="sr-only">Share: </span>
 
   
-    <a href="https://twitter.com/intent/tweet?text=21.+OAuth+Authentication.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-27-22.OAuth_authentication%2F"
+    <a href="https://twitter.com/intent/tweet?text=22.+OAuth+Authentication.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-27-22.OAuth_authentication%2F"
       class="btn btn-social-icon btn-twitter" title="Share on Twitter">
       <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
       <span class="sr-only">Twitter</span>

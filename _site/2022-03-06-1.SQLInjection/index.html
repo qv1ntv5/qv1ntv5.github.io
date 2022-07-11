@@ -126,7 +126,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -181,6 +181,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -188,7 +195,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -328,7 +335,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -546,6 +553,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -666,43 +680,37 @@
         <h2 id="0-índice">0. Índice.</h2>
 
 <ul>
-  <li>
-    <ol>
-      <li>Concepto de SQLInjection.</li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Ejemplos de SQLInjection.
+  <li>1 Concepto de SQLInjection.</li>
+  <li>2 Ejemplos de SQLInjection.
+    <ul>
+      <li>2.1. Extracción de datos ocultos.</li>
+      <li>2.2. Subversión de la lógica de la aplicación.</li>
+      <li>2.3. Extrayendo datos de otras tablas.
         <ul>
-          <li>2.1. Extracción de datos ocultos.</li>
-          <li>2.2. Subversión de la lógica de la aplicación.</li>
-          <li>2.3. Extrayendo datos de otras tablas.</li>
-        </ul>
-        <ul>
-          <li>2.3.2. Apéndice búsquedas con UNION.
-    - 2.4. Examinando la base de datos</li>
-          <li>2.4.2. Querys para determinar la version y el tipo.</li>
-          <li>2.4.3. Listando el contenido de una base de datos no perteneciente a Oracle.</li>
-          <li>2.4.4 Listando los contenidos de una base de datos perteneciente a Oracle.
-    - 2.5. Cheat Sheet.</li>
+          <li>2.3.2. Apéndice búsquedas con UNION.</li>
         </ul>
       </li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Blind SQLi.
+      <li>2.4. Examinando la base de datos
         <ul>
-          <li>3.1. ¿Qué es una inyección de código ciega?</li>
-          <li>3.2. Explotando una vulnerabilidad SQL ciega provocando respuestas condicionales.</li>
-          <li>3.3. Obteniendo respuestas condicionales desencadenando errores SQL.</li>
-          <li>3.4. Explotando una vulnerabilidad SQL ciega provocando retrasos en las respuestas del servidor.</li>
+          <li>2.4.2. Querys para determinar la version y el tipo.</li>
+          <li>2.4.3. Listando el contenido de una base de datos no perteneciente a Oracle.</li>
+          <li>2.4.4 Listando los contenidos de una base de datos perteneciente a Oracle.</li>
         </ul>
+      </li>
+      <li>2.5. Cheat Sheet.</li>
+    </ul>
+  </li>
+  <li>3 Blind SQLi.
+    <ul>
+      <li>3.1. ¿Qué es una inyección de código ciega?</li>
+      <li>3.2. Explotando una vulnerabilidad SQL ciega provocando respuestas condicionales.</li>
+      <li>3.3. Obteniendo respuestas condicionales desencadenando errores SQL.</li>
+      <li>
+        <p>3.4. Explotando una vulnerabilidad SQL ciega provocando retrasos en las respuestas del servidor.</p>
 
         <p><br /></p>
       </li>
-    </ol>
+    </ul>
   </li>
 </ul>
 
@@ -2378,7 +2386,7 @@ Atacando desde afuera</p>
         
         
         <li class="page-item next">
-          <a class="page-link" href="/2022-03-07-2.Authentication/" data-toggle="tooltip" data-placement="top" title="1. Authentication.">Next Post &rarr;</a>
+          <a class="page-link" href="/2022-03-07-2.Authentication/" data-toggle="tooltip" data-placement="top" title="2. Authentication.">Next Post &rarr;</a>
         </li>
         
       </ul>

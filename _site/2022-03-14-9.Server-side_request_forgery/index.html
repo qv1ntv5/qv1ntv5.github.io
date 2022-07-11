@@ -126,7 +126,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -181,6 +181,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -188,7 +195,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -328,7 +335,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -546,6 +553,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -666,41 +680,27 @@
         <h2 id="0-índice">0. Índice.</h2>
 
 <ul>
-  <li>
-    <ol>
-      <li>Concepto de SSRF
-        <ul>
-          <li>1.1. Introducción al concepto.</li>
-          <li>1.2. Impacto.</li>
-        </ul>
-      </li>
-    </ol>
+  <li>1 Concepto de SSRF
+    <ul>
+      <li>1.1. Introducción al concepto.</li>
+      <li>1.2. Impacto.</li>
+    </ul>
+  </li>
+  <li>2 Ataques SSRF comunes.
+    <ul>
+      <li>2.1. Ataque SSRF contra el mismo servidor.</li>
+      <li>2.2. Ataques SSRF contra otros sistemas back-end.</li>
+    </ul>
+  </li>
+  <li>3 Evitando defensas comunes SSRF.
+    <ul>
+      <li>3.1. Defensa de SSRF basada en un filtro basado en lista negra.</li>
+      <li>3.2. Defensa de SSRF basada en un filtro basado en lista blanca.</li>
+      <li>3.3. Bypass del filtro SSRF via redirección abierta.</li>
+    </ul>
   </li>
   <li>
-    <ol>
-      <li>Ataques SSRF comunes.
-        <ul>
-          <li>2.1. Ataque SSRF contra el mismo servidor.</li>
-          <li>2.2. Ataques SSRF contra otros sistemas back-end.</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Evitando defensas comunes SSRF.
-        <ul>
-          <li>3.1. Defensa de SSRF basada en un filtro basado en lista negra.</li>
-          <li>3.2. Defensa de SSRF basada en un filtro basado en lista blanca.</li>
-          <li>3.3. Bypass del filtro SSRF via redirección abierta.</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Vulnerabilidades SSRF Ciegas.</li>
-    </ol>
+    <p>4 Vulnerabilidades SSRF Ciegas.</p>
 
     <p><br /></p>
     <h3 id="1-concepto-de-ssrf">1. Concepto de SSRF.</h3>

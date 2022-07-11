@@ -126,7 +126,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -181,6 +181,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -188,7 +195,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -328,7 +335,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -546,6 +553,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -665,45 +679,26 @@
       <article role="main" class="blog-post">
         <h2 id="0-índice">0. Índice.</h2>
 <ul>
-  <li>
-    <ol>
-      <li>Definición del concepto.</li>
-    </ol>
+  <li>1 Definición del concepto.</li>
+  <li>2 Planteamiento de la vulnerabilidad.</li>
+  <li>3 Planteamiento del ataque.
+    <ul>
+      <li>3.1. CSRF PoC Generator.</li>
+      <li>3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</li>
+    </ul>
   </li>
-  <li>
-    <ol>
-      <li>Planteamiento de la vulnerabilidad.</li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Planteamiento del ataque.
-        <ul>
-          <li>3.1. CSRF PoC Generator.</li>
-          <li>3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</li>
-        </ul>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>Previniendo ataques CSRF.
-        <ul>
-          <li>4.2. CSRF tokens.</li>
-        </ul>
+  <li>4 Previniendo ataques CSRF.
+    <ul>
+      <li>4.2. CSRF tokens.
         <ul>
           <li>4.2.1. Presentación.</li>
           <li>4.2.2. Transmisión del token.</li>
           <li>4.2.3. Tokens CSRF y ataques XSS.</li>
         </ul>
       </li>
-    </ol>
+    </ul>
   </li>
-  <li>
-    <ol>
-      <li>Vulnerabilidades comúnes.</li>
-    </ol>
-  </li>
+  <li>5 Vulnerabilidades comúnes.</li>
 </ul>
 
 <p><br /></p>

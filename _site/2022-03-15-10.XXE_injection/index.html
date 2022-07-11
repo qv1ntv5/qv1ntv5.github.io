@@ -126,7 +126,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
                   <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/EXPREVpage">Exploiting</a>
+                  <a class="dropdown-item" href="/preOSCPpage">preOSCP</a>
             </div>
           </li>
         
@@ -181,6 +181,13 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Pre-Security path.", \
+          "category" : "preOSCP", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Burp Certified Practitioner Practice Exam.", \
           "category" : "burp", \
           "url"      : "/2022-03-30-PracticeExam/", \
@@ -188,7 +195,7 @@
         }, \
        \
         { \
-          "title"    : "21. OAuth Authentication.", \
+          "title"    : "22. OAuth Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-27-22.OAuth_authentication/", \
           "date"     : "March 27, 2022" \
@@ -328,7 +335,7 @@
         }, \
        \
         { \
-          "title"    : "1. Authentication.", \
+          "title"    : "2. Authentication.", \
           "category" : "burp", \
           "url"      : "/2022-03-07-2.Authentication/", \
           "date"     : "March  7, 2022" \
@@ -546,6 +553,13 @@
         }, \
        \
         { \
+          "title"    : "preOSCP", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Tag Index", \
           "category" : "page", \
           "url"      : "/tags/", \
@@ -666,50 +680,31 @@
         <h2 id="0-índice">0. Índice.</h2>
 
 <ul>
-  <li>
-    <ol>
-      <li>Concepto de XXE.</li>
-    </ol>
+  <li>1 Concepto de XXE.</li>
+  <li>2 Cómo se plantean las vulnerabilidades XXE.</li>
+  <li>3 Entidades XML.
+    <ul>
+      <li>3.1. Qué es el XML.</li>
+      <li>3.2. Entidades XML.</li>
+      <li>3.3. Definición del tipo de documento.</li>
+      <li>3.4. Entidades comunes XML.</li>
+      <li>3.5. Entidades externas de XML.</li>
+    </ul>
   </li>
-  <li>
-    <ol>
-      <li>Cómo se plantean las vulnerabilidades XXE.</li>
-    </ol>
+  <li>4 Tipos de ataques XXE.
+    <ul>
+      <li>4.1. Explotando XXE para recuperar ficheros.</li>
+      <li>4.2. Explotando XXE para realizar ataques SSRF.</li>
+    </ul>
   </li>
-  <li>
-    <ol>
-      <li>Entidades XML.</li>
-    </ol>
+  <li>5 Blind XXE vulnerabilities.
+    <ul>
+      <li>5.1. Detectando y explotando XXE usando OAST.</li>
+      <li>5.2. Explotando blind XXE para extraer datos via mensajes de error.</li>
+    </ul>
   </li>
-  <li>3.1. Qué es el XML.</li>
-  <li>3.2. Entidades XML.</li>
-  <li>3.3. Definición del tipo de documento.</li>
-  <li>3.4. Entidades comunes XML.</li>
-  <li>3.5. Entidades externas de XML.</li>
-  <li>
-    <ol>
-      <li>Tipos de ataques XXE.</li>
-    </ol>
-  </li>
-  <li>4.1. Explotando XXE para recuperar ficheros.</li>
-  <li>4.2. Explotando XXE para realizar ataques SSRF.</li>
-  <li>
-    <ol>
-      <li>Blind XXE vulnerabilities.</li>
-    </ol>
-  </li>
-  <li>5.1. Detectando y explotando XXE usando OAST.</li>
-  <li>5.2. Explotando blind XXE para extraer datos via mensajes de error.</li>
-  <li>
-    <ol>
-      <li>Encontrando superficie de ataque escondida para XXE injection.</li>
-    </ol>
-  </li>
-  <li>
-    <ol>
-      <li>XXE attacks via file upload.</li>
-    </ol>
-  </li>
+  <li>6 Encontrando superficie de ataque escondida para XXE injection.</li>
+  <li>7 XXE attacks via file upload.</li>
 </ul>
 
 <p><br /></p>

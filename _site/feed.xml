@@ -12,6 +12,17 @@
     
     
       <item>
+        <title>Complete Begginer path.</title>
+        <description>
+          Notes of the TryHackMe's path Complete Begginer. - 
+          0. Índice. 1 Linux Fundamentals. 1.1. Fundamentos de Linux I. 1.2. Fundamentos de Linux II. 1.3. Fundamentos de Linux III. 2 Networking Explotation Basics. 2.1. Introductory Networking. 2.2. Nmap. 2.3. Network Services. 3 Web Hacking Fundamentals. 4 Cryptography. 4.1. Hashing - Crypto 101. 4.2. John The Ripper. 4.3. Encryption -...
+        </description>
+        <pubDate>Sun, 07 Aug 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-08-07-2.CompleteBegginer/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-08-07-2.CompleteBegginer/</guid>
+      </item>
+    
+      <item>
         <title>Pre-Security path.</title>
         <description>
           Notes of the TryHackMe's path Pre-Security. - 
@@ -218,17 +229,6 @@
         <pubDate>Fri, 11 Mar 2022 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2022-03-11-6.Information_disclosure/</link>
         <guid isPermaLink="true">http://localhost:4000/2022-03-11-6.Information_disclosure/</guid>
-      </item>
-    
-      <item>
-        <title>5. Bussiness Logic Vulnerabilities.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Concepto de Business Logic Vulnerability 2 Tipos y ejemplos. 1. Concepto de Business Logic Vulnerabilities. En este contexto, el concepto de lógica de la empresa simplemente se refiere al conjunto de reglas que definen cómo opera una aplicación web en un contexto determinado. De forma que una...
-        </description>
-        <pubDate>Thu, 10 Mar 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/</guid>
       </item>
     
   </channel>

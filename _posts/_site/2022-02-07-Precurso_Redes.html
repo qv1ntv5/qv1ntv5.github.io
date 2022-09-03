@@ -1,0 +1,214 @@
+<h1 id="1-modelo-osi">1. Modelo OSI.</h1>
+
+<p>El <strong>modelo OSI</strong> acrónimo de Open Systems Interconnection es un modelo conceptual que caracteriza y estandariza la función de comunicación entre sistemas computacionales (es decir, comunicación de redes) sin entrar en consideraciones acerca de la estructura interna de cada máquina desarrollado por ISO (International Standards Organization). Asienta las bases de la comunición operativa entre dos ordenadores mediante una <strong>estructura jerárquica</strong> de capas, es decir, la información pasa a través de las distintas capas hasta que finalmente se envía, este proceso por el que pasa la información se denomina como <strong>encapsulamiento</strong>. Esto es sólo un modelo teórico que está en desuso pero la comunicación entre ordenadores y entre redes se basan esta conceptualización teórica.</p>
+
+<ol>
+  <li>
+    <p><strong>Capa física</strong>:  Se trata de la capa responsable de la transmisión y recepción de datos desestructurados a través un medio de transmisión físico, como cables de ethernet, wifi, etc. En esencia convierte los <strong>bits</strong> digitales en señales eléctricas, de radio, etc.</p>
+  </li>
+  <li>
+    <p><strong>Capa de enlace de datos</strong>: Identifica cada IP con la dirección MAC (supuestamente única para cada dispostivo en dicha red). Detecta y corrige en la medida de los posible errores llevados a cabo en la capa física.</p>
+  </li>
+  <li>
+    <p><strong>Capa de red</strong>: Se genera una especie de mapeado de la red que permite trazar caminos para el tráfico de red (routing).</p>
+  </li>
+  <li>
+    <p><strong>Capa de transporte</strong>: Establece los protocolos (TCP, UDP) y puertos tanto de fuente como de destino con los que se van a efectuar la transmisión de datos.</p>
+  </li>
+  <li>
+    <p><strong>Capa de sesión</strong>: Se trata de la responsable de establecer y terminar conexiones entre dispositivos.</p>
+  </li>
+  <li>
+    <p><strong>Capa de presentación</strong>: Esta capa se asegura de formatear los datos de forma que la aplicación que va a recibir dichos datos pueda usarlos. Aquí también se produce el cifrado o descifrado de los datos.</p>
+  </li>
+  <li>
+    <p><strong>Capa de aplicación</strong>: Interacción entre la computadora y el humano donde las aplicaciones pueden acceder al servicio de la red.</p>
+  </li>
+</ol>
+
+<p>Así por ejemplo, supongámos que queremos enviar un email. Entonces el emisor escribiría el email mediante la capa 7 de aplicación que permite al usuario y la aplicación relacionarse, seguidamente los datos pasan a la capa 6 de presentación que se asegura de que los datos que se van a enviar se envían de forma que la aplicación receptora pueda entender dichos datos (y los cifra si es necesario). Seguidamente en la capa 5, de sesión, se inicia una sesión de servidor envío/recibo de emails, en la capa 4 se decide el protocolo de transporte de datos adecuado, en este caso al ser una petición compleja se utilizaría TCP, además también se asienta tanto el puerto de envío como el puerto de recibo. En la capa 3 se identifica el camino que va a seguir la información, en la capa 2 se identifica cada dirección IP con la MAC (física) y seguidamente la infomarción se envía en la capa física o 1.</p>
+
+<p><strong>Es decir; Los paquetes que se mandan a través de una red y atraviesan las distintas capas de un modelo de red (TCP/IP u OSI) van a su vez a través de los distintos protocolos de cada una de esas capas, IP, TCP, etc. Estos protocolos a su vez lo que hacen es añadir una cabecera al paquete  (encapsulamiento)  que contiene información relativa al paquete y a cómo debe de ser tratado el mismo de manera que cuando el paquete sale de una máquina en dirección a otra por la red lo que contiene es; por un lado la información del paquete en sí, y después un conjunto de cabeceras que le sirven, primero a los distintos routers para guíarlo a través de distintas redes hasta alguna que se haga responsable del mismo, y después a la máquina recibidora que procesa el paquete leyendo una a una las distintas cabeceras (desencapsulamiento) de los distintos protocolos conforme se asciende por las distintas capas del modelo de red en cuestión.</strong></p>
+
+<p>Al llegar a la otra máquina, la información es procesada siguiendo los mismos pasos y las mismas capas de manera inversa hasta llegar a la capa 7 donde el usuario podrá leer el email correctamente.</p>
+
+<p><br /></p>
+
+<h1 id="2-dirección-mac">2. Dirección MAC.</h1>
+
+<p>Todo dispositivo compatible con la red tiene almenos una ID de hardware única, esta es la dirección de control de acceso a los medios o <strong>dirección MAC</strong>.</p>
+
+<p>Se tratade un identificador único (supuestamente) y que nos permite identificar a un ordenador concreto siempre y en todo momento, y sirve para el proceso de filtrado de redes inalámbricas, de esta forma se evita que extraños accedan a una red porque el router está configurado para aceptar sólamente una serie de direcciones MAC específicas.</p>
+
+<p>Siempre que una máquina desee ponerse en contacto con otra dentro de una red local necesitará de su dirección MAC o dirección física o de hardware.</p>
+
+<p>La dirección MAC es un número hexadecimal de 12 dígitos (número binario de 6 bytes) representado por notación hexadecimal de dos puntos. (No confundir con IPv6 porque en este son 8 bytes)</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/MACAddr.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Tal y como se en la imágen, los primeros 6 dígitos (o 3 primeros bytes) identifican al fabricante, llamado OUI, los últimos 6 dígitos de la derecha representan el controlador de interfaz de red que es asignado por el fabricante, UAA.</p>
+
+<p><br /></p>
+
+<h1 id="3-protocolo-arp">3. Protocolo ARP.</h1>
+
+<p>Para poder enviar paquetes de datos en redes TCP/IP, un servidor necesita, sobre todo, tres datos de dirección sobre el host al que se dirige, entre el nivel 2 y 3 del modelo OSI:</p>
+
+<ul>
+  <li>Máscara de subred.</li>
+  <li>La dirección IP. Que sirve para localizar a una máquina a través del ARP.</li>
+  <li>La dirección MAC (también conocida como dirección hardware o dirección física) que sirve para identificar a dicha máquina.</li>
+</ul>
+
+<p>El protocolo ARP es un protocolo que se encarga <strong>de vincular una dirección MAC (o física) a una dirección IP</strong>. Se encarga de permitir que un dispositivo conectado a una red pueda obtener una ruta MAC de otro equipo que esté conectado a esa misma red. Esencialmente, lleva a cabo en el proceso de mapeo una traducción para que los sistemas puedan reconocerse entre sí. Vamos a establecer los pasos a seguir.</p>
+
+<p>Supongámos que tenemos una red local en la que hay varios ordenadores conectados. Supongámos que un ordenador A quiere mandar un mensaje al ordenador B y que ya sabe su dirección IP, pero le sigue faltando la dirección MAC (la máscara de subred se obvia puesto que los dos están en la misma red) Así:</p>
+
+<ol>
+  <li>En primer lugar, el ordenador ‘A’ buscará en una lista interna llamada ARP caché para comprobar si la dirección IP del host con el que desea ponerse en contacto ya tiene asociada una dirección MAC.</li>
+  <li>Si no lo está, envía un mensaje utilizando la función <em>broadcast</em> al resto de ordenadores de la red preguntando por la dirección MAC asociada a la IP que ya tiene.</li>
+  <li>De forma que el ordenador propietario de dicha IP, el B, recibe el mensaje y le manda la dirección MAC y de esta forma ya puede haber comuncación entre los dos ordenadores.</li>
+  <li>Por último, esta dirección MAC se guarda en el ARP caché que está para hacer la comunicación más eficiente, de forma que la proxima vez que ambos ordenadores deseen ponerse en contacto no hará falta recurrir a la expedición.</li>
+</ol>
+
+<p>Cabe destacar que la dirección MAC así guardada en el ARP caché (comando arp -a) se guarda de forma dinámica y eventualmente se terminará borrando. Esto se hace para prevenir que el ARP caché se llene de direcciones que no se utilizan frecuentemente.</p>
+
+<p>Por otro lado, si alguien intencionalmente escribe dicha dirección en el ARP caché se guardará de forma estática.</p>
+
+<p><br /></p>
+
+<h2 id="4-modelo-tcpip">4. Modelo TCP/IP.</h2>
+
+<h2 id="41-introducción">4.1. Introducción.</h2>
+
+<p>TCP/IP es un conjunto de protocolos que permiten la comunicación entre los ordenadores pertenecientes a una red. La sigla TCP/IP significa Protocolo de control de transmisión/Protocolo de Internet. Proviene de los nombres de dos protocolos importantes incluidos en el conjunto TCP/IP, es decir, del protocolo TCP y del protocolo IP.</p>
+
+<p>Tiene las siguientes características:</p>
+
+<ul>
+  <li>Fue desarrollado con posterioridad al modelo OSI.</li>
+  <li>
+    <p>Consta de 5 capas: la capa de aplicación, la capa de transporte, la capa de network, la capa de enlace de datos y la capa física.</p>
+  </li>
+  <li>
+    <p>La capa de “networking” en el modelo TCP/IP se corresponde con las primeras dos primeras capas del modelo OSI, y la capa de aplicación se corresponde con las tres últimas, tal y como se puede ver en la imágen de a continuación.</p>
+  </li>
+  <li>TCP/IP a resumidas cuentas se trata de un protocolo jerárquico hecho de “módulos interativos” y cada uno de ellos provee una funcionalidad específica.</li>
+</ul>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/TCPvsOSI.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="42-tcpip-model-vs-osi-model">4.2. TCP/IP model vs OSI model.</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>TCP/IP</th>
+      <th>OSI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TCP/IP tiene cuatro capas</td>
+      <td>OSI tiene 7 capas</td>
+    </tr>
+    <tr>
+      <td>TCP es más confiable</td>
+      <td>OSI es menos confiable</td>
+    </tr>
+    <tr>
+      <td>TCP/IP no tiene lazos demasiado estrictos</td>
+      <td>OSI tiene lazos más estrictos</td>
+    </tr>
+    <tr>
+      <td>TCP/IP tiene una aproximación horizontal</td>
+      <td>OSI sigue una aproximación vertical</td>
+    </tr>
+    <tr>
+      <td>TCP/IP primero desarrolla los protocolos y seguidamente desarrolla el modelo</td>
+      <td>OSI desarrolla primero el modelo y luego los protocolos.</td>
+    </tr>
+    <tr>
+      <td>La capa de red del modelo TCP/IP proporciona servicios sin conexión</td>
+      <td>OSI proporciona tanto servicios con conexion como servicios sin conexion</td>
+    </tr>
+    <tr>
+      <td>No se pueden reemplazar lazos sencillamente en TCP/IP</td>
+      <td>En OSI los protocolos están mejor cubiertos y son más fáciles de reemplazar</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="43-capas-del-modelo-tcpip">4.3. Capas del modelo TCP/IP.</h2>
+
+<h3 id="431-capa-de-acceso-de-red">4.3.1. Capa de acceso de red.</h3>
+
+<p>Esta capa de corresponde con la combinación de la ‘capa física’ y la ‘capa de enlace de datos’ en OSI. Busca la dirección del hardware y los protocolos presentados en esta capa permite la transmisión física de datos. Algunos de los protocolos de comunicación presentes en esta capa son:</p>
+
+<ul>
+  <li><strong>ARP</strong>:  Atiende a Address Resolution Protocol (Protocolo de resolución de direcciones). Su trabajo consiste en averiguar la dirección del host conocida su IP. Este tiene varios tipos, reverse ARP, Proxy ARP, ARP Gratis y ARP inverso.</li>
+  <li>PPP:</li>
+  <li>Ethernet</li>
+  <li>Controladores de interfaz.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="432-capa-de-red">4.3.2. Capa de red.</h3>
+
+<p>Esta capa tiene una funcionalidad paralela a las funcionalidades de la capa de red del modelo OSI. En ella se definen protocolos que son responsables de la transmisicón lógica de datos sobre la red entera. Los principales a tener en cuenta en esta capa son los siguientes:</p>
+
+<ul>
+  <li>
+    <p><strong>IP</strong>: Atiende a Internet Protocol (Protocolo de red interna) es responsable de repatir paquetes desde la fuente al host destinatario buscando las direcciones de IP correspondientes en las cabeceras de los paquetes. IP tiene dos versiones:</p>
+
+    <ul>
+      <li><strong>IPv4</strong>: Es la que más sitios webs utilizan actualmente.</li>
+      <li><strong>IPv6</strong>: Es una mejora respecto de IPv4 que tiene más gasto y poco a poco está sustituyendo a IPv4. Con ella desaparecera la dicotomía de entre las IPs públicas e IPs privadas.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>ICMP</strong>: Atiende a Internet Control Message Protocol (Protocol de control de mensajes de Internet). Este protocolo está encapsulado dentro de los datagrams de los IP y es responsable de proveer a los host con información sobre problemas de red.</p>
+  </li>
+  <li>
+    <p><strong>ARP</strong>:  Atiende a Address Resolution Protocol (Protocolo de resolución de direcciones). Su trabajo consiste en averiguar la dirección del host conocida su IP. Este tiene varios tipos, reverse ARP, Proxy ARP, ARP Gratis y ARP inverso.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="433-capa-de-host-a-host">4.3.3. Capa de “host a host”.</h3>
+
+<p>Esta capa es análoga a la capa de transporte del modelo OSI. Es responsable de la comunicación de un extremo a otro de la entrega de datos sin errores. Protege a las capas superiores de las posibles complicaciones de los datos. Los dos protocolos principales presentados en esta capa son los siguientes:</p>
+
+<ul>
+  <li><strong>Protocolo de control de transmisión (TCP)</strong>: Es conocido por prover comunicación fiable libre de errores entre finales de sistemas. Realiza secuenciación y segmentacíon de datos.</li>
+  <li><strong>Protocolo de datagrama del usuario (UDP)</strong>: UDP por otro lado no proporciona tales características ni resulta ser un sistema tan fiable. Se trata del protocolo de referencia si tu aplicación no requiere un sistema de transporte muy fiable.</li>
+</ul>
+
+<h2 id="434-capa-aplicación">4.3.4. Capa aplicación.</h2>
+
+<p>Esta capa realiza las funciones de las tres capas superiores del modelo OSI: aplicación, sesión y presentación.</p>
+
+<p>Es responsable de la comunicación nodo a nodo y controla las especificaciones de la interfaz de usuario. Algunos de los protocolos presentes son:</p>
+
+<ul>
+  <li>HTTP/S:</li>
+  <li>FTP / TFTP:</li>
+  <li>SMTP (envío) /POP/IMAP (recibir):</li>
+  <li>BOOTP/DHCP:</li>
+  <li>DNS:</li>
+  <li>SSH (conexión máquina remoto).</li>
+  <li>SSL y TLS.</li>
+</ul>
+

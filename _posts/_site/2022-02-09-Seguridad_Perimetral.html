@@ -1,0 +1,567 @@
+<h1 id="1-antecedentes-conceptos-previos">1. Antecedentes. Conceptos previos.</h1>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>WAN</strong>: Se trata de un acrónimo para Wide Area Network, se tratan de redes a gran escala que muchas veces abarcan países o continentes. Se suele utilizar para hacer referencia a una red externa en el contexto de dos redes, una interna y otra externa.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>LAN</strong>: Se trata de un acrónimo para Local Area Network, se tratan redes pequeñas que abarcan una extensión física limitada y que generalmente son de tipo privada y estan gestionadas por puntos de acceso como Routers (ver tema 5 de Red Team).</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Firewall</strong>: Un firewall o cortafuegos es un dispositivo (hardware o software) que tiene por funcionalidad el filtrar y bloquear tráfico de red para proporcionar mayor seguridad a una red privada de accesos o peticiones indeseables desde el exterior.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Router</strong>: Un Router o dispositivo de enrutamiento es un dispositivo que tiene  por objetivo <strong>enrutar</strong>, es decir, encaminar paquetes de red a su destino poniéndolos en dirección a el legítimo host dentro de su red privada o hacia otro router que se haga cargo del paquete.</p>
+
+    <p>Los routers cuentan con dos IPs, una privada y otra pública.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>IDS</strong>: Se trata de un acrónimo para Sistema de Detección de Intrusos; es un dispositivo que supervisa una red en busca de actividades maliciosas o infracciones de políticas.</p>
+
+    <p>Cualquier actividad de intrusión o violación generalmente se informa a un administrador o se recopila de forma centralizada mediante un sistema de gestión de eventos e información de seguridad.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>IPS</strong>: Se trata de un IDS que tiene añadida la funcionalidad de automatizar la toma de medidas necesarias para bloquear cualquier actividad que se considere ilícita.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>DHCP</strong>: Protocolo de asignación dinámica de IPs.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h1 id="2-seguridad-perimetral-concepto-y-herramientas">2. Seguridad Perimetral. Concepto y herramientas.</h1>
+
+<p>El concepto de <strong>seguridad perimetral informática</strong> se refiere a la <strong>seguridad</strong> que afecta a la frontera de la red de nuestra empresa también llamada <strong>perímetro</strong>: el conjunto de máquinas y dispositivos que interactúan con el exterior, con otras redes.</p>
+
+<p>Vamos a ver diversas herramientas que nos van a ayudar a proteger nuestro perímetro: Pfsense, IDSs (Snort), IPSs (Suricata o Banyard2).</p>
+
+<p><br /></p>
+
+<h1 id="3-pfsense">3. PFSense.</h1>
+
+<h2 id="31-pfsense-como-concepto">3.1. Pfsense como concepto.</h2>
+
+<p><strong>Pfsense</strong> es un software que combina la funcionalidad del router y del firewall construido a modo de sistema operativo. Es decir, es un sistema operativo con funcionalidades específicas de cortafuegos y router.</p>
+
+<p>Se trata herramienta de monitorización, bloqueo y redirección de tráfico que, además, ayuda a minimizar el número de exposiciones de elementos de nuestra red interna a la red externa (minimizar la superficie de ataque).</p>
+
+<p><br /></p>
+
+<h2 id="32-instalación-de-pfsense">3.2. Instalación de pfsense.</h2>
+
+<p>Como ya hemos indicado, se trata de un sistema operativo que hay que instalar en alguna máquina. En este caso lo instalaremos en una máquina virtual.</p>
+
+<p>Lo descargamos desde la página: https://www.pfsense.org/download/ y seleccionamos una arquitectura AMD64, con imágen ISO y un mirror en Alemania.</p>
+
+<p>De todas formas hay que contrastar la velocidad de descarga de cada servidor.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214101934.png" text-align="center" />
+</div>
+
+<p>Una vez hemos descargado la imágen correspondiente, la instalamos en Virtualbox:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214104258.png" text-align="center" />
+</div>
+
+<p>Seguidamente, creamos dos RedNats y habilitamos dos interfaces de red para la pfsense:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214162810.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214162844.png" text-align="center" />
+</div>
+
+<p>Cómo será esta nueva NatNetwork1 se deja para más adelante, de momento sólo habilitamos una segunda red.</p>
+
+<p>Comenzamos la instalación:</p>
+
+<ul>
+  <li>
+    <p>Aceptar:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163256.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Instalar:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214105140.png" text-align="center" />
+  </div>
+
+    <p>&lt;/br&gt;</p>
+  </li>
+  <li>
+    <p>Elegimos “spanish es.acc.hdb keymap”:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163508.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163532.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Comenzamos la instalación UFS Bios:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163731.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>No queremos abrir una shell:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163847.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214163936.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Una vez terminada, reiniciaremos la máquina y quitaremos la imágen ISO (medio de instalación) para que no nos vuelva a salir el wizard de instalación.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214164105.png" text-align="center" />
+  </div>
+
+    <p>Pinchamos sobre el disquete de la izquierda y abajo del todo seleccionamos la opción quitar disco. <strong>Finalizamos dando a OK</strong> no a la cruz arriba a la derecha.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h2 id="33-configuración-de-pfsense">3.3. Configuración de pfsense.</h2>
+
+<p>Una vez hemos instalado el sistema operativo debemos configurar las funcionalidades de router y de firewall a través de una configuración local y remota (configuración con sitio web) respectivamente.</p>
+
+<p><br /></p>
+
+<h3 id="331-antecedentes-en-virtualbox">3.3.1. Antecedentes en Virtualbox.</h3>
+
+<p>Por un lado, configuramos la recién creada NatNetwork1 y deshabilitamos el DHCP de la misma (<strong>debemos observar bien que la dirección de red  de esta rednat1 es 10.0.3.x, no 10.0.2.x</strong>, si el 3 no aparece en lugar del 2 habrá que cambiarlo manualmente)</p>
+
+<p>El protocolo DHCP asigna dinámicamente IPs dentro de una red, pero esa es precisamente una tarea propia del router con lo que configuraremos pfsense para que desempeñe esa misma tarea y por eso deshabilitamos esta opción:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214164632.png" text-align="center" />
+</div>
+
+<p>Además, configuramos la Kali en modo RedNat y le asignamos la NatNetwork1. Esto lo hacemos porque vamos a configurar pfsense desde un servidor web que sólo es accesible desde la LAN y por eso cambiamos la interfaz de red de la Kali temporalmente.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214165113.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="332-configuración-local-pfsense">3.3.2. Configuración local pfsense.</h3>
+
+<p>Una vez hemos instalado el software, comienza la configuración de la máquina. Volvemos a encender la máquina. Al encenderse y cargarse aparecerá un menú:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214165440.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p>En primer lugar, elegimos la opción para asignar las interfaces de red.</p>
+
+    <p>Como queremos que tenga una funcionalidad de router necesitamos que tenga una IP para la red externa y otra IP para la red interna.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M10/Pasted%20image%2020220214165543.png" text-align="center" />
+ </div>
+
+    <p>No levantamos la VLAN. Asignamos a la WAN -&gt; em0 y a la LAN -&gt; em1.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M10/Pasted%20image%2020220214165701.png" text-align="center" />
+ </div>
+
+    <p>Le damos a ‘y’.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Volverá a aparecernos el menú inicial. Pulsamos la opción 2 para configurar las direcciones IP.</p>
+
+    <ul>
+      <li>
+        <p>En primer lugar configuramos la IP para la interfaz de red asignada a la WAN, que será configurada por el DHCP y dejaremos en blanco lo demás. De esta forma, el protocolo DHCP se encargará de asignar a pfsense una IP para la red WAN (que será la red 10.0.2.x de Virtualbox que sí tiene habilitado el DHCP).</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214170708.png" text-align="center" />
+  </div>
+
+        <p>Y le indicamos que no a la última opción para que pfsense se expona a través de HTTPS y la comuniación siempre sea cifrada.</p>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p>Hacemos lo propio con la LAN:</p>
+
+        <p>Esta red coincide con la NatNetwork1 que tiene deshabilitado el DHCP y por tanto le asignamos manualmente la IP estática 10.0.3.19, la máscara de red es 24, no asignamos dirección de gateaway ya que el propio pfsense actuará como router según hemos dicho.</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214171227.png" text-align="center" />
+  </div>
+
+        <p>Habilitamos el protocolo DHCP para dotar de IPs a las máquinas dentro de la LAN y dotar a pfsense de funcionalidad router (recordamos que hemos deshabilitado el DHCP de la NatNetwork1) e introducimos el rango de direcciones IPv4 que irá desde 1 a 200 y finalizamos.</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214171601.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>Nos aparecerá el siguiente mensaje por pantalla:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214171844.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="333-configuración-de-pfsense-a-través-del-servidor-web">3.3.3. Configuración de pfsense a través del servidor web.</h3>
+
+<p>Una vez hemos accedido a la dirección indicada en el mensaje anterior desde nuestra Kali a través de la LAN obtenemos:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214172111.png" text-align="center" />
+</div>
+
+<p>Donde las credenciales por defecto serán: <strong>admin:pfsense</strong>.</p>
+
+<p><br /></p>
+
+<p>Una vez hemos accedido al sitio web con las credenciales anteriores veremos la siguiente ventana, le damos a Next:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174023.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174046.png" text-align="center" />
+</div>
+
+<p>Hostname: pfSense
+Domain: Localdomain</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174151.png" text-align="center" />
+</div>
+
+<p>Time Server: 2.pfsense.pool.ntp.org o el que esté disponible. Podemos verlo en pool.ntp.org para ver cuáles son de confianza.</p>
+
+<p>Timezone: ETC/GMT+1 (En función de dónde estemos ubicados.)</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174346.png" text-align="center" />
+</div>
+
+<p>WAN Interface: DHCP</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174522.png" text-align="center" />
+</div>
+
+<p>LAN Interface: 10.0.3.19</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174545.png" text-align="center" />
+</div>
+
+<p>Password: admin (Credenciales: admin:admin) O LA QUE NOSOTROS CONSIDEREMOS CONVENIENTE.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174621.png" text-align="center" />
+</div>
+
+<p>Le damos a Reload.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174707.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174726.png" text-align="center" />
+</div>
+
+<p>Le damos a ‘Check Update’:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214174910.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214182802.png" text-align="center" />
+</div>
+
+<p>Una vez hemos terminado la configuración buscamos la posibilidad de hacer un backup de la máquina (snapshot, clonar, copiar el disco duro, etc.)</p>
+
+<p><br /></p>
+
+<h2 id="34-reglas-de-pfsense">3.4. Reglas de Pfsense.</h2>
+
+<p>Hemos dicho que pfsense hace las veces de router y firewall. La funcionalidad de firewall de pfsense se configura desde el servidor web a través de la definición de reglas que permitirán o bloquearán tráfico de red desde la WAN a la LAN y viceversa. Vamos ahora a definir una serie de reglas para llevar a cabo una serie de redirecciones de tráfico y permitir el paso de un tipo de paquetes.</p>
+
+<p><br /></p>
+
+<h3 id="341-política-de-bloqueo-por-defecto">3.4.1. Política de bloqueo por defecto.</h3>
+
+<p>Vamos a deshabilitar la política de bloqueo de redes por defecto. Pfsense por defecto bloquea todo el tráfico desde WAN que provenga desde IPs privadas (192.168…, 10.0…, etc). Por lo que para funcionar en un entorno de red privada como el de virtualbox debemos deshabilitar esta opción (SI no, esto no aplica).</p>
+
+<p>Para ello, debemos acceder al sitio web de configuración de pfsense con la Kali desde la red que este configurada como LAN en pfsense. Según la guía anterior, esta red es 10.0.3.x</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214190217.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Por tanto, configuramos nuestra Kali con la NatNetwork1 que esta configurada previamente con 10.0.3.0 y accedemos al servidor de web de pfsense a través de la LAN (IP 10.0.3.19). Una vez dentro, acudimos a la sección de reglas.</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214190433.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Acudimos a la primera opción, la que dice <strong>block private networks</strong> y le damos a Actions (Ruedecita).</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214190640.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Bajamos hasta abajo del todo hasta la sección <strong>Reserved Networks</strong> y quitamos el tick de las dos opciones que hay y guardamos:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214190759.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>aplicamos cambios</strong>:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214190930.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="342-permitir-icmp-ping">3.4.2. Permitir ICMP (ping).</h3>
+
+<p>Ahora vamos a crear una regla para permitir paquetes ICMP que por defecto se bloquean desde una WAN.</p>
+
+<p>Para ello, vamos a crear una regla al principio de la lista</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214210939.png" text-align="center" />
+</div>
+
+<p>Y en ella establecemos las siguientes opciones:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214211510.png" text-align="center" />
+</div>
+
+<p>Y a modo de descripición indicamos que se trata de una regla que permite el paso de paquetes ICMP por WAN. Habilitamos cualquier pero podríamos dejarlo solo en echo reply para habilitar sólo el <em>ping</em>.</p>
+
+<p>FInalmente obtenemos:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214211616.png" text-align="center" />
+</div>
+
+<p>Aplicamos los cambios y guardamos. Esto en la práctica no nos conviene, es sólo a modo de ejemplo.</p>
+
+<p><br /></p>
+
+<h3 id="343-redirección-de-puertos">3.4.3. Redirección de puertos.</h3>
+
+<p>Vamos a generar reglas que redireccionan conexiones provenientes desde la WAN a una máquina que se encuentra dentro de la LAN, en este caso será la Metasploitable2. Por ello es <strong>importante tener configurada la Metasploitable2 en modo NatNetwork1 (10.0.3.x)</strong>.</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214215150.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220214213631.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Todo lo que entre por WAN al puerto 22 se redirigirá a la Metasploitable puerto 22</strong>.</p>
+
+    <p>Conviene recordar que la Metasploitable será una máquina que estará dentro de la LAN, es decir, que pfsense se utiliza aquí a modo de <strong>enrutador</strong> que conecta dos redes: 10.0.2.x con 10.0.3.x según la guía que estamos siguiendo.</p>
+
+    <p>Por eso hemos permitido el desbloqueo de conexiones WAN y de trazas ICMP, de lo contrario esta regla no tendría sentido.</p>
+
+    <p>Para ello esta vez nos dirigimos a FIrewall -&gt; NAT.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214212330.png" text-align="center" />
+  </div>
+
+    <p>Y ajustamos las opciones correctamente.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214213229.png" text-align="center" />
+  </div>
+
+    <p>En este caso, optamos por tener sólo una máquina pero podemos añadir tantas como queramos, sólo hacen falta definir las reglas adecuadas para establecer una redirección de puertos satisfactoria.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Todo lo que entre por el puerto 80 de WAN se redirigirá al puerto 80 de la Metasploitable2</strong>:</p>
+
+    <p>Hacemos de nuevo lo que hemos hecho con SSH pero ahora con el puerto 80.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214214302.png" text-align="center" />
+  </div>
+
+    <p>Guardamos y aplicamos los cambios.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h2 id="35-comprobando-las-reglas">3.5. Comprobando las reglas.</h2>
+
+<p>Ahora que hemos ajustado las reglas a través del servidor web, apagamos la Kali y la cambiamos desde la NatNetwork1 (LAN) a NatNetwork (WAN) para que pueda realizar peticiones externas desde la WAN y podamos comprobar que nuestras regas están bien hechas y que pfsense funciona correctamente.</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214214550.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Además antes de proseguir comprobasmo cuál es la IP de pfsense para la red WAN:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214214741.png" text-align="center" />
+</div>
+
+<p>(Por una confusión tuve que reinstalar la máquina y se me asignó otra IP a la WAN en pfsense durante la instalación, ya que <strong>antes era la 10.0.2.15 y ahora es la 10.0.2.7</strong> pero esto no afecta en nada a la resolución del ejercicio, sólo es la IP de conexión a pfsense desde WAN y si no hubiera reinstalado la máquina seguiría teniendo la 10.0.2.15).</p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Ping a pfsense</strong>: Vamos a ver qué puertos ofrece la máquina pfsense para comprobar que nuestra regla de habilitación de paquetes ICMP funciona. Si es así, los paquetes ICMP que el comando ping manda deberían llegar a los puertos 22 y 80 de pfsense y de ahí deberían de ser redirigidos a los respectivos puertos 22 y 80 de Metasploitable.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214221328.png" text-align="center" />
+  </div>
+
+    <p>Comprobamos que así es y además debemos de hacer una observación. Al igual que ocurría con la redirección de puertos SSH, al pedir la versión de los servicios que ofertan dichos puertos que llevan a cabo una redirección lo que se obtiene es información del puerto remoto. No debemos de hacer caso del puerto que escaneamos (cuyo número se elige arbitrariamente) sino de la información que recibimos en el campo de la <strong>versión</strong> que realmente es información proporcionada por el puerto remoto y no por el local; no por estar escaneando el puerto 80 estamos accediendo al servicio HTTP ya que podríamos haber configurado para redireccionar el puerto 9999 en pfsense. Lo que realmente debe orientarnos sobre el servicio que estamos visitando en ese puerto es la versión del mismo.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Redirección SSH</strong>: Vamos a conectarnos al puerto 22 de pfsense con el comando SSH y utilizamos el usuario <em>msfadmin</em> para ver si la redirección es satisfactoria. De serlo, se nos debe redirigir al puerto 22 de Metasploitable y como estamos accediendo con un usuario existente en la misma la operación debería de salir correctamente:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214214902.png" text-align="center" />
+  </div>
+
+    <p>Y efectivamente, es satisfactoria.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Redirección HTTP</strong>: Vamos a intentar acceder al puerto 80 de pfsense para ver si la redirección HTTP de pfsense a la Metasploitable2 es satisfactoria.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220214215435.png" text-align="center" />
+  </div>
+
+    <p>Y de nuevo es satisfactoria ya que nos conectamos a la IP de pfsense pero nos aparece la web de la Metasploitable2.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h2 id="36-qué-está-ocurriendo">3.6. ¿Qué está ocurriendo?</h2>
+
+<p>Lo que hacemos es que el servidor donde hemos instalado el software de pfsense actúe a modo de enrutador entre dos redes. Entonces, las conexiones que llegan a ese enrutador se redirigen según las reglas establecidas con la ventaja de que toda la información pasa a través de pfsense permitiendo su monitorización.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220214215724.png" text-align="center" />
+</div>
+
+<p>De esta manera, configurando reglas ponemos en contacto todos los servicios que ofrecen nuestras máquinas de la LAN (http, ssh, …) sin exponer a estas al exterior.</p>
+
+<p>Lo único que estaría expuesto sería pfsense que es una herramienta de monitorización y los puertos objeto de la redirección de pfsense de cada una de las máquinas de la LAN.</p>
+

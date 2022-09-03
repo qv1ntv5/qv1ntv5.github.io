@@ -1,0 +1,79 @@
+<h1 id="proxy">Proxy.</h1>
+
+<h2 id="proxy-como-concepto">Proxy como concepto.</h2>
+
+<p>Un proxy es un servidor que gestiona el acceso a la red ante la solicitud de un cliente. Es decir, es una máquina que ofrece un servicio; servir de puente entre el origen y el destino de una solicitud.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/Pasted%20image%2020211217130142.png" text-align="center" />
+</div>
+
+<p>Por ejemplo, en el contexto de una empresa que gestiona la salida de solicitudes mediante un proxy, todas los dispositivos que deseen conectarse a internet deben pasar sus solicitudes a través del servidor, si no es imposible navegar en absoluto. El proxy filtra las solicitudes y decide cuales pasan y cuales no. Todas las máquinas de dicha empresa tienen la dirección proxy y el puerto de su navegador configurados para que tenga lugar el acceso internet en estos términos, sin dicha configuración no se navega fuera de la empresa.</p>
+
+<h2 id="funcionalidades">Funcionalidades.</h2>
+
+<p>Un proxy puede tener las siguientes funcionalidades:</p>
+
+<ul>
+  <li>
+    <p><strong>Control de acceso</strong>: es posible que los administradores del servidor proxy permitan que ciertos usuarios tengan o no acceso a Internet a través de restricciones en su propio inicio de sesión o direcciones IP, proporcionando al entorno una capa adicional de protección.</p>
+  </li>
+  <li>
+    <p><strong>Filtrado de contenido</strong>: al estar en el medio del camino, el servidor también permite, o no, el acceso a ciertos sitios. Entre las reglas que se pueden aplicar están aquellas para bloquear sitios web específicos, pudiendo llegar a bloquear categorías completas.</p>
+  </li>
+  <li>
+    <p><strong>Caché</strong>: otro uso muy común para Web Proxies es hacer que realicen la función de caché. Esto hace que el proxy, después de acceder a una página, almacene el contenido de la misma en su sistema. Después de eso, las otras solicitudes a esta misma página no tendrán que ir a Internet, porque el contenido ya está almacenado en la memoria del proxy.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="proxy-inverso">Proxy Inverso.</h2>
+
+<p>Otro uso común y especialmente importante son los servidores de proxy inverso. En el caso de la empresa el origen de la solicitud se encontraba dentro de una red local, pasaba por el proxy y de ahí a internet. En el caso del proxy inverso, el origen de las solicitudes está en Internet y busca acceder a un servidor dentro del entorno:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/Pasted%20image%2020211217133835.png" text-align="center" />
+</div>
+
+<p>Los proxys internos se usan comúnmente ppara manerjar solicitudes a servidores que alojan páginas webs. Algunos de los beneficios son:</p>
+
+<ul>
+  <li>
+    <p><strong>Equilibrio de carga</strong>: debido a que la estructura del servidor proxy inverso le permite conectarse a varios servidores de destino, puede dirigir las solicitudes a cada uno de ellos sin sobrecargar ninguna. <strong>Como otra característica de seguridad, las solicitudes de Internet conocerán solo la dirección IP del proxy y no todos los servidores y páginas que tiene la compañía</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Caché</strong>: como en el ejemplo de caché web, los servidores proxy también se utilizan para optimizar las solicitudes entre origen y destino. El servidor proxy inverso almacena elementos de página almacenados en servidores internos, buscando actualizaciones de contenido de vez en cuando, para que los servidores de página reciban incluso menos solicitudes de red, lo que les permite funcionar aún mejor.</p>
+  </li>
+</ul>
+
+<h1 id="foxy-proxy">Foxy Proxy.</h1>
+
+<p>FoxyProxy es una extensión de Chrome y Firefox que te permite configurar tantos proxys como quieras para poder cambiar IPs a voluntad y al instante.</p>
+
+<h3 id="cómo-usar-foxyproxy"><strong>¿Cómo usar FoxyProxy?</strong></h3>
+
+<p>Primero descargue e instale la extensión dedicada a su navegador:</p>
+
+<ul>
+  <li>Descargar FoxyProxy for Chrome</li>
+  <li>Descargar FoxyProxy para Firefox</li>
+</ul>
+
+<p>Cuando reinicies tu navegador, verás un nuevo icono de Fox a la derecha de la barra de direcciones. Haga clic en este icono para visualizar la interfaz de configuración.</p>
+
+<p>En la primera pestaña, haga clic en Añadir nuevo proxy e introduzca la dirección IP y el puerto de su proxy.</p>
+
+<p>Para encontrar los proxies que merecen una visita, xroxy.com ofrece una lista actualizada de los mejores servidores en función de su nivel de anonimato, velocidad y el protocolo utilizado. Tenga en cuenta que FoxyProxy se conecta a algunos proxys dependiendo de los sitios que visite (como un proxy para un sitio en particular o no lo hace).</p>
+
+<p><img src="https://www.pchardwarepro.com/wp-content/uploads/2019/03/configuration-foxyproxy.png" alt="Gestiona los proxys de forma rápida y sencilla con FoxyProxy 2" /></p>
+
+<p>Dé a su proxy un nombre, un código de color y elija si desea eliminar o no las cookies antes de utilizarlo. Algunos ajustes son opcionales.</p>
+
+<p><img src="https://www.pchardwarepro.com/wp-content/uploads/2019/03/foxyproxy-config.png" alt="Gestiona los proxys de forma rápida y sencilla con FoxyProxy 3" /></p>
+
+<p>Después de la validación, su primer proxy configurado estará en la ventana principal. Es hora de activarlo.</p>
+
+<p>En la parte superior, además de seleccionar el modo, tendrás la opción de deshabilitar completamente FoxyProxy, usar el proxy «Predeterminado» para todas las URLs y usar el proxy que añadimos.</p>
+
+<p><img src="https://www.pchardwarepro.com/wp-content/uploads/2019/03/foxyproxy-activer.png" alt="Gestiona los proxys de forma rápida y sencilla con FoxyProxy 4" /></p>

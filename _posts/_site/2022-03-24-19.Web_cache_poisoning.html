@@ -1,0 +1,538 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Presentación del concepto.</li>
+  <li>2 Web Caché.
+    <ul>
+      <li>2.1. Servicio de caché web.</li>
+      <li>2.2. Pasos de actuación del web cache.</li>
+    </ul>
+  </li>
+  <li>3 Construyendo un web cache poisoning attack.
+    <ul>
+      <li>3.1. Identificar unkeyed input.</li>
+      <li>3.2. Obtener una respuesta ponzoñosa del servidor.</li>
+      <li>3.3. Obtener la respuesta en caché.</li>
+    </ul>
+  </li>
+  <li>4 Explotación de vulnerabilidades de web cache poisoning.
+    <ul>
+      <li>4.1. Explotación de fallas de diseño de caché.</li>
+      <li>4.2. Explotando vulnerabilidades de la implementación del cache.
+        <ul>
+          <li>4.2.1. Defectos de cache key.</li>
+          <li>4.2.2. Metodología de sondeo de cache.</li>
+          <li>4.2.3. Exploiting cache key flaws.</li>
+        </ul>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-presentación-del-concepto">1. Presentación del concepto.</h3>
+
+<p>El <strong>web caché poisoning</strong> es una técnica avanzada mediante la cual un atacante explota el comportamiento de un servidor web y su caché para que se disemine una respuesta HTTP dañina a otros usuarios.</p>
+
+<p>Fundamentalmente, este ataque tiene dos fases:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar, el atacante debe buscar una vulnerabiliad que sirva a sus propósitos, por ejemplo una vulnerabilidad XSS o algo por el estilo.</p>
+  </li>
+  <li>
+    <p>Una vez esto se ha logrado, hay que lograr que la respuesta maliciosa se guarde en caché para que se difunda entre las víctimas.</p>
+  </li>
+</ul>
+
+<p>Este tipo de ataques pueden distribuir una gran caantidad de tipos de ataques (XSS, JavaScript injection, Open redirection…).</p>
+
+<p><br /></p>
+
+<h3 id="2-web-caché">2. Web Caché.</h3>
+
+<h4 id="21-servicio-de-caché-web">2.1. Servicio de caché web.</h4>
+
+<p>Para entender cómo funciona la vulnrabilidad anterior es importante entender cómo funciona el web caché.</p>
+
+<p>El caché de un servidor está fundamentalmente para evitar la sobrecarga del mismo. El caché se sitúa entre el cliente y el servidor de forma que guarda respuestas a peticiones particulares durante un periodo de tiempo finito. De esta forma., si otro usuario mandara una petición equivalente cuya respuesta estuviera guardada en el caché de la aplicación web, entonces este servicio proporcionaría al cliente la respuesta HTTP sin necesidad de una injerencia por parte del servidor:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509103045.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="22-pasos-de-actuación-del-web-cache">2.2. Pasos de actuación del web cache.</h4>
+
+<p>Vamos ahora a ver cuáles son los pasos de actuación del caché de una aplicación web:</p>
+
+<ul>
+  <li>
+    <p>Cuando la memoria caché recibe una solicitud HTTP, primero debe determinar si hay una respuesta almacenada en la memoria caché que pueda servir directamente o si debe reenviar la solicitud para que la maneje el servidor de back-end. </p>
+  </li>
+  <li>
+    <p><strong>Los cachés identifican solicitudes equivalentes comparando un subconjunto predefinido de componentes de la solicitud, conocidos como “cache key”</strong>. Por lo general, esto contendría la “querystring” y el ”Host” header. </p>
+  </li>
+</ul>
+
+<p>Por otra parte, los componentes de la solicitud que no están incluidos en la clave de caché se dice que están “unkeyed”.</p>
+
+<ul>
+  <li>Si la clave de la caché de una solicitud entrante coincide con la clave de una solicitud anterior, la caché las considera equivalentes. Como resultado, entregará una copia de la respuesta en caché que se generó para la solicitud original. Esto se aplica a todas las solicitudes posteriores con la clave de caché coincidente, hasta que caduque la respuesta almacenada en caché.</li>
+</ul>
+
+<p>Fundamentalmente, <strong>el caché ignora por completo las unkeyed keys</strong>. Exploraremos el impacto de este comportamiento con más detalle más adelante.</p>
+
+<p><br /></p>
+
+<h3 id="3-construyendo-un-web-cache-poisoning-attack">3. Construyendo un web cache poisoning attack.</h3>
+
+<p>Un web cache poisoning attack consiste en:</p>
+
+<ol>
+  <li>
+    <p>Identificar una vulnerabilidad del lado del cliente en la aplicación web a base de “unkeyed” cache components.</p>
+  </li>
+  <li>
+    <p>Luego ser capaz de almacenar la respuesta maliciosa en el cache.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="31-identificar-unkeyed-input">3.1. Identificar unkeyed input.</h4>
+
+<p>Cualquier ataque de web cache poisoning se basa en la manipulación de unkeyed input, como algunos encabezados. </p>
+
+<p>Los web cache ignoran el unkeyed input a la hora de enviar una respuesta al usuario. Esto significa que puede usar dicho input para inyectar un payload y obtener una respuesta “envenenada” que, si se almacena en caché, se entregará a todos los usuarios cuyas solicitudes tengan las cache keys coincidentes. Por lo tanto, el primer paso al construir un ataque de envenenamiento de caché web es identificar unkeyed input que sean compatibles con el servidor.</p>
+
+<p>Puede identificar el input no codificado manualmente introduciendo valores aleatorios a las solicitudes y observando si tienen o no un efecto en la respuesta. Esto puede resultar en la entraga de la misma respuesta o desencadenar una respuesta completamente diferente. </p>
+
+<p>Sin embargo, a veces los efectos son más sutiles y requieren un poco de trabajo detectivesco para descubrirlos. <strong>Puede usar herramientas como Burp Comparer para comparar la respuesta con y sin la entrada inyectada</strong>, pero esto aún implica una cantidad significativa de esfuerzo manual.</p>
+
+<p>Afortunadamente, puede automatizar el proceso de identificación de entradas no codificadas agregando la extensión Param Miner a Burp desde la tienda BApp.</p>
+
+<p><br /></p>
+
+<h4 id="32-obtener-una-respuesta-ponzoñosa-del-servidor">3.2. Obtener una respuesta ponzoñosa del servidor.</h4>
+
+<p>Una vez que haya identificado un unkeyed input, el siguiente paso es evaluar exactamente cómo la procesa el sitio web. Comprender esto es esencial para obtener con éxito una respuesta dañina. Si una entrada se refleja en la respuesta del servidor sin haber sido saneada adecuadamente, o si se usa para generar dinámicamente otros datos, entonces este es un punto de entrada potencial para el envenenamiento de caché web.</p>
+
+<p><br /></p>
+
+<h4 id="33-obtener-la-respuesta-en-caché">3.3. Obtener la respuesta en caché.</h4>
+
+<p>Manipular las entradas para obtener una respuesta dañina es la mitad de la batalla, pero no logra mucho a menos que pueda hacer que la respuesta se almacene en caché, lo que a veces puede ser complicado.</p>
+
+<p>El hecho de que una respuesta se almacene o no en caché puede depender de todo tipo de factores, como la extensión del archivo, el tipo de contenido, la ruta, el código de estado y los encabezados de respuesta. Probablemente necesitará dedicar algún tiempo a simplemente jugar con las solicitudes en diferentes páginas y estudiar cómo se comporta el caché. Una vez que descubra cómo obtener una respuesta en caché que contenga su entrada maliciosa, estará listo para entregar el exploit a las víctimas potenciales.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509121858.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="4-explotación-de-vulnerabilidades-de-web-cache-poisoning">4. Explotación de vulnerabilidades de web cache poisoning.</h3>
+
+<p>Destacamos dos tipos de vulnerabilidades fundamentalmente. Fallas en el diseño del caché y fallas en la implementación del caché.</p>
+
+<p><br /></p>
+
+<h4 id="41-explotación-de-fallas-de-diseño-de-caché">4.1. Explotación de fallas de diseño de caché.</h4>
+
+<p>En esta sección, veremos más de cerca cómo pueden surgir vulnerabilidades de envenenamiento de caché web debido a fallas generales en el diseño de los cachés. También demostraremos cómo se pueden explotar.</p>
+
+<p>En resumen, los sitios web son vulnerables al envenenamiento de caché web si manejan la entrada sin clave de una manera insegura y permiten que las respuestas HTTP posteriores se almacenen en caché. Esta vulnerabilidad se puede utilizar como método de entrega para una variedad de ataques diferentes.</p>
+
+<p><br /></p>
+
+<p><strong>XSS attack via web cache poisoning</strong>:</p>
+
+<p>Quizás la vulnerabilidad de web caché poisoning más simple de explotar se produce cuando el unkeyed input se refleja en una respuesta almacenable en caché sin el saneamiento adecuado.</p>
+
+<p>Por ejemplo, considere la siguiente solicitud y respuesta:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">GET</span> <span class="nn">/en?region=uk</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">innocent-website.com</span>
+<span class="na">X-Forwarded-Host</span><span class="p">:</span> <span class="s">innocent-website.co.uk</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Cache-Control</span><span class="p">:</span> <span class="s">public</span>
+
+&lt;meta property="og:image" content="https://innocent-website.co.uk/cms/social.png" /&gt;
+</code></pre></div></div>
+
+<p>Se puede observar que el contenido de la cabecera X-Forwarded-Host queda expuesto en la respuesta http. D esta forma con un payload XSS simple se puede generar una respuesta maliciosa:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">GET</span> <span class="nn">/en?region=uk</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">innocent-website.com</span>
+<span class="na">X-Forwarded-Host</span><span class="p">:</span> <span class="s">a."&gt;&lt;script&gt;alert(1)&lt;/script&gt;"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Manejo inseguro de importaciones de recursos</strong></p>
+
+<p>Algunos sitios web usan encabezados unkeyed para generar URL dinámicamente para importar recursos, como archivos JavaScript alojados externamente. </p>
+
+<p>En este caso, si un atacante cambia el valor del encabezado apropiado a un dominio que controla, podría manipular la URL para apuntar a su propio archivo JavaScript malicioso.</p>
+
+<p>Si la respuesta que contiene esta URL maliciosa se almacena en caché, el archivo JavaScript del atacante se importaría y ejecutaría en la sesión del navegador de cualquier usuario cuya solicitud tenga una clave de caché coincidente.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Web cache poisoning with an unkeyed header</strong>(No funciona)</p>
+
+<p>Este laboratorio es vulnerable a Web Cache poisoning porque maneja input desde una cabecera sin clave de una manera poco segura.</p>
+
+<p>Un usuario desprevenido visita regularmente la página de inicio del sitio. Para resolver este laboratorio, envenene el caché con una respuesta que se ejecute ’alert(document.cookie)’ en el navegador del visitante.
+kali
+En primer lugar, accedemos al sitio web y añadimos la cabecera X-Forwarded-Host. Observamos que la configuración del sitio web hace que se emplee el valor de dicha cabecera para generar una ruta cuyo contenido se emplea en un script de la página. Así, podríamos generar un documento que contuviera código malicioso que se ejecutara en el navegador de la víctima que recibiera dicha respuesta.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524175507.png" text-align="center" />
+</div>
+
+<p>De esta forma, acudimos al exploit server y en el body escribimos “alert(document.cookie)” y cambiamos el nombre del fichero del exploit a /resources/js/tracking.js para que coincida con la ruta en cuestión.</p>
+
+<p>Seguidamente, volvemos a la request y cambiamos el valor de la cabecera para que coincida con la dirección de nuestro server-exploit. Así, mandamos la request hasta que en la respuesta aparezca la cabecera X-Cache: hit.</p>
+
+<p><br /></p>
+
+<p><strong>Exploit de vulnearbilidades de manejo de cookies via web cache poisoning</strong></p>
+
+<p>Las cookies a menudo se emplean para generar contenido de forma dinámica en una respuesta. Un ejemplo común puede ser una cookie que indica la preferencia de un usuario por un idioma.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">GET</span> <span class="nn">/blog/post.php?mobile=1</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">innocent-website.com</span>
+<span class="na">User-Agent</span><span class="p">:</span> <span class="s">Mozilla/5.0 Firefox/57.0</span>
+<span class="na">Cookie</span><span class="p">:</span> <span class="s">language=pl; Connection: close`</span>
+</code></pre></div></div>
+
+<p>En este ejemplo, se solicita la versión polaca de una publicación de blog.</p>
+
+<p>Observamos que la información del idioma se encuentra sólo en la cookie. Supongamos que el cache key contiene la línea de solicitud y el encabezado del Host, pero no el encabezado de la Cookie.</p>
+
+<p>En este caso, si la respuesta a esta solicitud se almacena en caché, todos los usuarios posteriores que intentaron acceder a esta publicación de blog también recibirían la versión en polaco, independientemente del idioma que realmente seleccionaron.</p>
+
+<p>En la práctica, sin embargo, este vector es relativamente raro en comparación con el envenenamiento de caché basado en encabezados. Cuando existen vulnerabilidades de envenenamiento de caché basadas en cookies, tienden a identificarse y resolverse rápidamente porque los usuarios legítimos han envenenado accidentalmente el caché.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Web cache poisoning with an unkeyed cookie</strong></p>
+
+<p>Este laboratorio es vulnerable a web cache poisoning debido a una unkeyed cookie que se emplea de forma potencialmente dañina en la respuesta HTTP.</p>
+
+<p>En primer lugar, accedemos al home del laboratorio e inspeccionamos el código. Podemos observar que existe un script de javascript que conteiene el valor de una cookie:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524182433.png" text-align="center" />
+</div>
+
+<p>De esta forma, si modificaramos el valor de la cookie, obtendríamos una respuesta envenenada si la cookie no forma parte de las cache keys.</p>
+
+<p>Si nosotros envíamos la resquest del GET / al BurpRepeater y le añadimos un parámetro cualquiera, por ejemplo /?cb=1234, al mandar la request recibiremos en primer lugar una cabecera X-Cache: miss y al enviarla otra vez un hit. Repasamos la request y cambiamos el valor del cb obteniendo de nuevo en la respuesta un miss. Así ( y como por otra parte puede sonar lógico, deducimos que la querystring de la request es una Cache-key). Si hacemos lo propio con el valor de la cookie fehost observaremos que su valor no altera el cambio de la request en cache por lo que no forma parte de las cachekey.</p>
+
+<p>De esta manera, a juzgar por la estructura sintáctica del script en el que se almacena la cookie, alteramos el valor de la cookie de la siguiente manera: fehost=prod-cache-01”-alert(1)-“hola y enviamos la request tantas veces como sea neceario hasta obtener un caché-hit en la respuesta. Así, cuando la respuesta con un payload XSS se guarde en cache se enviará a cualquier otro usuario.</p>
+
+<p><br /></p>
+
+<p><strong>Exploit vulnerabilidad web cache poisoning usando múltiples cabeceras</strong></p>
+
+<p>Algunas aplicaciones web requieren de un método de ataque más sofisticado. Para ver un ejemplo, supongámos de una aplicación web que fuerza la conexión mediante HTTPS y si recibe una petición que utilice otro protocolo de comunicación se genera de manera dinámica una redirección que emplea HTTPS.</p>
+
+<pre><code class="language-HTTP">GET /random HTTP/1.1
+Host: innocent-site.com
+X-Forwarded-Proto: http HTTP/1.1 301 moved permanently
+Location: https://innocent-site.com/random
+</code></pre>
+
+<p>Este comportamiento no es en sí mismo sin embargo, en combinación con lo aprendido anteiormente un atacante podría potencialmente utilizar este comportamiento a su favor para lograr una redirección hacia un sitio malicioso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Web cache poisoning with multiples headers</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad de envenenamiento de caché web que sólo admite una explotación mediante múltiples cabeceras.</p>
+
+<p>Un usuario vista esta página una vez cada minuto. Para resolver el laboratorio, envene el cache con una respuesta que ejecute alert(1) en el navegador del visitante.</p>
+
+<p><br /></p>
+
+<p>En primer lugar, podemos observar mediante el HTTP history que cuando solicitamos una request a la página “Home” del laboratorio, también se realiza una request al fichero contenido en:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524224046.png" text-align="center" />
+</div>
+
+<p>Que carga código JavaScript en la página. Además, también hay un comportamiento potencialmente dañino. Existen dos cabeceras X-Forwarded-Scheme y X-Forwarded-Host que juegan un papel fundamental en el comportamiento de la aplicación y no están dentro de las cache-key:</p>
+
+<ul>
+  <li>X-Forwarded-Scheme: genera un cambio en el protocolo de comunicación en el que se realiza la request. Sin embargo, por medidas de seguridad, cada vez que se realiza una conexión en cualquier protocolo que no sea HTTPS el servidor induce al cliente a una redirección en HTTPS:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629172600.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Por otra parte, X-Forwarded-Host: contiene la dirección a la que se realiza está redirección con HTTPS cuando ambas cabeceras se utilizan conjuntamente:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629172744.png" text-align="center" />
+</div>
+
+<p>Así, el procedimiento parece claro. Podemos aprovechar el comportamiento para redirigir una conexión a un sitio malicioso que contenga código JavaScript como por ejemplo una página del server-exploit a la que cambiaremos el nombre como /resources/js/tracking.js para que coincida con la dirección del sitio web, cambiando el valor de la cabecera X-Forwarded-Host con nuestra dirección del server-exploit. Y como son unkeyed components esta respuesta maliciosa se almacenará en el cache exponiéndose a cualquier usuario que carge el home de la aplicación web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629173205.png" text-align="center" />
+</div>
+
+<p>Así habríamos terminado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Explotando respuestas que exponen mucha información</strong></p>
+
+<p>Muchas veces, algunos sitios web exponen sus propias vulnerabilidades de web cache poisoning exponiendo mucha información acerca de su página y de su propio comportamiento.</p>
+
+<p>Una de estas fallas consiste en la cabecera “Vary” que expone qué compoenentes de la request son cache key además de los componentes por defecto como el Host header o la querystring.</p>
+
+<p>Así por ejemplo, si un atacante sabe que una posible víctima utiliza un componente adicional como el User-Agent header con un determinado valor y además resulta que sabe que este es parte de las cache jey mediante el vary header. Así, puede envenenar una respuesta previo a la petición de la víctima para que la víctima reciba una respuesta ponzoñosa.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524220012.png" text-align="center" />
+</div>
+
+<p>Vamos al exploit server y modificamos el contenido para presentar javascript para obtener la cookie de un usuario con document.cookie y cambiamos la dirección del fichero para que coincida con la ruta de importación de la página.</p>
+
+<p>Así, sólo queda provocar un envenamiento del cache.</p>
+
+<p>Otra cosa a observar es la presencia del encabezado Vary, que contiene el valor de User-Agent. Como ya hemos explicado antes, la cabecera Vary se emplea para mencionar aquellas cabeceras que puede ser que formen parte de las cache key. A su vez, la cabecera HTTP User-Agent es un encabezado de request cuyo contenido consiste en una que permite a los “peers” del protocolo de red identificar el sistema operativo y el navegador del servidor web que envía la petición.</p>
+
+<p>En otras palabras, se trata de una cabecera que de alguna manera, guarda algunas características del usuario que envía la request. Como esta forma parte de los cache key, si pudiéramos saber cuál es la cabecera User-Agent de una víctima podríamos envenar el cache para que la transmitiéra personalmente una respuesta envenenada.</p>
+
+<p>Sin embargo, si podemos saber cuál es el User-Agent header de una víctima si logramos que esta interactúe con nuestro servidor del exploit. Para ello, acudimos a la sección de comentarios del POST, donde ya está indicado que está permitido el HTML y posteamos el siguiente payload:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"https://your-exploit-server-id.web-security-academy.net/foo"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Así, se le pondrá en contacto con nuestro servidor del exploit y en la sección de log podremos obtener su cabecera. Después de haber posteado nuestro payload, acudimos a la sección de logs y encontramos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524222021.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Targeted web cache poisoning using an unknown header</strong></p>
+
+<p>Veamos en primer lugar una forma de generar una respuesta venenosa a partir de una vulnerabilidad de redirección.</p>
+
+<p>En primer lugar, mediante el uso de la extensión Param-miner podemos observar que se admite la cabecera X-Host y que además es un unkeyed component.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220524215817.png" text-align="center" />
+</div>
+
+<p>Seguidamente, al emplearla en una request podemos observar que el contenido de la cabecera X-Host se emplea para construir una dirección que carga código JavaScript como en laboratorios anteriores. De esta forma, como en laboratorios anteriores redirigimos la conexión al un servidor bajo nuestro control que carge código JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629174219.png" text-align="center" />
+</div>
+
+<p>Como X-Host está unkeyed, la respuesta maliciosa se guarda en cache y se expone a cualquier usuario que intente acceder al home del sitio web.</p>
+
+<p><br /></p>
+
+<h4 id="42-explotando-vulnerabilidades-de-la-implementación-del-cache">4.2. Explotando vulnerabilidades de la implementación del cache.</h4>
+
+<p>En nuestros laboratorios anteriores, vimos formas de explotación web cache mediante unkeyed components, sin embargo, esto es sólo una parte de lo que se puede llegar a hacer.</p>
+
+<p>En esta sección, demostraremos <strong>cómo se puede acceder a una superficie de ataque mucho mayor para el web cache poisoning mediante la explotación de fallas en implementaciones de sistemas de almacenamiento en caché</strong>. En particular, veremos por qué las fallas en la forma en que se generan las claves de caché a veces pueden hacer que los sitios web sean vulnerables al envenenamiento de caché a través de vulnerabilidades separadas que tradicionalmente se consideran inexplotables. </p>
+
+<p><br /></p>
+
+<h5 id="421-defectos-de-cache-key">4.2.1. Defectos de cache key.</h5>
+
+<p>En términos generales, los sitios web toman la mayor parte del input del URL path. Como resultado, esta es una superficie de ataque muy utilizada para varias técnicas de hacking. Sin embargo, dado que la línea de solicitud suele ser parte de la cache key, dicho input tradicionalmente no se ha considerado adecuado para el cache poisoning debido a que cualquier payload actuaría como una característica clave de tu request en el cache y no sería distribuida a otros usuarios.</p>
+
+<p>Sin embargo, el comportamiento de los sistemas de almacenamiento en caché no siempre es el esperado. En la práctica, muchos sitios web realizan varias transformaciones de los cache key cuando se guardan. Esto puede incluir:</p>
+
+<ul>
+  <li>Exclusión de la query string.</li>
+  <li>Filtrado de parámetros de consulta específicos.</li>
+  <li>Normalización de entrada en componentes clave.</li>
+</ul>
+
+<p>Estas transformaciones suelen estar fundamentadas en la discrepancia que existe entre el data que se escribe en la cache key y el data que se pasa a modo de código a la aplicación web y pueden ser explotadas via cache poisoning.</p>
+
+<p><br /></p>
+
+<h5 id="422-metodología-de-sondeo-de-cache">4.2.2. Metodología de sondeo de cache.</h5>
+
+<p>La metodología de sondeo del caché pasa por las siguientes pasos:</p>
+
+<p><br /></p>
+
+<p><strong>Identificar un cache oracle adecuado</strong></p>
+
+<p>Un cache oracle no es más que una página o endpoint que provee de feedback sobre el comportamiento del propio cache como por ejemplo indicar si la respuesta que se recibe se recibe directamente desde el servidor o se recibe desde el cache.</p>
+
+<p>Este feedback puede tomar varias formas como las siguientes:</p>
+
+<ul>
+  <li>Cabecera HTTP que te dice si tienes un “cache hit”.</li>
+  <li>Cambios observables sobre un contenido dinámico.</li>
+  <li>Distintos tiempos de respuesta.</li>
+</ul>
+
+<p>Idealmente, el cache oracle también reflejará la URL entera y al menos un parámetro en la respuesta. Esto volverá mucho más fácil advertir discrepancias entre el cache y la aplicación lo que ayudará a construir posteriormente un exploit de ataque.</p>
+
+<p><br /></p>
+
+<p><strong>Probar el manejo del cache key</strong></p>
+
+<p>El siguiente paso es investigar si el cache realiza un procesamiento adicional del input cuando se genera el cache key.</p>
+
+<p>En principio, se debería de intentar observar cualquier transformación que esté teniendo lugar, si se añade algo, si se quita algo, etc.</p>
+
+<p>Puede ocurrir que tengas acceso directo a los cache key y en cuyo caso sólo hay que comparar dichos valores después de inyectar una serie de valores arbitrarios (fuzzing). Pero la mayoría de las veces se recurrirá al entendimiento que se tiene del cache oracle para inferir si ser recibe la respuesta cacheada correcta o no después de la inyección de código en el testeo.</p>
+
+<p>Por ejemplo, si quisiéramos saber si el puerto forma parte de las cache keys enviaríamos dos request con puertos distintos. si recibimos exactamente la misma respuesta o en su defecto, si identificamos la cabecera hit en la segunda request significará que el puerto no esta cacheado porque no provoca una request personalizada. De lo contrario, el puerto si sera parte de los cache keys.</p>
+
+<p><br /></p>
+
+<p><strong>Identificar un gadget explotable</strong></p>
+
+<p>A estas alturas, debería tener una comprensión relativamente sólida de cómo se comporta el caché del sitio web de destino y podría haber encontrado algunas fallas interesantes en la forma en que se construye la clave de caché. El paso final es identificar un dispositivo adecuado que pueda encadenar con esta falla de cache key. Esta es una habilidad importante porque la gravedad de cualquier ataque de envenenamiento de caché web depende en gran medida del dispositivo que pueda explotar.</p>
+
+<p><strong>Estos dispositivos a menudo serán vulnerables a vulnerabilidades clásicas del lado del cliente, como XSS reflejado y redireccionamientos abiertos. Al combinarlos con el envenenamiento de caché web, puede escalar masivamente la gravedad de estos ataques, convirtiendo una vulnerabilidad reflejada en una almacenada</strong>. En lugar de tener que inducir a una víctima a visitar una URL especialmente diseñada, su carga útil se entregará automáticamente a cualquier persona que visite la URL normal y perfectamente legítima.</p>
+
+<p>Quizás aún más interesante, estas técnicas le permiten explotar una serie de vulnerabilidades no clasificadas que a menudo se descartan como “no explotables” y se dejan sin parchear. Esto incluye el uso de contenido dinámico en archivos de recursos y exploits que requieren solicitudes mal formadas que un navegador nunca enviaría.</p>
+
+<p><br /></p>
+
+<h5 id="423-exploiting-cache-key-flaws">4.2.3. Exploiting cache key flaws.</h5>
+
+<p><strong>Unkeyed port</strong></p>
+
+<p>El encabezado del Host (que indica el sitio web al que va dirigido el procesamiento de la request) suele ser parte de los cache key y, como tal, inicialmente parece un candidato poco probable para inyectar cualquier tipo de payload. Sin embargo, algunos sistemas de almacenamiento en caché analizarán el encabezado y excluirán el puerto de los cache key.</p>
+
+<p>En este caso, puede usar potencialmente este encabezado para el envenenamiento de caché web. Por ejemplo, considere el caso que vimos anteriormente en el que se generó dinámicamente una URL de redireccionamiento basada en el encabezado del Host.</p>
+
+<p>Esto podría permitirle construir un ataque de denegación de servicio simplemente agregando un puerto arbitrario a la solicitud. Todos los usuarios que navegasen a la página de inicio serían redirigidos a un puerto dudoso, eliminando de facto la página de inicio hasta que caducara el caché.</p>
+
+<p>Este tipo de ataque se puede escalar aún más si el sitio web le permite especificar un puerto no numérico. Podría usar esto para inyectar una carga XSS, por ejemplo.</p>
+
+<p><br /></p>
+
+<p><strong>Unkeyed query string</strong></p>
+
+<p>Tal y como ocurría con la cabecera Host, la línea de búsqueda, la “querystring” generalmente también es uno de los caché key. Sin embargo, también es bastante habitual desechar completamente dicha línea de búsqueda.</p>
+
+<p><br /></p>
+
+<p><strong>Detectando un unkeyed query string</strong></p>
+
+<p>Si la HTTP response incorpora el cache header, entonces puedes saber si tienes o no un hit con el cache o no, y en ese sentido, puedes saber si el query string forma parte de los cache key o no.</p>
+
+<p>Sin embargo, esto puede no ocurrir, como sería el caso de las páginas dinámicas que parecen estáticas.</p>
+
+<p>Normalmente, para identificar una página dinámica bastaría con cambiar el valor de los parámetros para observar como cámbia la página. Sin embago, si la query string no forma parte de los cache key, eontonces independienetmente de la búsqueda realizada el cache le devolverá la misma HTTP response. Claramente, esto también hace que los parámetros de consulta de cache-buster clásicos sean redundantes.</p>
+
+<p>Afortunadamente, existen formas alternativas de agregar un cache buster, como agregarlo a un encabezado incorporado en las cache keys que no interfiere con el comportamiento de la aplicación. Algunos ejemplos típicos incluyen:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">Accept-Encoding: gzip, deflate, cachebuster
+Accept: */*, text/cachebuster
+Cookie: cachebuster=1
+Origin: https://cachebuster.vulnerable-website.com
+</span></code></pre></div></div>
+
+<p>Incluso, si se emplea la herramienta como Param-miner, también puedes seleccionar la opción “add static/dynamic cache buster” o “Include cache busters in headers”.</p>
+
+<p>Otra forma de comprobarlo es comprobar cómo reacciona el back end cuando se introducen valores no esperados. Por ejemplo, para los siguientes tipos de servidores web las siguientes entradas se tratan de la misma forma:</p>
+
+<p>Apache: GET //
+Nginx: GET /%2F
+PHP: GET /index.php/xyz
+NET GET /(A(xyz)/</p>
+
+<p>Esta transformación puede algunas veces enmaskarar reflected XSS.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Web cache poisoning via an unkeyed query string</strong>.</p>
+
+<p>Este laboratorio es vulnerable a web cache poisoning porque la query string es un “unkeyed component”. Un usuario regularmente visita la página home de este sitio utilizando Chrome.</p>
+
+<p>Al acceder el laboratorio y cargar la página “home” y probar introduciendo distintas “querystrings” siempre obtenemos una respuesta contenida en el cache tal y com indica la cabecera X-Cache visible desde BurpRepeater.</p>
+
+<p>Sin embargo, un dato interesante es que existe un link que contiene la URL del sitio web y en esta, cada vez que se guarda nuestra respuesta en el cache hasta que este se agota, se guardan los parámetros de la query string. De esta forma, podría ser que la respuesta fuera vulnerable a un ataque XSS. Así, esperamos y lanzamos en la querystring el código: ‘/&gt;&lt;script&gt;alert(1)&lt;/script&gt; y mandamos la request hasta que se almacene en el cache.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629174721.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Unkeyed query parameters</strong></p>
+
+<p>Este laboratorio es vulnerable a web cache poisoning porque excluye ciertos parámetros del cache key. Un usuario regularmente visita el home de este sitio web desde chrome.</p>
+
+<p>Este laboratorio es similar al anterior con la salvedad de que tan sólo algunos parámetros son unkeyed componentes. Para detectarlos empleamos la herramienta Param miner y terminamos obteniendo que el parámetro <em>utm_content</em> se refleja en la respuesta HTTP como cualquier otro con la salvedad de que no es cache key y por tanto estamos en el mismo contexto que en el laboratorio anterior.</p>
+
+<p><br /></p>
+
+<p><strong>Cache parameter cloacking (Incosistent parameter parsing)</strong></p>
+
+<p>Si puede averiguar cómo el caché analiza la URL para identificar y eliminar los parámetros no deseados, es posible que encuentre algunas peculiaridades interesantes. De particular interés son las discrepancias de análisis entre la memoria caché y la aplicación. Esto puede permitirle colar parámetros arbitrarios en la lógica de la aplicación al “ocultarlos” en un parámetro excluido.</p>
+
+<p>Por ejemplo, el estándar de facto es que un parámetro irá precedido de un signo de interrogación (?), si es el primero en la cadena de consulta, o de un ampersand (&amp;) si sigue a otro parámetro.</p>
+
+<p>Algunos algoritmos de análisis mal escritos tratarán cualquier ? como el comienzo de un nuevo parámetro, independientemente de si es el primero o no.</p>
+
+<p>Supongamos que el algoritmo para excluir parámetros de la clave de caché se comporta de esta manera, pero el algoritmo del servidor solo acepta el primero. como delimitador. Considere la siguiente solicitud:</p>
+
+<pre><code class="language-HTTP">GET /?example=123?excluded_param=bad-stuff-here
+</code></pre>
+
+<p>En este caso, el caché identificaría dos parámetros y excluiría el segundo de la clave del caché. Sin embargo, el servidor no acepta el segundo ? como delimitador y, en su lugar, solo ve un parámetro, ejemplo, cuyo valor es el resto completo de la cadena de consulta, incluida nuestra carga útil. Si el valor de ejemplo se pasa a un dispositivo útil, hemos inyectado con éxito nuestra carga útil sin afectar la clave de caché.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Parameter cloaking</strong></p>
+
+<p>Este laboratorio es vulnerable a “web cache poisoning”. La vulnerabilidad se basa en la exclusión de las cache-key de un parámetro y de un fallo de configuración por el que podemos reflejar el contenido de otro parámetro que se refleja en la respuesta después de aplicar cierta mecánica en conjunción con el parémtro desechado mencionado anteriormente.</p>
+
+<p>En primer lugar, accedemos al laboratorio y comprobamos que el parámetro “utm_content” está admitido y excluido de las cache key ya que siempre vuelve a reflejarse independientemente de cómo se mande la request (si está está cacheada).</p>
+
+<p>Además, por un fallo de configuración al añadir un segundo parámetro separado por ‘;’ el cache key lo interpreta como un único parámetro mientras que el servidor distingue ambos parámetros. Podemos aprovechar esta característica para fijar un parámetro de la querystring (que estaría en la cache key) a la respuesta cacheada que se refleje en el contenido HTTP de la respuesta.</p>
+
+<p>Veamos cómo podemos explotar este mecanismo.</p>
+
+<p>Observamos inspeccionado el código fuente de la página que esta ejecuta código javascript cargando el código de una fuente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220608173230.png" text-align="center" />
+</div>
+
+<p>Seguidamente, inspeccionando el contenido de dicha fuente desde el BurpTarget podemos observar que este carga el contenido en función del valor del parámetro callback de la request y que cambiando el valor de dicho parámetro podemos :</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220608175143.png" text-align="center" />
+</div>
+
+<p>Sin embargo, no podemos cachearla porque el parámetro callback está dentrod e las cache key.</p>
+
+<p>Sin embargo, aquí es donde entra en juego el parámetro utm_content, introduciendo la línea:</p>
+
+<pre><code class="language-HTTP">GET /js/geolocate.js?callback=setCountryCookie&amp;utm_content=foo;callback=alert(1)
+</code></pre>
+

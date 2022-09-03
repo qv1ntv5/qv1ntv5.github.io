@@ -1,0 +1,205 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Introducción.</li>
+  <li>2 Directory Traversal.
+    <ul>
+      <li>2.1. Concepto de Directory Traversal Vulnerability.</li>
+      <li>2.2. Leyendo ficheros arbitrarios via directory traversal.</li>
+      <li>
+        <p>2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal.</p>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-introducción">1. Introducción.</h3>
+
+<p>En esta sección explicaremos qué es una vulnerabilidad Directory Traversal (o de cruce de directorios), describiriemos como se llevan a cabo ataques de ruta traversal y cómo eludir obstáculos comunes.</p>
+
+<p><br /></p>
+
+<h3 id="2-directory-traversal-vulnerability">2. Directory Traversal Vulnerability.</h3>
+
+<h4 id="21-concepto-de-directory-traversal">2.1. Concepto de Directory Traversal.</h4>
+
+<p>“Directory Traversal” (o file path traversal) es un término que alude a <strong>una vulnerabilidad web que permite a un atacante acceder a un área o localización no esperada del servidor que está corriendo la aplicación web</strong>.</p>
+
+<p>Técnicamente, <strong>se trata de una vulnerabilidad que se basa en cambiar la ruta que refiere a un fichero para acceder a otro fichero</strong>.</p>
+
+<pre><code class="language-default">image?file=/ruta/del/archivo.jpg
+</code></pre>
+
+<p><br /></p>
+
+<pre><code class="language-default">image?file=../../../etc/passwd
+</code></pre>
+
+<p>En algunos casos, el alcance de este ataque puede llegar a permitir que un atacante modifique un fichero alterando el comportamiento del servidor y en última instancia tomando control de la máquina.</p>
+
+<p><br /></p>
+
+<h4 id="22-leyendo-ficheros-arbitrarios-via-directory-traversal">2.2. Leyendo ficheros arbitrarios via directory traversal.</h4>
+
+<p>Consideremos una aplicación web que muestra imagenes de productos que están a la venta.</p>
+
+<p>A su vez sabemos que el navegador renderiza (da un formato gráfico) a un documento de html que es un lenguaje de marcas. Dentro del html de una página las imagenes se incluyen mediante una etiqueta que incluye el contenido de un fichero situado en alguna parte del servidor.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/loadImage?filename=218.png"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>(Para más información buscar sintaxis de la URI)</p>
+
+<p>La URL loadImage coge el valor del parámetro de “filename” y devuelve el contenido del fichero seleccionado por ese parámetro utilizando una API.</p>
+
+<p>En muchos servidores, estas imagenes suelen estar almacenadas en /var/www/images que es donde se busca por defecto.</p>
+
+<p><br /></p>
+
+<p>De esta manera, <strong>un sitio web que no tiene una protección adecuada en contra la vulnerabilidad Directory Traversal no impide que en dicha URL se pueda introducir el path de un fichero que contenga información sensible</strong>, de esta forma, se puede cambiar el fichero 218.png por /etc/passwd.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/loadImage?filename=../../../etc/passwd"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Observemos los ../../../, esto es debido a que el path donde la aplicaicón busca empieza por defecto en /var/www/images luego la ruta en la que se busca el fichero es: /var/www/images/../../../etc/passwd, o lo que es lo mismo /etc/passwd, enseñando toda la información de dicho fichero.</p>
+
+<p>El término ../ es similar a buscar el resto del path en el directorio superior a la localización actual. Esto en principio suponiendo que el sistema operativo del servidor esté basado en Unix.</p>
+
+<p>Si fuera Windows, habría que adaptar el path cambiando / por \ .</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: File path traversal simple case</strong>.</p>
+
+<p>Este laboratorio contiene una vulnerabilidad file path traversal que nos puede permitir leer contenido sensible de otros ficheros del propio servidor.</p>
+
+<p>Para ello, podemos entrar en el laboratorio y solicitar ver los detalles de cualquier producto</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404165703.png" text-align="center" />
+</div>
+
+<p>De esta forma, la imagen se podrá ver en primer plano y pulsando el botón secundario podemos inspeccionar el elemento imagen para comprobar de dónde sale:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404170015.png" text-align="center" />
+</div>
+
+<p>Así, comprobamos que efectivamente es un fichero que se incluye desde el propio servidor y como tal podemos probar a ver si otros ficheros se puede incluir, para ello, utilizamos la URL y llevamos a cabo una petición para ver la imágen en el navegador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404170250.png" text-align="center" />
+</div>
+
+<p>Y modificamos el parámetro filename para probar si podemos incluir otro archivo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404170719.png" text-align="center" />
+</div>
+
+<p>Recibimos un mensaje que nos informa sobre que el fichero no puede renderizarse como una imagen debido a que contiene errores (por supuesto, ya que no es una imagen).</p>
+
+<p>Así, abrimos BurpSuite e interceptamos la petición para mandarla al Repeater para poder ver el código en raw, eso nos permitirá ver el código sin que este pase por ninguna API que lo interprete en ningún sentido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404170917.png" text-align="center" />
+</div>
+
+<p>Y ahí finalmente observamos el contenido del fichero.</p>
+
+<p><br /></p>
+
+<h4 id="23-obstáculos-comunes-al-explotar-vulnerabilidades-de-file-path-traversal">2.3. Obstáculos comunes al explotar vulnerabilidades de file path traversal.</h4>
+
+<p>Muchas aplicaciones que situan el input del usuario dentro de rutas de ficheros implementan algún tipo de defensa en contra de ataques “file path traversal” y muchas de ellas pueden ser evadidas.</p>
+
+<ul>
+  <li>Puedes probar a utilizar una ruta absoluta del sistema de ficheros para referenciar el archivo:</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: File path traversal, traversal sequences blocked with absolute path bypass</strong>.</p>
+
+<p>Este laboratorio posee una vulnerabilidad de file path traversal pero bloquea los términos que permiten ir a directorios superiores en la ruta que referencia el fichero. Sin embargo, trata cada el nombre del fichero como una ruta relativa a un directorio concreto, en este caso, el directorio raíz /.</p>
+
+<p>Así, llevamos a cabo una request con el path al fichero passwd desde /, es decir, /etc/passwd.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404181119.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>Se pueden utilizar términos anidados, como // o ….\/. Esto provoca que algunas páginas tienen configurada que cuando detectan un término como ../ o \ lo eliminen y vuelvan a procesar la isntrucción sin ese término. De esta forma si se utilizan dobles terminos se hace que al final quede la instrucción como el atacante quiere.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: File path traversal, traversal sequences stripped non-recursively</strong>.</p>
+
+<p>En este laboratorio, la aplicación elimina las secuencias (términos) transversales de ruta del nombre de archivo proporcionado por el usuario antes de usarlo.</p>
+
+<p>Así, como ya hemos mencionado debemos añadir dobles términos para tener acceso al fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404181722.png" text-align="center" />
+</div>
+
+<p>Para comprobar que el resultado es adecuado, como en el primer laboratorio, interceptamos la request con BurpSuite y la enviamos al Repeater donde analizamos la respuesta del servidor en crudo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404181810.png" text-align="center" />
+</div>
+
+<p>Y efectivamente, hemos obtenido el contenido del fichero deseado.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>En algunas aplicaciones web se desmonta cualquier secuencia de cruce de directorios antes de procesarla. Este saneamiento de código puede ser evadido mediante la codificación de distintos caracteres en la URL e incluso doblando los caracteres codificados:</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: File path traversal, traversal sequences stripped with superfluous UTL-decode</strong>.</p>
+
+<p>El siguiente laboratorio bloquea input que contenga términos de cruce de directorio y seguidamente realiza una decodificación de la URL antes de utilizarla.</p>
+
+<p>Para resolver este laboratorio hará falta introducir los caracteres de cruce directorios codificados para la URL y además habrá que introducirlos repetidos para hacer un bypass al bloqueo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404183705.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>También puede ocurrir que una aplicación requiera que el input que introduce el usuario empiece con un directorio base; /var/www/images, en tal caso, es posible incluir en el nombre del fichero tal base, para luego introducir caracterees de directorio cruzado y volver al directorio donde se encuentra el fichero deseado: <strong>/var/www/images/../../../etc/passwd</strong></li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: File path traversal, validation of start of path</strong>.</p>
+
+<p>Procediendo como hemos hecho en casos anteriores pero introduciendo el siguiente valor al parámetro:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404185312.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>En otras ocasiones también es posible que requiera que termine con una determinada extensión, como: .png. De esta forma añadimos %00 para sortear este método de defensa.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: File path traversal, validation of file extension with null byte bypass</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220404185714.png" text-align="center" />
+</div>
+

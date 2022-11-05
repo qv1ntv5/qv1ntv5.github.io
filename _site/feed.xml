@@ -12,7 +12,51 @@
     
     
       <item>
-        <title>Junior Penetrationtester path</title>
+        <title>7.BufferOverflow.</title>
+        <description>
+          An introduction to Buffer Overflow. - 
+          0. Índice. 1 Presentación del material. 2 BufferOverFlow Explained. 3 Python3. 4 Tryhackme’s BufferOverflow. 1. Presentación del material. Estos son unos apuntes construidos a partir del siguiente vídeo. y de la siguiente página Para la realización de los mismos se ha utilizado: Máquina Windows 10 hosteada virtualmente (Virtualbox). Vulnserver Inmunity...
+        </description>
+        <pubDate>Wed, 02 Nov 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-11-02-7.BufferOverflow/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-11-02-7.BufferOverflow/</guid>
+      </item>
+    
+      <item>
+        <title>6.Offensive Pentesting</title>
+        <description>
+          Notes of the TryHackMe's path Offensive Pentesting. - 
+          0. Índice. 1 Getting Started. Vulnsversity. Blue. Kenobi. 2 Advanced Explotation. Steel Mountain. Alfred. HackPark. Game Zone. Skynet Daily Bugle Overpass 2 - Hacked. Relevant. Internal. 3 Buffer Overflow Explotation. Buffer Overflow Prep. Brainstorm. 1. Getting Started. 1.1. Vulnversity. We’re going to compromise a target machine with IP: 10.10.39.39. First...
+        </description>
+        <pubDate>Tue, 01 Nov 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-11-01-6.OffensivePentesting/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-11-01-6.OffensivePentesting/</guid>
+      </item>
+    
+      <item>
+        <title>5.RedTeam</title>
+        <description>
+          Notes of the TryHackMe's path RedTeam. - 
+          0. Índice. 1 Red Team Fundamentals. 1.1. Red Team Fundamentals. 1.2. Red Team Engagements. 1.3. Red Team Threat Intel. 1.4. Red Team OPSEC. 1.5. Intro to C2. 2 Initial Access. 2.1. Red Team Recon. 2.2. Weaponization. 2.3. Password Attacks. 2.4. Phising. 3 Post Compromise. 3.1. The Lay of the land...
+        </description>
+        <pubDate>Sun, 30 Oct 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-10-30-5.RedTeam/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-10-30-5.RedTeam/</guid>
+      </item>
+    
+      <item>
+        <title>4.Windows</title>
+        <description>
+          Recopilation of several Windows notes of TryHackMe. - 
+          0. índice 1 Fundamentos de Windows. 1.1. Fundamentos de Windows I 1.2. Fundamentos de Windows II 1.3. Active Directory Basics. 2 Windows Internals 2.1. Windows Internals 2.2. Core Windows Process 2.3. Abusing Windows Internals 3 Windows Privilege Escalation 3.1. Windows PrivEsc I 3.2. Windows PrivEsc II 4 Windows Reverse Engenering...
+        </description>
+        <pubDate>Sat, 22 Oct 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-10-22-4.Windows/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-10-22-4.Windows/</guid>
+      </item>
+    
+      <item>
+        <title>3.Junior Penetrationtester path</title>
         <description>
           Notes of the TryHackMe's path Junior Penetration Tester. - 
           0. Índice. Penetration Testing. 1.1. Pentesting Fundamentals. 1.2. Principles of Security. Introduction to Web Hacking. 2.1. Walking An Application. 2.2 Content Discovery. 2.3. Subdomain Enumeration. 2.4. Authentication Bypass. 2.5. IDOR 2.6. File Inclusion. 2.7. SSRF. 2.8. Cross-site Scripting. 2.9. Command Injection. 2.10. SQL Injection. Network Security. 4.1. Passive Reconnaissance. 4.2....
@@ -23,7 +67,7 @@
       </item>
     
       <item>
-        <title>Complete Begginer path.</title>
+        <title>2.Complete Begginer path.</title>
         <description>
           Notes of the TryHackMe's path Complete Begginer. - 
           0. Índice. 1 Linux Fundamentals. 1.1. Fundamentos de Linux I. 1.2. Fundamentos de Linux II. 1.3. Fundamentos de Linux III. 2 Networking Explotation Basics. 2.1. Introductory Networking. 2.2. Nmap. 2.3. Network Services. 3 Web Hacking Fundamentals. 4 Cryptography. 4.1. Hashing - Crypto 101. 4.2. John The Ripper. 4.3. Encryption -...
@@ -34,7 +78,7 @@
       </item>
     
       <item>
-        <title>Pre-Security path.</title>
+        <title>1.Pre-Security path.</title>
         <description>
           Notes of the TryHackMe's path Pre-Security. - 
           0. Índice. 1 Network Fundamentals. 1.1. Network. Internet. Dirección IP. MAC. Ping. 1.2. Intro to LAN. 1.3. Understanding OSI model. 1.4. Packets &amp;amp; Frames. 1.5. Extending your Network. 2 Web Fundamentals. 2.1. DNS in detail. 2.2. HTTP in detail. 2.3. How Websites works. 2.4. Other componentes. Web servers. 3 Linux...
@@ -185,50 +229,6 @@
         <pubDate>Wed, 16 Mar 2022 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/</link>
         <guid isPermaLink="true">http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/</guid>
-      </item>
-    
-      <item>
-        <title>10. XXE Injection.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de inyección XML a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Concepto de XXE. 2 Cómo se plantean las vulnerabilidades XXE. 3 Entidades XML. 3.1. Qué es el XML. 3.2. Entidades XML. 3.3. Definición del tipo de documento. 3.4. Entidades comunes XML. 3.5. Entidades externas de XML. 4 Tipos de ataques XXE. 4.1. Explotando XXE para recuperar ficheros....
-        </description>
-        <pubDate>Tue, 15 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-15-10.XXE_injection/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-15-10.XXE_injection/</guid>
-      </item>
-    
-      <item>
-        <title>9. Server-Side Request Forgery.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de redirección a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Concepto de SSRF 1.1. Introducción al concepto. 1.2. Impacto. 2 Ataques SSRF comunes. 2.1. Ataque SSRF contra el mismo servidor. 2.2. Ataques SSRF contra otros sistemas back-end. 3 Evitando defensas comunes SSRF. 3.1. Defensa de SSRF basada en un filtro basado en lista negra. 3.2. Defensa de...
-        </description>
-        <pubDate>Mon, 14 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-14-9.Server-side_request_forgery/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-14-9.Server-side_request_forgery/</guid>
-      </item>
-    
-      <item>
-        <title>8. File Upload.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Introducción al concepto de File Upload Vulnerability. 1.1. Concepto. 1.2. Impacto de la vulnerabilidad. 1.3. Planteamiento de las vulnerabilidades. 2 Procesamiento de ficheros estáticos por parte de los servidores. 3 Explotando vulnerabilidades de subida de ficheros. 3.1. Explotando vulnerabilidades que permiten la ejecución de código. 3.2. Explotando...
-        </description>
-        <pubDate>Sun, 13 Mar 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/</guid>
-      </item>
-    
-      <item>
-        <title>7. Access Control.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de control de acceso a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Concepto de Access Control 1.1. Definición. 1.2. Categorías. 2 Ejemplos de vulnerabilidades en el control de acceso. 2.1. Escalada de privilegios vertical. 2.2. Elevación de privilegios horizontal. 2.3. Elevación de privilegios vertical partiendo de una escalada horizontal. 1. Concepto de Access Control. 1.1. Definición. Access control o...
-        </description>
-        <pubDate>Sat, 12 Mar 2022 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2022-03-12-7.Access_control/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-12-7.Access_control/</guid>
       </item>
     
   </channel>

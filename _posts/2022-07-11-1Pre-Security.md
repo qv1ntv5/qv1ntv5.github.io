@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Pre-Security path.
+title: 1.Pre-Security path.
 subtitle: Notes of the TryHackMe's path Pre-Security.
-tags: [preOSCP]
+tags: [thm]
 ---
 
 ## 0. Índice.

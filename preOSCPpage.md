@@ -1,7 +1,7 @@
 ---
 layout: page
-title: preOSCP
-subtitle: Notes of a preOSCP course.
+title: THM
+subtitle: Notes of a THM course.
 ---
 
 {% assign posts = paginator.posts | default: site.posts %}
@@ -9,7 +9,7 @@ subtitle: Notes of a preOSCP course.
 <div class="posts-list">
     {% for post in posts %}
     {% for tag in post.tags %}
-    {% if tag == "preOSCP" %} <!-- Esta página lista todos los posts que contengan a modo de tag el string que aparece a la izquierda.-->
+    {% if tag == "THM" %} <!-- Esta página lista todos los posts que contengan a modo de tag el string que aparece a la izquierda.-->
             <article class="post-preview">
                 {%- capture thumbnail -%}
                 {% if post.thumbnail-img %}

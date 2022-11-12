@@ -1,7 +1,7 @@
 ---
 layout: page
-title: TryHackMe wargames
-subtitle: Retos de TryHackMe.
+title: TryHackMe
+subtitle: TryHackMe's paths and machines.
 ---
 
 {% assign posts = paginator.posts | default: site.posts %}

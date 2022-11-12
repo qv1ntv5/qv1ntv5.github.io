@@ -1,7 +1,7 @@
 ---
 layout: page
-title: PortSwigger BurpSuite Certificate
-subtitle: Teoría y laboratorios de la herramienta Burpsuite de PortSwigger.
+title: PortSwigger BurpSuite Curse
+subtitle: Portswigger BurpSuite's teory and labs.
 ---
 
 {% assign posts = paginator.posts | default: site.posts %}

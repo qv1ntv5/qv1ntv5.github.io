@@ -119,33 +119,26 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RedTeam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/THMpage">THM</a>
-            </div>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blueteam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/INGINVIDApage">Reversing</a>
-            </div>
-          </li>
-        
           <li class="nav-item">
-            <a class="nav-link" href="/REDESpage">Redes</a>
+            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WarGames</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/HTBpage">Htb</a>
-                  <a class="dropdown-item" href="/THMpage">Thm</a>
-                  <a class="dropdown-item" href="/OTWpage">Otw</a>
-                  <a class="dropdown-item" href="/OTHERSWARGAMESpage">Other</a>
+                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
+                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
+                  <a class="dropdown-item" href="/REDESpage">Redes</a>
             </div>
           </li>
         
@@ -177,6 +170,27 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Tier II", \
+          "category" : "start", \
+          "url"      : "/2022-11-11-Tier_2/", \
+          "date"     : "November 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "start", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "start", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
        \
         { \
           "title"    : "7.BufferOverflow.", \
@@ -502,7 +516,7 @@
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Certificate", \
+          "title"    : "PortSwigger BurpSuite Curse", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
           "date"     : "January 1, 1970" \
@@ -512,34 +526,6 @@
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "HackTheBox Machines", \
-          "category" : "page", \
-          "url"      : "/HTBpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Ingenieria Inversa con IDA", \
-          "category" : "page", \
-          "url"      : "/INGINVIDApage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Others Wargames Posts", \
-          "category" : "page", \
-          "url"      : "/OTHERSWARGAMESpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "OverTheWire wargames", \
-          "category" : "page", \
-          "url"      : "/OTWpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -565,16 +551,23 @@
         }, \
        \
         { \
-          "title"    : "TryHackMe wargames", \
+          "title"    : "Retired Machines", \
           "category" : "page", \
-          "url"      : "/THMpage/", \
+          "url"      : "/RetiredMachinespage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
         { \
-          "title"    : "Wargames Posts", \
+          "title"    : "Starting Point", \
           "category" : "page", \
-          "url"      : "/WARGAMEpage/", \
+          "url"      : "/StartPointpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -660,6 +653,13 @@
           "category" : "page", \
           "url"      : "/page9/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -722,6 +722,146 @@
 
 
 <div class="posts-list">
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-10-30-5.RedTeam/">
+      <h2 class="post-title">5.RedTeam</h2>
+
+      
+        <h3 class="post-subtitle">
+        Notes of the TryHackMe's path RedTeam.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on October 30, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0. Índice.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-10-30-5.RedTeam/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#thm">thm</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-10-22-4.Windows/">
+      <h2 class="post-title">4.Windows</h2>
+
+      
+        <h3 class="post-subtitle">
+        Recopilation of several Windows notes of TryHackMe.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on October 22, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0. índice 1 Fundamentos de Windows. 1.1. Fundamentos de Windows I 1.2. Fundamentos de Windows II 1.3. Active Directory Basics. 2 Windows Internals 2.1. Windows Internals 2.2. Core Windows Process 2.3. Abusing Windows Internals 3 Windows Privilege Escalation 3.1. Windows PrivEsc I 3.2. Windows PrivEsc II 4 Windows Reverse Engenering...
+      
+      
+        <a href="http://localhost:4000/2022-10-22-4.Windows/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#thm">thm</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-09-02-3.JRPenetrationTester/">
+      <h2 class="post-title">3.Junior Penetrationtester path</h2>
+
+      
+        <h3 class="post-subtitle">
+        Notes of the TryHackMe's path Junior Penetration Tester.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on September 2, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0. Índice. Penetration Testing. 1.1. Pentesting Fundamentals. 1.2. Principles of Security. Introduction to Web Hacking. 2.1. Walking An Application. 2.2 Content Discovery. 2.3. Subdomain Enumeration. 2.4. Authentication Bypass. 2.5. IDOR 2.6. File Inclusion. 2.7. SSRF. 2.8. Cross-site Scripting. 2.9. Command Injection. 2.10. SQL Injection. Network Security. 4.1. Passive Reconnaissance. 4.2....
+      
+      
+        <a href="http://localhost:4000/2022-09-02-3.JRPenetrationTester/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#thm">thm</a>
+      
+    </div>
+    
+
+   </article>
   
   <article class="post-preview">
     
@@ -811,150 +951,6 @@
       <span>Tags:</span>
       
       <a href="http://localhost:4000/tags#thm">thm</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-30-PracticeExam/">
-      <h2 class="post-title">Burp Certified Practitioner Practice Exam.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Practice Exam Burp Certified Practitioner.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 30, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      Practice Exam.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-03-30-PracticeExam/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-27-22.OAuth_authentication/">
-      <h2 class="post-title">22. OAuth Authentication.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de autenticación OAuth a través de la herramienta BurpSuite.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 27, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      0. Indice.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-03-27-22.OAuth_authentication/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/">
-      <h2 class="post-title">21. HTTP Request Smuggling.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 26, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      0. Índice.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     

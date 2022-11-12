@@ -137,33 +137,26 @@ Scripts de tunneling para pivoting">
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RedTeam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/THMpage">THM</a>
-            </div>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blueteam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/INGINVIDApage">Reversing</a>
-            </div>
-          </li>
-        
           <li class="nav-item">
-            <a class="nav-link" href="/REDESpage">Redes</a>
+            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WarGames</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/HTBpage">Htb</a>
-                  <a class="dropdown-item" href="/THMpage">Thm</a>
-                  <a class="dropdown-item" href="/OTWpage">Otw</a>
-                  <a class="dropdown-item" href="/OTHERSWARGAMESpage">Other</a>
+                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
+                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
+                  <a class="dropdown-item" href="/REDESpage">Redes</a>
             </div>
           </li>
         
@@ -195,6 +188,27 @@ Scripts de tunneling para pivoting">
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Tier II", \
+          "category" : "start", \
+          "url"      : "/2022-11-11-Tier_2/", \
+          "date"     : "November 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "start", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "start", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
        \
         { \
           "title"    : "7.BufferOverflow.", \
@@ -520,7 +534,7 @@ Scripts de tunneling para pivoting">
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Certificate", \
+          "title"    : "PortSwigger BurpSuite Curse", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
           "date"     : "January 1, 1970" \
@@ -530,34 +544,6 @@ Scripts de tunneling para pivoting">
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "HackTheBox Machines", \
-          "category" : "page", \
-          "url"      : "/HTBpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Ingenieria Inversa con IDA", \
-          "category" : "page", \
-          "url"      : "/INGINVIDApage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Others Wargames Posts", \
-          "category" : "page", \
-          "url"      : "/OTHERSWARGAMESpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "OverTheWire wargames", \
-          "category" : "page", \
-          "url"      : "/OTWpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -583,16 +569,23 @@ Scripts de tunneling para pivoting">
         }, \
        \
         { \
-          "title"    : "TryHackMe wargames", \
+          "title"    : "Retired Machines", \
           "category" : "page", \
-          "url"      : "/THMpage/", \
+          "url"      : "/RetiredMachinespage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
         { \
-          "title"    : "Wargames Posts", \
+          "title"    : "Starting Point", \
           "category" : "page", \
-          "url"      : "/WARGAMEpage/", \
+          "url"      : "/StartPointpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -677,6 +670,13 @@ Scripts de tunneling para pivoting">
           "title"    : "Germán Sanmillán", \
           "category" : "page", \
           "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
           "date"     : "January 1, 1970" \
         } \
        \

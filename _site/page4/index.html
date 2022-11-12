@@ -119,33 +119,26 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RedTeam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/THMpage">THM</a>
-            </div>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blueteam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/INGINVIDApage">Reversing</a>
-            </div>
-          </li>
-        
           <li class="nav-item">
-            <a class="nav-link" href="/REDESpage">Redes</a>
+            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WarGames</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/HTBpage">Htb</a>
-                  <a class="dropdown-item" href="/THMpage">Thm</a>
-                  <a class="dropdown-item" href="/OTWpage">Otw</a>
-                  <a class="dropdown-item" href="/OTHERSWARGAMESpage">Other</a>
+                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
+                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
+                  <a class="dropdown-item" href="/REDESpage">Redes</a>
             </div>
           </li>
         
@@ -177,6 +170,27 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Tier II", \
+          "category" : "start", \
+          "url"      : "/2022-11-11-Tier_2/", \
+          "date"     : "November 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "start", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "start", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
        \
         { \
           "title"    : "7.BufferOverflow.", \
@@ -502,7 +516,7 @@
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Certificate", \
+          "title"    : "PortSwigger BurpSuite Curse", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
           "date"     : "January 1, 1970" \
@@ -512,34 +526,6 @@
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "HackTheBox Machines", \
-          "category" : "page", \
-          "url"      : "/HTBpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Ingenieria Inversa con IDA", \
-          "category" : "page", \
-          "url"      : "/INGINVIDApage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Others Wargames Posts", \
-          "category" : "page", \
-          "url"      : "/OTHERSWARGAMESpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "OverTheWire wargames", \
-          "category" : "page", \
-          "url"      : "/OTWpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -565,16 +551,23 @@
         }, \
        \
         { \
-          "title"    : "TryHackMe wargames", \
+          "title"    : "Retired Machines", \
           "category" : "page", \
-          "url"      : "/THMpage/", \
+          "url"      : "/RetiredMachinespage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
         { \
-          "title"    : "Wargames Posts", \
+          "title"    : "Starting Point", \
           "category" : "page", \
-          "url"      : "/WARGAMEpage/", \
+          "url"      : "/StartPointpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -660,6 +653,13 @@
           "category" : "page", \
           "url"      : "/page9/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -722,6 +722,167 @@
 
 
 <div class="posts-list">
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-03-23-18.Serve-side_template_injection/">
+      <h2 class="post-title">18. Server-Side Template Injection.</h2>
+
+      
+        <h3 class="post-subtitle">
+        Detección y explotación de vulnerabilidades inyección de comandos en motor plantilla a través de la herramienta BurpSuite.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on March 23, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0. Índice.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-03-23-18.Serve-side_template_injection/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#burp">burp</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-03-22-17.Insecure_deserialization/">
+      <h2 class="post-title">17. Insecure Deserialization.</h2>
+
+      
+        <h3 class="post-subtitle">
+        Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on March 22, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0. Índice.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-03-22-17.Insecure_deserialization/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#burp">burp</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-03-21-16.WebSockets/">
+      <h2 class="post-title">16. WebSockets.</h2>
+
+      
+        <h3 class="post-subtitle">
+        Detección y explotación de vulnerabilidades de WebSockets a través de la herramienta BurpSuite.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on March 21, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      0.Índice
+
+  1 WebSockets.
+    
+      1.1. Concepto de WebScokets.
+      1.2. Diferencia entre HTTP y WebSockets.
+      1.3. Conexiones con WebSockets.
+      1.4. Cómo son los mensajes de WebSocket.
+    
+  
+  2 Vulnerabilidades WebSockets.
+    
+      2.1. Manipulando los mensajes de WebSockets.
+      2.2. Manipulando las conexiónes entre WebSockets.
+      2.3. Cross-site WebSocket hijacking.
+    
+  
+
+
+
+      
+      
+        <a href="http://localhost:4000/2022-03-21-16.WebSockets/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#burp">burp</a>
+      
+    </div>
+    
+
+   </article>
   
   <article class="post-preview">
     
@@ -814,164 +975,6 @@
       
       
         <a href="http://localhost:4000/2022-03-19-14.Clickjacking/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/">
-      <h2 class="post-title">13. Cross-Origin Resource Sharing.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 18, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      0. Índice.
-
-  1 Presentación del concepto.
-    
-      1.1. Introducción.
-      1.2.Antecedentes: Same Origin Policy.
-        
-          1.2.1. Introducción al SOP.
-          1.2.2. Implementación del mecanismo.
-          1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin.
-          1.2.4. Implementación del intercambio simple de recursos de origen cruzado.
-        
-      
-    
-  
-  2 Vulnerabilidades planteadas desde la configuración CORS.
-
-
-
-      
-      
-        <a href="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/">
-      <h2 class="post-title">12. Cross-Site Request Forgery.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 17, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      0. Índice. 1 Definición del concepto. 2 Planteamiento de la vulnerabilidad. 3 Planteamiento del ataque. 3.1. CSRF PoC Generator. 3.2. Cómo compartir un exploit CSRF. XSS vs CSRF. 4 Previniendo ataques CSRF. 4.2. CSRF tokens. 4.2.1. Presentación. 4.2.2. Transmisión del token. 4.2.3. Tokens CSRF y ataques XSS. 5 Vulnerabilidades comúnes....
-      
-      
-        <a href="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#burp">burp</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/">
-      <h2 class="post-title">11. Cross-Site Scripting.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on March 16, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      0. Índice.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     

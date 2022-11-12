@@ -13,20 +13,16 @@ author: Qv1nTv5
 
 # --- List of links in the navigation bar --- #
 
-navbar-links:
-  RedTeam: 
-    - Basics: REDTEAMBASICSpage
-    - Burp: BURPSUITEpage
-    - THM: THMpage
-  Blueteam: 
-    - Basics: BLUETEAMBASICSpage
-    - Reversing: INGINVIDApage
-  Redes: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
-  WarGames:
-    - Htb: HTBpage
-    - Thm: THMpage
-    - Otw: OTWpage
-    - Other: OTHERSWARGAMESpage 
+navbar-links: 
+  BurpSuite: BURPSUITEpage
+  TryHackMe: THMpage
+  HackTheBox: 
+    - Starting Labs: StartPointpage
+    - Retired Labs: RetiredMachinespage
+  Otros: 
+    - RedBasics: REDTEAMBASICSpage
+    - BlueBasics: BLUETEAMBASICSpage
+    - Redes: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
   Projectos: PROJECTSpage
 
 # --- Logo --- #

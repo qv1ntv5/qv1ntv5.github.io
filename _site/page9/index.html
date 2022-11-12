@@ -119,33 +119,26 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RedTeam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
-                  <a class="dropdown-item" href="/THMpage">THM</a>
-            </div>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blueteam</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Basics</a>
-                  <a class="dropdown-item" href="/INGINVIDApage">Reversing</a>
-            </div>
-          </li>
-        
           <li class="nav-item">
-            <a class="nav-link" href="/REDESpage">Redes</a>
+            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WarGames</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/HTBpage">Htb</a>
-                  <a class="dropdown-item" href="/THMpage">Thm</a>
-                  <a class="dropdown-item" href="/OTWpage">Otw</a>
-                  <a class="dropdown-item" href="/OTHERSWARGAMESpage">Other</a>
+                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
+                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
+                  <a class="dropdown-item" href="/REDESpage">Redes</a>
             </div>
           </li>
         
@@ -177,6 +170,27 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Tier II", \
+          "category" : "start", \
+          "url"      : "/2022-11-11-Tier_2/", \
+          "date"     : "November 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "start", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "start", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
        \
         { \
           "title"    : "7.BufferOverflow.", \
@@ -502,7 +516,7 @@
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Certificate", \
+          "title"    : "PortSwigger BurpSuite Curse", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
           "date"     : "January 1, 1970" \
@@ -512,34 +526,6 @@
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "HackTheBox Machines", \
-          "category" : "page", \
-          "url"      : "/HTBpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Ingenieria Inversa con IDA", \
-          "category" : "page", \
-          "url"      : "/INGINVIDApage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Others Wargames Posts", \
-          "category" : "page", \
-          "url"      : "/OTHERSWARGAMESpage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "OverTheWire wargames", \
-          "category" : "page", \
-          "url"      : "/OTWpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -565,16 +551,23 @@
         }, \
        \
         { \
-          "title"    : "TryHackMe wargames", \
+          "title"    : "Retired Machines", \
           "category" : "page", \
-          "url"      : "/THMpage/", \
+          "url"      : "/RetiredMachinespage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
         { \
-          "title"    : "Wargames Posts", \
+          "title"    : "Starting Point", \
           "category" : "page", \
-          "url"      : "/WARGAMEpage/", \
+          "url"      : "/StartPointpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -660,6 +653,13 @@
           "category" : "page", \
           "url"      : "/page9/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -722,6 +722,150 @@
 
 
 <div class="posts-list">
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/">
+      <h2 class="post-title">Movimientos Laterales</h2>
+
+      
+        <h3 class="post-subtitle">
+        Introducción a pivoting y tunneling.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on February 6, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. Movimientos Laterales.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-02-05-Evasi%C3%B3n_de_Defensas/">
+      <h2 class="post-title">Evasión de Defensas</h2>
+
+      
+        <h3 class="post-subtitle">
+        Introduccióna evasión de Antivirus y UAC.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on February 5, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. Antivirus.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-02-05-Evasi%C3%B3n_de_Defensas/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2022-02-05-Escalada_de_privilegios/">
+      <h2 class="post-title">Escalada de privilegios</h2>
+
+      
+        <h3 class="post-subtitle">
+        Introducción a Escalada de Privilegios.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on February 5, 2022
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. Escalada de privilegios.
+
+
+      
+      
+        <a href="http://localhost:4000/2022-02-05-Escalada_de_privilegios/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      
+    </div>
+    
+
+   </article>
   
   <article class="post-preview">
     
@@ -820,150 +964,6 @@
 
    </article>
   
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/">
-      <h2 class="post-title">Ataque a aplicaciones web.</h2>
-
-      
-        <h3 class="post-subtitle">
-        Introducción a estructuras y ataques de aplicaciones web.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on February 2, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      1. Introducción a las aplicaciones web, dirb y burpsuite I.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/">
-      <h2 class="post-title">Ataques a Infraestructuras y Redes</h2>
-
-      
-        <h3 class="post-subtitle">
-        Introducción a webs, análsis de puertos.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on February 1, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      
-
-
-      
-      
-        <a href="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/">
-      <h2 class="post-title">Análisis de Objetivos</h2>
-
-      
-        <h3 class="post-subtitle">
-        Introducción a OSINT y análisis de objetivos de ataque.
-        </h3>
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on January 28, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      1. Introducción OSINT.
-
-
-      
-      
-        <a href="http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
-      
-    </div>
-    
-
-   </article>
-  
 </div>
 
 
@@ -973,6 +973,10 @@
     <a class="page-link" href="http://localhost:4000/page8">&larr; Newer Posts</a>
   </li>
   
+  
+  <li class="page-item next">
+    <a class="page-link" href="http://localhost:4000/page10">Older Posts &rarr;</a>
+  </li>
   
 </ul>
 

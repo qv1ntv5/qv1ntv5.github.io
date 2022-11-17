@@ -23,6 +23,7 @@ navbar-links:
     - RedBasics: REDTEAMBASICSpage
     - BlueBasics: BLUETEAMBASICSpage
     - Redes: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
+    - Git: 2022-11-17-GitBasics
   Projectos: PROJECTSpage
 
 # --- Logo --- #

@@ -15,7 +15,7 @@
   <meta name="author" content="Qv1nTv5">
   
 
-  <meta name="description" content="Recopilation of several Windows notes of TryHackMe.">
+  <meta name="description" content="Recopilation of notes about Windows from Tryhackme's path.">
 
   
 
@@ -77,7 +77,7 @@
   
   <meta property="og:site_name" content="Home">
   <meta property="og:title" content="4.Windows">
-  <meta property="og:description" content="Recopilation of several Windows notes of TryHackMe.">
+  <meta property="og:description" content="Recopilation of notes about Windows from Tryhackme's path.">
 
   
 
@@ -96,7 +96,7 @@
   <meta name="twitter:creator" content="@Qvintvs1">
 
   <meta property="twitter:title" content="4.Windows">
-  <meta property="twitter:description" content="Recopilation of several Windows notes of TryHackMe.">
+  <meta property="twitter:description" content="Recopilation of notes about Windows from Tryhackme's path.">
 
   
 
@@ -141,6 +141,7 @@
                   <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
                   <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
                   <a class="dropdown-item" href="/REDESpage">Redes</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
             </div>
           </li>
         
@@ -172,6 +173,13 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
        \
         { \
           "title"    : "Tier II", \
@@ -697,7 +705,7 @@
           <h1>4.Windows</h1>
           
             
-              <h2 class="post-subheading">Recopilation of several Windows notes of TryHackMe.</h2>
+              <h2 class="post-subheading">Recopilation of notes about Windows from Tryhackme's path.</h2>
             
           
 
@@ -740,9 +748,9 @@
   <li>3.1. Windows PrivEsc I</li>
   <li>3.2. Windows PrivEsc II</li>
   <li>4 Windows Reverse Engenering</li>
+  <li>5 Windows Services
+<br /></li>
 </ul>
-
-<p><br /></p>
 
 <h3 id="1-fundamentos-de-windows">1. Fundamentos de Windows.</h3>
 
@@ -1531,7 +1539,7 @@
 
 <h4 id="21-windows-internals">2.1. Windows Internals.</h4>
 
-<p>7.BufferOverflowIntroduction.md</p>
+<p><strong>Intro</strong></p>
 
 <p>El sistema operativo es gran obra de ingenieria y tecnología, en esta sección cubriremos las partes más importantes que hacen que el sistema operativo funcione. En partes anteriores, en contraste con lo que vamos a hacer en esta, hemos visto programas con los que un usuario interactúa con distintas partes del sistema operativo. Ahora vamos a ver cómo funciona por dentro el sistema.</p>
 
@@ -1765,7 +1773,7 @@
 
 <h4 id="22-core-windows-process">2.2. Core Windows Process.</h4>
 
-<p>7.BufferOverflowIntroduction.md</p>
+<p><strong>Intro</strong></p>
 
 <p>En el apartado anterior hemos cubierto los componentes más importantes que integran los mecanismos de funcionamiento de Windows, los procesos. Ahora en esta sección vamos a cubrir cuáles son los procesos más importantes en Windows OS.</p>
 
@@ -2226,7 +2234,7 @@ Mantiene entre otras cosas una base de datos interna de windows accesible desde 
 <h3 id="4-windows-reversing">4. Windows Reversing.</h3>
 <h4 id="41-windows-x64-assembly">4.1. Windows x64 Assembly.</h4>
 
-<p>7.BufferOverflowIntroduction.md</p>
+<p><strong>Intro</strong></p>
 
 <p>Esta es una sección en el que nos vamos a introducir al Reversing en Windows. El <em>Reversing</em> consiste esencialmente en apartir de un objeto o resultado de una operación concreta, a través de una serie de técnicas, tratar de entender cómo se ha llegado a dicho objeto o resultado.</p>
 
@@ -2625,7 +2633,7 @@ add AL, 60
 
 <h4 id="42-windows-reversing">4.2. Windows Reversing.</h4>
 
-<p>7.BufferOverflowIntroduction.md</p>
+<p><strong>Intro</strong></p>
 
 <p>En esta sección veremos Reversing enfocado a Windows con herramientas como IDA.</p>
 
@@ -2760,6 +2768,48 @@ mov [RCX], 0x424F42 ; name = "BOB"
 <p>Así, cuando se carga una DLL, la función DllMain() se ejecuta dentro del contexto del proceso que importa el código de la DLL. A partir de ahí, el código de la DLL para a ser procesado como si fuera código nativo del programa. Un tipo de ataque frecuente es la <em>DLL Injection</em>, consistente en hacer que el proceso de destino llame a LoadLibrary() en una DLL maliciosa, lo que hará que DllMain() dentro de dicha DLL se ejecute dentro del contexto del proceso de destino cargan así código malicioso.</p>
 
 <p><br /></p>
+
+<h3 id="5-windows-services">5. Windows Services.</h3>
+
+<p><strong>Definition of Windows Services</strong></p>
+
+<p>Los servicios de Windows son un componente principal del Microsoft Windows Operating System, cumplean la importante función the habilitar la creación y gestión de ‘long-running’ process.</p>
+
+<p>Es decir, al contrario que el software convencional, que se ejecuta por orden directa del usuario que interactúa con el sistema, Windows Services se ejecutan sin la intervención del usuario y a menudo su ejecución sobrevive a la permanencia del usuario en el sistema. Estos servicios se ejecutan en segundo plano (background) y muchos se ejecutan nada más iniciarse el sistema.</p>
+
+<p>Un servicio es básicamente la herramienta a través de la cual se lleva a cabo la gestión del Microsoft Windows OS, majena una amplia variedad de funciones, como conexiones de red, creación de backups, credenciales de usuario, etc.</p>
+
+<p>Un servicio está asociado a un ejecutable (service binary), la iniciación de un servicio consiste en la ejecución del Service Binary.</p>
+
+<p>Los Servicios de Windows se dividen en general en tres categorías según las acciones y aplicaciones que controlan: Servicios locales, Servicios de red y Servicios de Sistema. Las aplicaciones de terceros, como el software antivirus, también pueden instalar sus propios servicios.</p>
+
+<p>Los servicios pueden ser eliminados por un usuario con privilegios administrativos, pero como hacerlo puede volver inestable el sistema operativo, debe hacerse solo cuando sea necesario y con precaución.</p>
+
+<p><br /></p>
+
+<p><strong>Windows Services Control Manager</strong></p>
+
+<p>Los servicios de Windows se pueden gestionar a través del Services Control Manager panel. El panel muestra una lista de servicios con distintos campos: nombre, descripción, status, y el tipo de servicio. También podemos listar los servicios desde el Command Prompt a través de un cmdlet de powershell ‘Get-Services’.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020221115125506.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Summary</strong></p>
+
+<ul>
+  <li>
+    <p><em>Mecanismo de inicio</em>: el usuario final inicia manualmente una aplicación normal desde el escritorio o el menú Inicio. Los servicios de Windows se inician cuando se encienden la máquina o en cualquier caso, sin intervención del usuario.</p>
+  </li>
+  <li>
+    <p><em>Interfaz de usuario</em>: a diferencia de las aplicaciones normales, los Servicios de Windows no tienen una interfaz de usuario; se ejecutan en segundo plano y el usuario no interactúa directamente con ellos. Un servicio de Windows no se detiene cuando un usuario cierra sesión en la computadora; una aplicación regular si se detendrá.</p>
+  </li>
+  <li>
+    <p><em>Derechos de administrador</em> : los servicios de Windows generalmente se ejecutan con privilegios administrativos incluso cuando un usuario que no es administrador inicia sesión y usa la computadora. El servicio de Windows promedio tiene más control sobre la máquina en comparación con una aplicación normal</p>
+  </li>
+</ul>
 
 
       </article>

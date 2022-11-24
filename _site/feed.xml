@@ -133,6 +133,17 @@
       </item>
     
       <item>
+        <title>0.Scripting for pentesters.</title>
+        <description>
+          Compilation of notes of Tryhackme's scripting rooms. - 
+          0. Índice. 1 Python Basics. 2 Python for Pentesters. 3 Hacking with Powershell. 4 Powershell for Pentesters. 1. Python Basics. Introduction to Python En este apartado nos introduciremos al lenguaje de programación Python. Cubriremos: Variables Loops Functions Data Structures If statements Files Antes de comenzar diremos que Python es un...
+        </description>
+        <pubDate>Sun, 10 Jul 2022 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2022-07-10-0.Scripting_for_pentesters/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-07-10-0.Scripting_for_pentesters/</guid>
+      </item>
+    
+      <item>
         <title>Burp Certified Practitioner Practice Exam.</title>
         <description>
           Practice Exam Burp Certified Practitioner. - 
@@ -218,17 +229,6 @@
         <pubDate>Mon, 21 Mar 2022 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2022-03-21-16.WebSockets/</link>
         <guid isPermaLink="true">http://localhost:4000/2022-03-21-16.WebSockets/</guid>
-      </item>
-    
-      <item>
-        <title>15.DOM-based XSS vulnerabilities.</title>
-        <description>
-          Detección y explotación de vulnerabilidades XSS basados en DOM través de la herramienta BurpSuite. - 
-          0. Índice. 1 Introducción al DOM. 2 Taint-flow vulnerabilities. 2.1. Web message source. 2.2. DOM-based open redirection. 2.3. DOM-Based cookie manipulation. 1. Introducción al DOM. El modelo de objeto de documento (DOM) es la representación jerárquica de los elementos de la página renderizada por el navegador web. Los sitios web pueden...
-        </description>
-        <pubDate>Sun, 20 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/</guid>
       </item>
     
   </channel>

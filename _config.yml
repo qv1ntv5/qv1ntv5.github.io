@@ -16,9 +16,8 @@ author: Qv1nTv5
 navbar-links: 
   BurpSuite: BURPSUITEpage
   TryHackMe: THMpage
-  HackTheBox: 
-    - Starting Labs: StartPointpage
-    - Retired Labs: RetiredMachinespage
+  HackTheBox: HackTheBoxpage
+  PEN-200: PEN200page
   Otros: 
     - RedBasics: REDTEAMBASICSpage
     - BlueBasics: BLUETEAMBASICSpage

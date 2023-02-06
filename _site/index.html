@@ -125,14 +125,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
-                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/HackTheBoxpage">HackTheBox</a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link" href="/PEN200page">PEN-200</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -173,6 +171,48 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-01-05-5.WindowsBasics/", \
+          "date"     : "January  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-01-04-4.Networking/", \
+          "date"     : "January  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-01-03-3.Scripting/", \
+          "date"     : "January  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practicals Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-01-02-2.PracticalTools/", \
+          "date"     : "January  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux Basics", \
+          "category" : "pen", \
+          "url"      : "/2023-01-01-1.LinuxBasics/", \
+          "date"     : "January  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Git Basics", \
           "category" : "", \
           "url"      : "/2022-11-17-GitBasics/", \
@@ -181,21 +221,21 @@
        \
         { \
           "title"    : "Tier II", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-11-Tier_2/", \
           "date"     : "November 11, 2022" \
         }, \
        \
         { \
           "title"    : "Tier I", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-10-Tier_1/", \
           "date"     : "November 10, 2022" \
         }, \
        \
         { \
           "title"    : "Tier 0", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-09-Tier_0/", \
           "date"     : "November  9, 2022" \
         }, \
@@ -545,6 +585,20 @@
         }, \
        \
         { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Proyectos", \
           "category" : "page", \
           "url"      : "/PROJECTSpage/", \
@@ -569,13 +623,6 @@
           "title"    : "Retired Machines", \
           "category" : "page", \
           "url"      : "/RetiredMachinespage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Starting Point", \
-          "category" : "page", \
-          "url"      : "/StartPointpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -675,6 +722,20 @@
           "category" : "page", \
           "url"      : "/page10/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -743,19 +804,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-11-17-GitBasics/">
-      <h2 class="post-title">Git Basics</h2>
+    <a href="http://localhost:4000/2023-01-05-5.WindowsBasics/">
+      <h2 class="post-title">Windows</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción a Git y comandos de la cli git.
+        Windows Basics.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on November 17, 2022
+      Posted on January 5, 2023
     </p>
 
     
@@ -765,49 +826,12 @@
 
     <div class="post-entry">
       
-      Git Intro.
+      1. Windows Basics.
 
 
       
       
-        <a href="http://localhost:4000/2022-11-17-GitBasics/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-11-11-Tier_2/">
-      <h2 class="post-title">Tier II</h2>
-
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on November 11, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      1. Archetype (SMB Enum, MSQL Server, Impacket mssqlclient.py, WinPeas, Impacket psexec.py).
-
-
-      
-      
-        <a href="http://localhost:4000/2022-11-11-Tier_2/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2023-01-05-5.WindowsBasics/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -816,7 +840,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#start">start</a>
+      <a href="http://localhost:4000/tags#pen">pen</a>
       
     </div>
     
@@ -828,107 +852,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-11-10-Tier_1/">
-      <h2 class="post-title">Tier I</h2>
-
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on November 10, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      1. Sequel (MySQL).
-
-
-      
-      
-        <a href="http://localhost:4000/2022-11-10-Tier_1/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#start">start</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-11-09-Tier_0/">
-      <h2 class="post-title">Tier 0</h2>
-
-      
-    </a>
-
-    <p class="post-meta">
-      
-      Posted on November 9, 2022
-    </p>
-
-    
-
-    
-    
-
-    <div class="post-entry">
-      
-      1. Mongod (MongoDB).
-
-
-      
-      
-        <a href="http://localhost:4000/2022-11-09-Tier_0/" class="post-read-more">[Read&nbsp;More]</a>
-      
-    </div>
-    
-
-    
-    <div class="blog-tags">
-      <span>Tags:</span>
-      
-      <a href="http://localhost:4000/tags#start">start</a>
-      
-    </div>
-    
-
-   </article>
-  
-  <article class="post-preview">
-    
-
-    
-
-    <a href="http://localhost:4000/2022-11-02-7.BufferOverflow/">
-      <h2 class="post-title">7.BufferOverflow.</h2>
+    <a href="http://localhost:4000/2023-01-04-4.Networking/">
+      <h2 class="post-title">Networking</h2>
 
       
         <h3 class="post-subtitle">
-        An introduction to Buffer Overflow.
+        Networking Fundamentals.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on November 2, 2022
+      Posted on January 4, 2023
     </p>
 
     
@@ -938,12 +874,12 @@
 
     <div class="post-entry">
       
-      0. Índice.
+      1. Networking Fundamentals.
 
 
       
       
-        <a href="http://localhost:4000/2022-11-02-7.BufferOverflow/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2023-01-04-4.Networking/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -952,7 +888,151 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#thm">thm</a>
+      <a href="http://localhost:4000/tags#pen">pen</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2023-01-03-3.Scripting/">
+      <h2 class="post-title">Scripting</h2>
+
+      
+        <h3 class="post-subtitle">
+        Scripint for pentesters.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on January 3, 2023
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. Bash Scripting Basics.
+
+
+      
+      
+        <a href="http://localhost:4000/2023-01-03-3.Scripting/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#pen">pen</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2023-01-02-2.PracticalTools/">
+      <h2 class="post-title">Practicals Tools</h2>
+
+      
+        <h3 class="post-subtitle">
+        Notes from Practicals Tools.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on January 2, 2023
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. Cryptography.
+
+
+      
+      
+        <a href="http://localhost:4000/2023-01-02-2.PracticalTools/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#pen">pen</a>
+      
+    </div>
+    
+
+   </article>
+  
+  <article class="post-preview">
+    
+
+    
+
+    <a href="http://localhost:4000/2023-01-01-1.LinuxBasics/">
+      <h2 class="post-title">Linux Basics</h2>
+
+      
+        <h3 class="post-subtitle">
+        Notes from Linux Basics iI & II.
+        </h3>
+      
+    </a>
+
+    <p class="post-meta">
+      
+      Posted on January 1, 2023
+    </p>
+
+    
+
+    
+    
+
+    <div class="post-entry">
+      
+      1. El entorno de Bash.
+
+
+      
+      
+        <a href="http://localhost:4000/2023-01-01-1.LinuxBasics/" class="post-read-more">[Read&nbsp;More]</a>
+      
+    </div>
+    
+
+    
+    <div class="blog-tags">
+      <span>Tags:</span>
+      
+      <a href="http://localhost:4000/tags#pen">pen</a>
       
     </div>
     
@@ -1034,7 +1114,7 @@
         Qv1nTv5
         &nbsp;&bull;&nbsp;
       
-      2022
+      2023
 
       
 

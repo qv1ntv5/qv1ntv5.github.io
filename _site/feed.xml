@@ -12,6 +12,72 @@
     
     
       <item>
+        <title>Windows</title>
+        <description>
+          Windows Basics. - 
+          1. Windows Basics. Una cosa destacable entre Windows y Linux es que los paths de los ficheros de Windows no son ‘case-sensitive’. En Windows ambas rutas designan el mismo fichero: C:\&amp;gt; type HelloMoon.txt C:\&amp;gt; type helLoMoon.txt 1.1. Windows Shells Shells Windows dispone de tres diferentes interfaces cli: Command Prompt, PowerShell...
+        </description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-01-05-5.WindowsBasics/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-05-5.WindowsBasics/</guid>
+      </item>
+    
+      <item>
+        <title>Networking</title>
+        <description>
+          Networking Fundamentals. - 
+          1. Networking Fundamentals. Un pentester debe ser un individuo bien versado en conceptos fundamentales de Networking. 1.1. TCP/IP model Layer. Un modelo de red es una descripción del curso que siguen los paquetes cuando estos viajan a través de dos ordenadores. Uno de los modelos más empleados es el modelo...
+        </description>
+        <pubDate>Wed, 04 Jan 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-01-04-4.Networking/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-04-4.Networking/</guid>
+      </item>
+    
+      <item>
+        <title>Scripting</title>
+        <description>
+          Scripint for pentesters. - 
+          1. Bash Scripting Basics. 1.1. Intro to Bash Scripting. GNU Bourne-Again Shell (Bash) es un potente entorno de trabajo y un motor de secuencias de comandos. Un script de Bash es un archivo de texto sin formato que tiene una serie de comandos que se ejecutan como si se hubieran escrito...
+        </description>
+        <pubDate>Tue, 03 Jan 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-01-03-3.Scripting/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-03-3.Scripting/</guid>
+      </item>
+    
+      <item>
+        <title>Practicals Tools</title>
+        <description>
+          Notes from Practicals Tools. - 
+          1. Cryptography. Criptografía es aquella disciplina concerniente a la ocultación o ofuscación de la información de terceras partes no autorizadas. En otros términos sabemso que existe un concepto fundacional en CiberSeguridad; CIA (Confidenciality, Integrity &amp;amp; Availability), entonces la Criptografía abarcaría los dos primeros terciones de la CIA: confidenciabilidad e integridad...
+        </description>
+        <pubDate>Mon, 02 Jan 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-01-02-2.PracticalTools/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-02-2.PracticalTools/</guid>
+      </item>
+    
+      <item>
+        <title>Linux Basics</title>
+        <description>
+          Notes from Linux Basics iI &amp; II. - 
+          1. El entorno de Bash. Bash es una shell (entorno de linea de comandos) compatible con ‘sh’ que nos permite ejecutar comandos complejos y realizar distintas tareas desde una terminal. Bash concretamente junta característiacs de KornShell y C shell. 1.1. Variables de Entorno. Definición Las variables de entorno son un...
+        </description>
+        <pubDate>Sun, 01 Jan 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-01-01-1.LinuxBasics/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-01-01-1.LinuxBasics/</guid>
+      </item>
+    
+      <item>
+        <title>Easy</title>
+        <description>
+          Easy Retired Machines - 
+          1. Squashed - Linux. (NFS Imitation through UID, NFS php-reverse-shell, NFS configuration, .Xauthority cookie usurpation, w and xwd command) In this we are in front of a Linux machine which is hosting several services. Among them, we found interesting, a SSH, HTTP and NFS services on defaults ports. The NFS...
+        </description>
+        <pubDate>Thu, 01 Dec 2022 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2022-12-01-Easy/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022-12-01-Easy/</guid>
+      </item>
+    
+      <item>
         <title>Git Basics</title>
         <description>
           Introducción a Git y comandos de la cli git. - 
@@ -163,72 +229,6 @@
         <pubDate>Sun, 27 Mar 2022 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2022-03-27-22.OAuth_authentication/</link>
         <guid isPermaLink="true">http://localhost:4000/2022-03-27-22.OAuth_authentication/</guid>
-      </item>
-    
-      <item>
-        <title>21. HTTP Request Smuggling.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite. - 
-          0. Índice. 1 Planteamiento del concepto. 1.1. Introducción. 1.2. Proceso al detalle. 2 Planteamiento de la vulnerabilidad. 3 Ejecutando el ataque. 3.2. Vulnerabilidades CL.TE. 3.3. TE.CL Vulnerabilities. 3.4. TE.TE. Ofuscación de la cabecera TE. 4 Identificación de vulnerabilidades HTTP request smuggling. 4.1. Técnicas basadas en sincronización. 4.2. Confirmación de vulnerabilidades....
-        </description>
-        <pubDate>Sat, 26 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/</guid>
-      </item>
-    
-      <item>
-        <title>20. HTTP Host Header Attacks.</title>
-        <description>
-          Detección y explotación de vulnerabilidades basadas en la cabecera Host a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Cabecera HTTP Host. 2 HTTP Host Header Attack. 3 Exploiting HTTP Host header vulnerabilities. 3.1. Testeo de vulnerabilidades empleando la cabecera HTTP Host header. 4 Exploiting HTTP Host header. 4.1. Pasword reset poisoning. 4.2. Web cache poisoning via the Host header. 4.3. Exploiting classic server-side vulnerabilities. 4.4....
-        </description>
-        <pubDate>Fri, 25 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/</guid>
-      </item>
-    
-      <item>
-        <title>19. Web Cache Poisoning.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de envenamiento de cache a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Presentación del concepto. 2 Web Caché. 2.1. Servicio de caché web. 2.2. Pasos de actuación del web cache. 3 Construyendo un web cache poisoning attack. 3.1. Identificar unkeyed input. 3.2. Obtener una respuesta ponzoñosa del servidor. 3.3. Obtener la respuesta en caché. 4 Explotación de vulnerabilidades de...
-        </description>
-        <pubDate>Thu, 24 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-24-19.Web_cache_poisoning/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-24-19.Web_cache_poisoning/</guid>
-      </item>
-    
-      <item>
-        <title>18. Server-Side Template Injection.</title>
-        <description>
-          Detección y explotación de vulnerabilidades inyección de comandos en motor plantilla a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Presentación del Server-side template injection. 2 Mecanismo de acción del Server-side template injection. 3 Planteamiento del ataque de Server-side template injection. 3.1. Detección. 3.2. Identificación. 3.3. Explotación. 3.4. Lectura sobre implicaciones de seguridad. 3.5. Explore. 1. Presentación del Server-side template injection. El Server-side template injection o inyección...
-        </description>
-        <pubDate>Wed, 23 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-23-18.Serve-side_template_injection/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-23-18.Serve-side_template_injection/</guid>
-      </item>
-    
-      <item>
-        <title>17. Insecure Deserialization.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite. - 
-          0. Índice. 1 Antecedentes. 1.1. Concepto de serialización y deserialización. 1.2. Deserialización Insegura. 2 Explotación de vulnerabilidades de deserialización inseguras. 2.1. Antecedentes. Formatos de serialización. 2.2. Manipulación de objetos serializados. 3 Trabajando con dispositivos en cadena. 3.1. ysoserial. 3.2. PHP Generic Gadget Chain. 3.3. Trabajando con gadget chains documentadas. 1....
-        </description>
-        <pubDate>Tue, 22 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-22-17.Insecure_deserialization/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-22-17.Insecure_deserialization/</guid>
-      </item>
-    
-      <item>
-        <title>16. WebSockets.</title>
-        <description>
-          Detección y explotación de vulnerabilidades de WebSockets a través de la herramienta BurpSuite. - 
-          0.Índice 1 WebSockets. 1.1. Concepto de WebScokets. 1.2. Diferencia entre HTTP y WebSockets. 1.3. Conexiones con WebSockets. 1.4. Cómo son los mensajes de WebSocket. 2 Vulnerabilidades WebSockets. 2.1. Manipulando los mensajes de WebSockets. 2.2. Manipulando las conexiónes entre WebSockets. 2.3. Cross-site WebSocket hijacking. 1. WebSockets. 1.1. Concepto de WebScokets. Los...
-        </description>
-        <pubDate>Mon, 21 Mar 2022 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2022-03-21-16.WebSockets/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022-03-21-16.WebSockets/</guid>
       </item>
     
   </channel>

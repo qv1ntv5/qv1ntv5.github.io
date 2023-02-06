@@ -125,14 +125,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
-                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/HackTheBoxpage">HackTheBox</a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link" href="/PEN200page">PEN-200</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -173,6 +171,48 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-01-05-5.WindowsBasics/", \
+          "date"     : "January  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-01-04-4.Networking/", \
+          "date"     : "January  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-01-03-3.Scripting/", \
+          "date"     : "January  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practicals Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-01-02-2.PracticalTools/", \
+          "date"     : "January  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux Basics", \
+          "category" : "pen", \
+          "url"      : "/2023-01-01-1.LinuxBasics/", \
+          "date"     : "January  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Git Basics", \
           "category" : "", \
           "url"      : "/2022-11-17-GitBasics/", \
@@ -181,21 +221,21 @@
        \
         { \
           "title"    : "Tier II", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-11-Tier_2/", \
           "date"     : "November 11, 2022" \
         }, \
        \
         { \
           "title"    : "Tier I", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-10-Tier_1/", \
           "date"     : "November 10, 2022" \
         }, \
        \
         { \
           "title"    : "Tier 0", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-09-Tier_0/", \
           "date"     : "November  9, 2022" \
         }, \
@@ -545,6 +585,20 @@
         }, \
        \
         { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Proyectos", \
           "category" : "page", \
           "url"      : "/PROJECTSpage/", \
@@ -569,13 +623,6 @@
           "title"    : "Retired Machines", \
           "category" : "page", \
           "url"      : "/RetiredMachinespage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Starting Point", \
-          "category" : "page", \
-          "url"      : "/StartPointpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -675,6 +722,20 @@
           "category" : "page", \
           "url"      : "/page10/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -743,19 +804,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-09-Seguridad_Perimetral/">
-      <h2 class="post-title">Seguridad Perimetral</h2>
+    <a href="http://localhost:4000/2022-03-11-6.Information_disclosure/">
+      <h2 class="post-title">6. Information Disclosure.</h2>
 
       
         <h3 class="post-subtitle">
-        Concepto de seguridad perimetral y herramientas.
+        Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 9, 2022
+      Posted on March 11, 2022
     </p>
 
     
@@ -765,12 +826,12 @@
 
     <div class="post-entry">
       
-      1. Antecedentes. Conceptos previos.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-09-Seguridad_Perimetral/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-11-6.Information_disclosure/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -779,7 +840,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#blueteam">blueteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -791,19 +852,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-09-Hardening_de_sistemas/">
-      <h2 class="post-title">Hardening de sistemas</h2>
+    <a href="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/">
+      <h2 class="post-title">5. Bussiness Logic Vulnerabilities.</h2>
 
       
         <h3 class="post-subtitle">
-        Teoría y ejemplos del concepto de hardening.
+        Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 9, 2022
+      Posted on March 10, 2022
     </p>
 
     
@@ -813,12 +874,12 @@
 
     <div class="post-entry">
       
-      1. Preparación.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-09-Hardening_de_sistemas/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -827,7 +888,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#blueteam">blueteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -839,19 +900,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-08-Bandit/">
-      <h2 class="post-title">Bandit</h2>
+    <a href="http://localhost:4000/2022-03-09-4.Command_Injection/">
+      <h2 class="post-title">4. Command Injection.</h2>
 
       
         <h3 class="post-subtitle">
-        Wargame de Overthewire Bandit.
+        Detección y explotación de vulnerabilidades de inyección de comandos a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 8, 2022
+      Posted on March 9, 2022
     </p>
 
     
@@ -861,12 +922,12 @@
 
     <div class="post-entry">
       
-      Bandit0
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-08-Bandit/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-09-4.Command_Injection/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -875,7 +936,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#otw">otw</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -887,19 +948,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-07-Proxys/">
-      <h2 class="post-title">Proxy</h2>
+    <a href="http://localhost:4000/2022-03-08-3.Directory_Traversal/">
+      <h2 class="post-title">3. Directory Traversal.</h2>
 
       
         <h3 class="post-subtitle">
-        Presentación de los proxys como herramienta.
+        Detección y explotación de vulnerabilidades de directorio cruzado a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 7, 2022
+      Posted on March 8, 2022
     </p>
 
     
@@ -909,12 +970,12 @@
 
     <div class="post-entry">
       
-      Proxy.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-07-Proxys/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-08-3.Directory_Traversal/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -923,7 +984,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redes">redes</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -935,19 +996,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-07-Protocolos_Importantes/">
-      <h2 class="post-title">Protocolos Relevantes</h2>
+    <a href="http://localhost:4000/2022-03-07-2.Authentication/">
+      <h2 class="post-title">2. Authentication.</h2>
 
       
         <h3 class="post-subtitle">
-        Presentación de los protocolos de red más importantes.
+        Detección y explotación de vulnerabilidades de autenticación a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 7, 2022
+      Posted on March 7, 2022
     </p>
 
     
@@ -957,10 +1018,12 @@
 
     <div class="post-entry">
       
-      1. Introducción. Los protocolos son un conjunto de reglas o pautas de actuación que permite a las máquinas y aplicaciones intercambiar información entre ellas. Tales protocolos deben de ser llevados a cabo por cualquier máquina que forme parte de la comunicación. on estos protocolos se consigue un intercambio ordenado de...
+      0. Índice
+
+
       
       
-        <a href="http://localhost:4000/2022-02-07-Protocolos_Importantes/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-07-2.Authentication/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -969,7 +1032,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redes">redes</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -1055,7 +1118,7 @@
         Qv1nTv5
         &nbsp;&bull;&nbsp;
       
-      2022
+      2023
 
       
 

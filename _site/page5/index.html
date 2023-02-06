@@ -125,14 +125,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/THMpage">TryHackMe</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">HackTheBox</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/StartPointpage">Starting Labs</a>
-                  <a class="dropdown-item" href="/RetiredMachinespage">Retired Labs</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/HackTheBoxpage">HackTheBox</a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link" href="/PEN200page">PEN-200</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -173,6 +171,48 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-01-05-5.WindowsBasics/", \
+          "date"     : "January  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-01-04-4.Networking/", \
+          "date"     : "January  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-01-03-3.Scripting/", \
+          "date"     : "January  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practicals Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-01-02-2.PracticalTools/", \
+          "date"     : "January  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux Basics", \
+          "category" : "pen", \
+          "url"      : "/2023-01-01-1.LinuxBasics/", \
+          "date"     : "January  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
           "title"    : "Git Basics", \
           "category" : "", \
           "url"      : "/2022-11-17-GitBasics/", \
@@ -181,21 +221,21 @@
        \
         { \
           "title"    : "Tier II", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-11-Tier_2/", \
           "date"     : "November 11, 2022" \
         }, \
        \
         { \
           "title"    : "Tier I", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-10-Tier_1/", \
           "date"     : "November 10, 2022" \
         }, \
        \
         { \
           "title"    : "Tier 0", \
-          "category" : "start", \
+          "category" : "hack", \
           "url"      : "/2022-11-09-Tier_0/", \
           "date"     : "November  9, 2022" \
         }, \
@@ -545,6 +585,20 @@
         }, \
        \
         { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
           "title"    : "Proyectos", \
           "category" : "page", \
           "url"      : "/PROJECTSpage/", \
@@ -569,13 +623,6 @@
           "title"    : "Retired Machines", \
           "category" : "page", \
           "url"      : "/RetiredMachinespage/", \
-          "date"     : "January 1, 1970" \
-        }, \
-       \
-        { \
-          "title"    : "Starting Point", \
-          "category" : "page", \
-          "url"      : "/StartPointpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -675,6 +722,20 @@
           "category" : "page", \
           "url"      : "/page10/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -743,19 +804,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/">
-      <h2 class="post-title">15.DOM-based XSS vulnerabilities.</h2>
+    <a href="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/">
+      <h2 class="post-title">21. HTTP Request Smuggling.</h2>
 
       
         <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades XSS basados en DOM través de la herramienta BurpSuite.
+        Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on March 20, 2022
+      Posted on March 26, 2022
     </p>
 
     
@@ -767,20 +828,10 @@
       
       0. Índice.
 
-  1 Introducción al DOM.
-  2 Taint-flow vulnerabilities.
-    
-      2.1. Web message source.
-      2.2. DOM-based open redirection.
-      2.3. DOM-Based cookie manipulation.
-    
-  
-
-
 
       
       
-        <a href="http://localhost:4000/2022-03-20-15-DOM-based_vulnerabilities/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -801,19 +852,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-03-19-14.Clickjacking/">
-      <h2 class="post-title">14. Clickjacking.</h2>
+    <a href="http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/">
+      <h2 class="post-title">20. HTTP Host Header Attacks.</h2>
 
       
         <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades Clickjacking a través de la herramienta BurpSuite.
+        Detección y explotación de vulnerabilidades basadas en la cabecera Host a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on March 19, 2022
+      Posted on March 25, 2022
     </p>
 
     
@@ -828,7 +879,7 @@
 
       
       
-        <a href="http://localhost:4000/2022-03-19-14.Clickjacking/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-25-20.HTTP_Host_header_attacks/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -849,19 +900,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/">
-      <h2 class="post-title">13. Cross-Origin Resource Sharing.</h2>
+    <a href="http://localhost:4000/2022-03-24-19.Web_cache_poisoning/">
+      <h2 class="post-title">19. Web Cache Poisoning.</h2>
 
       
         <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.
+        Detección y explotación de vulnerabilidades de envenamiento de cache a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on March 18, 2022
+      Posted on March 24, 2022
     </p>
 
     
@@ -873,26 +924,10 @@
       
       0. Índice.
 
-  1 Presentación del concepto.
-    
-      1.1. Introducción.
-      1.2.Antecedentes: Same Origin Policy.
-        
-          1.2.1. Introducción al SOP.
-          1.2.2. Implementación del mecanismo.
-          1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin.
-          1.2.4. Implementación del intercambio simple de recursos de origen cruzado.
-        
-      
-    
-  
-  2 Vulnerabilidades planteadas desde la configuración CORS.
-
-
 
       
       
-        <a href="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-24-19.Web_cache_poisoning/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -913,19 +948,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/">
-      <h2 class="post-title">12. Cross-Site Request Forgery.</h2>
+    <a href="http://localhost:4000/2022-03-23-18.Serve-side_template_injection/">
+      <h2 class="post-title">18. Server-Side Template Injection.</h2>
 
       
         <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.
+        Detección y explotación de vulnerabilidades inyección de comandos en motor plantilla a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on March 17, 2022
+      Posted on March 23, 2022
     </p>
 
     
@@ -935,10 +970,12 @@
 
     <div class="post-entry">
       
-      0. Índice. 1 Definición del concepto. 2 Planteamiento de la vulnerabilidad. 3 Planteamiento del ataque. 3.1. CSRF PoC Generator. 3.2. Cómo compartir un exploit CSRF. XSS vs CSRF. 4 Previniendo ataques CSRF. 4.2. CSRF tokens. 4.2.1. Presentación. 4.2.2. Transmisión del token. 4.2.3. Tokens CSRF y ataques XSS. 5 Vulnerabilidades comúnes....
+      0. Índice.
+
+
       
       
-        <a href="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-23-18.Serve-side_template_injection/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -959,19 +996,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/">
-      <h2 class="post-title">11. Cross-Site Scripting.</h2>
+    <a href="http://localhost:4000/2022-03-22-17.Insecure_deserialization/">
+      <h2 class="post-title">17. Insecure Deserialization.</h2>
 
       
         <h3 class="post-subtitle">
-        Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.
+        Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on March 16, 2022
+      Posted on March 22, 2022
     </p>
 
     
@@ -986,7 +1023,7 @@
 
       
       
-        <a href="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-22-17.Insecure_deserialization/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -1081,7 +1118,7 @@
         Qv1nTv5
         &nbsp;&bull;&nbsp;
       
-      2022
+      2023
 
       
 

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: PortSwigger BurpSuite Curse
+title: PortSwigger BurpSuite Course
 subtitle: Portswigger BurpSuite's teory and labs.
 ---
 

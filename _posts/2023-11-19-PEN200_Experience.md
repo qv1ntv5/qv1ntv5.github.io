@@ -7,7 +7,7 @@ tags: [pen]
 En este blog resumo las experiencias e ideas que he ido recogiendo a lo largo del curso PEN200.
 
 
-1. Puntos claves sobre el curso.
+a. Puntos claves sobre el curso.
 
 	- Pasa rápidamente a los laboratorios. Al ser esta una certificación eminentemente práctica, el autentico aprendizaje comienza cuando empiezas los laboratorios. Todo el tiempo de más que dedicas a la teoría es tiempo perdido.
 
@@ -19,7 +19,7 @@ En este blog resumo las experiencias e ideas que he ido recogiendo a lo largo de
 
 <br />
 
-2. Puntos claves a tener en cuenta acerca de la metodología.
+b. Puntos claves a tener en cuenta acerca de la metodología.
 
 Esta certificación, pese a ser práctica, no requiere el desarrollo de unos conocimientos técnicos exigentes si no de una metodología de trabajo adecuada. En pocas palabras; las máquinas del curso, así como las del examen, tienen una lógica a la que hay que adaptarse que, creo, queda explayada en los siguientes puntos:
 
@@ -54,7 +54,7 @@ Esta certificación, pese a ser práctica, no requiere el desarrollo de unos con
 
 <br />
 
-3. Comentarios acerca de la preparación del examen y la metodología de trabajo.
+c. Comentarios acerca de la preparación del examen y la metodología de trabajo.
 
 
 	El exámen está basado en dos pilares; la enumeración post-explotación y pivoting, reflejado sobre el set de Active Directory y los 'foothold' reflejados en las 'standalone machines'. 

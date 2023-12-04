@@ -7,19 +7,16 @@ tags: [pen]
 En este blog resumo las experiencias e ideas que he ido recogiendo a lo largo del curso PEN200.
 
 
-a. Puntos claves sobre el curso.
+1. Puntos claves sobre el curso.
 
-	- Pasa rápidamente a los laboratorios. Al ser esta una certificación eminentemente práctica, el autentico aprendizaje comienza cuando empiezas los laboratorios. Todo el tiempo de más que dedicas a la teoría es tiempo perdido.
+- Pasa rápidamente a los laboratorios. Al ser esta una certificación eminentemente práctica, el autentico aprendizaje comienza cuando empiezas los laboratorios. Todo el tiempo de más que dedicas a la teoría es tiempo perdido.
+
+- No te sobreecompliques comprobando exploits o vectores de ataque. Esta certificación no es exigente técnicamente, nadie espera que sepas hacer algo muy complicado o que consuma mucho tiempo. La mayoría de los imprevistos se superan prestando un poco de atención o, como mucho, realizando una búsqueda en google. Si algo es demasiado complicado desechalo.
+
+- Ten paciencia. La parte más importante de la certificación consiste en aprender a saber qué hacer cuando te quedas estancado, y eso sólo se aprende enfrentandote a ella. No caigas en la tentación de mirar la solución rápidamente y date un momento para organizar tus ideas.
 
 
-	- No te sobreecompliques comprobando exploits o vectores de ataque. Esta certificación no es exigente técnicamente, nadie espera que sepas hacer algo muy complicado o que consuma mucho tiempo. La mayoría de los imprevistos se superan prestando un poco de atención o, como mucho, realizando una búsqueda en google. Si algo es demasiado complicado desechalo.
-
-
-	- Ten paciencia. La parte más importante de la certificación consiste en aprender a saber qué hacer cuando te quedas estancado, y eso sólo se aprende enfrentandote a ella. No caigas en la tentación de mirar la solución rápidamente y date un momento para organizar tus ideas.
-
-<br />
-
-b. Puntos claves a tener en cuenta acerca de la metodología.
+2. Puntos claves a tener en cuenta acerca de la metodología.
 
 Esta certificación, pese a ser práctica, no requiere el desarrollo de unos conocimientos técnicos exigentes si no de una metodología de trabajo adecuada. En pocas palabras; las máquinas del curso, así como las del examen, tienen una lógica a la que hay que adaptarse que, creo, queda explayada en los siguientes puntos:
 

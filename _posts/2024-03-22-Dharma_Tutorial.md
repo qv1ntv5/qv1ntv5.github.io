@@ -10,13 +10,13 @@ Dharma es un mutational-grammar-based que genera programas con inputs (llamadas 
 
 La variación de un input a otro y la diferencia entre un programa y otro depende de la introducción en Dharma de un fichero concreto llamado 'Gramatica'. Las gramaticas de Dharma son ficheros con sintaxis propia que definen la estructura del programa a construir en Dharma.
 
-</br>
+<br>
 
 ### Gramáticas en Dharma
 
 Básicamente, Dharma es un programa que adapta un modelo de plantillas para generar programas en texto plano que luego pueden procesarse a través de un engine (como por ejemplo, un intérprete de JavaScript o un compilador de C). Podemos utilizar este modelo de plantillas para construir muchos scripts que muten en cada iteración que posteriormente son procesados por el engine/intérprete en cuestión en busca de recopilación de bugs o recopilación de información.
 
-</br>
+<br>
 
 ### Aprender a utilizar Dharma.
 
@@ -26,13 +26,13 @@ Antes de continuar debemos recapitular que Dharma es un programa que construye p
 
 Es decir, que en todo lo que viene a continuación, se habla de variables o funciones de Dharma y variables o funciones de un lenguaje de programación (en este caso; JavaScript) y no hay que confundirlas.
 
-</br>
+<br>
 
 #### Secciones.
 
 Una parte fundamental de la utilización de Dharma son las secciones, que definen los datos y como estos son tratados. Se definen las siguientes secciones (value, variable, variance) y sus propósitos.
 
-</br>
+<br>
 
 **Value Section**
 
@@ -54,7 +54,7 @@ message :=
 
 La variable 'name' puede ser referenciada en partes ulteriores del código entre signos '+', como se ve en la variable 'message'. Cuando se creen los programas y se procesen las plantillas, el contenido de 'message' será en parte rellenado con los valores de 'name'.
 
-</br>
+<br>
 
 **Variable Section**
 
@@ -69,7 +69,7 @@ string :=
 
 Observemos que estamos declarando variables en JavaScript, a la hora de ejecutar Dharma con esta gramática, primero se declararán las variables construidas en esta sección y luego se construirá el resto del código JavaScript con el objetivo de hacer un código sintácticamente coherente. Así, podríamos decir que en la sección 'variable' se describen aquellos objetos cuya funcionalidad se describe con las variables de Dharma construidas en la sección 'value'. Esto se apreciará mejor con la gramática construida para fuzzear el objeto Thermometer.
 
-</br>
+<br>
 
 **Variance Section**
 
@@ -84,7 +84,7 @@ main :=
 	try {console.log(@string@)}catch(e){}
 ```
 
-</br>
+<br>
 
 ### Recapitulando...
 
@@ -167,7 +167,7 @@ I want to play with Tom!
 ```
 
 
-</br>
+<br>
 
 ### Thermometer.
 
@@ -196,7 +196,7 @@ t.end();
 
 Esta información es valiosísima pues nos ayudará a implementar en Dharma la sintaxis de este objeto de manera precisa.
 
-</br>
+<br>
 
 Queda claro por tanto que de lo priemero que tenenmos que ocuparnos es de definir en Dharma la definción de un objeto "thermometer". Esto se realiza a modo de variable en la sección 'variable', de forma que iniciaríamos nuestra gramática definiendo primero la sección variable y un objeto thermometer como se ilustra en el script anterior:
 
@@ -207,13 +207,13 @@ obj :=
     var @obj@ = app.termometer
 ```
 
-</br>
+<br>
 
 **Funcionalidad del objeto**
 
 Ahora que hemos definido el objeto, lo que buscamos es construir una plantilla que, a través de la lógica de iteración de Dharma, haga un planteamiento exhaustivo de la funcionalidad del objeto. Queremos crear una plantilla que haga que Dharma sea capaz de construir scripts que realizen cualquier acción que pueda realizar el objeto.
 
-</br>
+<br>
 
 **Propiedades del objeto**
 
@@ -259,7 +259,7 @@ thermometer_getter :=
 
 Así, hemos construido plantillas que intentan realizar operaciones sobre dicho objeto asignando y extrayendo propiedades del mismo.
 
-</br>
+<br>
 
 **Métodos del objeto**
 

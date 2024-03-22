@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Mi experiencia con el OSCP
-subtitle: Client Side attacks.
+title: Gramáticas en Dharma
+subtitle: Introducción a la construcción de gramáticas para Dharma.
 tags: [fuzz]
 ---
 ### Dharma
@@ -14,17 +14,23 @@ La variación de un input a otro y la diferencia entre un programa y otro depend
 
 ### Gramáticas en Dharma
 
-Básicamente, Dharma es un programa que adapta un modelo de plantilla para generar programas en texto plano que luego pueden procesarse a través de un engine (como por ejemplo, un intérprete de JavaScript o un compilador de C). Podemos utilizar este modelo de plantillas para construir muchos scripts que muten en cada iteración.
+Básicamente, Dharma es un programa que adapta un modelo de plantillas para generar programas en texto plano que luego pueden procesarse a través de un engine (como por ejemplo, un intérprete de JavaScript o un compilador de C). Podemos utilizar este modelo de plantillas para construir muchos scripts que muten en cada iteración que posteriormente son procesados por el engine/intérprete en cuestión en busca de recopilación de bugs o recopilación de información.
 
 </br>
 
 ### Aprender a utilizar Dharma.
 
+**Antecedentes**
+
+Antes de continuar debemos recapitular que Dharma es un programa que construye plantillas sobre scripts de distintos lenguajes de programación y que, como herramienta, tiene su propia sintaxis diferenciada de la sintaxis del lenguaje de programación sobre el que plantea una plantilla, es decir, que hay que distinguir las variables, referencias y funciones del lenguaje de Dharma de las variables, referencias y funciones de un lenguaje de programación sobre el que construimos una plantilla en Dharma para formar scripts.
+
+Es decir, que en todo lo que viene a continuación, se habla de variables o funciones de Dharma y variables o funciones de un lenguaje de programación (en este caso; JavaScript) y no hay que confundirlas.
+
+</br>
+
 #### Secciones.
 
-Una parte fundamental de la utilización de Dharma son las secciones, que definen los datos y como estos datos son tratados.
-
-Antes de continuar debemos entender que Dharma es un template-engine sobre lenguajes de programación y que tiene su propia sintaxis diferenciada de la sintaxis del lenguaje de programación sobre el que plantea una plantilla. En base a esta premisa definimos las siguientes secciones (value, variable, variance) y sus propósitos:
+Una parte fundamental de la utilización de Dharma son las secciones, que definen los datos y como estos son tratados. Se definen las siguientes secciones (value, variable, variance) y sus propósitos.
 
 </br>
 
@@ -46,13 +52,13 @@ message :=
 	I want to play with +name+!
 ```
 
-A partir de aquí y en todo lo que refiere a lo que sigue de código, la variable 'name' puede ser referenciada entre signos '+', como se ve en la variable 'message'. Cuando se creen los programas y se procesen las plantillas, el contenido de 'message' será en parte rellenado con los valores de 'name'. Ambas son tratadas como variables por Dharma, contenedores de datos.
+La variable 'name' puede ser referenciada en partes ulteriores del código entre signos '+', como se ve en la variable 'message'. Cuando se creen los programas y se procesen las plantillas, el contenido de 'message' será en parte rellenado con los valores de 'name'.
 
 </br>
 
 **Variable Section**
 
-En esta sección se definen la forma de las variables del lenguaje de programación sobre el que se está planteando la plantilla. Por ejemplo,
+En esta sección se definen la forma de las variables del lenguaje de programación sobre el que se está planteando la plantilla. Por ejemplo;
 
 ```
 %section% := variable
@@ -61,13 +67,15 @@ string :=
 	var @string@ = +message+
 ```
 
-Esta parte se diferencia de la anterior porque su contenido se plantea y se fuzzea a parte con el objetivo de definir las variables en el script que se va a construir.
+Observemos que estamos declarando variables en JavaScript, a la hora de ejecutar Dharma con esta gramática, primero se declararán las variables construidas en esta sección y luego se construirá el resto del código JavaScript con el objetivo de hacer un código sintácticamente coherente. Así, podríamos decir que en la sección 'variable' se describen aquellos objetos cuya funcionalidad se describe con las variables de Dharma construidas en la sección 'value'. Esto se apreciará mejor con la gramática construida para fuzzear el objeto Thermometer.
 
 </br>
 
 **Variance Section**
 
-Por último vamos a presentar la sección 'Variance', en ella se define la estructura que se va a calcar en el script, mientras que se varían cada una de las partes que la componen. La idea es que esta estructura que se define sea una amalgama de las partes que se han definido en las secciones anteriores, de forma que Dharma crea la misma estructura una y otra vez variando las partes constituyentes de la misma, obteniendo así iteraciones ligeramente distintas del mismo modelo.
+Por último vamos a presentar la sección 'variance'; en ella se define la estructura principal de la plantilla que se repetirá una y otra vez mientras que se varían cada una de las partes que la componen de acuerdo a las variaciones de la sección 'value'.
+
+La idea es que esta estructura que se define sea una amalgama de las partes que se han definido en las secciones anteriores, de forma que Dharma crea la misma estructura una y otra vez variando las partes constituyentes de la misma, obteniendo así iteraciones ligeramente distintas del mismo modelo.
 
 ```
 %section% := variance
@@ -76,7 +84,17 @@ main :=
 	try {console.log(@string@)}catch(e){}
 ```
 
-Poniéndolo todo junto queda como:
+</br>
+
+### Recapitulando...
+
+Hemos definido una plantilla que se basa en tres secciones:
+
+- Variable: Donde se definen las variables del lenguaje de programación que van a formar parte de los scripts.
+- Value: Donde se define la funcionalidad y la acción del script en base a los objetos definidos en la sección 'variable'. Es decir, en 'variable' definimos un objeto y en 'value' definimos su funcionalidad (propiedades, métodos, etc) orientado al fuzzeo.
+- Variance: Se plantea la esctructura principal que se itera mutando cada parte constituyente de la misma en base a la sección 'value'.
+
+Poniéndolo todo junto la gramática queda como sigue:
 
 ```
 %section% := value
@@ -131,7 +149,7 @@ try {console.log(string4)}catch(e){}
 try {console.log(string1)}catch(e){}
 ```
 
-Podemos que se ha generado código javascript, se han definido por un lado las variables que son las estructuras definidas en la sección 'variable' y por el otro la estructura definida en la sección 'variance' donde se ha repetido una y otra vez el mismo modelo mutando las partes declaradas en la sección 'value'.
+Podemos comprobar que se ha generado código javascript sintácticamente correto. Se han definido por un lado las variables que son las estructuras definidas en la sección 'variable' y por el otro la estructura definida en la sección 'variance' donde se ha repetido una y otra vez el mismo modelo mutando las partes declaradas en la sección 'value'.
 
 Si procesamos este código con un engine de javascript obtenemos:
 
@@ -180,7 +198,7 @@ Esta información es valiosísima pues nos ayudará a implementar en Dharma la s
 
 </br>
 
-Queda claro por tanto que de lo priemero que  tenenmos que ocuparnos es de programar en dharma la definción de un objeto thermometer. Esto se realiza a modo de variable en la sección 'variable', de forma que iniciaríamos nuestra gramática definiendo primero la sección variable y un objeto thermometer como se ilustra en el script anterior:
+Queda claro por tanto que de lo priemero que tenenmos que ocuparnos es de definir en Dharma la definción de un objeto "thermometer". Esto se realiza a modo de variable en la sección 'variable', de forma que iniciaríamos nuestra gramática definiendo primero la sección variable y un objeto thermometer como se ilustra en el script anterior:
 
 ```
 %section% := variable
@@ -191,9 +209,15 @@ obj :=
 
 </br>
 
+**Funcionalidad del objeto**
+
+Ahora que hemos definido el objeto, lo que buscamos es construir una plantilla que, a través de la lógica de iteración de Dharma, haga un planteamiento exhaustivo de la funcionalidad del objeto. Queremos crear una plantilla que haga que Dharma sea capaz de construir scripts que realizen cualquier acción que pueda realizar el objeto.
+
+</br>
+
 **Propiedades del objeto**
 
-En la programación orientada a objetos llamamos a objeto a un conjunto de definiciones de entre las cuales diferenciamos propiedades; que son valores asociados al objeto en un instante del programa y métodos; que son funcionalidades del objeto.
+En la programación orientada a objetos llamamos a objeto a un conjunto de definiciones de entre las cuales diferenciamos propiedades; que son valores asociados al objeto en un instante del programa y métodos; que son funcionalidades del objeto. 
 
 En este caso nos ocupamos de las propiedades, atendiendo a la documentación observamos que son cuatro:
 
@@ -216,9 +240,9 @@ thermometer_setter :=
 
 Observemos que en el paso anterior estamos realizando los siguientes pasos:
 
-- En primer lugar, generamos la sección *value*.
-- Seguidamente, definimos una variable en Dharma que contiene los nombres de las propiedades del objeto *thermometer*.
-- Por último, generamos otra variable en Dharma que contiene a modo de valores un conjunto de plantillas en JavaScript que se fabrican de la siguiente manera. Se trata de generar una asignación de una variable en JavaScript, para ello se realiza una operación de asignación que consta de una referencia al objeto definido en la sección 'variable' y una importancia del fichero common.dg del tipo de dato de cada asignación.
+- En primer lugar, generamos la sección 'value'.
+- Seguidamente, definimos una variable en Dharma que contiene los nombres de las propiedades del objeto thermometer.
+- Por último, generamos otra variable en Dharma que contiene a modo de valores un conjunto de plantillas en JavaScript que se fabrican de la siguiente manera: Se trata de generar una asignación de una variable en JavaScript, para ello se realiza una operación de asignación que consta de una referencia al objeto definido en la sección 'variable' y una importancia del fichero common.dg del tipo de dato de cada asignación.
 
 O extraidos del propio objeto (getteado):
 
@@ -254,7 +278,7 @@ thermometer_functions :=
 	end()
 ```
 
-De esta forma, aunamos las estructuras definidas en una variable que denominaremos wrapper:
+De esta forma, aunamos las estructuras definidas en una variable que denominaremos wrapper, que esencialmente resume la funcionalidad del objeto a fuzzear:
 
 ```
 wrapper :=

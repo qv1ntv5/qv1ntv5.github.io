@@ -15,13 +15,13 @@ author: Qv1nTv5
 
 navbar-links: 
   Pentest:
-    - BurpSuite: BURPSUITEpage
-    - TryHackMe: THMpage
-    - HackTheBox: HackTheBoxpage
+    - Burp: BURPSUITEpage
+    - Thm: THMpage
+    - Htb: HackTheBoxpage
     - PEN-200: PEN200page
-    - RedBasics: REDTEAMBASICSpage
-    - BlueBasics: BLUETEAMBASICSpage
-    - Redes: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
+    - RedTeam: REDTEAMBASICSpage
+    - Blueteam: BLUETEAMBASICSpage
+    - Net: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
     - Git: 2022-11-17-GitBasics
   
   Fuzzing: Fuzzpage

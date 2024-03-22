@@ -14,16 +14,17 @@ author: Qv1nTv5
 # --- List of links in the navigation bar --- #
 
 navbar-links: 
-  BurpSuite: BURPSUITEpage
-  TryHackMe: THMpage
-  HackTheBox: HackTheBoxpage
-  PEN-200: PEN200page
-  Otros: 
+  Pentest:
+    - BurpSuite: BURPSUITEpage
+    - TryHackMe: THMpage
+    - HackTheBox: HackTheBoxpage
+    - PEN-200: PEN200page
     - RedBasics: REDTEAMBASICSpage
     - BlueBasics: BLUETEAMBASICSpage
     - Redes: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
     - Git: 2022-11-17-GitBasics
-  Projectos: PROJECTSpage
+  
+  Fuzzing: Fuzzpage
 
 # --- Logo --- #
 

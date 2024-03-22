@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Blueteam Basics
-subtitle: Conceptos Básicos de Ciberseguridad Defensiva.
+title: Fuzzing JavaScript Engine
+subtitle: Fuzzing QuickJS con Dharma.
 ---
 
 {% assign posts = paginator.posts | default: site.posts %}

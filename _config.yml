@@ -18,7 +18,7 @@ navbar-links:
     - Burp: BURPSUITEpage
     - Thm: THMpage
     - Htb: HackTheBoxpage
-    - PEN-200: PEN200page
+    - BasicPentesting: PEN200page
     - RedTeam: REDTEAMBASICSpage
     - Blueteam: BLUETEAMBASICSpage
     - Net: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #

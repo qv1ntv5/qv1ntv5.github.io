@@ -13,9 +13,7 @@ author: Qv1nTv5
 
 # --- List of links in the navigation bar --- #
 
-navbar-links: 
-  Fuzzing: FUZZpage
-  
+navbar-links:   
   Program:
     - C: Cpage
     - Dharma: DHARMApage

@@ -3,7 +3,6 @@ layout: page
 title: Dharma Fuzzer language
 subtitle: Intro and basic explanation on how Dharma fuzzer works.
 ---
-go
 {% assign posts = paginator.posts | default: site.posts %}
 
 <div class="posts-list">

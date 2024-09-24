@@ -3,7 +3,7 @@ layout: page
 title: C programming subjects.
 subtitle: Basic and advanced C Programing papers.
 ---
-go
+
 {% assign posts = paginator.posts | default: site.posts %}
 
 <div class="posts-list">

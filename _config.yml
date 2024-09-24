@@ -14,6 +14,10 @@ author: Qv1nTv5
 # --- List of links in the navigation bar --- #
 
 navbar-links: 
+
+  Program:
+    - C: Cpage
+    - Dharma: DHARMAPage
   Pentest:
     - Burp: BURPSUITEpage
     - Thm: THMpage
@@ -24,7 +28,7 @@ navbar-links:
     - Net: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
     - Git: 2022-11-17-GitBasics
   
-  Fuzzing: Fuzzpage
+  Fuzzing: FUZZpage
 
 # --- Logo --- #
 

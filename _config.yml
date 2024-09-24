@@ -27,7 +27,6 @@ navbar-links:
     - Blueteam: BLUETEAMBASICSpage
     - Net: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
     - Git: 2022-11-17-GitBasics
-  
   Fuzzing: FUZZpage
 
 # --- Logo --- #

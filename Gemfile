@@ -5,5 +5,5 @@ gem 'jekyll-manager', group: :jekyll_plugins
 gemspec
 gem "jekyll"
 
-gem "webrick", "~> 1.8"
+gem "webrick", "~> 1.9"
 

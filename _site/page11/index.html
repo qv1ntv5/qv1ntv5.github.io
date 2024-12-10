@@ -15,7 +15,7 @@
   <meta name="author" content="Qv1nTv5">
   
 
-  <meta name="description" content="Qv1nTv5's cybersecurity blog">
+  <meta name="description" content="Qv1nTv5&apos;s cybersecurity blog">
 
   
 
@@ -77,7 +77,7 @@
   
   <meta property="og:site_name" content="Home">
   <meta property="og:title" content="Germán Sanmillán">
-  <meta property="og:description" content="Qv1nTv5's cybersecurity blog">
+  <meta property="og:description" content="Qv1nTv5&apos;s cybersecurity blog">
 
   
 
@@ -94,7 +94,7 @@
   <meta name="twitter:creator" content="@Qvintvs1">
 
   <meta property="twitter:title" content="Germán Sanmillán">
-  <meta property="twitter:description" content="Qv1nTv5's cybersecurity blog">
+  <meta property="twitter:description" content="Qv1nTv5&apos;s cybersecurity blog">
 
   
 
@@ -119,31 +119,28 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/THMpage">TryHackMe</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/HackTheBoxpage">HackTheBox</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/PEN200page">PEN-200</a>
-          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
-                  <a class="dropdown-item" href="/REDESpage">Redes</a>
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
                   <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
             </div>
           </li>
         
-          <li class="nav-item">
-            <a class="nav-link" href="/PROJECTSpage">Projectos</a>
-          </li>
         <li class="nav-item">
           <a class="nav-link" id="nav-search-link" href="#" title="Search">
             <span id="nav-search-icon" class="fa fa-search"></span>
@@ -171,38 +168,157 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
           "title"    : "Windows", \
           "category" : "pen", \
-          "url"      : "/2023-01-05-5.WindowsBasics/", \
-          "date"     : "January  5, 2023" \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
         }, \
        \
         { \
           "title"    : "Networking", \
           "category" : "pen", \
-          "url"      : "/2023-01-04-4.Networking/", \
-          "date"     : "January  4, 2023" \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
         }, \
        \
         { \
           "title"    : "Scripting", \
           "category" : "pen", \
-          "url"      : "/2023-01-03-3.Scripting/", \
-          "date"     : "January  3, 2023" \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
         }, \
        \
         { \
-          "title"    : "Practicals Tools", \
+          "title"    : "Practical Tools", \
           "category" : "pen", \
-          "url"      : "/2023-01-02-2.PracticalTools/", \
-          "date"     : "January  2, 2023" \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
         }, \
        \
         { \
-          "title"    : "Linux Basics", \
+          "title"    : "Linux", \
           "category" : "pen", \
-          "url"      : "/2023-01-01-1.LinuxBasics/", \
-          "date"     : "January  1, 2023" \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
         }, \
        \
         { \
@@ -217,13 +333,6 @@
           "category" : "", \
           "url"      : "/2022-11-17-GitBasics/", \
           "date"     : "November 17, 2022" \
-        }, \
-       \
-        { \
-          "title"    : "Tier II", \
-          "category" : "hack", \
-          "url"      : "/2022-11-11-Tier_2/", \
-          "date"     : "November 11, 2022" \
         }, \
        \
         { \
@@ -571,9 +680,23 @@
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Curse", \
+          "title"    : "PortSwigger BurpSuite Course", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -581,6 +704,13 @@
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -736,6 +866,27 @@
           "category" : "page", \
           "url"      : "/page12/", \
           "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
         } \
        \
     ]';
@@ -804,19 +955,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-05-Escalada_de_privilegios/">
-      <h2 class="post-title">Escalada de privilegios</h2>
+    <a href="http://localhost:4000/2022-03-12-7.Access_control/">
+      <h2 class="post-title">7. Access Control.</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción a Escalada de Privilegios.
+        Detección y explotación de vulnerabilidades de control de acceso a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 5, 2022
+      Posted on March 12, 2022
     </p>
 
     
@@ -826,12 +977,27 @@
 
     <div class="post-entry">
       
-      1. Escalada de privilegios.
+      0. Índice.
+
+  1 Concepto de Access Control
+    
+      1.1. Definición.
+      1.2. Categorías.
+    
+  
+  2 Ejemplos de vulnerabilidades en el control de acceso.
+    
+      2.1. Escalada de privilegios vertical.
+      2.2. Elevación de privilegios horizontal.
+      2.3. Elevación de privilegios vertical partiendo de una escalada horizontal.
+    
+  
+
 
 
       
       
-        <a href="http://localhost:4000/2022-02-05-Escalada_de_privilegios/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-12-7.Access_control/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -840,7 +1006,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -852,19 +1018,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/">
-      <h2 class="post-title">Metasploit</h2>
+    <a href="http://localhost:4000/2022-03-11-6.Information_disclosure/">
+      <h2 class="post-title">6. Information Disclosure.</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción a la herramienta Metasploit.
+        Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 4, 2022
+      Posted on March 11, 2022
     </p>
 
     
@@ -874,13 +1040,12 @@
 
     <div class="post-entry">
       
-      1. Metasploit Básico.
-1.1. Antecedentes.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-11-6.Information_disclosure/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -889,7 +1054,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -901,19 +1066,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-03-Ataques_aplicaciones_android/">
-      <h2 class="post-title">Ataques a aplicaciones Android</h2>
+    <a href="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/">
+      <h2 class="post-title">5. Bussiness Logic Vulnerabilities.</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción al sistema operativo Android y sus aplicaciones.
+        Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 3, 2022
+      Posted on March 10, 2022
     </p>
 
     
@@ -923,12 +1088,12 @@
 
     <div class="post-entry">
       
-      1. Sistema operativo Android.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-03-Ataques_aplicaciones_android/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -937,7 +1102,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -949,19 +1114,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/">
-      <h2 class="post-title">Ataque a aplicaciones web.</h2>
+    <a href="http://localhost:4000/2022-03-09-4.Command_Injection/">
+      <h2 class="post-title">4. Command Injection.</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción a estructuras y ataques de aplicaciones web.
+        Detección y explotación de vulnerabilidades de inyección de comandos a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 2, 2022
+      Posted on March 9, 2022
     </p>
 
     
@@ -971,12 +1136,12 @@
 
     <div class="post-entry">
       
-      1. Introducción a las aplicaciones web, dirb y burpsuite I.
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-09-4.Command_Injection/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -985,7 +1150,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -997,19 +1162,19 @@
 
     
 
-    <a href="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/">
-      <h2 class="post-title">Ataques a Infraestructuras y Redes</h2>
+    <a href="http://localhost:4000/2022-03-08-3.Directory_Traversal/">
+      <h2 class="post-title">3. Directory Traversal.</h2>
 
       
         <h3 class="post-subtitle">
-        Introducción a webs, análsis de puertos.
+        Detección y explotación de vulnerabilidades de directorio cruzado a través de la herramienta BurpSuite.
         </h3>
       
     </a>
 
     <p class="post-meta">
       
-      Posted on February 1, 2022
+      Posted on March 8, 2022
     </p>
 
     
@@ -1019,12 +1184,12 @@
 
     <div class="post-entry">
       
-      
+      0. Índice.
 
 
       
       
-        <a href="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/" class="post-read-more">[Read&nbsp;More]</a>
+        <a href="http://localhost:4000/2022-03-08-3.Directory_Traversal/" class="post-read-more">[Read&nbsp;More]</a>
       
     </div>
     
@@ -1033,7 +1198,7 @@
     <div class="blog-tags">
       <span>Tags:</span>
       
-      <a href="http://localhost:4000/tags#redteam">redteam</a>
+      <a href="http://localhost:4000/tags#burp">burp</a>
       
     </div>
     
@@ -1119,7 +1284,7 @@
         Qv1nTv5
         &nbsp;&bull;&nbsp;
       
-      2023
+      2024
 
       
 

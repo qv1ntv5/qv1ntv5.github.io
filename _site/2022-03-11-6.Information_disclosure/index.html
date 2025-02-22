@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>6. Information Disclosure.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="6. Information Disclosure.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-11T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-11-6.Information_disclosure/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-11-6.Information_disclosure/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="6. Information Disclosure.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>6. Information Disclosure.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de escapes de información a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 11, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Introducción.</li>
+  <li>2 Concepto de Information Disclosure.
+    <ul>
+      <li>2.1. Presentación de la vulnerabilidad.</li>
+      <li>2.2. Ejemplos de escapes de información.</li>
+    </ul>
+  </li>
+  <li>3 Explotando brechas de información.
+    <ul>
+      <li>3.1. Reglas generales a la hora de testear brechas de información.
+        <ul>
+          <li>3.1.1. Fuzzing.</li>
+          <li>3.1.2. Usar herramientas de engagement de burp.</li>
+          <li>3.1.3. Obteniendo información via Ingienieria informática.</li>
+        </ul>
+      </li>
+      <li>3.2. Fuentes comúnes de brechas de información.
+        <ul>
+          <li>3.2.1. Ficheros guía para buscadores web.</li>
+          <li>3.2.2. Listado de directorios.</li>
+          <li>3.2.3. Mensajes de error.</li>
+          <li>3.2.4. Debuggin data.</li>
+          <li>3.2.5. Páginas de cuentas de usuarios.</li>
+          <li>3.2.6. Difusión del código fuente mediante archivos de backups.</li>
+          <li>3.2.7. Brechas de información debido a una configuración insegura.</li>
+          <li>
+            <p>3.2.8. Historial de control de versiones.</p>
+
+            <p><br /></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-introducción">1. Introducción.</h3>
+
+<p>En esta sección explicaremos los conceptos básicos accerca de Information Disclosure Vulnerabililties.</p>
+
+<p><br /></p>
+
+<h3 id="2-concepto-de-information-disclosure">2. Concepto de Information Disclosure.</h3>
+
+<h4 id="21-presentación-de-la-vulnerabilidad">2.1. Presentación de la vulnerabilidad.</h4>
+<p>Information Disclosure (fallas de información) es una debilidad de una página a través de la cual <strong>un sitio web deja expuesto información sensible inintencionadamente</strong> que posteriormente puede escalar a vulnerabilidad.</p>
+
+<p>Por información sensible a su vez entendemos:</p>
+
+<ul>
+  <li>Datos acerca de otros usuarios.</li>
+  <li>Información comercial o del negocio.</li>
+  <li>Detalles técnicos acerca de la infraestructura del sitio web.</li>
+</ul>
+
+<p>Evidentemente, los peligros de esta debilidad son obvios dado que la exposición de información puede conducir a un punto de partida para confeccionar un ataque.</p>
+
+<p>En algunas ocasiones, los leaks de información se producen de manera causal por algunos usuarios que hacen un uso normal de la aplicación aunque <strong>la mayoría de las veces son producidos por atacantes que se comportan de manera maliciosa para inducir un comportamiento erróneo en la aplicación web</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="22-ejemplos-de-escapes-de-información">2.2. Ejemplos de escapes de información.</h4>
+
+<p>Algunos ejemplos básicos serían:</p>
+
+<ul>
+  <li>
+    <p>Revelar nombres de directorios ocultos, su estructura, a través de robots.txt. (Este es un fichero que guía a los recolectores de información de internet buscadores como google, bing, etc. Les orienta sobre qué directorios/ficheros de un sitio web pueden recolectar y cuales no).</p>
+  </li>
+  <li>
+    <p>Proporcionar acceso a archivos de código fuente a través de copias de seguridad.</p>
+  </li>
+  <li>
+    <p>Explícitamente mencionar una tabla de base de datos o alguna de sus columnas en errores de mensajes.</p>
+  </li>
+  <li>
+    <p>Información personal de otros usuarios.</p>
+  </li>
+  <li>
+    <p>Información sensible en el código fuente, como direcciones IP, credenciales de bases de datos, etc.</p>
+  </li>
+  <li>
+    <p>Cambios de comportamiento en la aplicación ante determinados contextos que puedan dar pistas sobre la existencia de falta de recursos en la misma.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="23-planteamiento-de-brechas-de-información">2.3. Planteamiento de brechas de información.</h4>
+
+<p>Las brechas de información pueden plantearse de incontables maneras, pero podemos generalizar una serie de prototipos:</p>
+
+<ul>
+  <li>
+    <p><strong>Fallo en quitar el contenido interno del contenido público</strong>. Por ejemplo, comentarios que no se quitan del entorno de producción que proveen pistas de la estructura del código fuente.</p>
+  </li>
+  <li>
+    <p><strong>Configuración insegura del sitio web y tecnologías relacionadas</strong>. Por ejemplo, no deshabilitar el debuggin o características de diagnostico pueden ayudar a un posible atacante a obtener información sensible del sitio web.</p>
+  </li>
+</ul>
+
+<p>También, la configuración por defecto puede hacer que el sitio sea vulnerable (error verbosing, default credentials, etc).</p>
+
+<ul>
+  <li><strong>Defectos en el diseño del comportamiento de la aplicación</strong>. Como por ejemplo ver si un sitio web devuelve distintas respuestas cuando se plantean distintos estados error, por ejemplo, cuando introduces mal el nombre y la contraseña vs cuando introduces bien el nombre y mal la contraseña. Esto podría permitir a un hipotético atacante hacer una enumeración de información sensible.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-explotando-brechas-de-información">3. Explotando brechas de información.</h3>
+
+<p>En este apartado explicaremos cómo identificar brechas de información mediante una serie de reglas y herramientas.</p>
+
+<p><br /></p>
+
+<h4 id="31-reglas-generales-a-la-hora-de-testear-brechas-de-información">3.1. Reglas generales a la hora de testear brechas de información.</h4>
+
+<p>Dada la gran variedad de formas en las que se puede producir una brecha de información es importante no centrarse en un punto en concreto.</p>
+
+<p>Los siguientes constituyen una serie de ejemplos de cómo se puede filtrar cierta información y de cómo podemos aprovechar esa información para perjudicar a la empresa.</p>
+
+<p><br /></p>
+
+<h5 id="311-fuzzing">3.1.1. Fuzzing.</h5>
+
+<p>El <strong>fuzzing</strong> es el proceso de introducir input extraño en determinados parámetros de la aplicación web para comprobar la forma en la que esta reacciona a la introducción de este input.</p>
+
+<p>En esta clase de tretas hace falta poner mucha atención debido a que la alteración del comportamiento de la web puede ser algo muy explícito como un cambio en el contenido de la respuesta http pero también puede ser algo muy sutil como un pequeño retraso en la entrega de la respuesta por parte del servidor.</p>
+
+<p>Para este proceso Burp Intruder** es muy útil debido a que con él se puede automatizar el mecanismo obteniendo los siguietnes beneficios:</p>
+
+<ul>
+  <li>Agregar payloads y posiciones.</li>
+  <li>Identificar rápidamente cambbios en las respuetas http.</li>
+  <li>Utilizar herramientas de rastreo de un patrón o keyword en la respuesta http.</li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="312-usar-herramientas-de-engagement-de-burp">3.1.2. Usar herramientas de engagement de burp.</h5>
+
+<p>Burp provee una serie de herramientas de engagement que se pueden utilizar para encontrar información interesante acerca del sitio web objetivo de una manera más fácil.</p>
+
+<p>Sencillamente, pulsando el botón derecho sobre cualquier request, sitio o elemento perteneciente a la aplicación web identificado por BurpSuite y le damos a “Engagement tools” disponible sólo en la versión Pro, de pago.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220408215041.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="313-obteniendo-información-via-ingienieria-informática">3.1.3. Obteniendo información via Ingienieria informática.</h5>
+
+<p>Los mensajes de error detallados a veces pueden revelar información interesante mientras realiza su flujo de trabajo de prueba normal. Sin embargo, al estudiar la forma en que los mensajes de error cambian según su entrada, puede llevar esto un paso más allá. En algunos casos, podrá manipular el sitio web para extraer datos arbitrarios a través de un mensaje de error.</p>
+
+<p>Existen numerosos métodos para hacer esto dependiendo del escenario particular que encuentre. Un ejemplo común es hacer que la lógica de la aplicación intente una acción no válida en un elemento de datos específico.</p>
+
+<p><br /></p>
+
+<h4 id="32-fuentes-comúnes-de-brechas-de-información">3.2. Fuentes comúnes de brechas de información.</h4>
+
+<h5 id="321-ficheros-guía-para-buscadores-web">3.2.1. Ficheros guía para buscadores web.</h5>
+
+<p>Muchos sitios web proveen ficheros como <strong>/robots.txt</strong> o <strong>/sitemap.xml</strong> que ayuda a los buscadores web a localizar o navegar su sitio web.</p>
+
+<p>Entre otras cosas, estos directorios web ofrecen una lista de aquellos directorios/ficheros que tales buscadores web deberían omitir porque, por ejemplo, pueden tener información sensible.</p>
+
+<p>Pueden no aparecer inmediatamente en “Burp’s site map”, pero siempre merece la pena intentar navegar a /robots.txt o /sitemap.xml manualmente para ver si se encuentra algo útil.</p>
+
+<p><br /></p>
+
+<h5 id="322-listado-de-directorios">3.2.2. Listado de directorios.</h5>
+
+<p>Los servidores web pueden ser configurados para listar automáticamente los contenidos de los directorios no indexados. Esto particularmente aumenta la exposición de ficheros con información sensible dentro de directorios que no se tiene intención de mostrar al público. Puede guiar a un atacante para atacar recursos específicos de la página web.</p>
+
+<p>Conviene mencionar que esto no es intrinsecamente una vulnerabilidad pero si además la página web no pone controles de acceso adecuados, esta debilidad si puede transformarse en una vulnerabilidad que un atacante podría utilizar a su favor.</p>
+
+<p><br /></p>
+
+<h5 id="323-mensajes-de-error">3.2.3. Mensajes de error.</h5>
+
+<p>Una de las partes entre las que más se suele producir escapes de información es a través de los mensajes de error.</p>
+
+<p>Hemos visto en laboratorios anteriores que los mensajes de error nos permiten obtener conocimiento acerca de la estructura de una búsqueda SQL, de cuándo un nombre de usuario existe, etc.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Information disclosure in error messages</strong>.</p>
+
+<p>Este laboratorio tiene una falla consistente en una mala gestión de los mensajes de error que despliega cuando se introduce en algún parámetro un tipo de dato no esperado por el servidor.</p>
+
+<p>Por ejemplo, si en la tienda online le damos a inspeccionar detalles de un producto de la tienda:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220410175246.png" text-align="center" />
+</div>
+
+<p>E interceptamos la request con el Proxy vemos que existe un parámetro que acepta valores numéricos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220410175820.png" text-align="center" />
+</div>
+
+<p>Le cambiamos el valor por un string y enviamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220410175837.png" text-align="center" />
+</div>
+
+<p>Obtenemos el siguiente mensaje de error por aprte de la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220410175922.png" text-align="center" />
+</div>
+
+<p>Así, hemos obtenido la versión del servidor web.</p>
+
+<p><br /></p>
+
+<h5 id="324-debuggin-data">3.2.4. Debuggin data.</h5>
+
+<p>Muchos sitios webs generan mensajes de error y logs en la depuración (debug) de su código que contienen mucha información sobre el comportamiento de la aplicación que evidentemente pueden ser útiles en una etapa de desarrollo pero que resultan muy perjudiciales en las manos equivocadas.</p>
+
+<p>Esto es especialmente grave cuando la página que contiene esta información se encuentra adherida al entorno de produccción, es decir, en algún lado de la página web. Veamos un laboratorio para entenderlo mejor.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Information disclosure on debug page</strong>.</p>
+
+<p>Este laboratorio contiene una página con información sobre la depuración de datos que puede contener información sensible sobre el sitio web.</p>
+
+<p>En primer lugar, nos introducimos en el laboratorio y no observamos nada raro salvo un comentario en el documneto HTML que puede ser visto desde Inspeccionar el código fuente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429192106.png" text-align="center" />
+</div>
+
+<p>En él se puede encontrar la dirección del fichero /cgi-bin/phpinfo.php. Así, acudiendo a dicha dirección obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429192217.png" text-align="center" />
+</div>
+
+<p>Podemos observar mucha información de configuración, del sistema, del servidor, etc que podría resultar útil a un atacante que quisiera perpretar un ataque para comprometer el sistema.</p>
+
+<p>Entre otras cosas, la SECRET_KEY necesaria para terminar el laboratorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429192448.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="325-páginas-de-cuentas-de-usuarios">3.2.5. Páginas de cuentas de usuarios.</h5>
+
+<p>Lás páginas de cuentas de usuarios contienen, normalmente, información sensible del usuario propietario de la página, tales como información de contacto, información personal, información bancaria, etc.</p>
+
+<p>Muchas páginas webs contienen fallas lógicas que permiten a un atacante escalar hasta tales páginas permitiéndoles acceder a toda esa información del usuario.</p>
+
+<p>Ejemplos de esto podrá verse en el siguiente topic <strong>Access Control</strong>.</p>
+
+<p><br /></p>
+
+<h5 id="326-difusión-del-código-fuente-mediante-archivos-de-backups">3.2.6. Difusión del código fuente mediante archivos de backups.</h5>
+
+<p>Un atacante que tenga en su poder el código fuente de la aplicación puede entender mucho más fácilmente el comportamiento de la misma lo que puede acortar el tiempo de preparación de un posible ataque.</p>
+
+<p>Muchas veces, existen ficheros dentro del sistemas de ficheros del sitio web que contienen información del código fuente de la propia web y están completamente expuestos para cualquiera que realice un mapeado de la página web con una herramienta de escaneo como ‘dirb’.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Source code disclosure via backup files</strong>.</p>
+
+<p>Este laboratorio filtra su código fu
+ente mediante ficheros de backup en un directorio oculto.</p>
+
+<p>En primer lugar, acudimos al laboratorio y utilizamos la herramienta “Site map” en la pestaña “Target” de burp tras haber interceptado una request del sitio. En el mapeo, tras un rato, podremos obtener un directorio con el nombre “backup”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429193545.png" text-align="center" />
+</div>
+
+<p>Al acudir a dicha dirección nos encontramos con un fichero .java.bak, de los backups:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429193637.png" text-align="center" />
+</div>
+
+<p>Que contieen información acerca de la base de datos del sitio web, entre otras cosas, la contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429193740.png" text-align="center" />
+</div>
+
+<p>Y con esto habríamos terminado el laboratorio.</p>
+
+<p><br /></p>
+
+<h5 id="327-brechas-de-información-debido-a-una-configuración-insegura">3.2.7. Brechas de información debido a una configuración insegura.</h5>
+
+<p>Los sitios web a veces son vulnerables como resultado de una configuración incorrecta. Esto es especialmente común debido al uso generalizado de tecnologías de terceros, cuya amplia gama de opciones de configuración no necesariamente son bien comprendidas por quienes las implementan.</p>
+
+<p>En algunos casos puede ocurrir que incluso los desarrolladores del sitio web se olviden de deshabilitar ciertas opciones de depuración de código generando así fallas.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Authentication bypass via information disclosure</strong>.</p>
+
+<p>La interfaz de administración de este laboratorio tiene una vulnerabilidad de omisión de autenticación, pero no es práctico explotarla sin el conocimiento de un encabezado HTTP personalizado utilizado por el front-end.</p>
+
+<p>Para resolver el laboratorio, obtenga el nombre del encabezado y luego utilícelo para omitir la autenticación del laboratorio. Acceda a la interfaz de administración y elimine la cuenta de Carlos. Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>En primer lugar, llevamos a cabo una request al apartado /admin de forma que nos aparece un mensaje de error.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414200445.png" text-align="center" />
+</div>
+
+<p>Con la finalidad de obtener el encabezado que determina la IP utiliza el método TRACE:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414184233.png" text-align="center" />
+</div>
+
+<p>Esto nos permitirá obtener la request que llega a la última parte de la cadena, es decir, al servidor.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414184327.png" text-align="center" />
+</div>
+
+<p>Abrimos el archivo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414184446.png" text-align="center" />
+</div>
+
+<p>Ahí podemos ver un encabezado que en la request no puede verse y una dirección IP. Esta cabecera la utiliza el servidor para saber el origen de la request ya que hemos visto que el panel de administrador sólo es accesible paara usuarios locales.</p>
+
+<p>Así, vamos a hacer que Burp añada dicho cabecera con el bucle local para que el servidor piense que la petición es local:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414200709.png" text-align="center" />
+</div>
+
+<p>Y cuando interceptamos la request obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414200733.png" text-align="center" />
+</div>
+
+<p>Y abríamos accedido al panel de administrador:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220414200804.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="328-historial-de-control-de-versiones">3.2.8. Historial de control de versiones.</h5>
+
+<p>Prácticamente todos los sitios web se desarrollan utilizando algún tipo de sistema de control de versiones, como Git. De forma predeterminada, un proyecto de Git almacena todos sus datos de control de versiones en una carpeta llamada .git. Ocasionalmente, los sitios web exponen este directorio en el entorno de producción. En este caso, es posible que pueda acceder a él simplemente navegando a /.git.</p>
+
+<p>Si bien a menudo no es práctico explorar manualmente la estructura y el contenido del archivo sin procesar, existen varios métodos para descargar todo el directorio .git. Luego puede abrirlo usando su instalación local de Git para obtener acceso al historial de control de versiones del sitio web. Esto puede incluir registros que contengan cambios confirmados y otra información interesante.</p>
+
+<p>Es posible que esto no le dé acceso al código fuente completo, pero comparar la diferencia le permitirá leer pequeños fragmentos de código. Al igual que con cualquier código fuente, también puede encontrar datos confidenciales codificados dentro de algunas de las líneas modificadas.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Information disclosure in version control history</strong>.</p>
+
+<p>Este laboratorio contiene una vulnerabilidad en su control del historial. Vamos a obtener la contraseña del administrador a partir del historia de cambios que se ha hecho sobre un directorio git.</p>
+
+<p>En primer lugar accedemos al laboratorio y vamos a la carpeta /.git</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220415102701.png" text-align="center" />
+</div>
+
+<p>Vamos a emplear una herramienta; <strong>git-cola</strong> que nos permite aprovecharnos del historial de cambios y en algunos casos deshacerlo para contemplar toda la información del directorio en cuestion.</p>
+
+<p>En primer lugar, descargamos el directorio mediante <strong>wget -r</strong></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220415103038.png" text-align="center" />
+</div>
+
+<p>Y ls -la podemos ver el directorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220415103132.png" text-align="center" />
+</div>
+
+<p>Seguidamente, abrimos dicho directorio con git-cola y deshacemos el último commit, esto es; la última modificación:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220415103747.png" text-align="center" />
+</div>
+
+<p>Y podemos ver un nuevo fichero en el que se ve la contraseña del administrador recién borrada tal y como se indica en el fichero /.git/description:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220415103822.png" text-align="center" />
+</div>
+
+<p>Así, accedemos al panel de administrador y borramos a Carlos, completando el laboratorio.</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=6.+Information+Disclosure.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-11-6.Information_disclosure%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-10-5.Business_logic_vulnerabilities/" data-toggle="tooltip" data-placement="top" title="5. Bussiness Logic Vulnerabilities.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-12-7.Access_control/" data-toggle="tooltip" data-placement="top" title="7. Access Control.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

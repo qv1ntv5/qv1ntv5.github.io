@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>5. Bussiness Logic Vulnerabilities.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="5. Bussiness Logic Vulnerabilities.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-10T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-10-5.Business_logic_vulnerabilities/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="5. Bussiness Logic Vulnerabilities.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>5. Bussiness Logic Vulnerabilities.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de la logica de la aplicación a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 10, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<p>1 Concepto de Business Logic Vulnerability
+2 Tipos y ejemplos.</p>
+
+<p><br /></p>
+
+<h3 id="1-concepto-de-business-logic-vulnerabilities">1. Concepto de Business Logic Vulnerabilities.</h3>
+
+<p>En este contexto, el concepto de <strong>lógica de la empresa</strong> simplemente se refiere al conjunto de reglas que definen cómo opera una aplicación web en un contexto determinado. De forma que una vulnerabilidad de esta lógica no es más que una falla en dicho procedimiento provocada por una mala asunción del comportamiento que los usuarios normales tienen al interactuar con la aplicación.</p>
+
+<p>Estas fallas generalmente no son visibles para nadie más que para aquellos que estan pendientes de encontrarlas ya que no estan expuestas explícitamente. Son explotadas por un atacante que interactúa con la web provocando que esta se comporte de formas que los desarrolladores de la misma nunca hubieran pensado.</p>
+
+<p><br /></p>
+
+<h3 id="2-tipos-y-ejemplos">2. Tipos y ejemplos.</h3>
+
+<p>Para comprender mejor los tipos de vulnerabilidades que hay vamos a ver algunos ejemplos.</p>
+
+<p>En general, estas vulnerabilidades son relativamente específicas, tanto a nivel técnico como a nivel de impacto, del contexto en el que estas ocurren. Sin embargo, todas ellas guardan aspectos en común que nos van a permitir agruparlas en distintas temáticas.</p>
+
+<p><br /></p>
+
+<p><strong>Un error muy común consiste en pensar que el cliente sólo va a interactuar con la aplicación a través de la interfaz web</strong>. Esto es especialmente peligroso porque se asume que tan sólo a través del saneamiento de código front-end se inhabilita la posibilidad de introducir input malicioso a la aplicación.</p>
+
+<p>Sin embargo, <strong>mediante un proxy puede interceptarse la petición que se envía desde el navegador al servidor, modificarla y liberarla para que esta se reciba modificada volviéndo inútiles los controles del front-end</strong>. Veamos una serie de ejemplos:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Excesive trust in client-side controls</strong>.</p>
+
+<p>En este laboratorio nos encontramos ante una página que no válida adecuadamente el input introducido. Vamos a explotar una falla lógica intentando comprar un producto por menos del valor pedido. Vamos a suponer que tenemos cierta información y hemos obtenido las credenciales: wiener:peter.</p>
+
+<p>Una vez nos logeamos en nuestra cuenta observamos que tenemos un monto de 100 euros de crédito y el producto que queremos comprar cuesta 1337.</p>
+
+<p>Sin embargo, existe una falla y es que cuando se añade un producto al “carrito” de la tienda se realiza una request en la que se añade el nombre del producto y el precio. Podemos interceptar la request que se realiza al añadir el producto al carrito,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220325111328.png" text-align="center" />
+</div>
+
+<p>modificar el precio de 133700 a 100 para posteriormente proceder a la compra.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220325111504.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220325111532.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: 2FA Broken logic</strong>.</p>
+
+<p>Este laboratorio contiene un factor de segunda autenticación vulnerable debido a una falla lógica. Para resolver el laboratorio debemos de apoderarnos de la cuenta del usuario Carlos.</p>
+
+<p>Para ello, comprobamos que al realizar una request de logeo la verificación del usuario que está intentando identificarse se realiza mediante un parámetro que está dentro de la request que se envía independientemente de las credenciales envíadas.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427144849.png" text-align="center" />
+</div>
+
+<p>De esta forma, cambiamos el valor de dicho parámetro de wiener a carlos y enviamos la request, de esta forma la aplicación verificará a carlos si las credenciales enviadas en los valores de los parámetros de ‘username’ y ‘password’ son válidos (si están en la base de datos).</p>
+
+<p>Modificamos el valor del parámetro “verify” en todas las request que enviemos.</p>
+
+<p>Seguidamente, tendremos que enviar el código de segunda autenticación. Como se está verificando al usaurio carlos, el código habrá sido enviado a su correo y habrá que hacer un brute-force para crakear el código en cuestión. Así, interceptamos de nuevo la request, cambiamos el valor del parámetro verify y envíamos la solicitud al BurpIntruder:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427145203.png" text-align="center" />
+</div>
+
+<p>Ahí, ajustamos la posición y el set del payload (valor del parámetro “mfa-code”, tipo de set: brute-forcer número de cuatro cifras) y configuramos el número de threads y le damos a start. Después de un tiempo encontraremos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427145359.png" text-align="center" />
+</div>
+
+<p>Así, volvemos a la request interceptada en el procy, ajustamos el código y liberamos la request haciendo efectivo el apoderamiento de la cuenta.</p>
+
+<p><br /></p>
+
+<p>Uno de los objetivos de la lógica de la aplicación es la restringir el input que el cliente/usuario puede introducir en la aplicación de acuerdo al contexto y a los intereses de la empresa, por ejemplo, a una tienda online le conviene restringir el número de pedidos que pueden hacerse de un producto en función del número que halla de estos en stock.</p>
+
+<p>Para poder implementar este tipo de reglas de restricción, los desarrolladores deben anticipar el contexto para poder indicar a la aplicación cómo actuar en tal situación y esto significa que una situación no contemplada por los desarrolladores (como por ejemplo impedir que un usuario introduzca un número de pedidos negativo) puede desembocar en un comportamiento anómalo (y muchas veces potencialmente perjudicial) por parte de la aplicación.</p>
+
+<p>De esta forma, una buena manera de identificar este tipo de fallas cuando se realiza una auditoría de una aplicación web es realizar las siguientes preguntas:</p>
+
+<ul>
+  <li>¿Existen límites sobre los datos que se pueden enviar?</li>
+  <li>¿Si existen, cuál es el comportamiento de la aplicación en tales casos?</li>
+  <li>¿Se realiza alguna transformación sobre los datos que se envían a la aplicación?</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3 High-level logic vulnerability</strong></p>
+
+<p>Este laboratorio con valida adecuadamente el input que el usuario introduce.</p>
+
+<p>En primer lugar, cuando intentamos comprar un producto e interceptamos la request obtenemos que podemos cambiar el valor del parámetro “quantity” a negativo,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427152226.png" text-align="center" />
+</div>
+
+<p>haciendo una resta al valor total del precio que tenemos en el cesto.</p>
+
+<p>Así, añadimos el producto a nuestro carro y seguidamente añadimos diversos productos con el valor del parámetro a negativo hasta tener un precio muy reducido.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427152614.png" text-align="center" />
+</div>
+
+<p>Y compramos los productos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Low-level logic flaw</strong>.</p>
+
+<p>Este laboratorio de nuevo no valida adecuadamente el input que introduce el usuario. Puedes explotar una falla lógica para comprar items por menos precio.</p>
+
+<p>En esta ocasión, vamos a ver cómo reacciona la aplicación web cuando sus parámetros tienen valores imprevistos.</p>
+
+<p>Una reacción muy común es que determinados valores estén guardados en variables que tienen un tamaño máximo. Cuando este se alcanza ocurre que tiene que desechar bytes porque no tiene espacio para mantenerlos. Si esto no se regula adecuadamente se provoca que la variable crezca desde un valor máximo al máximo valor negativo en dirección al 0, es decir si el máximo valor es 10, pasa del 9 al 10 del 10 al -10 y del -10 al -9 aproximándose a valores matemáticamente más grandes.</p>
+
+<p>Así, esto lo podemos aprovechar para reiniciar el valor del carrito haciendo que algo que cuesta 1000, pase a valer, dando una vuelta completa, 10.</p>
+
+<p>Así llevamos a cabo la siguiente request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427153434.png" text-align="center" />
+</div>
+
+<p>Observemos que un valor más grande para el parámetro quantity sería descartado. Y mandamos la request la BurpIntruder. Una vez ahí, ajustamos la posición de payload de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427153536.png" text-align="center" />
+</div>
+
+<p>Y le damos al tipo de payload: Null payload</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427153554.png" text-align="center" />
+</div>
+
+<p>Y comenzamos el ataque. Tal y como predecíamos, en algún momento el valor del carrito pasará a ser negativo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427153627.png" text-align="center" />
+</div>
+
+<p>Ajustamos el precio para que quede cerca del 0 y añadimos más productos para darle un valor positivo pero inferior a 100 y compramos completando el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Incosistent handling of execptional input</strong>.</p>
+
+<p>Este laboratorio contiene una falla lógica relacionada con la no adecuada validación de entrada de datos del usuario. Se puede aprovechar esta funcionalidad para ganar permisos administrativos.</p>
+
+<p>En primer lugar, utilizamos las herramientas de Burp para mapear el sitio web, Target &gt; Botón derecho sobre el sitio web (interceptar una reuqest para tenerlo disponible) &gt; Site map &gt; Engagement tools &gt; Discover content &gt; Session is not running &gt; yes</p>
+
+<p>Tras un tiempo entre los ficheros descubiertos por la herramienta veremos la página <strong>/admin</strong> correspondiente al panel de administrador y una vez intentemoes acceder dentro obtendremos que sólo los usuarios logeados como DontWannaCry puede acceder al panel del administrador.</p>
+
+<p>Vamos a llevar a cabo un bypass introduciendo valores no esperados por la aplicación generando respuestas imprevistas que nos permitan evadir este mecanismo de seguridad.</p>
+
+<p>En este caso; <strong>nos aprovechamos concretamente de que la variable encargada de gestionar el valor del email no gestionada adecuadamente valores imprevistamente grandes. Sólo está configurado para almacenar 255 caracteres y cualquier string mayor se verá cortado por el final</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427193256.png" text-align="center" />
+</div>
+
+<p>Además hay que tener en cuenta que recibiremos cualquier email siemrpe y cuando tenga la parte final: exploit-ac8a1f601e15b09ac1a03d9401690070.web-security-academy.net</p>
+
+<p>Por tanto el email anterior es aaaa …. aaaa @dontwannacry.com.exploit-ac8a1f601e15b09ac1a03d9401690070.web-security-academy.net</p>
+
+<p>Pero al haber introducido un valor muy grande, este string se ha cortado quedando como aparecen en la captura anterior. Afinando un poco más en el email obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427193619.png" text-align="center" />
+</div>
+
+<p>Y como se puede ver en la imagen tendremos acceso al panel de administrador, completando el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Exceso de confianza sobre el comportamiento de los usuarios</strong>.</p>
+
+<p>En muchas ocasiones, muchas fallas vienen de presumir ciertos comportamientos del usuario por defecto, que el usuario no se va a comportar de manera maliciosa:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Incosistent security controls</strong>.</p>
+
+<p>Este laboratorio contiene funcionadlides que se contraicen con sus medidas de seguridad.</p>
+
+<p>En primer lugar para resolver este laboraotrio necesitamos la versión Pro de BurpSuite, en concreto, una herramienta conocida como “Engagement Tools”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425230948.png" text-align="center" />
+</div>
+
+<p>De forma que nos aparecerá un botón “Session is not running” y le daremos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425231044.png" text-align="center" />
+</div>
+
+<p>Empezará un escaneo y después de un tiempo empezará a salir información acerca del sitio web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425231150.png" text-align="center" />
+</div>
+
+<p>Este método tal y como se puede ver el menú, lo que hace es realizar una serie de request para mapear el sitio web.</p>
+
+<p>Después de un tiempo comprobaremos el en la pestaña “Site map” uno de los ficheros descubiertos es el directorio admin:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425231328.png" text-align="center" />
+</div>
+
+<p>Cuyo acceso está restringido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220425231351.png" text-align="center" />
+</div>
+
+<p>Si vamos más alla y nos logeamos como un usuario normal podremos comprobar la existencia de una funcionalidad para cambiar el email dentro de la aplicación web:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427204458.png" text-align="center" />
+</div>
+
+<p>Así, cambiamos nuestro email a @dontwannacry.com y tendremos acceso al panel de adminstrador</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427204719.png" text-align="center" />
+</div>
+
+<p>Completando el laboratorio accediendo y borrando al usuario carlos.</p>
+
+<p><br /></p>
+
+<p><strong>Los usuarios no siempre emiten datos esperados</strong></p>
+
+<p>Una idea errónea es que los usuarios siempre proporcionarán valores para los campos de entrada obligatorios. Los navegadores pueden evitar que los usuarios comunes envíen un formulario sin la información requerida, pero como sabemos, los atacantes pueden alterar los parámetros en tránsito. Esto incluso se extiende a la eliminación de parámetros por completo:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Weak isolation on dual-use endpoint</strong>.</p>
+
+<p>Este laboratorio tiene un comportamiento no regulado adecuadamente ante la desaparición de parámetros en una request.</p>
+
+<p>Cuando accedemos al laboratorio procedemos a mapear el sitio con las herramientas de Burp y ver que está disponible la página /admin, sin embargo el acceso está restringo para administradores.</p>
+
+<p>Así, el objetivo es hacerse con la contraseña del administrador. Una de las maneras en las que podemos hacer esto es cambiar la contraseña del administrador, cambiando los valores de determinados parámetros de una request.</p>
+
+<p>Al logearnos con nuestras credenciales podemos observar que tenemos una funcionalidad para cambiar nuestra contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427221240.png" text-align="center" />
+</div>
+
+<p>utilizamos nuestros datos, cambiamos nuestra contraseña e interceptamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427221344.png" text-align="center" />
+</div>
+
+<p>Seguidamente, procedemos a hacer los cambios pertinentes, cambiando el nombre de usuario y borrando el parámetro y el valor que contiene nuestra contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427221442.png" text-align="center" />
+</div>
+
+<p>Al enviar la request obtenemos que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427221505.png" text-align="center" />
+</div>
+
+<p>Y al logearnos con las nuevas credenciales del administrador conseguimos logearnos como el mismo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427221547.png" text-align="center" />
+</div>
+
+<p>Completaríamos el laboratorio accediendo al panel de administrador y borrando al usuario carlos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: Password reset broken logic</strong>.</p>
+
+<p>En este caso, la página posee una funcionalidad de reseteo de contraseña que no valida adecuadamente quién está reseteando la contraseña.</p>
+
+<p>Cuando acudimos a dicha funcionalidad, identificamos nuestro nombre de usuario y recurrimos a nuestro email desde el que seguimos el email recibido obtenemos dos campos en los que introducir la nueva contraseña:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427222442.png" text-align="center" />
+</div>
+
+<p>Al interceptar la request podemos ver que en la propia request aparece identificado el usuario al que corresponde el cambio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427222514.png" text-align="center" />
+</div>
+
+<p>Lo cambiamos por carlos y la liberamos. Seguidamente, empleamos las nuevas credenciales del usuario carlos para introducirnos en su cuenta completando el laboratorio.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427222609.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Generalmente, muchas transacciones se llevan a cabo en una secuencia de pasos que los usuarios siguen guiados a través del navegador. Sin embargo, un atacante puede saltarse dicha secuencia a conveniencia lo cual puede ser peligroso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: 2FA Simple Bypass</strong>.</p>
+
+<p>Vamos a ver con este laboratorio práctico cómo saltándonos ciertos pasos podemos hacer un bypass de un factor de segunda autenticación.</p>
+
+<p>Tenemos las credenciales wiener:peter y queremos logearnos en la cuenta carlos:montoya.</p>
+
+<p>Sencillamente nos logeamos como wiener:peter y copiamos la URL de la página /my_account. Seguidamente, nos logeamos como Carlos, y en lugar de introducir de nuevo el código de segunda autenticación nos camos a la URL de /my_account y habríamos completado el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10: Insufficent workflow validation</strong>.</p>
+
+<p>Este laboratorio tiene fallas acerca de la secuencia de pasos a seguir en la compra de un producto. Para resolver el laboratorio debemos comprar el producto: “Lightweight I33t leather jacket”.</p>
+
+<p>Tenemos las credenciales wiener:peter.</p>
+
+<p>Para resolver este laboratorio, hemos de estudiar la secuencia de pasos que se dan a la hora de comprar un producto. Con ese objetivo, compramos un producto a nuestro alcance.</p>
+
+<p>Cuando elegimos un producto y le damos al botón de “Place order”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331102118.png" text-align="center" />
+</div>
+
+<p>obtenemos la siguiente request</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331102348.png" text-align="center" />
+</div>
+
+<p>Y al continuar automáticamente se realiza otra request para seguir a “order-confirmation”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331102434.png" text-align="center" />
+</div>
+
+<p>De esta manera, la falla en la secuencia de pasos puede estar en el “checkout” del carrito, si nos saltáramos esa parte y continuarámos directamente al “order-confirmation” step podríamos realizar el pedido sin necesidad de tener el suficiente dinero en la cuenta.</p>
+
+<p>Así, añadimos el producto que queremos al carrito y en la URL del sitio web nos dirigimos al subfichero /cart/order-confirmation?order-confirmed=true</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331103042.png" text-align="center" />
+</div>
+
+<p>y le damos a enter completando el laboratorio.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331103053.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11: Authentication bypass via flawd state machine</strong>.</p>
+
+<p>Este laboratorio realiza asunciones acerca de los pasos en el procedimiento de logeo. Para resolver este laboratorio hay que explotar esta lógica de asunciones para conseguir meterte en la cuenta de administrador y borrar a Carlos. Tenemos las credenciales: wiener:peter.</p>
+
+<p>En primer lugar procedemos al logeo del usuario wiener:peter</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428143622.png" text-align="center" />
+</div>
+
+<p>Y al aceptar la petición entraremos en uina redirección en la que nos preguntarán por el rol del usuario.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428144058.png" text-align="center" />
+</div>
+
+<p>En este punto, no se evita que el usuario pueda ir a otras páginas de la aplicaicón web y como todavía no está identificado como un tipo de usuario la malconfiguración de la aplicación web acepta que pueda acceder a sitios restringidos. De esta forma cambiamos /role-selector por /admin y liberamos la petición accediendo efectivamente a la página del panel del administrador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428144132.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>En muchos casos se pueden encontrar fallas en el dominio o propósito del negocio. Por ejemplo, en una tienda online que ofrece descuentos del 10% al llegar a los 1000 euros, podría haber una falla si no se registra el valor del pedido, de forma que una persona puede llenar el carrito de la compra hasta llegar a los 1000 euros, pedir el descuento, y acto seguido eliminar todos los articulos que no quiere y llevarse lo que necesita con un precio rebajado.</p>
+
+<p>Vamos a ver unos cuantos laboratorios a modo de ejemplos:</p>
+
+<p><br /></p>
+
+<p>**Laboratorio 12: Flawed enforcement of business rules **.</p>
+
+<p>En este laboratorio hay una mala gestion de la validación de cupones de descuento. Hay dos cupones de descuento en total, uno que te dan por ser nuevo comprador y otro que te dan por suscribirte a un periodico.</p>
+
+<p>La falla consiste en que la página comprueba si un cupón es válido comprobando si lo has metido inmediatamente antes, de esta forma, se puede alternar ambos cupones en el carrito para obtener un descuento mucho mayor del ofrecido por la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331192737.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220331192756.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13: Infinite money logic flaw</strong>.</p>
+
+<p>Este laboratorio contiene un falla lógica en su lógica de compra. Para resolver el laboratorio explote la falla para comprar un producto. Puede utilizar las credenciales <strong>wiener:peter</strong>.</p>
+
+<p>En primer lugar, podemos comprobar que <strong>existe un producto denominado como “Carta de Regalo” que cuesta 10 euros y cuyo contenido es un código que es canjeable por 10 euros</strong> y además, explorando el resto del contenido de la página podemos observar que <strong>tenemos un cupón de descuento del 30% para todos aquellos usuarios que se den de alta en el servicio de mensajería de la aplicación con su email</strong> y <strong>el usuario puede cambiar su email cuando quiera</strong>.</p>
+
+<p>De esta forma, la vulnerabilidad consiste en comprar tantas cartas de regalo como sea posible utilizando el descuento SINGUP30 (ganando dinero en la operación).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428150912.png" text-align="center" />
+</div>
+
+<p>Canjear el contenido, cambiar el email,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428150940.png" text-align="center" />
+</div>
+
+<p>volver a suscribirnmos a la revista y obtener así de nuevo el código validado</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220428151002.png" text-align="center" />
+</div>
+
+<p>para volver a repetir la operación anterior indefinidamente.</p>
+
+<p>Falta mencionar que todo este proceso se puede automatizar con las herramientas de Burp. Ya que se puede automatizar el envío de una serie de request en cadena.</p>
+
+<p>Para ello, acudimos a la pestaña “Project options” &gt; “Sessions” en “Session Handling rules” &gt; “Add” y se abrirá el “session handiling rules editor” y pinchamos osbre la pestaña Scope y en la opción “Include all URLs”</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510110731.png" text-align="center" />
+</div>
+
+<p>Seguidamente, volvemos a la pestaña “Details” y debajo de “Rule Actions” &gt; “add” y “Run a Macro”</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510110817.png" text-align="center" />
+</div>
+
+<p>A continuación se abrirá el editor de manejo de acciones de la sesión y debajo de select a macro le pincharemos a add de forma que se abrirá el Macro Recoder y el Macro Editro:</p>
+
+<ul>
+  <li>
+    <p>Sobre el Macro Recorder encontraremos un listado de ltodas las request que se han realizado durante la sesión y añadiremos:</p>
+  </li>
+  <li>POST /cart</li>
+  <li>POST /cart/coupon</li>
+  <li>POST /cart/checkout</li>
+  <li>GET /cart/order-confirmation?order-confirmed=true</li>
+  <li>POST /gift-card</li>
+</ul>
+
+<p>Y pinchamos sobre Ok</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510111520.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Seguidamente, sobre el MacroEditor pinchamos sobre la GET request de confiramción y le damos a configurar item:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510111705.png" text-align="center" />
+</div>
+
+<p>Se abrirá el menú de configuración del macro y pulsaremos sobre add para añadir un parámetro:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510111907.png" text-align="center" />
+</div>
+
+<p>Y seguidamente se abrirá otro menú para añadir el parámetro, en él lo vamos a configurar para añadir el parámetro “gift-card” con el nombre y resaltando el código debajo en el HTML:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510112335.png" text-align="center" />
+</div>
+
+<p>Y le damos a OK. Seguidamente configuramos el /gift-card post request y hacemos que el valor de dicho parámetro venga derivado de la request anterior:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510123443.png" text-align="center" />
+</div>
+
+<p>Y le damos a Test Macro:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510123934.png" text-align="center" />
+</div>
+
+<p>Observamos que todos los códigos de respuesta son 200 y 302.</p>
+
+<p>Seguidamente, vamos al BurpIntruder y enviamos al mismmo lareqeust de /my-account. Quitamos todos lospayloads, le damos a Sniper, Nullpayloads y un único hilo para hacer el ataque.</p>
+
+<p>Cuando el ataque termina tenemos el dinero suficiente para comprar la chaqueta y completar el laboratorio</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220510125448.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Pueden ocurrir escenarios peligrosos cuando el input proporcionado por el usuario se cifra y dicho texto cifrado resultante se pone a disposición del usuario de alguna manera. Este tipo de entrada a veces se conoce como “encryption oracle” y un atacante podría emplear este mecamnismo para cifrar datos de forma arbitraria generando una input cifeado válido y luego pasarla a otras funciones confidenciales. Este problema puede agravarse si hay otra entrada controlable por el usuario en el sitio que proporciona la función inversa. Esto permitiría al atacante descifrar otros datos para identificar la estructura esperada. Esto les ahorra parte del trabajo involucrado en la creación de sus datos maliciosos, pero no es necesariamente necesario para crear un exploit exitoso.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 14: Authentication bypass via encryption oracle</strong>.</p>
+
+<p>Este laboratorio contiene una falla lógica que expone un encryption oracle a los usuarios. Para resolver este laboratorio necesitamos borrar la cuenta del usuario Carlos. Se dispone de las credenciales wiener:peter.</p>
+
+<p><br /></p>
+
+<p>En primer lugar, accedemos al laboratorio y nos logeamos con nuestras credenciales wiener:peter. Al intentar cambiar nuestro email y poner uno sin la sintaxis adecuada obtenemos un menasaje en la parte superior de que nuestro email no es válido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628144717.png" text-align="center" />
+</div>
+
+<p>Por otra parte, examinando más detenidamente esta funcionalidad observamos que este mensaje se genera mediante una notificación cifrada en la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628144808.png" text-align="center" />
+</div>
+
+<p>Es decir, que el string que nosotros ponemos a modo de email se cifra, viaja al servidor cifrado, ahí se descifra y el texto descifrado se expone de vuelta en la respuesta.</p>
+
+<p>Por otra parte, tenemos el mecanismo del stay-logged-in cookie, que no puede descifrarse mediante mecanismos convencionales ni descifradores automáticos (CyberChief). Sin emabrgo, al poner nuestra cookie como valor de la cookie “notification” y enviar la request obtenemos el contenido de dicha stay-logged-in cookie descifrada en la respuesta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628145143.png" text-align="center" />
+</div>
+
+<p>Lo que parece que es nuestro nombre de usuario seguido de un string númerico genérico.</p>
+
+<p>Así, podríamos logearnos como otro usuario si consiguieramos introducir username:string cifrado correctamente como stay-logged-in cookie. Y para ello debemos observar que tenemos dos mecanismos:</p>
+
+<ul>
+  <li>
+    <p>Un mecanismo de cifrado que se produce en el navegador con el contenido del parámetro del POST “email”, que se cifra y almacena en la cookie de la request “notification”</p>
+  </li>
+  <li>
+    <p>Un mecanismo de descifrado que se produce desde el contenido de la cookie “notification” en su paso por el servidor hasta la vuelta de dicho contenido descifrado en el string en la respuesta HTTP.</p>
+  </li>
+</ul>
+
+<p>Sólo hay una salvedad y es que al cifrar la cadena “administrator:1656420617814” mediante el mecanismo de cifrado lo que se obtiene es el cadena cifrada “Invalid email address: administrator:1656420617814”. Es decir, que no podemos cifrarlo directamente, existe la necesidad de quitar correctamente el contenido Invalid email address para obtener la cookie correctamente cifrada.</p>
+
+<p>Para ello ciframos la cadena “administrator:1656420617814” y cogemos la cadena cifrada: 70LMk86sjY3CiDSKaut2FyVh6JC22vJhgsGEB0HOKN1P4F8Y%2fcQN92QBNoDxTxqdjeesd9sQtQ8m3WKdE943%2bA%3d%3d y la llevamos al BurpDecodificator y lo decodificamos de URL y de Base64 y poenmos la vista Hexadecimal. Si asumimos que cada caracter es un byte, tenemos que eliminar los 23 primeros bytes de la cadena para quedarnos con la parte que nos intersa. Sin emabrgo, cuando probamos el contenido resultante intentando descifrarlo mediante la notification cookie obtenemos lo siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628151527.png" text-align="center" />
+</div>
+
+<p>De esta forma, lo que ocurre es que al mandar la cookie y el contenido de descifrado no es un múltiplo de 16, así, añadimos 9 bytes en forma de 9 caracteres al string: “xxxxxxxxxadministrator:1656420617814” para conseguir que se cifre y quede constancia de que el objeto cifrado es múltiplo de 16 y seguidamente borramos 23 + 9 = 32 bytes como hemos prodedido en el apartado anterior. De esta forma, sólo obtenemos el string cifrado que nos interesa con la garantía de que ha sido cifrado como un elemento múltiplo de 16.</p>
+
+<p>Terminado el proceso la cadena resultante es: /G6DWo9njyhNL3jBl8IF5/nmlcOZxzCsaEGLxSIu5uA=. Esto se pone en el lugar del valor de la cookie “Notification” a través del Inspector para conseguir una codificación URL adecuada obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628152031.png" text-align="center" />
+</div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=5.+Bussiness+Logic+Vulnerabilities.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-10-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-10-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-10-5.Business_logic_vulnerabilities%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-09-4.Command_Injection/" data-toggle="tooltip" data-placement="top" title="4. Command Injection.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-11-6.Information_disclosure/" data-toggle="tooltip" data-placement="top" title="6. Information Disclosure.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

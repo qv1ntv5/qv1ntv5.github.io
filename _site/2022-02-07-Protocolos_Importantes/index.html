@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Protocolos Relevantes</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Presentación de los protocolos de red más importantes.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Protocolos Relevantes">
+  <meta property="og:description" content="Presentación de los protocolos de red más importantes.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-02-07T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-02-07-Protocolos_Importantes/">
+  <link rel="canonical" href="http://localhost:4000/2022-02-07-Protocolos_Importantes/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Protocolos Relevantes">
+  <meta property="twitter:description" content="Presentación de los protocolos de red más importantes.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Protocolos Relevantes</h1>
+          
+            
+              <h2 class="post-subheading">Presentación de los protocolos de red más importantes.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on February 7, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h1 id="1-introducción">1. Introducción.</h1>
+<p>Los protocolos son un conjunto de reglas o pautas de actuación que permite a las máquinas y aplicaciones intercambiar información entre ellas. Tales protocolos deben de ser llevados a cabo por cualquier máquina que forme parte de la comunicación. on estos protocolos se consigue un intercambio ordenado de información, eficiente y fiable.</p>
+
+<p><br /></p>
+
+<h2 id="2-protocolos-de-la-capa-de-red">2. Protocolos de la capa de red.</h2>
+<h3 id="21-ip">2.1. IP.</h3>
+
+<h3 id="211-direcciones-ip">2.1.1. Direcciones IP.</h3>
+
+<p><strong>IP</strong>: El ‘Internet Protocol’ es un protocolo, un conjunto de pautas de acción, para enrutar y direccionar paquetes de datos de forma que estos puedan atravesar la red y llegar al destino correcto.</p>
+
+<p>Los datos que atraviesan la red lo hacen partidos en trozos más pequeños llamados <strong>paquetes</strong>. La información IP se asocia a cada paquete mediante una cabecera y esta información ayuda a los routers a mandar paquetes hacia el sitio correcto.</p>
+
+<p>Todo dispositivo o dominio tiene asociado una dirección IP, de forma que cuando se quiere enviar un paquete hacia ellos lo que se hace es mandar un paquete a la dirección IP que el dispositivo tiene asociada y de esa forma, el paquete puede ser enviado a su destino.</p>
+
+<p>Así pues podemos establecer que:</p>
+
+<ul>
+  <li>
+    <p>La <strong>dirección ip</strong> es un identificador único asignado un dispositivo o a un dominio que se conecta con internet. Cada IP tiene una serie de caracteres  dividos en cuatro grupos (mirar [[1 IPs]]).</p>
+  </li>
+  <li>
+    <p>Vía DNS, que traduce los dominios a direcciones IP y viceversa, los usuarios son capaces de acceder al servicio generado por dicho dispositivo sin memorizar las complejas direcciones IP.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="212-paquetes-ip">2.1.2. Paquetes IP.</h3>
+
+<p>Los paquetes que se envían mediante el protocolo IP reciben el nombre de <strong>paquetes IP</strong> están creados añadiendo una <strong>cabecera IP</strong> de cada paquete de datos antes de mandarlo. Esta cabecera no es más que un conjunto de bits que recoge algunas partes de la información del paquete:</p>
+
+<ul>
+  <li>Tamaño de la cabecera.</li>
+  <li>Tamaño del paquete.</li>
+  <li>TTL (Time To Live, la cantidad de tiempo que un paquete puede vagar dentro de la red).</li>
+  <li>Protocolo de transporte utilizado.</li>
+  <li>Direccion IP de llegada y envío.</li>
+</ul>
+
+<p>Entre otros.</p>
+
+<p><br /></p>
+
+<h3 id="213-cómo-funciona-el-routing">2.1.3. Cómo funciona el routing.</h3>
+
+<p>Internet está hecho de grandes redes interconectadas que son cada una responsables de ciertos bloques de direcciones IP. Estas grandes redes se conocen como <strong>sistemas autónomos (AS)</strong></p>
+
+<p>Una variedad de protocolos de routing (recordamos que el routing es el proceso de seleccionar un camino para el tráfico de red en una red), incluyendo BGP, se encargan de transportar los paquetes IP de AS a AS hasta que finalmente llegan a la AS que se hace responsable de dicha IP.</p>
+
+<p>Los distintos protocolos que atraviesa un paquete van añadiendo al mismo distintas cabeceras con información sobre cómo debe de ser tratada la información que hay dentro.</p>
+
+<p><br /></p>
+
+<h3 id="214-qué-es-tcpip">2.1.4. Qué es TCP/IP?.</h3>
+
+<p>El modelo TCP/IP es un modelo de red que debe su nombre a la combinación de los protocolos TCP e IP.</p>
+
+<p>El protocolo TCP o Protocolo de Control de Transmisión es un protocolo de transporte, lo que significa que dicta la forma en que se envían y reciben los paquetes.</p>
+
+<p>Una cabecera TCP se adhiere a cada porción de datos que usan TCP. TCP asegura que todos los paquetes lleguen en orden una vez que comience la transmisión, a través de TCP, el destinatario reconocerá haber recibido los paquetes en dicho orden y en el caso de no haber recibo se volverán a envíar aquellos paquetes que no se hayan envíado correctamente.</p>
+
+<p>TCP está diseñado para brindar confiabilidad, no velocidad, debido a que tcp debe de asegurarse de la llegada de todos los paquetes este puede ser un poco más lento.</p>
+
+<p>TCP e IP se diseñaron originalmente para usarse juntos y a menudo se les conoce como la siute TCP / IP. Sin embargo se pueden utilizar otros protocolos de transporte con IP, como UDP, pero esto, al mismo tiempo que lo hace más rápido, lo hace menos confiable.</p>
+
+<p><br /></p>
+
+<h2 id="22-icmp">2.2. ICMP.</h2>
+
+<h3 id="221-introducción">2.2.1. Introducción.</h3>
+
+<p>El ICMP (Internet Control Messag Protocol) es un protocolo de la capa de red utilizado por dispositivos de red para encontrar incidencias en la comunicación de red. Fundamentalmente ICMP es utilizado para determinar si un paquete ha llegado a su destino en un determinado tiempo o no, se utiliza sobre todo en routers.</p>
+
+<p><br /></p>
+
+<h3 id="222-utilidad">2.2.2. Utilidad.</h3>
+
+<p>El propósito principal de ICMP es el reporte de errores. Cuando dos dispositivos se conetan a internet, el ICMP existe para generar avisos de errores y reportarlos al dispositivo emisor en el caso de que algunos paquetes no lleguen a su destino. Por ejemplo, si un paquete de datos es demasiado grande para enviarlo, el enrutador lo descarta y genera un error ICMP que se envía al emisor del paquete descartado.</p>
+
+<p>Un uso secundario del protocolo ICMP es realizar diagnósticos de red. Por ejemplo, los comandos de terminal <strong>traceroute</strong> o <strong>ping</strong> operan mediante ICMP:</p>
+
+<ul>
+  <li>
+    <p><strong>traceroute</strong>: Es utilizado para mapear las posibles rutas que un paquete puede seguir a lo largo de una red hasta llegar al lugar de destino.</p>
+  </li>
+  <li>
+    <p><strong>Routing Path</strong>: Llamamos como Ruta de enrutamiento o “routing path” al camino físico que conecta dos routers. El viaje de un paquete entre dos routers se denomina ‘hop’. Traceroute también informa del tiempo que tarda cada camino.</p>
+  </li>
+  <li>
+    <p><strong>ping</strong>: Ping es una versión simplificada de ‘traceroute’, calcula la velocidad de conexión entre dos dispositivos pero no aporta información acerca del hop o los routers seguidos.</p>
+  </li>
+</ul>
+
+<p>Esto es que los comandos anteriores mandan paquetes con una cabecera que les permite identificarse como paquetes ICMP.</p>
+
+<p>Sin embargo, también existen ataques que explotan los procesos anteriores: ‘ICMP flood attack’ y ‘ping of death’.</p>
+
+<p><br /></p>
+
+<h3 id="224-icmp-y-cyberataques">2.2.4. ICMP y cyberataques.</h3>
+
+<ul>
+  <li>
+    <p><strong>ICMP flood attack</strong>: Este ataque consiste en saturar a un objetivo mediante request de mensajes ICMP, de esta forma consume sus recursos atendiendo peticiones fraudulentas y no puede utilizar otros servicios.</p>
+  </li>
+  <li>
+    <p><strong>Ping de la muerte</strong>: El ping de la muerte consiste en envíar a la dirección del objetivo un ping con un tamaño mayor del que la máquina objetivo puede manejar generando un crasheo de la misma. Este en principio se manda en forma de pequeños paquetes, pero cuando este es reconstruido en la maquina receptora genera un colapaso del búffer.</p>
+  </li>
+  <li>
+    <p><strong>Smurf attack</strong>:  Este ataque consiste en coger la dirección IP de una víctima y utilizarla como si fuese la tuya propia, de esta forma, desde tu dirección IP falsificada mandas paquetes ICMP a otro dispositivo y este responde a la dirección IP falsa sobresaturándolo con paquetes ICMP.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="23-protocolo-arp">2.3. Protocolo ARP.</h2>
+
+<p>Para poder enviar paquetes de datos en redes TCP/IP, un servidor necesita, sobre todo, tres datos de dirección sobre el host al que se dirige, entre el nivel 2 y 3 del modelo OSI:</p>
+
+<ul>
+  <li>Máscara de subred.</li>
+  <li>La dirección IP. Que sirve para localizar a una máquina a través del ARP.</li>
+  <li>La dirección MAC (también conocida como dirección hardware o dirección física) que sirve para identificar a dicha máquina.</li>
+</ul>
+
+<p>El protocolo ARP es un protocolo que se encarga <strong>de vincular una dirección MAC (o física) a una dirección IP</strong>. Se encarga de permitir que un dispositivo conectado a una red pueda obtener una ruta MAC de otro equipo que esté conectado a esa misma red. Esencialmente, lleva a cabo en el proceso de mapeo una traducción para que los sistemas puedan reconocerse entre sí. Vamos a establecer los pasos a seguir.</p>
+
+<p>Supongámos que tenemos una red local en la que hay varios ordenadores conectados. Supongámos que un ordenador A quiere mandar un mensaje al ordenador B y que ya sabe su dirección IP, pero le sigue faltando la dirección MAC (la máscara de subred se obvia puesto que los dos están en la misma red) Así:</p>
+
+<ol>
+  <li>En primer lugar, el ordenador ‘A’ buscará en una lista interna llamada ARP caché para comprobar si la dirección IP del host con el que desea ponerse en contacto ya tiene asociada una dirección MAC.</li>
+  <li>Si no lo está, envía un mensaje utilizando la función <em>broadcast</em> al resto de ordenadores de la red preguntando por la dirección MAC asociada a la IP que ya tiene.</li>
+  <li>De forma que el ordenador propietario de dicha IP, el B, recibe el mensaje y le manda la dirección MAC y de esta forma ya puede haber comuncación entre los dos ordenadores.</li>
+  <li>Por último, esta dirección MAC se guarda en el ARP caché que está para hacer la comunicación más eficiente, de forma que la proxima vez que ambos ordenadores deseen ponerse en contacto no hará falta recurrir a la expedición.</li>
+</ol>
+
+<p>Cabe destacar que la dirección MAC así guardada en el ARP caché (comando arp -a) se guarda de forma dinámica y eventualmente se terminará borrando. Esto se hace para prevenir que el ARP caché se llene de direcciones que no se utilizan frecuentemente.</p>
+
+<p>Por otro lado, si alguien intencionalmente escribe dicha dirección en el ARP caché se guardará de forma estática.</p>
+
+<p><br /></p>
+
+<h2 id="23-protocolo-ppp">2.3. Protocolo PPP.</h2>
+
+<h3 id="231--antecedentes">2.3.1.  Antecedentes.</h3>
+
+<p>Aproximación a la orientación de bytes. Se trata simplemente de entender el frame como una colección de bytes o caracteres. Entre los protocolos que están orientados a bytes nos encontramos a: BISYNC, PPP, DDCMP.</p>
+
+<p><br /></p>
+
+<h3 id="232-ppp">2.3.2. PPP.</h3>
+
+<ul>
+  <li>PPP es un protocolo de la capa de enlace de datos.</li>
+  <li>PPP es un protocolo WAN (Wide Area Network), que es comúnmente utilizados entre links de internet, esto es, por ejemplo, entre dos routers.</li>
+</ul>
+
+<p>Existen dos principales usos para el protocolo PPP:</p>
+
+<ul>
+  <li>Es muy utilizado en comunicaciones de banda ancha.</li>
+  <li>También es muy utilizado para transmitir datos multiprotocolos entre dos ordenadores contectados directamente (point-to-point devices, like routers).</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="233-frame-format">2.3.3. Frame format.</h3>
+
+<p>En PPP nos encontramos la siguiente estructura:</p>
+
+<p>| Flag | Addres | Control | Carga útil | Checksum | Flag |
+| - | - | - | - | - | - |</p>
+
+<ul>
+  <li>Flag: Es un byte que marca el inicio y el final del frame. El patrón del flag suele ser: 01111110.</li>
+  <li>Addres: Un byte que es 11111111 en el caso de ser un dato de broadcast.</li>
+  <li>Control: Un byte constante de 11000000.</li>
+  <li>Protocol: 1 o 2 bytes que contienen información acerca del tipo de dato contenido en el apartado de carga útil.</li>
+  <li>Carga útil: Esta parte contiene los datos de la capa de red, tiene una capacidad máxima de 1500 bytes.</li>
+  <li>Cheksum: Son dos bytes que están oritentdados a la detección y reporte de errores.</li>
+</ul>
+
+<p>Sin embargo existe un problema, y es que los bits que integran los flags de inicio y final también pueden aparecer dentro del apartado de la carga útil y recodermos que estos bits marcan el inicio y el final del frame. Por tanto, ¿como nos las apañamos para diferenciar el flag de un byte normal?
+Para ello vamos a explicar lo que es el ‘relleno de caracteres o bytes’ ya que PPP es un protocolo orientado a bytes.</p>
+
+<p><br /></p>
+
+<h3 id="234--relleno-de-caracteres">2.3.4.  Relleno de caracteres.</h3>
+
+<p>Sabemos que la secuencia de los flags pueden aparecer en la parte de la carga útil y vamos a manejar esto metiendo o añadiendo un byte de más.</p>
+
+<p>Es decir, el relleno de byte o relleno de caracteres es el proceso de añadir un byte o caracter de más siempre que la secuencia del ‘flag’ aparezca dentro de la carga útil para indicar de esta forma que no se trata de la secuencia que indica que es el final del ‘frame’.</p>
+
+<p><br /></p>
+
+<h1 id="3-protocolos-de-la-capa-de-transporte">3. Protocolos de la capa de transporte.</h1>
+
+<p><br /></p>
+
+<h2 id="31-tcp">3.1. TCP.</h2>
+
+<p>TCP o (Protocolo de Control de transmisión) es un protocolo que permite a las aplicaciones comunicarse con garantias independientmente de ls capas inferiores del modelo de red.</p>
+
+<p>Esto significa que los dispositivos tienen únicamente que enviar los “segmentos” (unidad de medida de TCP) sin preocuparse de si van a llegar los datos correctamente. TCP da sorporte a múltiples protocolos de la capa de aplicación: HTTP, POP3, SMTP, TLS, FTPES, SFTP, SSH etc.</p>
+
+<p><br /></p>
+
+<h3 id="312-principales-características">3.1.2. Principales características.</h3>
+
+<p>TCP es un protocolo de la capa de transporte y tiene mecanismos que aseguran la integridad de los segmentos durante su envío sin la necesidad de recurrir a la capa de aplicación para solucionar errores. TCP inicia la transmisión de datos sin intervención de la capa aplicación.</p>
+
+<ul>
+  <li>
+    <p>El MSS es el tamaño máximo en bytes que TCP puede recibir en un sólo segmento (similar al MTU, pero sólo en la capa de transporte), 1500 bytes ,menos la cabecera TCP y la cabecera IP:</p>
+
+    <p>MSS = MTU - Cabecera TCP -Cabecera IP</p>
+  </li>
+  <li>
+    <p>TCP tiene un mecanismo complejo de control de errores, entre los distintos métodos para detectar errores se encuentran:</p>
+
+    <ul>
+      <li>Checksum (Bloque de datos encargado de la detección de errores).</li>
+      <li>Numeración de segmentos.</li>
+      <li>Confirmación ACK selectivas.</li>
+      <li>Temporizadores.</li>
+      <li>Descarte de segmentos duplicados.</li>
+    </ul>
+
+    <p>Si TCP detecta un error también tiene mecanismos de solvención de la incidencia para que la capa de aplicación no tenga que intervenir.</p>
+  </li>
+  <li>
+    <p>Otra característica importante de TCP es que se encarga de que los datos lleguen en orden, en el mismo orden en el que fueron emitidos. El protocolo está diseñado para <em>el receptor esperé después de un segmento el siguiente y si este no llega, o llega otro en su lugar, genera un error y pedirá un retransmisión del segmento que falta antes de la llegada del siguiente.</em></p>
+  </li>
+  <li>
+    <p>Por otra parte, *con cada segmento recibido de forma satisfactorio se emite un ACK indicando al emisor de la correcta llegada de cada segmento, aunque en la práctica se envían confirmación del recibimiento de múltiples segmentos por una cuestión de saturación.**</p>
+  </li>
+  <li>
+    <p>El TCP también dispone de mecanismos dinámicos de control de flujo para evitar que ninguna de las dos partes se sature en el envío/recibimiento de datos. Este mecánismo, entendido de manera simplista, consiste en que <em>existe un buffer que el emisor puede llenar a conveniencia, cuando este buffer se llena, el receptor envía un ACK para indicar que de momento el emisor no puede enviar más hasta que se vuelva a enviar un ACK indicando que puede seguir envíando datos.</em></p>
+  </li>
+  <li>
+    <p>TCP también dispone mecanismos de control de congestion. Esto nos permite que no se pierdan paquetes por la red debido a la congestión de los routers por tráfico excesivo. <em>Si un router recibe paquetes a un ritmo mayor del que puede manejar comenzará a descartar paquetes y estos se perderán. Existen los conceptos de ventanas de congestión y de recepción que actúan de forma complementaria; cuando una crece la otra disminuye y viceversa controlando de forma dinámica la congestión de tráfico.</em></p>
+  </li>
+  <li>
+    <p>Por último, una característica interesante de TCP es la de multiplexación de datos, que nos permitirá recibir la información de varios jost simultáneamente.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="313-establecimiento-de-la-conexión-entre-cliente-y-servidor-y-desconexión-en-tcp">3.1.3. Establecimiento de la conexión entre cliente y servidor y desconexión en TCP.</h3>
+
+<h4 id="3131-iniciando-conexión">3.1.3.1. Iniciando conexión.</h4>
+
+<p>La principal característica del protocolo TCP es que se trata de un protocolo orientado a conexión, para poder establecer una conexión entre cliente y servidor, es necesario establecer una conexión previa con dicho servidor.</p>
+
+<p>Esta conexión previa se denomina como <strong>3-way handshake</strong> y consiste básicamente en que el cliente (que inica la conexión) envía un mesaje SYN al servidor (que recibe la conexión) y el servidor a su vez le enviará un SYS-ACK (un mensaje de confirmación de recibimiento del SYS) y el cliente responderá con ACK junto con el primer intercambio de datos.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/Pasted%20image%2020211127190548.png" text-align="center" />
+</div>
+
+<p><em>Un detalle importante de TCP es que genera números secuencia a cada lado ayudando a que no se puedan establecer conversaciones falsas entre el emisor y un falso receptor y viceversa, aunque este mecanismo no evita que la información pueda ser interceptada por ejemplo po un ataque MitM (Man in the Middle).</em></p>
+
+<p><br /></p>
+
+<h4 id="3132-ataques-vía-tcp">3.1.3.2. Ataques vía TCP.</h4>
+
+<p>Además, con TCP existe un ataque que consiste envíar desde múltiples host varias peticiones de conexión (varios mensajes SYS) con el objetivo de saturar de conexiones al receptor, algunas posibles soluciones a este ataque son:</p>
+
+<ul>
+  <li>Limitar el número de conexiones.</li>
+  <li>Aceptar conexiones solamente de IPs fiables.</li>
+  <li>Retrasar la asignación de recursos con cookies.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3133-finalizando-la-conexión">3.1.3.3. Finalizando la conexión.</h4>
+
+<p>Para finalizar la conexión el cliente envía un mensaje FIN y el servidor,  tras emitirlo responderá con un ACK y otro FIN a lo que el cliente responderá con un ACK al FIN del servidor y la conexión habrá terminado.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/Pasted%20image%2020211127191440.png" text-align="center" />
+</div>
+
+<p>Si el proceso de cierre “falla”, entonces nos podemos quedar con una conexión medio abierta en la que una de las partes, aquella que no ha finalizado la conexión, puede seguir mandando mensajes pero la otra no.</p>
+
+<p><br /></p>
+
+<h3 id="314-cabecera-de-tcp">3.1.4. Cabecera de TCP.</h3>
+
+<p>TCP añade 20 bytes de cabecera como mínimo en cada segmento (puesto que hay un campo de “opcionales”). En esta cabecera TCP entontraremos información relativa  a la comunicación como:</p>
+
+<ul>
+  <li>Puerto de origen.</li>
+  <li>Puerto de destino.</li>
+  <li>Número secuencia.</li>
+  <li>Número ACK.</li>
+  <li>Distintos flags de TCP como SYN, ACK, RST, …</li>
+  <li>Campo de la ventana de recepción.</li>
+</ul>
+
+<p>De esta forma, el receptor de la información, recibe el segmento, recoge su cabecera, procesa la información y con ella emite un paquete que contiene la información necesaria para ser envíado a su destino satisfactoriamente.</p>
+
+<p>Conviene mencionar que los puertos reservados para los ‘socket’ van desde el 0 hasta el 65535. Pero existen distintos tipos de puertos:</p>
+
+<ul>
+  <li>Puertos conocidos (0 al 1023) reservados por la IANA.</li>
+  <li>Puertos registrados (1024 al 49151) reservados por aplicaciones.</li>
+  <li>Puertos privados (49152 al 65535) Puertos no reservados que pueden utilizarse libremente.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="32-udp">3.2. UDP.</h2>
+
+<h3 id="321-principales-características">3.2.1. Principales características.</h3>
+
+<p>La principal característica de UDP es que, aunque también es un protocolo situado en la capa de transporte, no es un protocolo orientado a conexiones y por tanto no dispone de ningún mecanismo que garantize la integridad de los datos durante su envío.</p>
+
+<ul>
+  <li>No inicia una conexión previa al intercambio de datagramas &lt;8indicamos datagrama puesto que segmento es propio de TCP).</li>
+  <li>No contiene un mecanismo de control de flujo.</li>
+  <li>No contiene un mecanismo de control de congestión.</li>
+  <li>No garantiza la llegada en orden de los segmentos.</li>
+  <li>No existe un procedimiento de control acerca de si un datagrama ha o no ha llegado satisfactoriamente a su destino.</li>
+</ul>
+
+<p>Por tanto, es mucho más rápido pero mucho menos confiable.</p>
+
+<p><br /></p>
+
+<h3 id="322-cabecera-udp">3.2.2. Cabecera UDP.</h3>
+
+<p>UDP añade a todos los datagramas una cabecera de 8 bytes que contiene:</p>
+
+<ul>
+  <li>Puerto origen.</li>
+  <li>Puerto de destino.</li>
+  <li>Longitud del datagrama.</li>
+  <li>Checksum.</li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="4-protocolos-de-la-capa-de-aplicación">4. Protocolos de la capa de aplicación.</h1>
+
+<h2 id="41-protocolo-https">4.1. Protocolo HTTP/S.</h2>
+
+<h3 id="411-intro">4.1.1. Intro.</h3>
+
+<p>Ahora vamos a explorar el protocolo HTTP, HTTPS es HTTP cifrado, asi que nos centraremos en HTTP.</p>
+
+<p><br /></p>
+
+<h3 id="412-generalidades">4.1.2. Generalidades.</h3>
+
+<p>HTTP es el acrónimo en inglés de “HyperText Transfer Protocol”, se trata de un protocolo que nos permite realizar peticiones de datos y recursos, como documentos HTML.</p>
+
+<p>Se trata de un protocolo básico en cualquier intercambio de datos en la web que ofrece estructura de cliente-servidor. Esto significa que en este protocolo existe una máquina o un dispositivo que inicia una petición de datos, normalmente un navegador web, que intercambia datos con un servidor.</p>
+
+<p>Así, por ejemplo, una página web resulta de la unión de muchos subdocumentos obtenidos a través de distintas peticiones a través del protocolo http a distintos servidores.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Redes/Pasted%20image%2020211216171122.png" text-align="center" />
+</div>
+
+<p>Estos clientes y servidores se comunican mediante mensajes individuales ( en lugar de utilizar un flujo continuo de datos):</p>
+
+<ul>
+  <li>Los mensajes del “cliente” se denominan <strong>peticiones</strong>.</li>
+  <li>Los mensajes del “servidor” se denominan <strong>respuestas</strong>.</li>
+</ul>
+
+<p>Es conveniente mencionar el hecho de que se trata de un protocolo flexible, ampliable que ha ido evolucionando con el tiempo. Se transmite sobretodo sobre el protocolo TCP o el protocolo cifrado TLS (una variante mejorada del ahora obsoleto SSL), aunque puede emplearse sobre cualquier protocolo fiable.</p>
+
+<p><br /></p>
+
+<h2 id="42--smtp">4.2.  SMTP.</h2>
+
+<p>SMTP es un acrónimo que atiende a Simple Mail Transfer Protocol. Se trata de un protocolo de comunicaciones estándard para transmisión de mails electrónicos.</p>
+
+<p><br /></p>
+
+<h3 id="421-generalidades">4.2.1. Generalidades.</h3>
+
+<p>Mientras que SMTP es un “push protocol” (que envía datos), POP e IMAP son “pull protocols”. Es decir SMTP se utiliza para enviar mails mientras que POP e IMAP se utilizan para recogerlos.</p>
+
+<p>SMTP es un protocolo de la capa aplicación basado en el protocolo de transporte TCP que escucha en el puerto 25.</p>
+
+<p>SMTP corre sobre el servicio postfix, hay que tener el servicio de postfix instalado y corriendo para poder mandar mails.</p>
+
+<p><br /></p>
+
+<h2 id="43-pop3">4.3. POP3.</h2>
+
+<p>Mientras que SMTP envía mails, POP3 es un “pull protocol” que se encarga de recogerlos. Corre bajo el servicio dovecot-pop3d, es decir, hay que tener instalado y corriendo este servicio. Esto habilitará que una máquina externa se conecte al puerto 110 para enviar mails que nosotros recogeremos con pop3. Recordamos que pop3 está sin cifrar.</p>
+
+<p><br /></p>
+
+<h2 id="44-ftp">4.4. FTP.</h2>
+
+<p>FTP es un acrónimo que responde a File Transfer Protocol que actúa con TCP/IP y se utiliza para transmitir ficheros desde un host al otro. Generalmente utiliza el puerto 21.</p>
+
+<p>FTP corre desde el servicio “vsftpd”. Hay que instalar y correr este servicio en linux para poder hacer una transferencia de archivos a otra máquina.</p>
+
+<h2 id="45-dhcp">4.5. DHCP.</h2>
+<ul>
+  <li><strong>DHCP</strong>: Dynamic Host Configuration Protocol. Se trata de un protocolo que asigna dinámicamente direcciones IP dentro de una red.</li>
+</ul>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#redes">redes</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Protocolos+Relevantes&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-07-Protocolos_Importantes%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-02-07-Protocolos_Importantes%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-07-Protocolos_Importantes%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-02-07-Precurso_Redes/" data-toggle="tooltip" data-placement="top" title="Curso Básico Redes">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-02-07-Proxys/" data-toggle="tooltip" data-placement="top" title="Proxy">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

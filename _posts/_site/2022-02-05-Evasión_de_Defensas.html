@@ -1,0 +1,279 @@
+<h1 id="1-antivirus">1. Antivirus.</h1>
+
+<h3 id="111-antivirus-como-concepto">1.1.1. Antivirus como concepto.</h3>
+
+<p>Un antivirus es un programa que tiene la finalidad de detectar malware, código mal intencionado capaz de perjudicar la integridad de la máquina en la que esta se ejecuta.</p>
+
+<p><strong>Un software antivirus comienza comparando tus archivos y programas informáticos con una base de datos de tipos de malware conocidos</strong>, estas tareas se realizan en segundo plano. Debido a que los hackers crean y distribuyen nuevos virus constantemente, también hará un escaneo de los equipos en la búsqueda de un tipo nuevo o des conocido de amenaza de malware.</p>
+
+<p>Existe una página web que permite testear un antivirus recién adquirido: <strong>eicar</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="112-tipos-de-malware">1.1.2. Tipos de malware.</h3>
+
+<ul>
+  <li>
+    <p><strong>Keylogger</strong>: Un keylogger es un tipo de malwar que captura las teclas que el usuario pulsa en el teclado conectado físicamente a su dispositivo. Se trata de un subtipo de otro tipo de malware llamado <strong>spyware</strong> que tiene por objetivo espiar al dispositivo afectado.</p>
+  </li>
+  <li>
+    <p><strong>Worm</strong>: Este tipo de malware puede tener muchas funcionalidades, pero lo más característico es su capacidad de replicación y traslación a otros dispositivos.</p>
+  </li>
+  <li>
+    <p><strong>Troyan</strong>: Su nombre proviene del Caballo de Troya de la Eneida de Virgilio, haciendo referencia al hecho de que este tipo de malware en apariencia se presenta como una aplicación inofensiva que en realidad tiene comportamiento insidioso ya que desarrolla tareas perjudiciales para el usuario en segundo plano.</p>
+  </li>
+  <li>
+    <p><strong>Adware</strong>: Este software rastrea el navegador y el historial de descargas del usuario con la intención de mostrar anuncios emergentes o banners no deseados para atraer al usuario a realizar una compra o hacer clic.</p>
+  </li>
+  <li>
+    <p><strong>Ransomware</strong>: Este malware cifra los archivos del disco duro del dispositivo y restringe el acceso del usuario a ellos</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="113-evasión-de-antivirus">1.1.3. Evasión de antivirus.</h3>
+
+<p>En esencia lo que tenemos frente a un antivirus no es más que una base de datos que contiene firmas de malware (esto es hashes de estractos de código malware) conocido. Evadir el antivirus consiste en codificar el malware para hacer que la firma de nuestro malware parezca la de una aplicación legítima o que almenos no esté en la base de datos.</p>
+
+<p><br /></p>
+
+<h2 id="12-herramientas-de-evasión-antivirus">1.2. Herramientas de evasión antivirus.</h2>
+
+<p>Como hemos indicado en el apartado anterior, vamos a utilizar herramientas que nos van a permitir cifrar nuestro malware para evitar que sea detectado como tal. <strong>Concretamente, vamos a añadir código que no altera la funcionalidad pero que si puede llegar a alterar la firma de nuestro software para que no sea detectada por el antivirus</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="121-msfvenom">1.2.1. MSFVenom.</h3>
+<p>Con MSFVenom pode acudir a dos técnicas:</p>
+
+<ul>
+  <li>
+    <p><strong>Cifrado</strong>: Con MSFVenom podemos cifrar el payload que estamos generando en forma de binario.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M8/Pasted%20image%2020220131212010.png" text-align="center" />
+  </div>
+
+    <p>Sin embargo, aunque los antivirus no sean buenos escaneando malware cifrado, al descifrarlo y utilizarlo el escaneo en tiempo real sigue suponiendo una línea de defensa fuerte y por tanto</p>
+  </li>
+  <li>
+    <p><strong>Encoders</strong>: También podemos utilizar herramientas de codificación que añden código inservible con la finalidad de alterar la firma. Este código se puede añadir en una serie de iteraciones que nosotros podemos seleccionar. Esto hará que, a mayor número de iteraciones, menos probable será que sea detectado pero más pesara ya que lo que se hace en esencia es añadir código.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M8/Pasted%20image%2020220131223951.png" text-align="center" />
+  </div>
+
+    <p>Entre los encoders más destacados encontramos:</p>
+
+    <ul>
+      <li>x86/shikata_ga_nai</li>
+      <li>x86/countdown</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="122-metasploit">1.2.2. Metasploit.</h3>
+
+<p>Con Metasploit podemos utilizar módulos de evasión de defensas que configurarán un payload para que pase desapercibido ante un antivirus:</p>
+
+<p>Utilizamos metasploit para buscar el modulo correspondiente y ajustar las correspondientes variables.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201131506.png" text-align="center" />
+	</div>
+
+<p>Seguidamente, subimos el fichero a VirusTotal y observamos el resultado.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201131943.png" text-align="center" />
+	</div>
+
+<p><br /></p>
+
+<h3 id="123-winpayloads">1.2.3. Winpayloads.</h3>
+
+<p>Lo instalamos tal y como se indica en : https://github.com/nccgroup/Winpayloads. La instalación convencional está obsoleta, hace falta dirigirnos a la página web.
+Una vez lo hemos instalado seguimos las instrucciones para llevar a cabo los payloads correspondientes:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201155053.png" text-align="center" />
+	</div>
+
+<p>Una vez terminado el proceso se almacenará nuestro payload en una ubicación y  abrirá un multihandler automáticamente a la espera de que el payload generado se ejecute en la máquina víctima:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201155202.png" text-align="center" />
+	</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201155214.png" text-align="center" />
+	</div>
+
+<p><br /></p>
+
+<h3 id="124-the-fatrat">1.2.4. The FatRat.</h3>
+
+<p>TheFatRat es una herramienta de explotación que compila un malware con un payload conocido y luego el malware compilado puede ser ejecutado.</p>
+
+<p>TheFatRat proporciona una manera fácil de crear puertas traseras y cargas útiles que pueden pasar por alto la mayoría de los antivirus.</p>
+
+<p>Lo instalamos con github;</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Screetsec/TheFatRat.git
+<span class="nb">cd </span>TheFatRat
+<span class="nb">chmod</span> +x setup.sh <span class="o">&amp;&amp;</span> <span class="nb">sudo</span> ./setup.sh
+</code></pre></div></div>
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201161032.png" text-align="center" />
+	</div>
+
+<p>Seguidamente se instalan las dependencias.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220201161201.png" text-align="center" />
+	</div>
+
+<p>Una vez se termina de instalar lo ejecutamos desde la terminal. Seguimos las instrucciones para generar el payload deseado.</p>
+
+<p><br /></p>
+
+<h1 id="2-evasión-uac">2. Evasión UAC.</h1>
+
+<h2 id="21-uac">2.1. UAC.</h2>
+
+<h3 id="211-uac-como-concepto">2.1.1. UAC como concepto.</h3>
+
+<p>UAC es un acrónimo de User Accounts Control, (Control de las Cuentas de Usuario). <strong>Se trata de un sistema de avisos y seguridad destinado a proteger un equipo contra modificaciones no autorizadas</strong> presente en Windows desde Windows Vista.</p>
+
+<p>Cada vez que una aplicación quiera llevar a cabo una modificación en tu equipo necesita del visto bueno de la UAC que a su vez estará esperando tu consentimiento para permitir la acción del proceso en cuestión.</p>
+
+<p><br /></p>
+
+<h3 id="212-como-funciona-el-uac">2.1.2. Como funciona el UAC.</h3>
+
+<p>La severidad de este sistema de protección está dividido en cuatro niveles cada cual más restrictivo que el anterior.</p>
+
+<ol>
+  <li>
+    <p><strong>No notificarme nunca</strong>: Es la configuración menos recomendada, porque desactiva el UAC.</p>
+
+    <p>Esto quiere decir que no te notificará cuando las aplicaciones intenten instalar otro software o realizar cambios en el equipo.</p>
+
+    <p>Ni cuando seas tú quien realice los cambios.</p>
+
+    <p>Tampoco atenuará la ventana en ningún momento impidiendo que puedas seguir trabajando.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>Notificarme solo cuando una aplicación intente realizar cambios en el equipo (no atenuar el escritorio)</strong>:</p>
+
+    <p>Avisándote cuando los programas que tienes en Windows intenten instalar otras aplicaciones o realizar cambios en el equipo.</p>
+
+    <p>No notificándote cuando seas tú quien realice cambios en la configuración.</p>
+
+    <p>No se inmovilizará el resto de tareas, podrás seguir trabajando con el aviso de fondo.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>Notificarme solamente cuando una aplicación intente realizar cambios en el equipo</strong>: Es el nivel de seguridad que viene configurado por defecto.</p>
+
+    <p>Sólo te notificará cuando los programas que tienes en Windows intenten instalar otras aplicaciones o realizar cambios en el equipo.</p>
+
+    <p>NO te avisará cuando tú realices cambios en la configuración.</p>
+
+    <p>Sí inmovilizará otras tareas hasta que respondas en la ventana emergente.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>Notificarme siempre</strong>.</p>
+
+    <p>Te notificará cuando los programas que tienes en Windows intenten instalar otras aplicaciones o realizar cambios en el equipo.</p>
+
+    <p>También se te notificará cuando realices cambios en la configuración.</p>
+
+    <p>Se inmovilizarán otras tareas hasta que respondas a la ventana de autorización.</p>
+  </li>
+</ol>
+
+<p>En Windows 10 podemos acceder a este gestor mediante <strong>Panel de Control &gt; Cuentas de Usuario &gt; Cuentas de Usuario &gt; Cambair configuracion UAC</strong>.</p>
+
+<p>Cuando esta se encuentra en el máximo nivel, puede suponer un problema a la hora de utilizar ciertas funcionalidades en meterpreter o dentro de la máquina simplemente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220202191309.png" text-align="center" />
+	</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220202195227.png" text-align="center" />
+	</div>
+
+<p>Sin embargo, podemos utilizar módulos de metasploit para saltarnos esta clase de barreras:</p>
+
+<ul>
+  <li>
+    <p>use exploit/windows/local/bypassuac</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_comhijack</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_dotnet_profiler</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_eventvwr</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_fodhelper</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_injection</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_injection_winsxs</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_sdclt</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_silentcleanup</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_sluihijack</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_vbs</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_windows_store_filesys</p>
+  </li>
+  <li>
+    <p>use exploit/windows/local/bypassuac_windows_store_reg</p>
+  </li>
+</ul>
+
+<p>De forma que si el UAC no está en el nivel más alto, si la shell que manipulamos es propiedad de alguien que pertence al grupo de administradores y configurando adecuadamente las variables del módulo obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M8/Pasted%20image%2020220202195125.png" text-align="center" />
+	</div>

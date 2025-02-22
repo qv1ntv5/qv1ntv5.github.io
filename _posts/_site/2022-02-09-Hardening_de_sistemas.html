@@ -1,0 +1,875 @@
+<h1 id="1-preparación">1. Preparación.</h1>
+
+<p>Nos descargamos la máquina del enlace: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/ y descargamos ![[Pasted image 20220208094223.png]].</p>
+
+<p>Seguidamente comparamos el hash extraído con el hash proporcionado por la página web.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220208094320.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220208094340.png" text-align="center" />
+</div>
+
+<p>Y podemos observar que son idénticos aunque también podemos meter ambos strings en un fichero y pedir que se extraiga el contenido del fichero eliminando los repetidos. Si sólo se extrae una línea, significa que ambas caenas son idénticas y por tanto el archivo se ha descargado íntegro.</p>
+
+<p><br /></p>
+
+<h1 id="2-montado-manual-de-la-máquina-debian">2. Montado manual de la máquina Debian.</h1>
+
+<h2 id="21-introducción">2.1. Introducción.</h2>
+
+<p>Vamos a instalar de manera manual la máquina recién descargada.</p>
+
+<p>Después de haber configurado la estructura de la máquina virtual en VirtualBox (unidad óptica, eliminar disquetes, ram, procesador, etc) iniciamos la instalación de la máquina:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220208205548.png" text-align="center" />
+</div>
+
+<p>Seleccionamos idioma, distribución de teclado, región, etc.
+Introducimos el nombre de la máquina: debianVM.
+No introducimos nombre de dominio (Active DIrectory) porque no pertenecemos a ninguno.
+Introducimos contraseña de súper usuario, nombre de cuenta de usuario, contraseña de la cuenta de usuario y comenzamos el particionado manual del disco duro.</p>
+
+<p><br /></p>
+
+<h2 id="22-particionamiento-manual-del-disco-duro">2.2. Particionamiento manual del disco duro.</h2>
+
+<p>Las particiones no son más que divisiones de la memoria que hay en el disco duro, existen las <strong>particiones primarias</strong> de las cuales puede haber hasta un máximo de cuatro y el resto son  <strong>particiones lógicas</strong>.</p>
+
+<p>Las particiones tienen criterios/permisos propios que priman sobre los permisos de la información que está contenido en ellas. Por eso, como una medida de seguridad, tiene sentido dividir el sistema de ficheros de Linux (las carpetas que se encuentran dentro del directorio raíz: <strong>/</strong>) para mayor seguridad en distintas particiones.</p>
+
+<p>Para el caso que nos ocupa, que es configurar un servidor web, nos interesa serparar las siguentes carpetas:</p>
+
+<ul>
+  <li>Directorio <strong>/boot</strong>, que contiene los elementos necesarios para el correcto arranque del sistema operativo.</li>
+  <li>Directorio <strong>/var</strong>, que contiene los archivos que componen el sitio web.</li>
+  <li>Directorio <strong>/tmp</strong>, que tiene permisos de lectura, escritura y ejecución para cualquier usuario y por tanto supone una brecha de seguridad bastante grande.</li>
+</ul>
+
+<p>Para ello seguimos el siguiente procedimiento. Para empezar, seleccionamos el particionado manual de discos:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220208210756.png" text-align="center" />
+</div>
+
+<p>Seleccionamos nuestro disco duro y creamos una nueva tabla de particiones con todo el espacio. Seguidamante seleccionamos el espacio libre y empezamos a configurar cada partición:</p>
+
+<ul>
+  <li>
+    <p><strong>/boot</strong>: La carpeta /boot será la carpeta a la que dedicaremos la primera partición primaria de 1 GB que alojaremos al principio del disco y que tendrá las siguientes características:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220208212947.png" text-align="center" />
+  </div>
+
+    <p>Notemos que para /boot la carpeta de arranque</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>/</strong>: La carpeta raíz le seguirá a la anterior como otra partición primaria de 10 GB que situaremos al principio justo después de la carpeta /boot:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220208213111.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>/var</strong>: La carpeta var se alojará como la tercera y última partición primaria de 4 GB que volveremos a situar al principio, después de las dos particiones anteriores:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220208213247.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>/tmp</strong>: Configuramos la partición dedicada a la carpeta /tmp, que será la primera partición lógica situada también al principio:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220208213859.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>/swap</strong>: Por último, generamos el área de memoria dedicada al intercambio:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220208213959.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>De manera que al final se queda como sigue:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M10/Pasted%20image%2020220208214126.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Observamos que tenemos 3 particiones primarias y dos por encima de 4 y que por tanto son lógicas. Finalizamos y escribimos los cambios en el disco.</p>
+
+<p>&lt;/br&gt;</p>
+
+<h2 id="23-configuración-de-programas-de-la-máquina">2.3. Configuración de programas de la máquina.</h2>
+
+<p>No analizamos el medio de instalación.</p>
+
+<p>Configuramos la región y el gestor de paquetes.</p>
+
+<p>Dejamos en blanco el proxy pues no tenemos.</p>
+
+<p>Nos negamos a participar en la encuesta de compartir nuestros paquetes.</p>
+
+<p>Seguidamente configuramos los programas que queremos instalar, como lo que estamos configurando es un servidor web, seleccionamos las siguientes opciones:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220208224326.png" text-align="center" />
+</div>
+
+<p>Instalamos el GRUB en la partición. Y reiniciamos.</p>
+
+<p>&lt;/br&gt;</p>
+
+<h2 id="24-modificando-los-permisos-de-la-partición-tmp">2.4. Modificando los permisos de la partición /tmp.</h2>
+
+<p>Ahora, siguiendo con el propósito inicial, vamos a modificar los permisos de la partición /tmp. Para ello vamos a editar los permisos del fichero <strong>/etc/fstab</strong>, se trata de un archivo de configuración que contiene y maneja información relevante de las particiones.</p>
+
+<p>En primer lugar, para poder editar adecuadamente con vi ejecutamos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220209101942.png" text-align="center" />
+</div>
+
+<p>Y seguidamente nos transformamos en super usuario para poder editar el fichero en cuestion.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220209102125.png" text-align="center" />
+</div>
+
+<p>Y ejecutamos: vi /etc/fstab.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M10/Pasted%20image%2020220209102228.png" text-align="center" />
+</div>
+
+<p>Ahí podemos observar información acerca de cada partición y lo que contiene cada partición. Por ejemplo nos informa de que la carpeta /tmp está en la primera partición lógica referida como /dev/sda5, esto es; SataDiska5 o Disco Sata ‘a’ 5 (como es superior a 4 no puede ser primaria, luego es lógica).</p>
+
+<p>Así, protegemos la carpeta /tmp y optimizamos la solución de erroes del sistema llevando a cabo los siguientes cambios en el fichero:</p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>En la línea de configuración de /dev/sda5 añadimos, separados por coma, al lado de defaults, <strong>noexec</strong>. Y como los ficheros que tiene /tmp no nos interesan, cambiamos el 2 por un 0 ya que no quiero que esta partición se examine si hay algún escaneo del disco duro.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220209103329.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Seguidamente, cambiamos la preferencia de análisis de archivos de la partición que contiene a /boot y / ya que queremos que la primera partición que se analize ante un escaneo del disco duro sea la partición de arranque y las demás después.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220209104027.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="3-hardening">3. Hardening.</h1>
+
+<h2 id="31-concepto">3.1. Concepto.</h2>
+
+<p>El ejemplo anterior es un caso de lo que conocemos por hardening.</p>
+
+<p>En informática, el <strong>Hardening</strong> es el proceso de asegurar un sistema mediante la reducción de debilidades o vulnerabilidades del propio sistema aplicando la configuración adecuada (recordamos que una debilidad es una malconfiguración que predispone al sistema una vulnerabilidad y una vulnerabilidad es una malconfiguración que puede ser explotable por un atacante, no toda debilidad es de hecho una vulnerabilidad, podríamos decir que una vulnerabilidad).</p>
+
+<p><strong>El objetivo princnipal del hardening por tanto es el de entorpecer en la media de lo posible las posibilidades del atacante</strong>.</p>
+
+<p><br /></p>
+
+<h2 id="32-medidas-más-utilizadas">3.2. Medidas más utilizadas.</h2>
+
+<p>Evidentemente, se trata de un campo muy extenso y vamos a exponer aquí algunas de las medidas más utilizadas:</p>
+
+<p>&lt;/br&gt;</p>
+
+<ul>
+  <li>
+    <p><strong>Hardening general</strong>:</p>
+
+    <ul>
+      <li>Cambiar todas las claves que tengamos por defecto.</li>
+      <li>Desinstalación todo el software que sea innecesario.</li>
+      <li>Dar de baja a los usuarios que son innecesarios.</li>
+      <li>Deshabilitar todos los servicios que no se están utilizado.</li>
+      <li>Aumentar todo lo posible, la seguridad de los servicios o procesos que si tendrán que ser utilizados.</li>
+      <li>Cerrar puertos que se encuentren sin uso.</li>
+      <li>Utilizar <strong>backup</strong> (copias de seguridad  como respaldo de datos importantes.</li>
+      <li>Instalar un <strong>firewall</strong>.</li>
+      <li>Actualizar los sistemas operativos para obtener los parches de seguridad.</li>
+    </ul>
+
+    <p>Todo esto contribuirá a que el área de ataque sea más pequeña. También hay que mencionar que el Hardening igual que consiste en “desprendernos” de lo innecesario de nuestros sistemas con el fin de endurecerlo, <strong>también nos habla de tener sumamente cuidado, en que las acciones de protección no afecten al correcto funcionamiento del mismo sistema y por consiguiente a su propósito</strong>.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Hardening Usuarios</strong>:</p>
+
+    <ul>
+      <li>No abrir archivos desconocidos.</li>
+      <li>No descargar desde paginas no oficiales</li>
+      <li>Tener contraseñas robustas.</li>
+      <li>Tener cuidado con los correos electrónicos.</li>
+      <li>Tener nuestros sistemas operativos actualizados.</li>
+      <li>Tener un programa antivirus activado.</li>
+    </ul>
+
+    <p>El endurecimiento de del sistema, no solo es cosa de los sistemas operativos o hardware… también pasa por la <strong>concienciación de los usuarios</strong>, unos usuarios bien concienciados acerca de los posibles problemas reales son menos propensos  a ser vulnerables y, por ende, a que lo sea nuestro sistema.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Hardening contra amenazas</strong>:</p>
+
+    <p>Una <strong>amenaza</strong> es el término que se utiliza para referirse a los activos de vulnerabilidad, es decir, son todos aquellos elementos que son susceptibles de ser utilizados por un atacante.</p>
+
+    <ul>
+      <li><strong>Usuarios</strong>: Mediante cursos de concienciación en la seguridad informática.</li>
+      <li><strong>Programas malintencionados</strong>: No descargando ningún programa de fuentes desconocidas o no oficiales.</li>
+      <li><strong>Exploits</strong>: Manteniendo nuestros sistemas operativos actualizados. Los exploits es código que explotan vulnerabilidades muy conocidas que rara vez están presentas en los sistemas informáticos modernos.</li>
+      <li><strong>Intrusos</strong>: Estableciendo permisos y niveles de acceso.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Podemos emplear la guía de hardening de CIS para ayudarnos. PDF en la misma carpeta que contiene este archivo.</p>
+
+<p><br /></p>
+
+<h2 id="33-ejemplos-de-hardening">3.3. Ejemplos de Hardening.</h2>
+
+<p>A continuación vamos a ver una serie de ejemplos de hardening con la máquina Debian11.</p>
+
+<p><br /></p>
+
+<h3 id="331-asegurarse-de-que-tmp-está-configurado-112">3.3.1. Asegurarse de que /tmp está configurado (1.1.2).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>:</p>
+
+    <p>El directorio <strong>/tmp</strong> es un directorio ‘world-writable’ utilizado para almacenamiento temporal por todos los usuarios y algunas aplicaciones. Esto plantea un problema de seguridad ya que un atacante podría utilizar esta carpeta para subir y ejecutar archivos maliciosos.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Revisión</strong>:</p>
+
+    <p>En primer lugar, vamos a verificar que /tmp esté montada con el comando <strong>mount</strong>. Este es un comando que permite efectuar acciones relacionadas con sistemas de ficheros. El comando mount a secas muestra una lista de los directorios y dispositivos en los que estos directorios están montandos. Con grep buscamos /tmp en esa lista.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220216101458.png" text-align="center" />
+  </div>
+
+    <p>Para resolver este problema, vamos a hacer que la carpeta /tmp tenga su propio sistema de archivos. De esta manera un adminsitrador puede habilitar la opción <strong>noexec</strong> en el mount lo que hace que /tmp se vuelva inútil a la hora de que un atacante instale código ejecutable. Para estar más seguros buscamos información sobre la partición cuyo punto de montaje es /tmp buscando /tmp en</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220217162757.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>:</p>
+
+    <p>Ahora que sabemos con certeza que la carpeta /tmp está en una partición separada del resto de la carpeta raiz, vamos a modificar <strong>los permisos de la partición</strong> para impedir quie nadie pueda ejecutar ningún archivo en la carpeta /tmp.</p>
+
+    <p>Esta modificación se hace en el fichero <strong>/etc/fstab</strong> que contiene información sobre las particiones y los sistemas de ficheros en ella montados.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220217164406.png" text-align="center" />
+  </div>
+
+    <p>Esta tiene este aspecto, en él podemos comprobar que tiene el campo <em>options</em> en el que podemos introducir, seguido del default por una coma la opción <em>noexec</em>:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220217165915.png" text-align="center" />
+  </div>
+
+    <p>De esta manera nos aseguramos de que no se puedan ejecutar binarios en la partición que contiene la carpeta /tmp.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220217171655.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="332-asegurarse-de-que-existe-una-partición-separada-para-var-1113">3.3.2. Asegurarse de que existe una partición separada para /var (1.1.13).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>:</p>
+
+    <p>Como estamos construyendo un servidor web, la carpeta <strong>/var</strong> tiene un papel fundamental devido al hecho de que almacenará  todos los archivos relacionados con el sitio web. Será por tanto una medida de seguridad correcta apartarlo de la partición principal para dotar a dichos archivos de una seguridad adicional.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>:</p>
+
+    <p>Lo correcto es separar la partición durante la instalación de la máquina.</p>
+
+    <p>Para asegurarnos de que tenemos una partición separada en la que está montada la carpeta /var podemos utilizar dos métodos:</p>
+
+    <ul>
+      <li>
+        <p><strong>mount</strong>: Utilizar el comando <em>mount</em> para listar todos los dispositivos montados. Si existe una partición separada que cumpla la condición pedida tendrá que aparecer en dicha lista:</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220218100242.png" text-align="center" />
+  </div>
+
+        <p>Ahí podemos comprobar que /var está montada en el dispositivo /dev/sda3, es decir, en el sata disk ‘a’ 3 y es por tanto una partición primaria.</p>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p><strong>fstab</strong>: También podemos comprobar si en <em>fstab</em>, que es un fichero que contiene información de configuración de los sistemas de ficheros almacenados en cada partición del disco duro, hay una partición que contenga la carpeta /var montada:</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220218100548.png" text-align="center" />
+  </div>
+
+        <p>Y tenemos la misma información que obteníamos con el comando mount.</p>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="333-deshabililtar-automontaje-1122">3.3.3. Deshabililtar Automontaje (1.1.22).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>:</p>
+
+    <p>En primer lugar, cuando queremos adherir un directorio (un dispositivo de almacenamiento externo) al sistema operativo debemos  antes montarlo. <strong>Montar</strong> un directorio consiste en situar dicho directorio en algún punto del esquema de ficheros para volverlo accesible por el usuario.</p>
+
+    <p>Existe una herramienta, <strong>autofs</strong>, que monta automáticamente como un directorio cualquier unidad de almacenamiento externa que se conecte a la máquina. Esto puede permitir que cualquiera que conecte un dispositivo de almacenamiento a la máquina tenga automáticamente acceso al contenido del mismo aun careciendo de permisos para montarlo. Por tanto, el automontaje debe ser deshabilitado.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoria</strong>: Vamos a comprobar si <strong>autofs</strong> está instalado. Esto lo podemos hacer de dos maneras:</p>
+
+    <ul>
+      <li>
+        <p>Utilizando la opción <strong>is-enabled</strong> de systemctl y pasándole como argumento el nombre del programa que queremos ver:</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219103935.png" text-align="center" />
+  </div>
+
+        <p>Podemos ver en este caso que no se reconoce como un programa instalado en el sistema.</p>
+
+        <p><br /></p>
+      </li>
+      <li>
+        <p>Utilizando el gestor de paquetes de debian, <strong>dpkg</strong>, que lleva un control de qué programas están o no instalados en la máquina.</p>
+
+        <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219104327.png" text-align="center" />
+  </div>
+
+        <p>En este caso también se nos informa de que no está instalado.</p>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: En el caso de que hubiéramos encontrado que autofs estaba habilitado, lo más recomandable es deshabilitarlo a través de alguno de los siguientes comandos:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  systemctl <span class="nt">--now</span> disable autofs
+</code></pre></div>    </div>
+
+    <p><br /></p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  apt purge autofs
+</code></pre></div>    </div>
+
+    <p>En la máquina Debian11 no hay necesidad de recurrir a esto debido a que, como enseñabamos antes, autofs no está instalado.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="334-asegurar-que-sudo-está-instalado-131">3.3.4. Asegurar que sudo está instalado (1.3.1.).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: <strong>sudo</strong> es un comando de Linux que permite a un usuario (con permisos) ejecutar un comando como el superusuario (root) o como otro usuario en función de cómo este configurado en la política de seguridad.</p>
+
+    <p>De otra manera, para que un usuario sin privilegios tuvoiera que realizar un acción restringida debería de pasar al súperusuario para realizar dicha acción. Con sudo, se evita este traspaso y se minimiza la superficie de ataque.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>:</p>
+
+    <p>Comprobamos si tenemos <strong>sudo</strong> instalado con <strong>dpkg</strong>, el gestor de paquetes de debian.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219120916.png" text-align="center" />
+  </div>
+
+    <p>En este caso podemos ver que no tenemos instalado ni <strong>sudo</strong> ni el programa de configuración del comando sudo; <strong>sudo-ldap</strong>, que se sirve del protocolo <strong>LDAP</strong> para configurar el archivo <strong>sudoers</strong> que gestiona los permisos del comando sudo.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Instalamos sudo o sudo-ldap desde la apt.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219132002.png" text-align="center" />
+  </div>
+
+    <p>Y de esta manera:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219132221.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="335-asegurar-de-que-el-log-de-sudo-existe">3.3.5. Asegurar de que el log de sudo existe.</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Asegurarse de que el log para el sudo existe, esto monitorizará quién utiliza el comando y para qué.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoria</strong>: Verificamos que estos log files estén configurados en los ficheros /etc/sudoers o cualquiera de los ficheros dentro de /etc/sudoers.d/</p>
+
+    <p>Estos son ficheros de configuración del comando sudo y albergan configuración de logs.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220219235419.png" text-align="center" />
+  </div>
+
+    <p>Lo que hemos introducido es un comando que filtrará (grep) el contenido de /etc/sudoers y de cualquier archivo que esté dentro del directorio /etc/sudoers.d/ según un patrón que se interpretará como una expresión regular (-E) y se ignorará si son mayúsculas o minúsculas (-i).</p>
+
+    <p>En este caso; <strong>no sale nada porque no hay configurado un log para el sudo</strong> (Defaults+logfile=).</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Como no tenemos configurado este fichero log creamos uno y los describimos en el fichero /etc/sudoers mediante el siguiente comando:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220220004647.png" text-align="center" />
+  </div>
+
+    <p>Y de esta forma:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220220012443.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="336-asegurarse-de-que-el-mensaje-del-día-está-configurado-apropiadamente-1811">3.3.6. Asegurarse de que el mensaje del día está configurado apropiadamente (1.8.1.1)</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: El contenido del fichero <strong>/etc/motd</strong> es mostrado a los usuarios despues de logearse y en algunos casos funciona como un mensaje del día para usuarios autenticados.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Vamos a ver si este fichero existe volcando su contenido con <em>cat</em> o directamente podemos borrar dicho fichero si no lo utilizamos.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="337-asegurar-que-las-actualizaciones-los-parches-y-software-de-seguridad-están-instalados-19">3.3.7. Asegurar que las actualizaciones, los parches y software de seguridad están instalados (1.9).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Periodicamente aparecen parches que se realizan por cuestiones de seguridad o de actualizaciones de determinados programas, etc.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolucion</strong>: Vemos si hay algún parche de actualización con el siguiente comando:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222104255.png" text-align="center" />
+  </div>
+
+    <p>En este caso no hay, pero si hubiera sencillamente haríamos un update.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="338-asegurarse-de-que-ntp-está-configurado-2214">3.3.8. Asegurarse de que ntp está configurado. (2.2.1.4)</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: <em>ntp</em> es un <em>daemon</em> que implementa el protocolo NTP (Network Time Protocol). Este está diseñado para sincronizar el reloj del sistema a lo largo de todos los sistemas.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Para saber si <em>ntp</em> está configurado adecuadamente vamos a ejecutar los siguientes comandos:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222110532.png" text-align="center" />
+  </div>
+
+    <p>Como no tenemos un fichero de configuración podemos deducir que ntp no está instalado y no hace falta hacer ninguna operación de modificación.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Añadimos las siguientes líneas</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="339-asegurarse-de-que-el-servidor-http-no-está-habilitado-2210">3.3.9. Asegurarse de que el servidor HTTP no está habilitado (2.2.10).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Los servidores HTTP o web brindan la capacidad de alojar contenido del sitio web.</p>
+
+    <p>&lt;/br&gt;</p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a comprobar si tenemos el servidor web habilitado:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222214505.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Remediation</strong>: Vamos a deshabilitar el servidor web.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222214943.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3310--asegurarse-de-que-telnet-no-está-instalado-234">3.3.10.  Asegurarse de que telnet no está instalado (2.3.4).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: El paquete de <em>telnet</em> contiene el client que permite a los usuarios empezar conexiones a otros sistemas de una manera insegura y no cifrada. Por tanto debe ser deshabilitado.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222223427.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Borramos del sistema el paquete de telnet de la apt.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222223723.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3311-asegurarse-de-que-la-redirección-ip-está-deshabilitada">3.3.11. Asegurarse de que la redirección IP está deshabilitada.</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Los flags <em>net.ipv4.ip_forward</em> y <em>net.ipv6.ip_forward</em> son utilizados para contar al sistema si pueden o no redireccionar paquetes.</p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a verificar el valor de dichos flags.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220222225220.png" text-align="center" />
+  </div>
+
+    <p>Podemos ver que tiene valor 0 y por tanto no hace falta hacer nada más.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3312-configure-rsyslog-421">3.3.12. Configure rsyslog (4.2.1)</h3>
+
+<h4 id="33121-asegurarse-de-que-rsyslog-está-instalado-4211">3.3.12.1 Asegurarse de que rsyslog está instalado (4.2.1.1.).</h4>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: El <em>rsyslog</em> es un software que se recomienda para reemplazar al original <em>syslogd</em>, es un acrónimo de System Logging protocol, se trata de un protocolo estándar para enviar mensajes de registro o eventos del sistema a un servidor específico llamado servidor de syslog.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoria</strong>: Verificar si rsyslog está configurado con el comando: <strong>dpkg -s rsyslog</strong>.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224165247.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Si no, lo instalamos desde la apt.</p>
+  </li>
+</ul>
+
+<p>&lt;/br&gt;</p>
+
+<h4 id="33122-asegurarse-de-que-el-servicio-rsyslog-está-instalado-4212">3.3.12.2 Asegurarse de que el servicio rsyslog está instalado (4.2.1.2.).</h4>
+
+<ul>
+  <li>
+    <p><strong>Description</strong>: Una vez se ha instalado el paquete rsyslog lo que queda es habilitarlo.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoria</strong>: Vamos a verificar que rsyslog está habilitado con el siguiente comando:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224172646.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Si no está habilitado ejecutamos el siguiente comando:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  systemctl <span class="nt">--now</span> <span class="nb">enable </span>rsyslog
+</code></pre></div>    </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="33123-asegurarse-de-que-el-loggin-está-configurado-4213">3.3.12.3 Asegurarse de que el loggin está configurado. (4.2.1.3.).</h4>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Los archivos /etc/rsyslog.conf y /etc/rsyslog.d/*.conf especifican reglas para el registro y qué archivos se utilizarán para registrar ciertas clases de mensajes.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a revisar el contenido de los archivos /etc/rsyslog.conf y /etc/rsyslog.d/*.conf para asegurarnos de que se establece el registro apropiado. Además, ejecutamos el siguiente comando y verificamos que los archivos asociados están registrando información:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224173941.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: De lo contrario habría que configurar dichos ficheros con los archivos correspondientes y luego ejecutar:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  systemctl reload rsyslog
+</code></pre></div>    </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="33124-asegurarse-de-que-el-fichero-de-configuración-de-rsyslog-por-defecto-está-configurado-4214">3.3.12.4 Asegurarse de que el fichero de configuración de rsyslog por defecto está configurado. (4.2.1.4.).</h4>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: rsyslog va a crear logfiles que no existían en el sistema. Este fichero de configuración seteará los permisos que se aplicarán sobre los ficheros que rsyslog construya.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a verificar que cualquier fichero se cree con los permisos 0640.</p>
+
+    <p>![[Pasted image 20220224215620.png]]</p>
+
+    <p>Podemos comprobar que se ha seteado con los permisos adecuados</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: De no haber estado configurado adecuadamente sólo habría hecho falta incluir la linea $FileCreateMode 0640 en uno de los ficheros.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="33125-asegurarse-de-que-el-fichero-de-configuración-de-rsyslog-por-defecto-está-configurado-4215">3.3.12.5 Asegurarse de que el fichero de configuración de rsyslog por defecto está configurado. (4.2.1.5.).</h4>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: La utilidad rsyslog tiene la capacidad de mandar logs que colecciona a hosts remotos.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a revisar los ficheros de configuración para verificar que la información se envía a un host central:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224220902.png" text-align="center" />
+  </div>
+
+    <p>Evidentemente, en nuestro caso no se envía ningún log a una máquina externa.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Para añadir un host remoto al que enviar hosts utilizamos el siguiente comando:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224221745.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3313-asegurarse-de-que-el-daemon-cron-está-habilitado-511">3.3.13. Asegurarse de que el daemon ‘cron’ está habilitado. (5.1.1).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: El demonio ‘cron’ se utiliza para ejecutar jobs en el sistema de manera periódica.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Comprobamos con systemctl si cron está habilitado.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220224222659.png" text-align="center" />
+  </div>
+
+    <p>Como está habilitado no tenemos que hacer nada más pero de lo contrario habría que habilitarlo con systemctl como hemos hecho con otros servicios.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3314-asegurarse-de-que-el-atcron-está-restringido-para-usuarios-con-permisos-518">3.3.14. Asegurarse de que el at/cron está restringido para usuarios con permisos. (5.1.8).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: Para las aplicaciones <strong>at</strong> y <strong>cron</strong> existen dos ficheros de configuración, <strong>allow</strong> y <strong>deny</strong> que gestionan respectivamente quién tiene acceso o quién no lo tiene.</p>
+
+    <p>Vamos a modificar o bien los ficheros /etc/at.allow (respec cron.allow) o /etc/at.deny (respec cron.allow).</p>
+
+    <p>Si /etc/cron.allow o /etc/at.allow no existen, entonces utilizaremos /etc/at.deny y /etc/cron.deny. Cualquier usuario no definido específicamente en esos archivos puede usar at y cron. Al eliminar los archivos, solo los usuarios en /etc/cron.allow y /etc/at.allow pueden usar at y cron. Tenga en cuenta que, aunque un usuario determinado no aparezca en la lista cron.allow , los trabajos cron todavía se pueden ejecutar como ese usuario. El archivo cron.allow solo controla acceso administrativo al comando crontab para programar y modificar trabajos cron.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a comprobar quién tiene acceso y quién no en nuestro sistema a utilizar at y cron.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220225093514.png" text-align="center" />
+  </div>
+
+    <p>Evidentenmente nuestro sistema no tiene configurados dichos ficheros. En caso de necesidad se configurarían aportando usuarios específicos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220225093935.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3315-asegurarse-de-que-el-atcron-está-restringido-para-usuarios-con-permisos-5210">3.3.15. Asegurarse de que el at/cron está restringido para usuarios con permisos. (5.2.10).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: En la configuración del servidor ssh existe la opción de que un individuo entre al sistema como root. Esto se encuentra en el fichero de configuración de sshd.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220225094710.png" text-align="center" />
+  </div>
+
+    <p>Podemos comprobar que en el fichero <em>/etc/sshd_config</em> no está la opción, y eso es equivalente a que esta tenga el valor por defecto que se puede ver más abajo gracias al comando sshd -T con el que podemos ver todos los parámetros de conexión.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Introducimos la opción “PermitRootLogin no” en el fichero de configuración sshd_config:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220225095654.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="3316-asegurarse-de-que-el-atcron-está-restringido-para-usuarios-con-permisos-56">3.3.16. Asegurarse de que el at/cron está restringido para usuarios con permisos. (5.6).</h3>
+
+<ul>
+  <li>
+    <p><strong>Descripción</strong>: El comando <strong>su</strong> permite que un usuario ejecute un comando o shell como otro usuario. El programa ha sido reemplazado por sudo , que permite un control más granular sobre privilegios acceso. Normalmente, cualquier usuario puede ejecutar el comando su. Al descomentar el pam_wheel.so en /etc/pam.d/su , el comando su solo permitirá a los usuarios en un grupos específicos para ejecutar su. Este grupo debe estar vacío para reforzar el uso de sudo para acceso privilegiado.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Auditoría</strong>: Vamos a revisar el contenido del fichero <em>/etc/pam.d/su</em>.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M10/Pasted%20image%2020220225100225.png" text-align="center" />
+  </div>
+
+    <p>Observamos que en nuestro caso existe un grupo que tiene denegado la utilización del comando su, se trata del grupo <strong>nosu</strong>.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Resolución</strong>: Bastaría por tanto con añadir un usuario al grupo nosu para que no puediera tener acceso al comando en cuestión.</p>
+  </li>
+</ul>
+

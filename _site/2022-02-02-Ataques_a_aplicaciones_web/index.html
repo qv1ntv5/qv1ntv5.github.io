@@ -1,0 +1,3500 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Ataque a aplicaciones web.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Introducción a estructuras y ataques de aplicaciones web.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Ataque a aplicaciones web.">
+  <meta property="og:description" content="Introducción a estructuras y ataques de aplicaciones web.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-02-02T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/">
+  <link rel="canonical" href="http://localhost:4000/2022-02-02-Ataques_a_aplicaciones_web/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Ataque a aplicaciones web.">
+  <meta property="twitter:description" content="Introducción a estructuras y ataques de aplicaciones web.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Ataque a aplicaciones web.</h1>
+          
+            
+              <h2 class="post-subheading">Introducción a estructuras y ataques de aplicaciones web.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on February 2, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h1 id="1-introducción-a-las-aplicaciones-web-dirb-y-burpsuite-i">1. Introducción a las aplicaciones web, dirb y burpsuite I.</h1>
+
+<h2 id="11-fundamentos-de-aplicaciones-web">1.1. Fundamentos de aplicaciones web.</h2>
+
+<h3 id="111-esquema-de-protocolos-de-comunicación-de-servidores-web">1.1.1. Esquema de protocolos de comunicación de servidores web.</h3>
+
+<p>Recordamos que en internet las relaciones entre servidores y clientes existen peticiones y respuestas, estas peticiones y respuestas se concretan mediante un protocolo de comunicaciones entre el cliente y el servidor, el cual está descrito a continuación:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214095352.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p>En primer lugar un cliente, usuario, quiere pedir algo a una página web, de forma que el cliente lleva a cabo un HTTP request al servidor web.</p>
+  </li>
+  <li>
+    <p>Una vez la request llega al servidor, este reaccionará de dos formas distintas dependiendo de si se trata de un servidor estático o un servidor dinámico. Un servidor estático es un servidor que siempre devuelve la misma información ante la misma request, un servidor dinámico es un servidor que, además de la petición, procesa la información que tiene del cliente (cookies, datos del navegador…) que ha pedido la request para generar una respuesta personalizada, por ejemplo youtube o similar. Así, el camino que sigue el servidor se bifurca:</p>
+
+    <ul>
+      <li>
+        <p><strong>Estático</strong>: Si el servidor es estático, se realiza una petición (get o similar) a un directorio con todos los ficheros html a los que la página tiene acceso, este fichero vuelve al servidor y el servidor devuelve una respuesta http al usuario con el contenido html en cuestión (que será igual .</p>
+      </li>
+      <li>
+        <p><strong>Dinámico</strong>: Si el servidor es dinámico se envía la petición y los datos del peticionario a una aplicacion servidor que gestiona los datos para ofrecer una variante personalizada a las características del usuario. Esta información se devuelve al servidor web que devuelve al cliente una respuesta http.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="112-componentes-básicos-del-servidor-web">1.1.2. Componentes básicos del servidor web.</h3>
+
+<p>Dentro de la relación existente entre clientes y servidores nos encontramos con el papel del servidor web, se trata de un software que corre la máquina que tiene el papel de servidor y monta, configura y mantiene la página web a través de la cual el cliente lleva a cabo un request.</p>
+
+<p>El servidor web contiene los siguientes componentes:</p>
+
+<ul>
+  <li>
+    <p><strong>Documento Root</strong>:</p>
+
+    <p>El documento root es un directorio del servidor web que almacena ficheros html importantes relacionados con las páginas web de un dominio que servirán como respuesta a las peticiones del cliente. Está en /var/www/ y puede haber varios carpetas indexadas dentro.</p>
+
+    <p>Puede contiener varios roots file, en función del número de dominios que gestione el servidor web.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Servidor Root</strong>:</p>
+
+    <p>Es el directorio top-level en el que se encuentra toda la configuración, errores, ejecutables, y logs de la página web. Consiste en el código que implementa el servidor a la hora de construir la página web.</p>
+
+    <p>En general consiste de cuatro ficheros donde uno de ellos consiste en el código a implementar y los tres restantes, -conf, -logs y -cgi-bin se usan para almacenar inforamación de configuración, almacenar logs y ejecutables respectivamente.</p>
+
+    <p>Server root se encuentra dentro de la carpeta /etc en linux.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Arbol de documentos virtual</strong>:</p>
+
+    <p>Este elemento provee almacenamiento en diferentes máquinas o discos después de que el disco original se llene. Así, aunque haya un fichero html que no se encuentren dentro del document root el path de búsqueda seguirá siendo válido aunque el html estuviera en otro lado gracias a esta herramienta.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Virtual hosting</strong>:</p>
+
+    <p>Recordamos que la técnica del hosting es la técnica que permite alojamiento para sitios web, el hosting web en concreto aloja contenidos de tu web y tu correo electrónico para que puedan ser vistos en cualquier dispositivo conectado a internet.</p>
+
+    <p>Ahora que entendemos el hosting es la técnica que permite hacer hosting sobre múltiples dominios o sitios web que se encuentran dentro del mismo servidor. Esto permite compartir los mismos recursos entre varios servidores</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Proxy</strong>:</p>
+
+    <p>Un servidor proxy es un software ejecutado desde una máquina externa al servidor y al cliente que actúa de forma que el cliente envía peticiones al proxy y si esta las acepta entonces son redirigidas al servidor. Los proxys almacenan no sólo la request, sino información general que permite identificar la máquina del peticionario  cierto nivel para poder evaluar si la conexión por parte de la misma es o no deseable ajustándose a ciertos criterios establecidos por la persona que haya configurado.</p>
+
+    <p>Es una forma de protegerte a ti como cliente de contenido indeseado o de proteger al servidor web de conexiones indeseadas.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Arquitectura de servidor web de código abierto</strong>.</p>
+
+    <p>Un servidor web es un software que corre sobre la máquina servidor y está constituido de diversos componentes a nivel de programa:</p>
+
+    <ul>
+      <li>
+        <p><strong>Systema operativo sobre el que se ejecuta</strong>: Generalemente Linux.</p>
+      </li>
+      <li>
+        <p><strong>Motor de servidor web</strong>: usualmente Apache.</p>
+      </li>
+      <li>
+        <p><strong>Motor de base de datos</strong>: como MySQL es una base de datos.</p>
+      </li>
+      <li>
+        <p><strong>Lenguaje de programación para la página web</strong>: PHP, Java, etc es el lenguaje de programación que utiliza el servidor web para montar y gestionar la aplicación web.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Una estructura predefinida de código abierto es LAMP (Linux, Apache, MySQL, Php). También otras comop XAMP que no tienen tanta calidad.</p>
+
+<p>Para Windows existe una aplicación servidor web desarrollado por Microsoft, llamado IIS, se trata de un servidor flexible, seguro y fácil de manejar</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214103426.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="13-ataques-a-páginas-web">1.3. Ataques a páginas web.</h2>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214103537.png" text-align="center" />
+</div>
+
+<p>Consiste en generr una cantaidad de tráfico elevado de forma que colapsamos el servidor y su capacidad para atender a usuarios legítimos es mínima o nula.</p>
+
+<p>La diferencia entre DoS y DDoS es el número de dispositivos que esten efectuando el ataque, puede ser una sola máquina o una botnet.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104139.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104450.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104459.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104610.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104747.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104816.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214104857.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="14-herramientas-de-kali">1.4. Herramientas de kali.</h2>
+
+<h3 id="141-dirb">1.4.1. Dirb.</h3>
+
+<h4 id="1411-introducción">1.4.1.1. Introducción.</h4>
+
+<p>Es un escaner de contenido de la aplicación web. Se utiliza con la url base o el dominio si queremos hacer una búsqueda generalizada. Y opciones un fichero con el nombre que queremos buscar (diccionario). Si el diccionario es largo tardará porque este comando hace una prueba por cada palabra del diccionario.</p>
+
+<p>DIRB es un escáner de contenido web. Busca objetos web existentes (y / u ocultos). Básicamente, funciona lanzando un ataque basado en diccionario contra un servidor web y analizando las respuestas.</p>
+
+<p>DIRB viene con un conjunto de listas de palabras de ataque preconfiguradas para un uso fácil en el directorio: /usr/share/wordlist/dirb, pero puede usar sus listas de palabras personalizadas además.</p>
+
+<p>El objetivo principal de DIRB es ayudar en la auditoría profesional de aplicaciones web. Especialmente en pruebas relacionadas con la seguridad. Cubre algunos agujeros no cubiertos por los escáneres de vulnerabilidades web clásicos. DIRB busca objetos web específicos que otros escáneres CGI genéricos no pueden buscar. No busca vulnerabilidades ni busca contenidos web que puedan ser vulnerables.</p>
+
+<p><br /></p>
+
+<h4 id="1412--uso-de-la-herramienta">1.4.1.2. 	Uso de la herramienta.</h4>
+
+<p>Esta herramienta como sigue:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dirb &lt;dominio/url&gt; <span class="o">[</span>&lt;ficherodiccionario&gt;] <span class="o">[</span>&lt;options&gt;]
+</code></pre></div></div>
+
+<p>Es decir, se le pasa un dominio de un sitio web para hacer una búsqueda general o un url para hacer, dentro de un sitio web, una búsqueda más específica. Opcionalmente se le puede añadir o bien opciones o bien un fichero con palabras.</p>
+
+<p>Para explorar más opciones consultar man. Para llevar a cabo el mapeado de algunas secciones web es necesario tener proviligios y acreditarlos mediante las cookies o usuario y contraseña</p>
+
+<p><br /></p>
+
+<h3 id="142-dirbuster">1.4.2. DirBuster.</h3>
+
+<p>Se trata un comando que funciona de manera similar al anterior, se el pasa una url y un fichero con nombres. Sin embargo tiene una interzaf gráfica que lo puede hacer más manejable.</p>
+
+<p>Dentro de /usr/share/dirbuster/wordlist hay listas de ficheros con palabras que se pueden utilizan para dirbuster y para dirb. Ambos funcionan de la misma manera en cuanto al uso del diccionario.</p>
+
+<p><br /></p>
+
+<h3 id="143-dymerge">1.4.3. Dymerge.</h3>
+
+<p>Herramienta para combinar diccionarios.</p>
+
+<p><br /></p>
+
+<h3 id="144-nikto">1.4.4. Nikto.</h3>
+
+<p>Nikto es un escaner de vulnerabilidades Open Source o de fuente abierta, el cual está escrito en el lenguaje Perl específico para sitios web.</p>
+
+<p>Nikto proporciona la capacidad de escanear servidores web en busca de vulnerabilidades.</p>
+
+<p>Nikto se ejecuta como una línea de comando desde la terminal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nikto <span class="nt">-h</span> &lt;IP_Web&gt; <span class="nt">-p</span> &lt;PORT&gt;
+</code></pre></div></div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211215211546.png" text-align="center" />
+</div>
+
+<p>Aquí podemos ver, analizando la máquina Metasplotaible, que lleva a cabo una evaluación de todos los servicios que encuentra dentro de la máquina y las vulnerabilidades conocidas que detecta en dichos servicios.</p>
+
+<p><br /></p>
+
+<h2 id="15-mapeo-de-un-sitio-web-con-burpsuite">1.5. Mapeo de un sitio web con BurpSuite.</h2>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211214124736.png" text-align="center" />
+</div>
+
+<p>Para mapear un sitio web con BurpSuite de un sitio web basta con interceptar una petición con el proxy y liberar la petición. Burpsuite hará un mapeo automático de los sitios web vinculados a la petición y alguna carpeta adyacente que se puede visualizar en la sección: <strong>Tarjet &gt; Site map</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220108230012.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h1 id="2-burpsuite">2. Burpsuite.</h1>
+
+<h2 id="21-concepto-de-burpsuite">2.1. Concepto de Burpsuite.</h2>
+
+<p>BurpSuite es una herramienta pentesting web. Contiene los siguientes compoentes claves:</p>
+
+<ul>
+  <li>
+    <p>Una araña o spider con reconocimiento de aplicaciones, para el rastreo de recursos de la aplicación.</p>
+  </li>
+  <li>
+    <p>Un escáner de aplicaciones web avanzadas para automatizar la detección de numerosos tipos de vulnerabilidad (esta función esta disponible comprando la licencia del software) y llevar a cabo un mapeo de la aplicación web.</p>
+  </li>
+  <li>
+    <p>Un <strong>Proxy intercepta</strong>, lo que le permite inspeccionar y modificar el tráfico entre el navegador y la aplicación de destino.</p>
+  </li>
+  <li>
+    <p>Una <strong>herramienta de intrusión</strong>, para realizar poderosos ataques personalizados de encontrar y explotar vulnerabilidades inusuales.</p>
+  </li>
+  <li>
+    <p>Una <strong>herramienta de repetidor</strong>, para manipular y volver a enviar peticiones individuales.</p>
+  </li>
+  <li>
+    <p>Una herramienta secuenciador, para probar la aleatoriedad de las credenciales de sesión.</p>
+  </li>
+  <li>
+    <p>Capacidad de guardar su trabajo y reanudar el trabajo más tarde.</p>
+  </li>
+  <li>
+    <p>Extensibilidad, lo que le permite escribir fácilmente tus propios plugins, para realizar tareas complejas y personalizadas muy dentro de Burp.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="22-proxy">2.2. Proxy.</h2>
+
+<p>Un <strong>proxy</strong> es una herramienta de intercepción que se coloca entre un cliente y un servidor e intercepta las peticiones que el cliente manda al servidor. Burpsuite dispone de un proxy integrado con el que podemos interceptar las peticiones que mandamos a un servidor para evaluarlas.</p>
+
+<p><br /></p>
+
+<h3 id="222-configuración-del-proxy">2.2.2. Configuración del proxy.</h3>
+
+<p>En primer lugar, lo configuramos en BurpSuite:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211217164204.png" text-align="center" />
+</div>
+
+<p>Y seguidamente, en el navegador Firefox, en Edit &gt; Preferences a bajo del todo en Network settings:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104164646.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="223-interceptando-peticiones">2.2.3. Interceptando peticiones.</h3>
+
+<p>A continuación, dentro de Proxy, en ‘Intercept is on’.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104163352.png" text-align="center" />
+</div>
+
+<p>A partir de aquí cualquier petición que realizemos será interceptada por nuestro proxy y mostrada a través de la interfaz de la aplicación burpsuite.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104164753.png" text-align="center" />
+</div>
+
+<p>Y la página permanecerá en espera a que la request sea liberada del proxy de BurpSuite y redirigida cambiando a ‘Intercep is off’. Mientras la request se encuentre en nuestro proxy esta puede ser modificada a conveniencia y al liberarla, se libera modificada.</p>
+
+<p>También se puede interceptar la respuesta que te devuelve el servidor en options e “Interceptar respuesta del servidor”.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104164827.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="23-intruder">2.3. Intruder.</h2>
+
+<h3 id="231-intruder-como-herramienta">2.3.1. Intruder como herramienta.</h3>
+
+<p>La herramienta <strong>Intruder</strong> de Burp es una herramienta para automatizar ataques personalizados contra aplicaciones web. Se puede emplear para la realización de una amplia gama de tareas, desde un ataque brute forcing hasta la explotación activa de vulnerabilidades SQLi.</p>
+
+<p><br /></p>
+
+<h3 id="232-cómo-funciona-intruder">2.3.2. Cómo funciona Intruder</h3>
+
+<p>Burpsuite funciona tomando una solicitud HTTP base y modifica la solicitud de varias maneras sistémicas (modificando parámetros, etc) y emite cada versión modificada de la solicitud e intercepta las respuestas de la aplicación para mostrarnosla e informando de detalles interesantes.</p>
+
+<p>Para cada ataque, debe especificar uno o más conjuntos de cargas útiles (payloads; es decir, las partes del código que van a amrcar la diferencia entre solicitud y solicitud y que añadirán la maliciosidad a las request) las posiciones en la solicitud base donde se colocarán las cargas útiles.</p>
+
+<p>Intruder contiene las siguientes pestañas. Una vez hemos interceptado la solicitud pase con el proxy y la hemos redirigido al intruder con las opciones que se desplegan al pulsar el botón derecho sobre la solicitud:</p>
+
+<p><br /></p>
+
+<p>![[Pasted image 20220104172026.png]]</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104164827.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Vamos a la etiqueta de intruder y encontramos varias pestañas: Target, Positions, Payloads, Options:</p>
+
+<ul>
+  <li>
+    <p><strong>Target</strong>: En esta pestaña se configura la dirección de la máquina a la que va diriga la request:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220104172320.png" text-align="center" />
+  </div>
+
+    <p>Por defecto, al reenviar la petición desde el proxy siempre vendrá la dirección de destino por defecto y no hace falta tocar nada.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Positions</strong>: El apartado de positions define los lugares de la request que se van a alterar y el tipo de ataque que queremos hacer. Estos fragmentos de códigos pueden ser identifcados porque se encuentran entre signos ‘§’ envolviendo al mismo.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220104164827.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+
+    <p>Entre los tipos de ataques se encuentran:</p>
+
+    <ul>
+      <li>
+        <p><strong>Sniper</strong>: Este utiliza un solo conjunto de payloads. (Esto lo entenderemos más adelante en la pestaña de payloads ya que una cosa es la posición de código a alterar con payloads y otra es el número de conjuntos de payloads que se utilizan).</p>
+      </li>
+      <li>
+        <p><strong>Battering ram</strong>: Este tipo de ataque, al igual que el «sniper», usa un solo payload. Sin embargo, a diferencia del «sniper», éste sí coloca el dato a insertar en todas las posiciones a la vez. Este ataque es útil, por lo tanto, cuando se requiere que se inserte la misma entrada en varios lugares dentro de la petición.</p>
+      </li>
+      <li>
+        <p><strong>Pitchfork</strong>: En este tipo de ataque definimos varios conjuntos de payloadas, uno para posición que se define (hasta un máximo de 20 posiciones). El ataque varia simultáneamente todos las unidades de payloads de cada posición. Es decir, en la primera request enviará el primer payload del conjunto asociado a cada posición en cada posición, en la segunda request el segundo payload del conjunto asociada a cada posición en cada posición y así sucesivamente de forma que el número total de request que se envían coíncide con el número de elementos que posee el conjunto de payloads más pequeño asociado a una posición.</p>
+      </li>
+      <li>
+        <p><strong>Cluster Bomb</strong>: Este también utiliza varios conjuntos de payloads. Pero rota los conjuntos de payloads sobre las posiciones en cada request. Eñ número final de request es el número de payloads en todos los conjuntos de payloads definidos.</p>
+      </li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Payload</strong>: En la pestaña payload definimos uno a uno como son los conjuntos de payloads que se van a enviar en la lista anterior. Podemos elegir entre varios tipos de payloads:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220104211354.png" text-align="center" />
+  </div>
+
+    <p>Las opciones posteriores de la pestaña cambiarán en función  del tipo de payload que elijamos y este a su vez dependerá del tipo de ataque que queramos hacer.</p>
+
+    <p>Desde este misma pestaña podemos dar comienzo al ataque desde Start Attack arriba a la derecha de la misma pestaña.</p>
+  </li>
+  <li>
+    <p><strong>Options</strong>: Distintas opciones acerca de la configuración del ataque y del tipo de request que hacemos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="233-iniciado-el-ataque">2.3.3. Iniciado el ataque…</h3>
+
+<p>Mandará una serie de request y devolverá la respuesta del servidor. La forma que tendrá esta depende del tipo de ataque que hagamos.</p>
+
+<p><br /></p>
+
+<h2 id="24-repeater">2.4. Repeater.</h2>
+
+<p>El <strong>Repeater</strong> es una herramienta sencilla para manipular y volver a emitir manualmente mensajes HTTP y WebSocket individuales y analizar las respuestas de la aplicación.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220108231116.png" text-align="center" />
+</div>
+
+<p>Aquí podemos modificar una petición, enviarla y analizar la respuesta del servidor e incluso renderizar el documento HTML respuesta para ver la página como si la tuviéramos abierta en el navegador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220108231513.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h1 id="3-fundamentos-de-las-aplicaciones-web">3. Fundamentos de las aplicaciones Web.</h1>
+
+<h2 id="31-arquitectura-web">3.1. Arquitectura Web.</h2>
+
+<h3 id="311-internet-y-web">3.1.1. Internet y Web.</h3>
+
+<p>Un sitio web es un sistema que consta de diversos componentes interrelacionados compuestos por las siguientes partes.</p>
+
+<p>Por un lado, <strong>Internet</strong> hace referencia a la red física que conecta diferentes dispostivos. Por otro lado, <strong>Web</strong> hace referencia a la arquitectura lógica que sigue la información y que se desarrolla sobre esa red física.</p>
+
+<p><br /></p>
+
+<h3 id="312-funcionamiento-de-la-web">3.1.2. Funcionamiento de la web.</h3>
+
+<p>Para que la <strong>Web</strong> funcione se requiere de una red que provea la funcionalidad que permita que cualquier dispositivo conectado a <strong>Internet</strong> pueda conectarse a un servidor identificado por la URL (Localizador Uniforme de Recursos).</p>
+
+<p>Esta funcionalidad está proveeida por tres partes; el ISP (Proveedor de Servicios de Internet), otra la provee tu dispositivo y otra el servidor web de destino:</p>
+
+<ol>
+  <li>
+    <p><strong>Traducción del nombre de dominio a dirección IP (DNS)</strong> del servidor; servicio proveido por ISP.</p>
+  </li>
+  <li>
+    <p><strong>Conexión y Transporte (Socket)</strong>; Una vez tenemos la dirección IP del servidor implementamos una conexión con él mediante unas pautas de acción o mecanismo que establecen una conexión segura entre los dos puntos (Socket); que es la parte más compleja del sistema porque implementa un protocolo de corrección de errores que permite transmitir información sobre una <strong>Internet</strong> que pierde datos, que los desordena y a veces incluso los duplica. La inteligencia del socket (cómo se ordena el socket) radica sólo en los extremos de la conexión: el navegador y el servidor. El resto de la red no interviene en este servicio, y eso es fundamental para mantener a Internet como un servicio barato y eficiente.</p>
+  </li>
+  <li>
+    <p><strong>Enrutamiento de paquetes IP</strong>; El enrutamiento es el proceso durante el cual los paquetes de datos se envían de una máquina o dispositivo (técnicamente denominado nodo) a otra en una red hasta que llegan a su destino. Un servicio básico que debe de prover el ISP.</p>
+  </li>
+  <li>
+    <p><strong>Protocolo HTTP</strong>; <strong>Gobierna el dialogo que se establece entre el navegador y el servicio web una vez que están conectados</strong>. El protocolo permite intercambiar conetenidos de todo tipo, como texto, imágenes, audio, vídeo, etc.</p>
+  </li>
+</ol>
+
+<p>En resumidas cuentas; el navegador envía una URL al servidor, quien le responde con el contenido almacenado para esa URL de manera que el navegador lo interprete y decida qué hacer con éste.</p>
+
+<p><br /></p>
+
+<h2 id="32-dominios-de-internet-y-dns">3.2. Dominios de Internet y DNS.</h2>
+
+<h3 id="321-dominios-de-internet">3.2.1. Dominios de Internet.</h3>
+
+<p>Un dominio de internet es una red de internet es una red de identificación asociada a un grupo de dispositivos o equipos conectas a la red de internet.</p>
+
+<p>El <strong>propósito principal de los nombres de dominio</strong> en Internet y del sistema de nombres de dominio (<strong>DNS</strong>), es <strong>traducir las direcciones IP</strong> de cada nodo activo en la red, <strong>a términos fáciles de recordar</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="322-protocolo-dns">3.2.2. Protocolo DNS.</h3>
+
+<p>El Sistema de nombres de dominio (Domain Name System) es el que se encarga de vincular a cada dominio con una dirección IP.</p>
+
+<p>El <strong>DNS</strong> no es más que una <strong>base de datos distribuida</strong> es decir, hay multitud de bases de datos en todo el mundo que son replicas unas de otras.</p>
+
+<p>Es sistema funciona de la siguiente manera:</p>
+
+<ul>
+  <li>
+    <p>Cuando tu escribes el dominio en el navegador, lo primero que hace es comprobar si lo tienes en la caché de tu navegador.</p>
+  </li>
+  <li>
+    <p>Si se trata de una página web que visitas a menudo probablemente esté, de lo contrario se dirige a un servidor DNS donde va a buscar ese nombre.</p>
+  </li>
+  <li>
+    <p>Cuando se localiza el nombre se comprueba qué IP tiene ese dominio y te redirige al servidor configurado con esa IP.</p>
+  </li>
+</ul>
+
+<p>Es común en los sitios web cambiar de servidor por motivos de escalabilidad o por motivos económicos. En estos casos lo que ocurre es que se notifica a los DNS que el dominio ejemplo.com ha cambiado de IP y en cuestión de horas se actualizan todas las bases de datos y cuando se vuelva a solicitar visitar la página web, se redirigirá al nuevo servidor.</p>
+
+<p><br /></p>
+
+<h2 id="33-repartición-de-la-aplicación-web-desarrollo-web">3.3. Repartición de la Aplicación Web (Desarrollo Web).</h2>
+
+<h3 id="331-cliente-y-servidor">3.3.1. Cliente y Servidor.</h3>
+
+<p>En internet el intercambio de comunicación consiste de peticiones y respuestas. Los dispositivos conectados a la Web se dividen en clientes y servidores. Estos son conceptos que se entienden de forma conjunta dentro de un sistema de dos o más máquinas. El <strong>cliente</strong> consiste en aquella máquina que ejerce el papel de <em>peticionario</em> mientras que el <strong>servidor</strong> consiste en aquella máquina que ejerce el papel de <em>respondiente</em> a la petición.</p>
+
+<p>En un sentido menos estricto, podemos diferenciar una estructura arquetípica de cada clase:</p>
+
+<ul>
+  <li><strong>Cliente</strong>: Los clientes son dispositivos de los usuarios conectados y consumidores de Internet.</li>
+  <li><strong>Servidor</strong>: Los servidores son ordenadores que almacenan páginas web, sitios o aplicaciones que ofrecen servicios a los usuarios.</li>
+</ul>
+
+<p>Los datos se envían desde el servidor al cliente en forma de <strong>paquetes</strong>. Esto significa que <strong>los datos se envían a través de la Web como miles de trozos pequeños</strong>, permitiendo que muchos usuarios pueden <strong>descargar la misma página web al mismo tiempo</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="332-partes-de-la-web">3.3.2. Partes de la web.</h3>
+<p>El desarrollo Web es lo que se encarga de dar funcionalidad a la misma y está dividida en dos grandes bloques: <strong>Front-end</strong> (La parte de la web que se ejecuta en el cliente y es lo que ve el usuario), <strong>Back-end</strong> (parte de la web que se ejecuta en el servidor).</p>
+
+<ul>
+  <li>
+    <p><strong>Front-End</strong>: El Front-end o <strong>interfaz de usuario</strong> se encarga de interactuar con el usuario para <strong>recoger datos e información</strong> y es la parte de la aplicación web que se carga en parte del cliente y se muestra a través del <strong>navegador web</strong>. Se apoya en lenguajes como <strong>HTML</strong>, <strong>CSS</strong> y <strong>JavaScript</strong>. Los datos recogidos son transformados para que el Back-end pueda tratarlos de forma adecuada.</p>
+  </li>
+  <li>
+    <p><strong>Back-End</strong>: el Back-end es el encargado de recoger la información captada del usuario a través del Front-end y tratarla. Se ejecuta en el servidor y se utilizan multitud de lenguajes de programación de alto nivel como PHP, Java, C#, Ruby.</p>
+
+    <p>El Back-end (servidor) utiliza la información recibida para ser almacenada en una base de datos, para comprobaciones, para realizar operaciones matemáticas, validaciones, etc…</p>
+
+    <p>Cuando termina el proceso lo más normal es que mande una respuesta al <strong>Front-end</strong> (cliente), generalmente en forma de <strong>HTML</strong>, para que se muestre en el navegador.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="333-navegador-cliente-web">3.3.3. Navegador (Cliente Web).</h3>
+
+<p>Un <strong>navegador</strong> es un programa/aplicación software que te muestra el Front-end de una aplicación web. <strong>Te permite interactuar con la aplicación web</strong> recogiendo datos y acciones para ser transmitidas al Back-end. Un ejemplo es un formulario donde rellenamos los campos y estos son enviados cuando realizamos la acción de pulsar el botón enviar.</p>
+
+<p><strong>El navegador es capaz  interpretar el código HTML, CSS y JavaScript</strong> para mostrarnos una versión gráfica del código.</p>
+
+<p>Si miramos una página web de un sitio y, en cualquier navegador, pulsamos <em>botón derecho -&gt; ver código fuente</em>, podremos ver qué es un HTML e incluso el CSS y JavaScript.</p>
+
+<p><br /></p>
+
+<h3 id="334-servidor-web">3.3.4. Servidor web.</h3>
+
+<p><strong>La principal función de un servidor Web es almacenar los archivos de un sitio</strong> (HTML, CSS, JavaScript, multimedia, etc.) <strong>y emitirlos por Internet</strong> para poder ser visitado por los usuarios. También <strong>se encarga de interpretar los lenguajes de programación que se utilizan en el Back-end</strong>.</p>
+
+<p>No deja de ser un <strong>software</strong> instalado en un ordenador <strong>que procesa una aplicación del lado del servidor</strong>, realizando conexiones con el cliente y <strong>generando una respuesta</strong> en cualquier lenguaje o aplicación del lado del cliente. Este ordenador tiene unas características especiales que lo hacen fiable, seguro, con gran capacidad y potente.</p>
+
+<p><strong>Cada servidor tiene asignada una dirección IP</strong> para que pueda ser fácilmente identificado por los servidores de DNS.</p>
+
+<p>Normalmente este servicio lo ofrecen las compañías de Hosting, que a cambio de una tarifa mensual o anual te ofrecen un servicio para alojar tus sitios web en sus servidores.</p>
+
+<p>Sin los servidores Web, la Internet tal como la conocemos no existiría. <strong>Los servidores son el depositario de todo el contenido que existe en internet</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="335-protocolo-http-comunicación-en-la-red">3.3.5. Protocolo HTTP. Comunicación en la red.</h3>
+
+<p>HTTP (Protocolo de Transferencia de HiperTexto) es el principal protocolo de transferencia en Internet. Son las normas y reglas que permiten la transferencia de paquetes, se trata del protocolo a través del cual se transmiten los archivos HTML entre el cliente y el servidor.</p>
+
+<p><br /></p>
+
+<h2 id="34-qué-sucede-exactamente">3.4. ¿Qué sucede exactamente?</h2>
+
+<p>Cuando escribes una dirección web en el navegador:</p>
+
+<ol>
+  <li>El navegador va al servidor DNS y encuentra la dirección real del servidor en el que el sitio web está alojado.</li>
+  <li>El navegador envía un mensaje de petición HTTP al servidor, pidiéndole que envíe una copia de la página web para el cliente. Este mensaje y todos los datos enviados entre el cliente y el servidor, se envían a través de tu conexión a Internet usando el protocolo TCP/IP.</li>
+  <li>Siempre que el servidor apruebe la solicitud del cliente, el servidor enviará al cliente un mensaje indicando que todo es correcto y comenzará a enviar los archivos de la página web al navegador como una serie de pequeños trozos llamados paquetes de datos.</li>
+  <li>El navegador reúne los pequeños trozos, forma un sitio web completo (Front-end) y te lo muestra para que puedas interactuar con él mandando de vuelta la información al back-end del servidor generando así un bucle de intercambio de información.</li>
+</ol>
+
+<p><br /></p>
+
+<h1 id="4-autenticación-web">4. Autenticación web</h1>
+
+<h2 id="41-métodos-de-autenticación">4.1. Métodos de autenticación.</h2>
+
+<h3 id="411-concepto">4.1.1. Concepto.</h3>
+
+<p>La <strong>autenticación web</strong> es el proceso de seguridad que permite a usuarios verificarsus identidades con la finalidad de ganar acceso a información que no está expuesta públicamente.</p>
+
+<p><br /></p>
+
+<h3 id="412-tipos-de-autenticación">4.1.2. Tipos de autenticación.</h3>
+
+<p>De entre los métodos que podemos utilizar para llevar a cabo procesos de autenticación estan:</p>
+
+<ol>
+  <li>
+    <p><strong>Autenticación HTTP básica</strong>: Esta es una forma de autenticación que requiere que un cliente proporcione un nombre de usuario y una contraseña al realizar una solicitud.</p>
+
+    <p>El cliente debe enviar el encabezado de autorización junto con cada solicitud que realice. Estas credenciales se guardan dentro del servidor de la siguiente manera:</p>
+
+    <ul>
+      <li>El nombre de usuario y la contraseña se concatenan en una sola cadena: “username:password”.</li>
+      <li>esta cadena está codificada con Base64</li>
+      <li>la “Basic” palabra clave se coloca antes de este valor codificado</li>
+    </ul>
+
+    <p>Así por ejemplo:</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020211215114150.png" text-align="center" />
+ </div>
+
+    <p>Sin embargo, este proceso de autenticación tiene una serie de desventajas como:</p>
+
+    <ul>
+      <li>
+        <p>El nombre de usuario y la contraseña se envían en cada solicitud con lo que se exponen potencialmente incluso aunque se manden através de una conexión seguridad.</p>
+      </li>
+      <li>
+        <p>Si el sitio al que se conecta posee un cifrado débil un atacante podría romperlo y de esa forma, las credenciales se expondrían de inmediato.</p>
+      </li>
+      <li>
+        <p>No hay forma de cerrar la sesión del usuario usando la autenticación básica.</p>
+      </li>
+      <li>
+        <p>La caducidad de las credenciales no es trivial; debe pedirle al usuario que cambie la contraseña para hacerlo.</p>
+      </li>
+    </ul>
+
+    <p>Para conocer la fortaleza de una contraseña podemos utilizar la página web: https://www.passwortcheck.ch/passwortcheck/passwortcheck</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Cookies</strong>: Las “cookies” son ficheros de texto con pequeñas piezas de datos que identifican a tu máquina.  Así, cuando un servidor recibe una solicitud HTTP en la request puede enviar un encabezado “Set-Cookie” para acreditarse y poder acceder sin necesidad de introducir credenciales. En esencia, las cookies son variables que contienen valores que definen una serie de datos sobre la entidad que las posee. Originalmente un servidor entrega cookies a un usuario que ha visitado la aplicación web en función del nivel de privilegios que el usuario a demostrado tener (con un logeo o algo por el estilo). De esta manera, las cookies se guardan en el navegador y las siguientes veces que el usuario visite dicha página no será necesario que se logee pues con mostrar las cookies será suficiente para que el servidor pueda identificar el tipo de usuario que es respecto de la página.</p>
+
+    <p>En esencia,</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020211215164005.png" text-align="center" />
+ </div>
+
+    <p>Es necesario puntualizar una serie de cosas:</p>
+
+    <ul>
+      <li>
+        <p>Intentar utilizar siempre HttpOnly, así se evitará que aparezca document.cookies, que se trata de un documento que actúa a modo de captador y configurador de los valores realies de las cookies y que las expone potencialmente.</p>
+      </li>
+      <li>
+        <p>Utilizar siempre cookies firmadas, de esta forma un servidor puede saber si una cookie ha sido modificada.</p>
+      </li>
+    </ul>
+
+    <p>Sin embargo, existen contras; con las cookies nos arriesgamos a tener un ataque CSFR (Cross Site Request Forgery), el cual fuerza al navegador web de una víctima, validado en algún servicio a enviar una petición a una aplicación web vulnerable, la cual procesa la petición en nombre de la víctima.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>Tokens</strong>: En primer lugar, un <strong>token</strong> es un objeto informático (ya sea software o hardware) que representa el derecho a realizar una acción. Existen varios tipos de tokens: Session Token, Security Token, Access token… De manera que una aplicación que posea un token determinado tiene el derecho (sin introducir ningún tipo de credencial) de llevar a cabo una determinada acción dentro de un dispositivo.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020211215180957.png" text-align="center" />
+ </div>
+
+    <p>Para el caso que nos ocupa nos interesan los JWT (JSON Web Token) que es un token tipo JSON (lenguaje de programación web derivado de JavaScript) utilizado por y entre aplicaciones web. Contiene las siguientes partes:</p>
+
+    <ul>
+      <li>Encabezado que contiene el tipo de token y hash (firma que garantiza la integridad del token).</li>
+      <li>Carga útil.</li>
+      <li>Firma.</li>
+    </ul>
+
+    <p>La ventaja es que no se introduce ni por parte del usuario ni contenido en la propia petición ningún tipo de credencial, sin embargo estos tokens necesariamente deben de almacenarse localmente lo cual hace que se tenga que hacer un esfuerzo adicional para protegerse de ataques XSS, (Cross Site Scripting).</p>
+  </li>
+</ol>
+
+<ul>
+  <li>
+    <p><strong>Firmas</strong>: Ya sea utilizando cookies o tokens, ambos son objetos que van desde el navegador al servidor y viceversa. Esto los expone a una posible interception por parte de un tercero. La mejor forma de prevenir esto es firmar el objeto mediante un hash, de manera que se pueda comprobar la integridad del documento.</p>
+  </li>
+  <li>
+    <p><strong>Contraseñas de un sólo uso</strong>:</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="42-herramientas-para-ataque-de-fuerza-bruta">4.2. Herramientas para ataque de fuerza bruta.</h2>
+
+<h3 id="421-introducción-ataque-de-fuerza-bruta">4.2.1. Introducción. Ataque de fuerza bruta.</h3>
+
+<p>Hasta ahora hemos visto métodos de autenticación de páginas web, formas de ganar acceso a documentación no expuesta al público de dicha web. Entre los diversos ataques que se pueden hacer para poder obtener acceso a dichos documentos tenemos el ataque de fuerza bruta, que sirve específicamente para la autenticación con credenciales y algunos tipos de cookies.</p>
+
+<p>Este tipo de ataque consiste en probar una multitud de combinaciones de usuarios y contraseñas probables para hacerse con las credenciales auténticas a base de ensayo y error sobre una web concreta. Es especialmente eficaz en los casos en los que se sabe con certeza que las credenciales tienen baja fortaleza (contraseña / usuario pequeño, ausencia de mayúsculas, dígitos, caracteres especiales, palabras coherentes, etc).</p>
+
+<p><br /></p>
+
+<h3 id="422-comandos-de-creación-de-diccionarios">4.2.2. Comandos de creación de diccionarios.</h3>
+
+<p>Las herramientas con las que vamos a trabajar necesitan de una lista de “strings” que pasar como usuario y contraseña a la web a la que estamos intentando ingresar y evidentemente nos conviene utilizar listas de palabras confeccionadas de forma personalizada basada en información que poseemos sobre la víctima sobre la que estamos preparando el ataque. Para ello tenemos como ayuda los siguientes comandos en Kali.</p>
+
+<ul>
+  <li>
+    <p><strong>crunch</strong>: crunch es un comando que opera con caracteres para formar palabras atendiendo a unas condiciones que se pueden especificar mediante modificadores/opciones especiales. Viene preinstalado por defecto con kali y la sintaxis básica es:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  crunch &lt;min-len&gt; &lt;max-len&gt; <span class="o">[</span>&lt;charset string&gt;] <span class="o">[</span>options]
+</code></pre></div>    </div>
+
+    <p>Así, crunch nos generará palabras entre un mínimo y un máximo de caracteres basándose en los caracteres/dígitos proporcionados y las opciones que le queramos pasar.</p>
+  </li>
+  <li>
+    <p><strong>cewl</strong>: El comando <strong>cewl</strong> lleva a cabo una lista de strings basadas en los datos del documento html de esa página web que se obtiene de la URL de la misma. Posteriormente pueden ser utilizados como posibles nombres de usuarios o contraseñas.</p>
+  </li>
+  <li>
+    <p><strong>cupp</strong>: El comando <strong>cupp</strong> es un comando que genera una lista de nombres que tienen probabilidad de ser usuario o contraseña de un individuo atendiendo a sus datos personales (nombre, apellido, edad, nickname, pareja, etc). También viene instalado en Kali por defecto.</p>
+
+    <p>La lógica de este comando reside en que un individuo poco preparado para el mundo de la informática tendrá una contraseña débil basada en elementos fáciles de recordar y que estén asociados al mismo o a sus hábitos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211215184643.png" text-align="center" />
+  </div>
+
+    <p>Como se puede ver en la imágen, hemos introducido “cupp -i” en kali, nos ha pedido una serie de datos en relación a la víctima y ha contruido un fichero en el que ha guardado las palabras que ha contruido.</p>
+  </li>
+  <li>
+    <p><strong>Dymerge</strong>: Dymerge es un comando que construye una lista a apartir de varias listas de palabras distintas. Es una forma de agrupar diccionarios para ejecutar el ataque en menos pasos. No está disponible desde la apt, hay que instalarlo desde Github:</p>
+
+    <p>Instalamos DyMerge clonando el repositorio desde la página: https://github.com/k4m4/dymerge.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211215104224.png" text-align="center" />
+  </div>
+
+    <p>Una herramienta simple pero poderosa, escrita exclusivamente en Python, que toma listas de palabras dadas y las fusiona en un diccionario dinámico que luego se puede usar como munición para un ataque exitoso basado en diccionario (o de fuerza bruta).</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211215180957.png" text-align="center" />
+  </div>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211215110615.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="422-brute-forcing-con-burp-suite-e-hydra">4.2.2. Brute forcing con Burp Suite e Hydra.</h3>
+
+<p>El ataque bruteforcing (fuerza bruta) consiste en utilizar una aplicación de repetición de request para llevar a cabo múltiples request de logeo en bateria para ver si encontramos combinaciones de palabras que sean usuario y contraseña.</p>
+
+<p>Esto es especialmente útil cuando la fortaleza de la contraseña es débil, esta basada palabras de diccionario o en conceptos relacionados a la persona, como su edad, su nombre, etc. Todos datos accesibles mediante un buen OSINT y la utilización de las herramientas descritas más arriba.</p>
+
+<p>Una vez tenemos una lista de palabras que se ajusta a nuestra víctima, tenemos que utilizar una herramienta que se encarge de preparar un ataque basado en diccionario y en la web. Para ello disponemos de Hydra y BurpSuite.</p>
+
+<p><br /></p>
+
+<h4 id="4221-hydra">4.2.2.1. Hydra.</h4>
+
+<p>Hydra es una herramienta de ataque de fuerza bruta con diccionarios integrada como comando de linux disponible ne la APT. Esta herramienta realiza una serie de request en cadena cambiando una serie de parámetros basándose en una lista que se le proporciona mediante modificadores permitiéndo especificar protocolo y método de request.</p>
+
+<p>Para entender cómo funciona sería conveniente ver un ejemplo a través de los siguientes pasos:</p>
+
+<ul>
+  <li>
+    <p>Iniciamos la máquina OWASP para tener activo la aplicación web DVWA.</p>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220103230510.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>En ella vamos al sitio de logeo tipo POST.</li>
+  <li>Vamos a llevar a cabo un ataque tipo fuerza bruta para intentar obtener las credenciales de logeo mediante una HTTP request con hydra.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Seguimos los siguientes pasos:</p>
+
+<ol>
+  <li>Primero confeccionamos una lista de nombres que pueden ser probables usuarios y contraseñas. Esto puede hacerse mediante herramientas de kali como cewl, crunch o cupp pero por el bien de la simplicidad operaremos con una lista más sencilla separada en users.txt y passwords.txt</li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p>Además, necesitamos el protocolo y el tipo de request para que hydra lleve a cabo el ataque. El tipo de request al ser una página http será evidentemente http, pero ¿qué método?. Obviamente, al tener que acreditarse mediante el relleno de campos dentro de la página se tratará necesariamente de un POST, pero para salir de dudas podemos comprobar que tipo de request se mandan utilizando DevTools e inspeccionando el apartado de NETWORK, mandamos un logeo de la página y vemos qué request se ha enviado, en nuestro caso un POST.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220103234618.png" text-align="center" />
+ </div>
+
+    <p>Además de mostrarnos qué tipo de request es podemos ver también la forma y los parámetros que se envían en la petición, el payload, abajo a la derecha.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p>Una vez tenemos los ficheros diccionario construimos el comando. Este comando necesita de los siguientes elementos para poder llevar a cabo el ataque de forma satisfactoria:</p>
+
+    <ul>
+      <li>Fichero de usuario tras el modificador -L (o -l si sólo es un nombre).</li>
+      <li>Fichero de contraseñas tras el modificador -P (o -p si sólo es un nombre).</li>
+    </ul>
+
+    <p>Seguidamente pasámos la ip de destino y el método de request que será http-post-form.</p>
+
+    <p>A continuación y por último se añaden tres cadenas de caracteres entre comillas separadas por punto y coma que tienen el siguiente propósito:</p>
+
+    <ul>
+      <li>
+        <p><strong>/dvwa/login.php</strong> -&gt; Saber en qué parte de la estructura de ficheros de la ip se encuentra el sitio en el que preparar el ataque.</p>
+      </li>
+      <li>
+        <p><strong>username=^USER^&amp;password=^PASS^&amp;Login=Login</strong> -&gt; Le mandamos la estrucutra de parámetros que debe de ir cambiando en cada request a partir de los diccionarios proporcionados. Los parámetros se indican mediante las palabras que van entre ^. Esta información está basada en el Request Payload de la imágen del apartado anterior.</p>
+      </li>
+      <li>
+        <p><strong>Login failed</strong>. Este es el mensaje que aparece cuando el logeo resulta fallido y ayuda a hydra a identificar cuándo una petición de logeo no es válida.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p>En definitiva, todos estos datos ayudan a hydra a entender cómo es la estructura de la web y así optimizar su ataque. El comando completo es:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104000119.png" text-align="center" />
+</div>
+
+<p>y el resultado que nos da es:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104000215.png" text-align="center" />
+</div>
+
+<p>Informándonos  de que ha encontrado unas credenciales válidas <strong>admin:admin</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="4222-burpsuite">4.2.2.2. BurpSuite.</h4>
+
+<p>Para llevar a cabo el ataque de fuerza bruta con burpsuite. Vamos a hacer uso de tres herramientas de esta aplicación.</p>
+
+<p>En primer lugar vamos a la DVWA y la abrimos y nos saldrá la parte de logeo. Vamos a descubrir la contraseña haciendo un ataque de fuerza bruta con diccionario.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220108234323.png" text-align="center" />
+</div>
+
+<p>En primer lugar intentamos llevar a cabo una petición de logeo introduciendo credenciales ficticias en todos los campos e interceptamos la petición con burpsuite.</p>
+
+<ul>
+  <li>
+    <p><strong>Proxy</strong>: Usamos el proxy para interceptar la petición, analizarla y poder así configurar las requests que se realizará en el ataque de fuerza bruta. Esta petición contiene la información necesaria para efectuar un intento de logeo al servidor. Vamos a enviar esta información al Intruder.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220108234754.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Intruder</strong>: Una vez con la información en el intruder definimos el tipo de ataque (pitchfork), ajustamos las posiciones de los payloads; que serán el username y el password y el conjunto de los payloads que irán en cada posición; que en este caso será una lista de nombres que habremos construido con las herramientas vistas más arriba:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220109001024.png" text-align="center" />
+  </div>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220109001045.png" text-align="center" />
+  </div>
+
+    <p>En las opciones de los resultados le damos a seguir redirecciones siempre. Esto en este caso es conveniente porque de esta manera si nos logeamos nos redirigirán a otra página y si fallamos nos quedaremos en la misma. Esto alterará el tamaño del documento html recibido por el servidor y será un buen indicio para diferenciar entre un acierto y un fallo, ya que los fallos, la mayoría tendrán un documento html idéntico con el mismo peso. Exploraremos aquellas respuestas que ocupen un tamaño diferente de la media.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220109004855.png" text-align="center" />
+  </div>
+
+    <p>Iniciamos el ataque y obtenemos:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220109005030.png" text-align="center" />
+  </div>
+
+    <p>Por la razón que hemos comentado antes, vamos a explorar las opciones que tienen un tamaño distinto enviándolas al repetidor mediante el botón derecho.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Repeater</strong>: Una vez en el repetidor le damos a la etiqueta que indica “seguir redirección” y nos encontramos que, renderizando el documento html:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020220109005323.png" text-align="center" />
+  </div>
+
+    <p>Tenemos acceso.</p>
+
+    <p>Su hubiéramos seguido el mismo procedimiento con las otras request se nos hubiera redirigido a la página de logeo.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="5-command-execution-y-webshell">5. Command execution y Webshell</h1>
+
+<h2 id="51-ejecución-de-comandos-en-web">5.1. Ejecución de comandos en web.</h2>
+
+<h3 id="511-concepto-y-características-principales">5.1.1. Concepto y características principales.</h3>
+
+<p>La ejecución de comandos, “OS Comand Injection” (Operating System Command Injection) o Shell Injection <strong>consiste en una vulnerabilidad de seguridad web que permite a un atacante ejecutar comandos de sistema operativo de forma arbitraria en el servidor que está ejecutando el servidor web</strong>, comprometiendo de esta forma a la página web, a sus datos, e incluso a otras partes de la estructura del servidor.</p>
+
+<p>Esto se lleva a cabo en una página web en la que podemos introducir “input” que luego se procesa en servidor y se puede explotar si y sólo si la página o el servidor son <strong>vulnerables</strong>.</p>
+
+<p>Generalmente la vulnerabilidad es debida a una mala configuración/programación del servidor web o de la aplicación (falta de saneamiento de código,…).</p>
+
+<p>Destacamos los siguientes apartados:</p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Error-Based</strong>:</p>
+
+    <p>Las vulnerabilidades de inyección de comandos están basados en errores de configuración de la aplicación en el que se consige que se devuelva un output distinto del predefinido por el programador que desvela información sensible del servidor. Se trata de algo así como una <em>extensión</em> del uso de la aplicación por parte del atacante.</p>
+
+    <p>Por ejemplo: si tenemos una aplicación que recoge un string del usuario y lo ejecuta con el comando ping:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>ping <span class="nt">-c3</span> &lt;String&gt;
+</code></pre></div>    </div>
+
+    <p>El atacante puede aprovecharse y poner un caracter que concatene comandos en la terminal del servidor, por ejemplo “;pwd”:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>ping <span class="nt">-c3</span> <span class="p">;</span><span class="nb">pwd
+	
+  </span>ping: unknown host <span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+</code></pre></div>    </div>
+
+    <p>La <em>falta de saneamiento</em> en el código de la web (web vulnerable) provocará que esta no filtre nuestra petición y pasará dicha línea directamente al servidor que la ejecutará llevando a cabo dos comandos cuyo output nos mostrará por pantalla: ping y pwd, revelando así información sensible de la máquina.</p>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211221103307.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Blind Attacks</strong>:</p>
+
+    <p>Algunos ataques de inyección de comando son “ciegos”, esto es; la web no verbaliza el procesamiento del comando que se ejecuta dentro del servidor.</p>
+
+    <p>Un mecanismo eficiente para comprobar que se este ejecutando el comando es introducir un “ping” de bucle invertido:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>&amp; ping <span class="nt">-c</span> 10 127.0.0.1 &amp;
+</code></pre></div>    </div>
+
+    <p>e intentar obtener alguna respuesta de la máquina. Si la esta tarda en responder puede que sea porque esté procesando el ping y por ello tarde en devolver la respuesta al request, indicio de que existe tal vulnerabilidad.</p>
+
+    <p>También puede intentar redirigir la salida del comando inyextado a un archivo dentro de la raíz web que luego puede recuperar usando su navegador. Por ejemplo, si una aplicación proporciona recursos estáticos desde la ubicación /var/www/static puede enviar la siguiente entrada:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>&amp; <span class="nb">whoami</span> <span class="o">&gt;</span> /var/www/static/whoami.txt &amp;
+</code></pre></div>    </div>
+
+    <p>Se redirige el output al fichero especificado, visible desde el navegador sobre la dirección: https://vulnerable-website.com/whoami</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Code vs Command Inyection</strong>:</p>
+
+    <p>Es preciso diferenciar este ataque/procedimiento de la <strong>inyección de código</strong> (Code Injection); en este el atacante agrega su propio código que luego será ejecutado por la aplicación. En contraposición la inyección de comandos permite al atacante <em>extender</em> la funcionalidad de la aplicación para ejecutar comandos sin necesidad de inyectar código.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<p><strong>En esencia, el cometido de un atacante que pretenda realizar este procedimiento consiste en buscar webs vulnerables (mal programadas) con campos que requieran de la introducción de algún tipo de dato que luego vaya a forma parte de alguna línea de código potencialmente ejecutable por el servidor con la finalidad de explotar dicha vulnerabilidad introduciendo comandos a conveniencia.</strong></p>
+
+<p><br /></p>
+
+<p>Debido a esto, por razones de seguridad sólo debemos de iniciar un servidor web con privilegios de súper usuario en contadas excepciones. Lo ideal es ejecutarlo desde un usuario de servicio.</p>
+
+<p><br /></p>
+
+<h3 id="512-procedimientos-de-inyección-de-comandos">5.1.2. Procedimientos de inyección de comandos.</h3>
+
+<p>Se pueden usar una variedad de metacaracteres de shell para realizar ataques de inyección de comandos del sistema operativo.</p>
+
+<p>Varios caracteres funcionan como separadores de comandos, lo que permite encadenar los comandos.</p>
+
+<ul>
+  <li>
+    <p><strong>Windows/Unix</strong>:</p>
+
+    <ul>
+      <li>&amp; (background).</li>
+      <li>&amp;&amp; (AND).</li>
+      <li>| (PIPE).</li>
+      <li>| | (OR).</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Unix</strong>:</p>
+
+    <ul>
+      <li>; (separador de instrucciones)</li>
+      <li>\n o 0x0a (Nueva línea)</li>
+    </ul>
+
+    <p>En los sistemas basados en Unix, también puede usar comillas invertidas o el carácter de dólar para realizar la ejecución en línea de un comando inyectado dentro del comando original:</p>
+
+    <ul>
+      <li>`comando inyectado`</li>
+      <li>$( comando inyectado )</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="514-prevención-de-inyección-de-comandos">5.1.4. Prevención de inyección de comandos.</h3>
+
+<p>Si se considera inevitable llamar a los comandos del sistema operativo con una entrada proporcionada por el usuario, entonces se debe realizar una validación de entrada sólida. Algunos ejemplos de validación efectiva incluyen:</p>
+
+<ul>
+  <li>Validación con una lista blanca de valores permitidos.</li>
+  <li>Validando que la entrada sea un número.</li>
+  <li>Validando que la entrada contiene solo caracteres alfanuméricos, sin otra sintaxis o espacios en blanco.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="52-commix">5.2. Commix.</h2>
+
+<p>El término Commix es una abreviatura para (COMMand Injection eXploiter), se trata de un comando que permite testear aplicaciones web para encontrar bugs, errores o vulnerabilidades relacionadas con ataques de inyección de código analizando y explotando dichas vulnerabilidades.</p>
+
+<p>Usando esta herramienta es muy fácil encontrar y explotar una vulnerabilidad de inyección de código. Commix nos permite explotar estas vulnerabilidades abriendo</p>
+
+<p>Para poder utilizar commix se necesitan tres parámetros:</p>
+
+<ul>
+  <li>
+    <p>El primero es la url, que se especifica tras el modificador <strong>-u</strong>.</p>
+  </li>
+  <li>
+    <p>El segundo es el “data”, o los datos de la request que hacemos a la página cuando buscamos datos <strong>en el tipo POST</strong>, en el GET no es necesario. Estos datos se introducen después del modificador <strong>–data</strong>. El “data” puede encontrarse revisando la solicitud de logeo en el apartado Network en inspeccionar elemento.</p>
+  </li>
+  <li>
+    <p>El tercer parámetro son las cookies. Esto permite a Commix configurar la request con las preferencias que nosotros utilizamos al llevar a cabo la request de forma manual, no son imprescindibles en general pero si pueden serlo en casos particulares, por ejemplo; si estamos intentando inyectar comandos en un sitio después de habernos logeado con unas credenciales. En dicho caso necesitaríamos de las cookies para que las solicitudes de commix no queden bloquedas por falta de autenticación.</p>
+
+    <p>Al igual que ocurre con el apartado anterior, las cookies se pueden obtener revisando la request en el apartado network/Cookies.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Un ejemplo de uso sería:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220104152037.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="53-webshell">5.3. WebShell</h2>
+
+<p>Tener una shell en la web para ejecutar comandos.</p>
+
+<p>![[Pasted image 20211216121000.png]]</p>
+
+<p>Código para inyectar y crear una shell.</p>
+
+<p>![[Pasted image 20211216121144.png]]</p>
+
+<p><br /></p>
+
+<h1 id="6-sql-injection-sqlmap-y-burpsuite-iii">6. SQL Injection, SQLmap y Burpsuite III</h1>
+
+<h2 id="61-qué-es-sql-injection">6.1. Qué es SQL Injection.</h2>
+
+<p>SQL Injectión, también conocido como SQLI es un vector de ataque común que utiliza código SQL malicioso para “backend databases”, <strong>esto es; bases de datos a las que se accede indirectamente desde una aplicación externa en lugar de desde la aplicación almacenada dentro de la base de datos o la manipulación directa de los datos a bajo nivel</strong>, para acceder a información/privilegios no autorizados.</p>
+
+<p>Este vector de ataque sirve para cualquier base de datos SQL, los sitios web son los objetivos más frecuentes y la repercusión que pueden llegar a tener es muy grande, comprometiendo listas de usuarios, información sensible, borrado de tablas, etc.</p>
+
+<p><br /></p>
+
+<h2 id="62-tipos-de-inyección-sql">6.2. Tipos de Inyección SQL.</h2>
+
+<p>Los ataques SQL típicamente caen bajo tres categorías: In-band SQLi, Inferential SQLi, Out-of-band SQLi. Puedes clasificar los tipos de inyecciones SQL basándote en los métodos utilizados para acceder y recopilar información sobre el backend database.</p>
+
+<p>Todas estas técnicas se ven con un poco más de profundidad en la sección de SQLMap.</p>
+
+<p><br /></p>
+
+<h3 id="621-in-band-sqli-classic">6.2.1. In-band SQLi (Classic).</h3>
+
+<p>En el ataque en banda (In-band) los atacantes utilizan un canal de comunicación con la base de datos para lanzar sus ataques y obtener resultados de vuelta. Dentro de este método hay dos variantes:</p>
+
+<p><br /></p>
+
+<ol>
+  <li><strong>Error-based SQLi</strong>: Los atacantes llevan a cabo acciones que causan que la base de datos genere mensajes de error. Estos mensajes de error en realidad proporcionan información (filtraciones de error) y esta es aprovechada por los atacantes para recolectar información sobre la estructura de la base de datos.</li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>Union-based SQLi</strong>: Esta técnica toma ventaja del operador UNION de SQL el cual fusiona varias statement de select generadas por la base de datos para obtener una única respuesta HTTP. Esta respuesta puede contener datos que el atacante puede aprovechar.</p>
+
+    <p><br /></p>
+  </li>
+</ol>
+
+<h3 id="622-inferential-blind-sqli">6.2.2. Inferential (Blind) SQLi.</h3>
+
+<p>El atacante envía <em>payload</em>, esto es; mandar más código del necesario, normalmente con un fin poco lícito y provocar un comportamiento distinto de la aplicación, como por ejemplo inyección de comandos o para conseguir más información de la aplicación, está pendiente de la reacción del servidor y de esa forma recopila información sobre su estructura y mecanismos.</p>
+
+<p>Este método se denomina <em>blind</em> o ciego porque el resultado de la información no se devuelve al sitio web del atacante, con lo que este no tiene forma de saber cómo evoluciona el proceso. Por esta razón, las únicas pistas que el atacante sigue consiste en las reacciones del servidor y por ello este tipo de ataques son más lentos.</p>
+
+<p>Podemos clasificar estos ataques como:</p>
+
+<p><br /></p>
+
+<ol>
+  <li><strong>Booleanos</strong>: Cuando el atacante introduce una consulta SQL solicitando a la aplicación que devuelva un resultado. Este resultado variará en función de si la consulta es o no cierta, proceso sobre el cual se obtiene información.</li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li><strong>Time-based</strong>: El atacante envía una consulta SQL a la base de datos que hace que la base de datos espere durante un periodo de tiempo antes de reaccionar, periódo de tiempo en el que el atacante puede dilucidar si su consulta es cierta o falsa sin dependender de los datos devueltos por la base de datos.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="623-sqli-fuera-de-banda">6.2.3. SQLi fuera de banda.</h3>
+
+<p>El atacante solo puede llevar a cabo esta forma de ataque cuando ciertas funciones están habilitadas en el servidor de base de datos utilizado por la aplicación web. <strong>Esta forma de ataque se utiliza principalmente como alternativa a las técnicas SQLi inferenciales y en banda.</strong></p>
+
+<p>SQLi fuera de banda se realiza cuando el atacante no puede usar el mismo canal para lanzar el ataque y recopilar información, o cuando un servidor es demasiado lento o inestable para realizar estas acciones. Estas técnicas cuentan con la capacidad del servidor para crear solicitudes DNS o HTTP para transferir datos a un atacante.</p>
+
+<p><br /></p>
+
+<h2 id="63-ejemplos-de-sqli">6.3. Ejemplos de SQLi.</h2>
+
+<p>Recordamos que el lenguaje SQL es un lenguaje estandarizado que se utiliza para acceder y manipular bases de datos. Una <em>consultas SQL</em> consiste en el uso del lenguaje SQL para ejecutar comandos sobre los objetos/datos de una base de datos concreta.</p>
+
+<p>Una consulta SQL desde una página web que pide la introducción de un dato puede tener el siguiente aspecto:</p>
+
+<pre><code class="language-SQL">SELECT ItemName, ItemDescription
+FROM Item
+WHERE ItemNumber = "&amp; Request.QueryString("ItemID")"
+</code></pre>
+
+<p>Donde ItemID consiste en el input que provee el usuario.</p>
+
+<p>El request http GET sería: http://www.estore.com/items/items.asp?itemid=x Donde x sería el valor a introducir.</p>
+
+<p><strong>Es conveniente mencionar que la sintaxis del código de todos los ejemplos siguientes puede cambiar en función del SGBD o de la página web que se esté atacando. Lo importante de los siguientes ejemplos es entender los mecanismos por los cuales se consigue extraer más información de la debida del servidor vulnerable.</strong></p>
+
+<p><br /></p>
+
+<h3 id="631-condiciones-siempre-ciertas">6.3.1. Condiciones siempre ciertas.</h3>
+
+<p>Un atacante que desee ejecutar una inyección SQL manipula una consulta SQL estándard para explotar vulnerabilidades de entrada no validadas en una base de datos.</p>
+
+<p>Sobre la consulta anterior por ejemplo, un posible atacante introducidiría algo así:</p>
+
+<pre><code class="language-SQL">SELECT ItemName, ItemDescription
+FROM Item
+WHERE ItemNumber = "" or 1=1 -- "
+					 ----------
+					  --ItemID
+</code></pre>
+
+<p>Donde el request sería: input http://www.estore.com/items/items.asp?itemid=999or1=1</p>
+
+<p>Es decir, <strong>Item ID =  “ or 1=1 –</strong></p>
+
+<p>Así pues, lo que hacemos es aprovecharnos de una mala configuración del servidor web (falta de saneamiento) para introducir código que modifique la consulta que se realiza en la base de datos.</p>
+
+<p>En este caso en concreto podemos observar que el código que nosotros introducimos consta de tres partes:</p>
+
+<ul>
+  <li>”: Unas comillas que cerrarán el contenido que va a llevar ItemNumber.</li>
+  <li>or 1 = 1 para introducir un condicional y una tautología.</li>
+  <li>–: Un comentario para librarnos de las comillas “ originales.</li>
+</ul>
+
+<p>De esta manera hemos modificado la sentencia que le pasamos al WHERE (recordemos que este es un parámetro que hará que el sistema evalue la sentencia que viene inmediatamente después como verdadera o falsa para filtrar aquellos registros que no interesan).</p>
+
+<p>Así el sistema va evaluando la condición que le hemos pasado para cada registro, pero como nuestra condición siempre es cierta (ya que se trata del operador OR con una tautologia) para todos los registros entonces nos mostrará todos los registros por pantalla.</p>
+
+<p><br /></p>
+
+<h3 id="632-caracteres-filtrados-incorrectamente">6.3.2. Caracteres filtrados incorrectamente.</h3>
+
+<p>Los atacantes también pueden sacar partido de caracteres que no se filtran correctamente para alterar comandos:</p>
+
+<pre><code class="language-SQL">SELECT ItemName, ItemDescription
+FROM Items
+WHERE ItemNumber = " "; DROP TABLE USERS # "
+					 ----------------------
+					 		--ItemID
+					
+</code></pre>
+
+<p>En la sentencia anterior, el “punto y coma” se utiliza para separar dos instrucciones. De forma que el request sería: input http://www.estore.com/items/items.asp?itemid=999;DROPTABLE</p>
+
+<p>De nuevo el principio es el mismo que en el apartado anterior cerramos la sección del contido de ItemNumber y, aprovechándonos de la falta de saneamiento del servidor web, concatenamos a la anterior la sentencia DROP TABLE USERS y comentamos el resto para evitar una falta de sinstaxis.</p>
+
+<p>Como resultado la tabla entera puede ser borrada.</p>
+
+<p><br /></p>
+
+<h3 id="633-union-select-statement">6.3.3. UNION SELECT statement.</h3>
+
+<p>Recoradmos que el statement UNION une varias consultas con SELECT para recolectar datos de dos tablas diferentes. Así por ejemplo:</p>
+
+<pre><code class="language-SQL">SELECT ItemName, ItemDescription
+FROM Items
+WHERE ItemID = ' ' UNION SELECT Username, Password FROM Users
+				 --------------------------------------------
+							   --ItemID
+
+</code></pre>
+
+<p>input http://www.estore.com/items/items.asp?itemid=999UNIONSELECTuser-name,passwordFROMUSERS</p>
+
+<p>Con UNION concatenamos dos sentencias SELECT (<strong>con la salvedad de que debemos asegurarnos de el número de columnas que pedimos con el segundo SELECT es el mismo que pide el primer SELECT</strong>, esto puede averiguarse metiéndo “null” a modo de columna separando cada columna de la siguiente por una coma y encontraremos el número de columnas correcto en el momento en el que nos deje de salir error de que SELECT no tiene el mismo número de columnas. Si se trata de un ataque ciego podemos añadir a modo de columna el término: SLEEP(10), sabremos entonces que hemos introducido el número de columnas válido cuando el navegador tarde 10 segundos en responder, será indicio de que nuestro código se ha ejecutado y de que no ha habido ningún error).</p>
+
+<pre><code class="language-SQL">SELECT ItemName, ItemDescription
+FROM Items
+WHERE ItemID = ' ' UNION SELECT null, SLEEP(10) FROM Users;
+				 ------------------------------------------
+				   				--ItemID
+</code></pre>
+
+<p>(en este caso tenemos 2 columnas pero si hubiéramos tenido más hubiéramos tenido que meter más nulls hasta que se ejecute la consulta).</p>
+
+<p><br /></p>
+
+<h2 id="64-sqlmap">6.4. SQLMap.</h2>
+
+<h3 id="641-instalando-sqlmap-funcionalidades-básicas">6.4.1. Instalando SQLMap. Funcionalidades básicas.</h3>
+
+<p>SQLMap es un herramienta de penetración de código abierto que automatiza el proceso de detectar y explotar fallas o vulnerabilidades de SQLi y la toma de control de los servidores de bases de datos.</p>
+
+<p>Esta se encarga de realizar peticiones a los parámetros de una URL que se le indiquen, ya sea mediante una petición GET, un POST, en las cookies, etc. Es capaz de explotar cualquier vulnerabilidad SQLi.</p>
+
+<p>Las versiones más recientes pueden generar fallos, se recomienda utilizar desde la versión 8 hacia abajo. Esta se puede obtener como un script de python.</p>
+
+<p>Soporta las siguientes técnicas vistas introductoriamente en las secciones anteriores:</p>
+
+<ul>
+  <li>
+    <p><strong>Boolean-based blind</strong>: Se trata de una técnica ciega que intenta extraer información carácter a carácter. Esto se consigue insertando, tras la consulta válida, una consulta de tipo SELECT que comprobará si el caracter solicitado se corresponde con el carácter almacenado en la BD generando una respuesta booleana por parte del servidor (correcta o incorrecta).</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Boolean-Time-based blind</strong>:  Esta sigue el mismo mecanismo que la técnica anterior, esta vez la consulta SELECT introduce un delay en la BD que sólo tendrá lugar si la condición del SELECT se cumple satisfactoriamente. Aportando de nuevo una información de caracter booleana.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Error-based</strong>: Esta técnica consiste en provocar deliberadamente mensajes de error de la base de datos en la web y buscar en ellos filtraciones.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>UNION query-based</strong>: Esta técnica se basa en añadir una consulta que empiece con UNION ALL SELECT, revelando información sensible sólo si la aplicación web vuelca toda la información de la DB sobre la web atacada.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Stacked queries</strong>: Esta técnica consisten en apilar distintas consultas mediante ‘;’. Sin embargo sólo funciona en los casos en los que la web permite la ejecución múltiple de consultas.</p>
+  </li>
+</ul>
+
+<p>Por otra parte, SQLMap soporta la mayoría de los motoroes de bases de datos más conocidos como Oracle, MySQL, PostgreSQL, etc.</p>
+
+<p><br /></p>
+
+<h3 id="642-manual-de-uso-básico-de-sqlmap">6.4.2. Manual de uso básico de SQLMap.</h3>
+
+<p>Como ya hemos indicado anteriormente, SQLMap es una herramienta que realiza peticiones a los parámetros de una URL. Por tanto para funcionar se necesitan los siguientes elementos:</p>
+
+<ul>
+  <li><strong>URL</strong>:</li>
+  <li><strong>Cookies</strong>: que se pueden obtener de una herramienta de pentesting como BurpSuite o dándole a inspeccionar elemento &gt; GET/POST &gt; Network &gt; Cookies.</li>
+  <li><strong>Data</strong>; si se tratáse por ejemplo de un POST, esto ayuda a la herramienta a conocer la estructura de la página web para entender qué parámetros modificar. Con el GET no es necesario.</li>
+  <li>El <strong>modificador</strong>/opción para hacer que SQLMap nos proporcione la información deseada.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> &lt;URL&gt; <span class="nt">--cookie</span><span class="o">=</span>&lt;cookie&gt; <span class="o">[</span><span class="nt">--data</span><span class="o">=</span>&lt;data&gt;] <span class="nt">-option</span>
+</code></pre></div></div>
+
+<p>El data es específico del tipo HTTP - POST. Va entre corchetes porque si se trata de un GET no sería necesario ponerlo. Recordamos que el data se puede obtener desde Inspeccionar Elemento &gt; Network &gt; POST &gt; Request.
+Estas opciones y sus respectias explicaciones pueden obtenerse de man si se tiene instalado como paquete de python en linux o con -h si sólo se tiene como script de python descargado desde github.</p>
+
+<p><br /></p>
+
+<p>Más información en https://github.com/sqlmapproject/sqlmap/wiki/Usage</p>
+
+<p><br /></p>
+
+<h3 id="643-ejemplos-de-uso-sqlmap">6.4.3. Ejemplos de uso SQLMap.</h3>
+
+<p>Una vez nos hemos instalado SQLMap, o lo hemos obtenido como un script de python, lo abrimos en la terminal y desplegamos la ayuda para intentar ver cómo funciona.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220109010532.png" text-align="center" />
+</div>
+
+<p>Por otra parte, abrimos la aplicación web Mutillidae ( dentro de la vm ). Entramos en la sección “SQL injection”. Una vez en ella necesitamos saber qué tipo de request hace para entender cómo debemos de poner los datos en sqlmap. Sencillamente vamos a inspeccionar elemento &gt; Network y realizamos un request que se quedará guardado para que nosotros podamos inspeccionarlo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220109013203.png" text-align="center" />
+</div>
+
+<p>En dicha foto podemos comprobar que se trata de un GET, cuáles son los parámetros, las cookies, etc.</p>
+
+<p>Una vez disponemos de esta información montamos el comando sqlmap de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./sqlmap.py  <span class="nt">-u</span> <span class="s2">"http://10.0.2.15/mutillidae/index.php?page=user-info.php&amp;username=USER&amp;password=PASS&amp;user-info-php-submit-button=View+Account+Details"</span> <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"PHPSESSID: kijd2n5u9kddk343cu5pkei7u0;showhints:1"</span>
+</code></pre></div></div>
+
+<p>y le damos a enter para saber si esta página web es o no vulnerable. Despúes de un proceso de espera obtenemos:</p>
+
+<p>![[Pasted image 20220109013759.png]]</p>
+
+<p>Con lo que SQLMap nos está informando de que ha encontrado diversos puntos de inyección y que debemos de selecionar uno para hacer la operación requerida.</p>
+
+<p>Como no le hemos indicado que lleve a cabo ninguna operación en la URL la terminal nos devuelve al prompt seleccionemos la opción que seleccionemos. <strong>Debemos añadir a la misma distintos modificadores para tener acceso a la información de la base de datos</strong>. Por ejemplo:</p>
+
+<ol>
+  <li>
+    <p>Si queremos ver la base de datos que se está utilizando actualmente añadiríamos: –current-db</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220109014228.png" text-align="center" />
+ </div>
+  </li>
+  <li>
+    <p>Si queremos ver las tablas que componen una base de datos sencillamente indicamos con -D el nombre de la base de datos y el modificador –tables: -D nowasp –tables</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220109014620.png" text-align="center" />
+ </div>
+  </li>
+  <li>
+    <p>Si dada una tabla quisiésemos ver sus columnas entonces tendríamos: -D nowasp -T accounts –columns</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220109014918.png" text-align="center" />
+ </div>
+  </li>
+  <li>
+    <p>Si para una base de datos concreta quisiéramos ver un esquema completo de todas sus tablas: -D nowasp –schema</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220109015652.png" text-align="center" />
+ </div>
+  </li>
+  <li>
+    <p>Si quisiéramos volcar el contenido de una tabla ponemos: -D nowasp -T accounts –dump</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M3/Pasted%20image%2020220109020751.png" text-align="center" />
+ </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="65-uso-de-burpsuite-para-ejecutar-sqli-strikes">6.5. Uso de BurpSuite para ejecutar SQLi strikes.</h2>
+
+<h3 id="651-intro-operador-union">6.5.1. Intro. Operador UNION.</h3>
+
+<p>Una vez se ha establecido que una base de datos es vulnerable a un ataque SQLi a menudo es útil explotar dicha vulnerabilidad para demostrar sus potenciales implicaciones.</p>
+
+<p>El operador UNION se utiliza para combinar los resultados de dos o más sentencias SELECT de forma que en ciertos tipos de vulnerabilidades, el operador UNION se utiliza para llevar a cabo una búsqueda adicional y obtener más resultados de la cuenta.</p>
+
+<p>Pasos:</p>
+
+<ul>
+  <li><strong>Configurar el proxy de BurpSuite e interceptar una petición que se le mande a dicha web</strong>.</li>
+  <li><strong>Una vez tenemos interceptada la petición que mandamos la primera tarea es identificar el número de columnas que se devuelven en la búsqueda original ya que cada SELECT unido mediante UNION debería de devolver el mismo número de columnas</strong>.</li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="7-teoría-de-bases-de-datos-y-sql">7. Teoría de Bases de Datos y SQL.</h1>
+
+<h2 id="71-introducción-a-las-bases-de-datos">7.1. Introducción a las Bases de Datos.</h2>
+
+<p>El objetivo principal de las bases de datos es el de unificar los datos que se manejan y los programas/aplicaciones que los manejan. Las bases de datos aparecen para solucionar los siguientes inconvenientes:</p>
+
+<ul>
+  <li>
+    <p><strong>Dependencia hacia los datos</strong>: Anteriormente el diseño de los programas se ajustaban a los datos que iban manejar, había una dependencia de los programas respecto de los datos y cualquier cambio en la estructura de ficheros hacía que el programa se tuviera que modificar y volver a compilar lo cual era un esfuerzo adicional.</p>
+  </li>
+  <li>
+    <p><strong>Redundancia de información</strong>: Como cada aplicación se genera de acuerdo a los datos que maneja pero distintos sectores pueden manejar en parte los mismos datos se produce una redundancia de datos que son comunes en sectores distintos provocando un esfuerzo extra de almacenamiento, actualización con su correspondiente problema de incoherencia de datos (fallos de actualización).</p>
+  </li>
+</ul>
+
+<p>Las bases de datos independizan los datos de las aplicaciones a través de un mecanismo de gestión de datos que los vuelve seguros y accesibles para cada dispositivo que pretenda usarlos, esto es; el Sistema Gestor de Bases de Datos (SGBD).</p>
+
+<p>Este proporciona:</p>
+
+<ul>
+  <li><strong>Accesibilidad de los datos</strong>: Cambios en la estructura de la base de datos no provoca una alteración en las aplicaciones que los utilizan.</li>
+  <li><strong>Integridad de los datos</strong>: Como se reduce el número de veces que se manipulan los datos se reduce el riesgo de que se produzcan incovenientes fruto de actualizaciones u otras operaciones.</li>
+  <li><strong>Seguridad</strong>: Además, el SGBD implementa un sistema de control de acceso que evita manipulaciones indeseadas o no autorizadas.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="72-definición-de-base-de-datos">7.2. Definición de Base de Datos.</h2>
+
+<h3 id="721-base-de-datos">7.2.1. Base de Datos.</h3>
+
+<p>Una <strong>Base de Datos</strong> resulta en una organización de información de acuerdo a un <strong>modelo de datos</strong> que persigue reflejar las relaciones/restricciones existentes entre los objetos del mundo real en dicha organización y que consigue independencia, integridad y seguridad de los datos.</p>
+
+<p>Estrictamente hablando, una base de datos es una colección de información relacionada con un asunto, tema o actividad específicos y con la que se puede operar, cuyo contenido se puede ordenar, imprimir, modificar, borrar y demás operaciones y algunas más complicadas.</p>
+
+<p><br /></p>
+
+<h3 id="722-modelo-de-datos-modelo-relacional">7.2.2. Modelo de Datos. Modelo Relacional.</h3>
+
+<h3 id="7221-modelo-de-datos">7.2.2.1. Modelo de Datos.</h3>
+
+<p>Llamaremos como <strong>Modelo de Datos</strong> al conjunto de conceptos y reglas que nos llevarán a reflejar las relaciones que existen entre los datos que estamos organizando y las operaciones que podemos ejecutar sobre ellos.</p>
+
+<p><br /></p>
+
+<h4 id="7222-modelo-relacional-representación-gráfica-y-componentes">7.2.2.2. Modelo Relacional. Representación gráfica y componentes.</h4>
+
+<p>Por otra parte existen una multitud de modelos de datos aplicables para el diseño de bases de datos, entre ellos el más utilizado es el <strong>Modelo Relacional</strong> el cual es un modelo de base de datos basado en la lógica de predicados y la teoría de conjuntos.</p>
+
+<p>En él la representacion gráfica de un elemento básico es la <strong>tabla</strong>:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211220133601.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Una tabla se compone de filas y columnas de forma que las filas se corresponden con los <strong>registros</strong> y las columnas con los <strong>campos</strong> y estos objetos están relacionados de la siguiente manera:</p>
+
+<ul>
+  <li>
+    <p>Un <em>registro</em> representa la información global que se tiene de un elemento concreto la cual se encuentra clasificada entre los diferentes <em>campos</em> de la tabla.</p>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Pasted%20image%2020211220135219.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>De esta forma, la combinación entre un registro y un campo en una tabla nos proporciona el <em>atributo</em> (valor) de un elemento concreto.</p>
+
+    <p><br /></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M3/Imagen6012%201.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>De forma que el número de filas nos dice el número total de elementos que tenemos en la tabla y el número de campos nos dice el número de datos distintos que tenemos para un elemento particular genérico de la tabla. Así pues podemos asumir las siguientes conclusiones:</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Un CAMPO es la unidad mínima de información que se gestiona en una base de datos</strong>.</p>
+
+<p><strong>El valor que un campo toma para un elemento concreto se denomina ATRIBUTO</strong></p>
+
+<p><strong>Un conjunto de atributos referentes al mismo elemento conforma un REGISTRO</strong>.</p>
+
+<p><strong>Un conjunto de registros de distintos elementos termina conformando una TABLA</strong>.</p>
+
+<p><strong>Varias tablas pueden llegar a conformar una BASE DE DATOS</strong></p>
+
+<p><strong>Varias bases de datos están gestionadas por un SGBD</strong></p>
+
+<p><br /></p>
+
+<p>Además de los elementos fundamentales campo, registro, tabla, podemos encontrar los siguientes elementos:</p>
+
+<ul>
+  <li>
+    <p><strong>Índice</strong>: Él indice es un identificador único de cada registro que permite un rápido acceso a los mismos y mejora la velocidad de las operaciones entre los mismos.</p>
+  </li>
+  <li>
+    <p><strong>Clave Primaria</strong>: La calve primaria se trata de <strong>un campo o un conjunto de ellos  que permite identificar de forma inequívoca a un registro de la tabla</strong>; se trata, para cada elemento de la tabla, de un atributo único, no nulo.</p>
+
+    <p>Del ejemplo anterior se puede deducir que nuestra clave primaria de la tabla es el campo DNI; se trata del único campo que no puede ser nulo y que no puede estar repetido para ningún registro pues no existen dos personas con el mismo DNI.</p>
+  </li>
+  <li>
+    <p><strong>Clave Ajena</strong>: Se trata de un mecanismo referencial entre dos tablas que tiene por finalidad evitar la redundancia de información en la misma base de datos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="7223-profundizando-en-el-modelo-relacional">7.2.2.3. Profundizando en el modelo relacional.</h4>
+
+<p>Hablábamos de que el modelo relacional está basado en la lógica de predicados y en la teoría de conjuntos, en concreto sobre el concepto de relación matemática.</p>
+
+<p>La <strong>relación matemática</strong> entre dos conjuntos no es más que una asociación entre los elementos de ambos conjuntos (en este caso entre el conjunto de los <em>registros</em> y el conjunto de los <em>campos</em>) de forma que:</p>
+
+<ul>
+  <li>
+    <p><strong>No existen dos registros idénticos</strong>; de esto se encarga el concepto de clave primaria; este es único para cada registro e identifica cada registro de manera unívoca con lo que consecuentemente si hubieras dos registros iguales compartirían clave primaria y serían por definición el mismo.</p>
+  </li>
+  <li>
+    <p><strong>Ni el conjunto de los registros ni el conjunto de los campos son conjuntos ordenados</strong>: Es decir, no existe ninguna forma de jerarquizar los elementos presentes en ambos conjuntos entre sí.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211220194025.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>De esta manera, una base de datos relacional es un conjunto finito de asociaciones con una serie de restricciones (reglas de integridad):</p>
+
+<ul>
+  <li>
+    <p><strong>Existencia de la clave primaria como campo no nulo.</strong></p>
+  </li>
+  <li>
+    <p><strong>Existencia de clave ajena como campo no nulo.</strong></p>
+  </li>
+  <li>
+    <p><strong>Integridad referencial</strong>: Los valores de campo de una clave externa referencias valores reales del campo de dicha clave externa en otra tabla.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="73-fundamentos-de-sql">7.3. Fundamentos de SQL.</h2>
+
+<h3 id="731-qué-es-sql--los-sublenguajes-de-sql">7.3.1. Qué es SQL.  Los sublenguajes de SQL.</h3>
+
+<p>El SQL es un acrónimo para Structured Query Language, se trata del lenguaje de manipulación de bases de datos más utilizados por los SGBDs (Sistemas de Gestion de Base de Datos). La parte fundamental del mismo es un estándar global, pero dentro de SQL existen varias divisiones, sublenguajes; conjuntos de instrucciones que atienden a distintas funcionalidades:</p>
+
+<ul>
+  <li>
+    <p><strong>DDL</strong> (Data Definition Language - Lenguage de Definción de Datos): Se encarga de la creación de objetos (tablas, reports, consultas y formas) de la base de datos.</p>
+  </li>
+  <li>
+    <p><strong>DML</strong> (Data Manipulation Language - Lenguaje de Manipulación de Datos): Utilizado para consultar, generar o actualizar información preexistente en una base de datos.</p>
+  </li>
+  <li>
+    <p><strong>DCL</strong> (Data Control Language - Lenguaje de Control de Datos): Se encarga de controlar el acceso a los objetos y datos para gestiones autorizadas en un SGBD.</p>
+  </li>
+  <li>
+    <p><strong>TCL</strong> (Transaction Control Language - Lenguage de Control de Transacciones): Se encarga del manejo de las <strong>transacciones</strong> (agrupación de un conjunto de operaciones en una sóla) en una base de datos.</p>
+  </li>
+  <li>
+    <p><strong>DQL</strong> (Data Query Language - Lenguage de Consulta de Datos): Los comandos de SQL que se utilizan para recuperar datos de la base de datos se denominan colectivamente DQL. Todas las declaraciones SELECT vienen bajo DQL.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020211220185141.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Los SGBDs tienen sus propias exitensiones propietarias adicionales que generalmente sólo se utilizan en su sistema, los comandos y declaraciones que se comentan a continación son un estándard.</p>
+
+<p><strong>Por defecto y por cuestiones pedagógicas, en estos apuntes se utilizarán los comandos para interactuar con un objeto básico como una tabla (TABLE), pero existen muchos objetos con los que interactuar y todos ellos portan su propia extensión junto al comando y sus características sintácticas propias. 
+Por ejemplo, para eliminar un rol utilizaríamos un DROP, pero no un DROP TABLE sino un DROP ROLE, sin embargo, esto excede por mucho las pretensiones de este escrito y se dejará a parte.</strong></p>
+
+<p><br /></p>
+
+<h3 id="732-operaciones-básicas-de-ddl">7.3.2. Operaciones básicas de DDL.</h3>
+
+<p>Como ya hemos indicado, el subconjunto de instrucciones DDL de SQL se encarga de gestionar todo lo relativo a la generación o eliminación de objetos dentro de una base de datos. Entre los comandos más importantes tenemos: CREATE, DROP, ALTER, TRUNCATE, RENAME.</p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>CREATE</strong>:</p>
+
+    <p>El statement CREATE TABLE se utiliza para crear nuevas tablas en una base de datos. Se le pasa como argumentos el nombre de la nueva tabla (table_name) y los campos que esta va a contener con el tipo de dato que va a ser dicho atributo (varchar: palabras, int: enteros, char: caracteres, etc ):</p>
+
+    <pre><code class="language-SQL">  CREATE TABLE _table_name_ ( 
+   _column1 datatype_, 
+   _column2 datatype_, 
+   _column3 datatype_, 
+   .... 
+  );
+</code></pre>
+
+    <p>También podemos utilizar CREATE TABLE para copiar una tabla ya existente:</p>
+
+    <pre><code class="language-SQL">  CREATE TABLE _new_table_name_ AS 
+  SELECT _column1, column2,..._ 
+  FROM _existing_table_name_ 
+  WHERE ....;
+</code></pre>
+
+    <p>Este comando crea la tabla ‘<em>new_table_name</em>’ copiando las columnas especificadas ‘<em>column1, column2,…</em>’ de la tabla existente ‘<em>existing_table_name</em>’ y ‘<em>WHERE</em>’ añade más condiciones opcionales.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>DROP</strong>:</p>
+
+    <p>El statement <strong>DROP TABLE</strong> es utilizado para eliminar una tabla de una base de datos.</p>
+
+    <pre><code class="language-SQL">  DROP TABLE table_name;
+</code></pre>
+
+    <p>Evidentemente y como no puede ser de otra forma, la eliminación de una mesa resultará en la pérdida de la información de todo lo que haya contenido en la tabla.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>ALTER</strong>:</p>
+
+    <p>El statement <strong>ALTER TABLE</strong> es utilizado para añadir, borrar o modificar las columnas o restricciones (tipo de datos de columna, etc) en una tabla existente:</p>
+
+    <ul>
+      <li>
+        <p>Añadir columna:</p>
+
+        <pre><code class="language-SQL">  ALTER TABLE _table_name_  
+  ADD _column_name datatype_;
+</code></pre>
+      </li>
+      <li>
+        <p>Eliminar columna:</p>
+
+        <pre><code class="language-SQL">  ALTER TABLE Customers  
+  DROP COLUMN _column_name_;
+</code></pre>
+
+        <p><br /></p>
+      </li>
+    </ul>
+
+    <p>Para cambiar el tipo de datos de una columna en una tabla; use la siguiente sintaxis en función del sistema de gestión de base de datos que utilice:</p>
+
+    <ul>
+      <li>** SQL Server / MS Access:**
+        <pre><code class="language-SQL">  ALTER TABLE _table_name_  
+  ALTER COLUMN _column_name datatype_;
+</code></pre>
+      </li>
+      <li>
+        <p><strong>Mi SQL / Oracle (versión anterior 10G):</strong></p>
+
+        <pre><code class="language-SQL">  ALTER TABLE _table_name_  
+  MODIFY COLUMN _column_name datatype_;
+</code></pre>
+      </li>
+      <li><strong>Oracle 10G y posterior:</strong>
+        <pre><code class="language-SQL">  ALTER TABLE _table_name_  
+  MODIFY _column_name datatype_;
+</code></pre>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>TRUNCATE</strong>:</p>
+
+    <p>El statement <strong>TRUNCATE TABLE</strong> borra el contenido de una tabla, pero no borra la tabla en sí misma. Podríamos decir que “limpia”	una tabla:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">SQL
+  TRUNCATE TABLE Categories;
+ 	</code>
+<br /></p>
+  </li>
+</ul>
+
+<h3 id="733-operaciones-básicas-de-dml">7.3.3. Operaciones básicas de DML.</h3>
+
+<p>Las operaciones DML trabajan sobre los datos almacenados en nuestro SGBD, <strong>sobre datos que ya existen</strong>.</p>
+
+<p>En general a las operaciones básicas de manipulación de datos que podemos realizar con SQL se les denomina <strong>operaciones CRUD</strong> (de <em><strong>C</strong>reate, <strong>R</strong>ead, <strong>U</strong>pdate and <strong>D</strong>elete</em>, esto es; Crear, Leer, Actualizar y Borrar, sería CLAB en español, pero no se usa).</p>
+
+<p>Hay cuatro instrucciones para realizar estas tareas: INSERT, SELECT, UPDATE, DELETE, EXECUTE/CALL.</p>
+
+<ul>
+  <li>
+    <p><strong>INSERT INTO</strong>:</p>
+
+    <p>Inserta nuevos registros en una tabla. Se corresponde con la “C” de CRUD.</p>
+
+    <p>Más concretamente, INSERT INTO es el estándard de INSERT en la mayoría de las variantes de SQL, esto significa que aunque para casos particulares bastaría con poner INSERT siempre será mejor poner INTO pues de esa forma nos aseguramos de que el código sea portable.</p>
+
+    <p>Elementalmente, hay dos formas de utilizar INSERT INTO:</p>
+
+    <ul>
+      <li>
+        <p>Especificando los campos:</p>
+
+        <pre><code class="language-SQL">  INSERT INTO _table_name_ (_column1_, _column2_, _column3_, ...)  
+  VALUES (_value1_, _value2_, _value3_, ...);
+</code></pre>
+
+        <p>Si lo que se pretende es insertar valores en un grupo concreto de campos.</p>
+      </li>
+      <li>
+        <p>O sin especificar campos si lo que se pretende es actualizar todos los campos.</p>
+
+        <pre><code class="language-SQL">  INSERT INTO _table_name_  
+  VALUES (_value1_, _value2_, _value3_, ...);
+</code></pre>
+      </li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>READ</strong>:</p>
+
+    <p>Muestra información sobre los datos almacenados en la base de datos. Dicha información puede pertenecer a una o varias tablas. Es la “R”. Se utiliza SELECT perteneciene al sublenguaje DQL.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>UPDATE</strong>:</p>
+
+    <p>Modifica los registros de una tabla. Es, obviamente, la “U”.</p>
+
+    <pre><code class="language-SQL">UPDATE _table_name_  
+SET _column1_ = _value1_, _column2_ = _value2_, ...  
+WHERE _condition_;
+</code></pre>
+
+    <p>Hay que observar que la cláusula <strong>WHERE</strong> en el statement <strong>UPDATE</strong> especifica qué registros deben actualizarse, implementa una condición que filtra registros indeseados. Si omite la cláusula <strong>WHERE</strong>, se actualizarán todos los registros de la tabla.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>DELETE</strong>: Borra registros de una tabla. Se corresponde con la “D”.</p>
+
+    <pre><code class="language-SQL">DELETE FROM _table_name_ WHERE _condition_;
+</code></pre>
+
+    <p>De nuevo hay que observar que la cláusula <strong>WHERE</strong> en el statement <strong>UPDATE</strong> especifica qué registros deben actualizarse, implementa una condición que filtra registros indeseados. Si omite la cláusula <strong>WHERE</strong>, se borrarán todos los registros de la tabla.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>EXECUTE</strong>: El comando EXECUTE permite ejecutar procedimientos. <strong>CALL</strong> se utiliza como un acortamiento de EXECUTE en muchos casos:</p>
+
+    <pre><code class="language-SQL">  EXECUTE proc()
+
+  CALL proc()
+</code></pre>
+
+    <p>Un procedimiento no es más que un conjunto de instrucciones que puede ser insertado manualmente o puede estar guardado bajo un nombre (procedimiento almacenado).</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="734-operaciones-básicas-de-dcl">7.3.4. Operaciones básicas de DCL.</h3>
+
+<h4 id="7341-concepto-de-dcl">7.3.4.1. Concepto de DCL.</h4>
+
+<p>El DCL (Data Control Language) es un sublenguaje de SQL con una sintaxis muy parecida a un lenguaje de programación computacional que se utiliza para controlar el acceso a los datos almacenados en una base de datos. En concreto, se utilizan para conceder o quitar permisos/autorización a cualquier usuario de un entorno de base de datos multiusuario.</p>
+
+<p>Solo el <strong>administrador de la base de datos o el propietario del objeto</strong> de la base de datos pueden proporcionar / eliminar privilegios sobre un objeto de la base de datos.</p>
+
+<p><br /></p>
+
+<h4 id="7342-antecedentes-benficiarios-privilegios-y-roles">7.3.4.2. Antecedentes: Benficiarios, Privilegios y Roles.</h4>
+
+<p>Antes de conocer los comandos y su sintaxis debemos de conocer los siguientes conceptos:</p>
+
+<ul>
+  <li>
+    <p><strong>Privilegios</strong>: Entre los privilegios de acceso que podemos conceder a un determinado usuario encontramos:</p>
+
+    <ul>
+      <li>
+        <p><strong>Privilegios de Sistema</strong>: CREATE, ALTER y DROP (crear, alterar y eliminar) objetos de la base de datos.</p>
+      </li>
+      <li>
+        <p><strong>Privilegios de Objetos</strong>: EXECUTE, SELECT, INSERT, UPDATE o DELETE (EJECUTAR, SELECCIONAR, INSERTAR, ACTUALIZAR o BORRAR) datos de los objetos de la base de datos.</p>
+
+        <p>Además podemos encontrar:</p>
+
+        <ul>
+          <li><strong>ALL</strong>.</li>
+          <li>
+            <p><strong>WITH GRANT OPTION</strong>: Permite a los usuarios designados conceder derechos de acceso a otros usuarios.</p>
+          </li>
+          <li>
+            <p><strong>ROL</strong>: Conjunto de privilegios que son otorgados. Los roles son una colección de privilegios o derechos de acceso. Cuando hay muchos usuarios en una base de datos, resulta difícil otorgar o revocar privilegios a los usuarios. Por lo tanto, si define roles, puede otorgar o revocar privilegios a los usuarios, otorgando o revocando privilegios automáticamente. Entre los roles más destacables se encuentran:</p>
+
+            <ul>
+              <li>
+                <p><strong>CONNECT</strong>: CREATE TABLE, CREATE VIEW, CREATE SYNONYM, CREATE SEQUENCE, CREATE SESSION etc.</p>
+              </li>
+              <li>
+                <p><strong>RESOURCE</strong>: CREATE PROCEDURE, CREATE SEQUENCE, CREATE TABLE, CREATE TRIGGER etc. Este tiene como objetivo principal restringir el acceso a los objetos de la base de datos.</p>
+              </li>
+              <li>
+                <p><strong>DBA</strong>: Todos los privilegios.</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>Es decir, que algunos permisos nos permiten operar con objetos de la base de datos y otros comandos nos permiten operar directamente con los datos de los objetos de la base de datos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Beneficiario de los permisos</strong>: De entre todas las entidades a las que podemos conceder o eliminar un privilegio de los anteriores encontramos:</p>
+
+    <ul>
+      <li><strong>Usuario</strong>: Concede acceso a un usuario en concreto especificado mediante el nombre del mismo.</li>
+      <li><strong>Público</strong>: Concede acceso a cualquier usuario.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="7343-comandos-dcl">7.3.4.3. Comandos DCL.</h4>
+
+<ul>
+  <li>
+    <p><strong>GRANT</strong>: Se utiliza para conceder privilegios sobre un objeto a un usuario o conjunto de usuarios. Tiene por sintaxis:</p>
+
+    <pre><code class="language-SQL">  GRANT privilege_name 
+  ON object_name 
+  TO {user_name |PUBLIC |role_name} 
+  [WITH GRANT OPTION];
+</code></pre>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>El comando anterior concede el privilegio ‘<em>privilege_name</em>’ sobre el objeto ‘<em>object_name</em>’ al beneficiario ‘*{user_name</td>
+          <td>PUBLIC</td>
+          <td>role_name}*’</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p><strong>REVOKE</strong>: Este comando quita derechos de acceso / privilegios a ciertos usuarios sobre objetos de la base de datos.</p>
+
+    <pre><code class="language-SQL">  REVOKE privilege_name 
+  ON object_name 
+  FROM {user_name |PUBLIC |role_name}
+</code></pre>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="735-operaciones-básicas-con-tcl">7.3.5. Operaciones básicas con TCL.</h3>
+
+<h4 id="7351-introducción-al-tcl">7.3.5.1. Introducción al TCL.</h4>
+
+<p>El TCL (Transmission Control Language) o Lenguaje de Control de Transacciones es un subconjunto de instrucciónes de SQL que permiten manejar transacciones en una base de datos relacional, por lo que es importante primeramente aclarar el concepto de transacción.</p>
+
+<p><br /></p>
+
+<h4 id="7352-concepto-de-transaccion-en-una-base-de-datos-relacional">7.3.5.2. Concepto de transaccion en una base de datos relacional.</h4>
+
+<p>Sabemos por lo que hemos visto hasta ahora que sobre los datos de una base de datos podemos operar de diversas maneras. Muchas veces puede ocurrir que estas operaciones sean operaciones complejas; concatenaciones de operaciones simples que pueden en algún punto de la cadena no ser viables y dicha inviabilidad no se vislumbra hasta que no se ha alcanzado dicho punto, momento en el cual ya se han llevado a cabo un monto de operaciones sobre los datos provocando alteraciones que en el mejor de los casos exponen a los datos a problemas de incoherencia de datos.</p>
+
+<p>Por ello y para evitar riesgos, las bases de datos relacionales manejan el concepto de <strong>transacción</strong> que no es más que agrupar todas las operaciones en un solo concepto de tal manera que se le indica a la base de datos que haga todas las operaciones o no haga nada una vez se ha verificado la viabilidad de la operación.</p>
+
+<p><br /></p>
+
+<h4 id="7353-implementación-del-tcl">7.3.5.3. Implementación del TCL.</h4>
+
+<p>Para poder implementar el concepto de transacción adecuadamente SQL define una serie de comandos que permiten: crear una transacción y grabar los datos o deshacer todas las operaciones de la transacción.</p>
+
+<ul>
+  <li><strong>BEGIN TRASACTION</strong>: Para comenzar una transacción.</li>
+  <li><strong>COMMIT</strong>: Para grabar todos los cambios en la base de datos.</li>
+  <li><strong>ROLLBACK</strong>: Para deshacer todos los cambios de toda la transacción.</li>
+</ul>
+
+<p>Los comandos pueden ser ligeramente distintos dependiendo de cada motro el concepto siempre es en esencia el mismo:</p>
+
+<ol>
+  <li>Se define el inicio de una transacción.</li>
+  <li>Se realizan las operaciones necesarias (UPDATEs, INSERTs, DELETEs, etc).</li>
+  <li>Se intentan grabar todos las operaciones hechas hasta cierto punto.</li>
+  <li>Si existe un error se deshace la operación como estaba (ROLLBACK).</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="736-operaciones-con-dql">7.3.6. Operaciones con DQL.</h3>
+
+<p>DQL se utiliza para recuperar los datos de una base de datos. Este sólo contiene un único comando que tiene una gran extensión: SELECT.</p>
+
+<p><br /></p>
+
+<h4 id="7362-select">7.3.6.2. SELECT.</h4>
+
+<p>El comando SELECT se utiliza para seleccionar datos de una base de datos. El dato devuelto por SELECT se muestra en lo que se conoce como una tabla de resultados.</p>
+
+<pre><code class="language-SQL">SELECT _column1_, _column2, ..._  
+FROM _table_name_;
+
+OUTPUT
+
+ -------------------
+| column1 | column2 | ....
+---------------------
+| atrib1  | atrib2  | ....
+---------------------
+    ....      ....
+</code></pre>
+
+<p>Si por otra parte queremos seleccionar toda la table escribiríamos:</p>
+
+<pre><code class="language-SQL">SELECT * FROM table_name;
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="7363-select-into">7.3.6.3. SELECT INTO.</h4>
+
+<p>El comando SELECT con la extensión INTO copia los datos desde una tabla a otra tabla nueva:</p>
+
+<pre><code class="language-SQL">SELECT _column1_, _column2_, _column3_, ...  
+INTO _newtable_ [IN _externaldb_]  
+FROM _oldtable  
+</code></pre>
+
+<p>Este comando selecciona un conjunto de columnas que transporta desde ‘<em>oldtable</em>’ a ‘<em>newtable</em>’.</p>
+
+<p><br /></p>
+
+<h4 id="7364-cláusula-where">7.3.6.4. Cláusula WHERE.</h4>
+
+<p>La cláusula <strong>WHERE</strong> se utiliza para filtrar registros que cumplan una determinada condición.</p>
+
+<pre><code class="language-SQL">SELECT _column1_, _column2, ..._  
+FROM _table_name_  
+WHERE _condition_;
+</code></pre>
+
+<p>En el comando anterior sólo se seleccionarían los atributos pertenecientes a las campos especificados y a los registros que cumpliesen con la condición impuesta por el where.</p>
+
+<p><br /></p>
+
+<h1 id="8-cross-site-scripting-xss">8. Cross-Site Scripting (XSS).</h1>
+
+<h2 id="81-ataques-xss">8.1. Ataques XSS.</h2>
+
+<h3 id="811-introducción">8.1.1. Introducción.</h3>
+
+<p>El Cross-Site Scripting (XSS) es un tipo de ataque por inyección, se trata de un tipo de ataque que aprovecha fallas de seguridad en sitios web para ejecutar scripts maliciosos en el frontend de la aplicación web, esto es; el navegador del cliente. Con esto se puede robar credenciales, redirigir al usuario a un sitio malicioso, etc.</p>
+
+<p>Vamos a presentar tres vectores de ataque utilizados para explotar dicha vulnerabilidad</p>
+
+<p><br /></p>
+
+<h3 id="812-tipos-de-xss">8.1.2. Tipos de XSS.</h3>
+
+<p>Como comentabamos anteriormente, XSS es un tipo de ataque a las aplicaciones web que busca infiltrar un script malicioso en el navegador del cliente. Comúnmente este proceso se basa en la confiaza que tiene el sitio web en cuestión en la entrada de datos, se le envía una URL con el payload precargado a la víctima.</p>
+
+<ul>
+  <li><strong>XSS Reflejado</strong>: Un ataque XSS reflejado (Reflected XSS) consiste en inyectar el payload (la carga útil, el contenido malicioso) en algún parámetro de la solicitud HTTP que se envía al servidor, la aplicación web procesa esta solicitud y despliega el código malicioso en algún punto determinado del documento HTML respuesta. De esta manera, se altera el documento HTML y cuando la respuesta llega al cliente, el código malicioso dentro del documento se procesa alterando el normal comportamiento del navegador.</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>XSS Persistente</strong>:  El XSS persistente (Persistant XSS) es un ataque que tiene un fundamento similar al XSS Reflected que tiene como característica fundamental que el propio servidor almacena el contenido malicioso en un lugar de almacenamiento y este contenido es adherido en cada solicitud que se devuelve como respuesta a la petición de uno o varios clientes que piden una solicitud a dicho servidor a través del mismo sitio web.</p>
+
+    <p>Un ejemplo clásico podría ser, por ejemplo, los comentarios de un foro de dudas, entradas de un blog, … En general cualquier apartado donde se pueda introducir información que vaya a ser almacenada y devuelta por el servidor en el documento html para cada solicitud de manera permanente.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>XSS DOM</strong>: El XSS basado en DOM es un tipo de ataque XSS que se basa en alterar el entorno DOM de la página web con la finalidad de hacer que el navegador del cliente se comporte de manera maliciosa.</p>
+
+    <p>El DOM es una API que interpreta el contenido de un documento HTML como objetos para que estos puedan ser tratados por el navegador de una manera más sencilla a la hora de renderizar el documento y también permite que ciertos lenguajes de programación basados en scripts como JavaScript puedan ejecutar procesos con los elementos del documento HTML y el navegador.</p>
+
+    <p>Esto es importante porque en este caso el documento HTML no cambia porque la respuesta HTTP no se ve afectada, no se añade código extra, sencillamente se manipulan los objetos del navegador para conseguir un comportamiento malicioso. Sin embargo el código del lado del cliente se ejecuta de manera diferente debido a la modificación del entorno en el que este se está ejecutando.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="82-ejemplos">8.2. Ejemplos.</h2>
+
+<p>Para realizar estos ejemplos, vamos a emplear una máquia virtual preparada que contiene una herramienta web vulnerable (OWASP BWE, Mutillidae) con distintas secciones que nos ayudarán a ver cómo funcionan los ataques XSS.</p>
+
+<p><br /></p>
+
+<h3 id="821-dns-lookup">8.2.1. DNS Lookup.</h3>
+
+<p>Por un fallo de configuración de la web, el código que nosotros introducimos se añade en bruto al documento html que el servidor devuelve. Como no se filtra de ninguna manera, podemos poner un elemento html o un script de javascript y cuando el navegador renderice el documento respuesta se encontrará con un elemento html más que renderizar. De esta forma hemos conseguido alterar el normal funcionamiento del navegador demostrando que el sitio web es vulnerable. Se trata de un XSS Reflected porque añadimos una carga HTML al documento que enviamos al servidor y que este nos devuelve pero esta no se almacena en el servidor.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301202954.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="822-text-file-viewer">8.2.2. Text File Viewer.</h3>
+
+<p>En este caso nos encontramos ante un sitio web que nos da a elegir entre un conjunto de ficheros que luego despliega por pantalla:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203204.png" text-align="center" />
+</div>
+
+<p>Inspeccionando el elemento HTML de la opción que se muestra como posibilidad en el desplegable <strong>Text File Name</strong> nos encontramos con que el nombre que antecede como cabecera a la muestra del documento: <strong>File: http://www.textfiles.com/hacking/auditool.txt</strong> es igual al valor (value) que tiene el elemento html correspondiente a la opción del menú desplegable; <strong>Intrusion Detection in Computers by Victor H. Marshall,</strong> en el apartado inspeccionar elemento:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203242.png" text-align="center" />
+</div>
+
+<p>Esto puede ser indicio de que el servidor sencillamente coge el valor de la opción y lo recoloca en otra parte del documento html que devuelve como respuesta al cliente.</p>
+
+<p>Si alguien modificara el texto del valor del elemento html y el servidor no filtrase ciertos tipos de caracteres se podría modificar el documento HTML para que el navegador se comportase de manera diferente al elegir dicha opción en el menú como se muestra a continuación:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203304.png" text-align="center" />
+</div>
+
+<p>Ya que dicho fragmento de texto se recolocaría en bruto en otra parte del documento html a la espera de que el navegador lo renderizase. De manera que el servidor es vulnerable a una inyección de código HTML o JavaScript.</p>
+
+<p><br /></p>
+
+<h3 id="823-sql-injection">8.2.3. SQL Injection.</h3>
+
+<p>En este caso nos encontramos ante una pantalla con una serie de campos en los que se puede meter información. De nuevo, esta información se muestra de vuelta en el navegador y como el servidor es vulnerable el código no se filtra con lo que podemos cambiar el comportamiento del navegador introduciendo elementos HTML como scripts de JavaScript.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203413.png" text-align="center" />
+</div>
+
+<p>En la imágen podemos observar que hemos introducido un hola en uno de los campos y el hola se nos devuelve en forma de resultados encontrados debajo de los campos.</p>
+
+<p>Si ahora ponemos &lt;h1&gt; hola obtenemos…</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203441.png" text-align="center" />
+</div>
+
+<p>Recordamos que la inyección SQL es también posible en esta página pero esa no sería un XSS strike ya que el objetivo del anterior consiste modificar el <strong>frontend</strong> de un sitio web puesto que la víctima sería un cliente de dicha página mientras que en el ataque SQLi la víctima es el servidor y el objetivo del ataque es el backend de la aplicación web.</p>
+
+<p><br /></p>
+
+<h3 id="824-set-backgroun-color">8.2.4. Set Backgroun Color.</h3>
+
+<p>Esta vez estamos ante una aplicación que nos cambia el fondo de una parte de la pantalla. De nuevo, el código que nosotros introduzcamos se nos devolverá en bruto a modo de resultado y podemos aprovecharlo para introducir elementos html dentro del documento html respuesta que será renderizado por el navegador alterando así el comportamiento del mismo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301203759.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="825-html5-storage">8.2.5. HTML5 Storage.</h3>
+<p>En esta página nos encontramos con un página que añade valores a una tabla en tiempo real. Esto significa que la página ejecuta código javascript que modifica el DOM (el entorno gráfico de la página) de la misma sin necesidad de llevar a cabo ninguna request. Además observamos que el nombre de los términos que nosotros introducimos sale por pantalla inmediatamente después de pulsar el botón:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204044.png" text-align="center" />
+</div>
+
+<p>De esta manera, si nostros introducimos en el primer campo un elemento HTML, y la página no filtra determinados caracteres, aunque no se produzca ninguna request, como la tabla se modifica el tiempo real, nuesttro código se ejecutará en tiempo real permitiendo alterar el comportamiento del navegador a través del DOM.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204102.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="826-capture-data-page">8.2.6. Capture Data Page.</h3>
+<p>En este caso nos aparece un mensaje que nos informa de que la página web está diseñada para capturar y almacenar todos los datos en un fichero y en una base de datos que posteriormente se renderiza a una tabla.</p>
+
+<p>Además nos pide que asumamos que la persona que está viendo los datos de la tabla lo hace a través de un navegador web sobre el fichero “captured-data.php”.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204144.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204153.png" text-align="center" />
+</div>
+
+<p>Teniendo en cuenta que se cogen los parámetros que se envían con nuestra request HTTP y se introducen en un fichero que se transforma en una tabla, podríamos probar a enviar, dentro del valor de algún parámetro, un elemento html para ver si este se ve destacado en la propia tabla.</p>
+
+<p>De ser así, significa que la tabla no filtra ciertos caracteres a la hora de construir como documento html y que por tanto se trata de una página vulnerable a un ataque de inyección html.</p>
+
+<p>Envíamos en nuestra URL un parámetro denominado payload=&lt;h1&gt;HOLA&lt;/h1&gt; y vamos al enlace donde se construye la tabla.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204247.png" text-align="center" />
+</div>
+
+<p>Efectivamente, nuestro mensaje se ve resaltado y se trata de un sitio vulnerable a un ataque de inyección html pero no sólo eso. Como podemos observar se recogen casi todos los parámetros que se envían en el cuerpo de la request (Cookies, Refer,…), bastaría con modificar cualquiera de ellos adecuadamente para poder generar un ataque.</p>
+
+<p>Además, esto no tiene que ver con la desarrollo del ejercicio en sí, pero tanto esta página como la página principal del ejercicio tienen un elemento html “href” que permiten que el sitio enlace documentos que no se encuentran dentro del esquema de ficheros de la página web. Esto significa que la página podría tener una vulnerabilidad conocida como vulnerabilidad de inclusión de ficheros, que se aprovecha de una mala programación de la web para crear una referencia sobre un archivo remoto que contiene información sensible.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204310.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204314.png" text-align="center" />
+</div>
+
+<h3 id="827-document-viewer">8.2.7. Document Viewer.</h3>
+
+<p>En este caso estamos ante una página que nos da a elegir entre distintos ficheros a visualizar.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204522.png" text-align="center" />
+</div>
+
+<p>Y detalle importante a modo de cabecera se nos informa del nombre del fichero que estamos visualizando, en este caso “robots.txt”.</p>
+
+<p>Inspeccionando el elemento html de la opción que elegimos a la hora de visualizar el documento podemos observar que el término “robots.txt” aparece como valor de “value” del elemento html. Esto de nuevo puede ser indicio de que este término se toma del valor de “value” y se transporta a otra parte del documento html sin filtrar caracteres inadecuados pudiendo ser, por tanto, vulnerable a un ataque de html inyection.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204540.png" text-align="center" />
+</div>
+
+<p>Un cambio de robots.txt a un elemento html como &lt;h1&gt;HOLA&lt;/h1&gt; podría confirmar nuestra sospecha y así tenemos que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220301204615.png" text-align="center" />
+</div>
+
+<p>Demostrando así que se puede alterar el correcto funcionamiento del navegador del usuario.</p>
+
+<p><br /></p>
+
+<h3 id="828-xml-validator">8.2.8. XML Validator.</h3>
+<p>Esta es una página que válida el código xml que nosotros introducimos y nos lo devuelve por pantalla.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180437.png" text-align="center" />
+</div>
+
+<p>Aquí se nos plantea un problema ya que las marcas que comienzan una etiqueta html y una etiqueta xml son las mismas ‘&lt;&gt;’ y por tanto, aunque intentemos colar algún elemento html con la esperanza de que eso modifique el documento html al reproducirse el mismo texto más abajo, eso no surtirá ningún efecto debido a que al filtrarse el xml también se filtra el html y el documento no se modifica.</p>
+
+<p>Sin embargo, la página tiene un gap de información puesto que cuando no metemos código html nos aparece un mensaje de error mostrándonos cómo es la función que procesa el código que nosotros introducimos.</p>
+
+<p>Si nosotros introducimos el término ‘TEST’ y nos acercamos un poco, podemos ver que el código que nosotros introducimos se procesa mediante la llamada a una función predefinida “loadXML” que se cierra con unas comillas y unos paréntesis.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180459.png" text-align="center" />
+</div>
+
+<p>De esta forma, y aprovechándonos de este exceso de información, podemos introducir nuestro código en dos partes:</p>
+
+<ol>
+  <li>
+    <p>La primera parte cierra la función para que nuestro texto no sea procesado y posteriormente filtrado como código XML.</p>
+  </li>
+  <li>
+    <p>La segunda contendrá nuestro payload.</p>
+  </li>
+</ol>
+
+<p>Así:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180524.png" text-align="center" />
+</div>
+
+<p>y al validar se obtiene:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180539.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="829-poll-question">8.2.9. Poll Question.</h3>
+
+<p>En esta pagina se me da elegir entre diversaas opciones para votarlas y el nombre de la opción elegida se muestra abajo por pantalla. De nuevo este nombre se recoge del valor del elemento html de la opción y este valor puede modificarse desde inspeccionar elemento.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180610.png" text-align="center" />
+</div>
+
+<p>Cambiando dicho valor, introduciendo un elemento html y pulsando el botón obtenemos que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180623.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180754.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="8210-register-user">8.2.10. Register User.</h3>
+<p>Nos encontramos ante una página que crea una cuenta para un usuario con contraseña y demás elementos.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180919.png" text-align="center" />
+</div>
+
+<p>Cuando creamos una cuenta aparece un mensaje por pantalla que contiene el nombre del usuario para el que le hemos creado la cuenta.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180932.png" text-align="center" />
+</div>
+
+<p>Esto puede ser indicio de que el nombre del usuario se recoge y se traslada a otra parte del documento html sin filtrar caracteres maliciosos, lo cual expondría a la web a un ataque de HTML injection.</p>
+
+<p>Introduciendo un elemento html en el campo de username, por ejemplo: &lt;h1&gt;hola &lt;/h1&gt; obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302180948.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="8211-browser-info">8.2.11. Browser Info.</h3>
+
+<p>En esta página se nos muestra información de nuestro navegador recopilado en una tabla. En dicha tabla se puede observar que una de las cosas que se recopila son las cookies.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302181027.png" text-align="center" />
+</div>
+
+<p>Así pues, yendo al apartado inspeccionar elemento Storage &gt; Cookies &gt; PHPSESSID tenemos el valor de las cookies y cambiando este por un elemento html y refrescando la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302181109.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182052.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="8212-those-back-button">8.2.12. Those Back Button.</h3>
+<p>En esta página se muestra un texto hablando de que los botones ‘back’ no son más que accionadores que ejecutan código javascript que te llevan a otra página mediante una href. Si por algún casual algún atacante consiguiera modificar el script que dicho botón ejecuta podría hacer que el navegador ejecutase código indeseado.</p>
+
+<p>Concretamente, inspeccionando el elemento del botón podemos concretar cómo es este script que el botón ejecuta cuando es pulsado:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182342.png" text-align="center" />
+</div>
+
+<p>De esta forma, quitando ese código y poniendo un alert en su lugar obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182354.png" text-align="center" />
+</div>
+
+<p>y pulsando el botón:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182407.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="8214-styling-with-mutillidae">8.2.14. Styling with Mutillidae.</h3>
+
+<p>En esta página nos topamos con un mensaje que nos dice “Sytling with Mutillidae” y fijándonos un poco en la URL observamos que el mismo comentario aparece al final de la URL, indicio de que la página está diseñada para mostrar pantalla la última parte de la URL.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182730.png" text-align="center" />
+</div>
+
+<p>Si este fragmento de texto se pone sin filtrar caracteres especiales, esta página podría ser vulnerable a un ataque de HTML injection. Así, tenemos que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302182937.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="8215-password-generator">8.2.15. Password Generator.</h3>
+
+<p>En este caso nos encontramos una página que genera contraseñas aleatorias dirigidas a un usuario. Observamos por otra parte que este usuario por defecto es “anonymous”, el mismo término que aparece en la URL como valor del parámetro de username.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302183030.png" text-align="center" />
+</div>
+
+<p>Esto puede ser indicio de que en el documento html aparece el valor en bruto del parámetro GET username. Así pues asignamos a través de la URL al parámetro username el valor &lt;h1&gt;HOLA&lt;/h1&gt; y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302183056.png" text-align="center" />
+</div>
+
+<p>Demostrando así que la página es vulnerable a un ataque de html injection.</p>
+
+<p>También existe otra forma de demostrar la existencia de esta vulnerabilidad, mediante un ataque DOM XSS alterando la funcionalidad del botón “Generate Password” que ejecuta un código javascript que genera una contraseña sin necesidad de enviar una request.</p>
+
+<p>Inspeccionando el elemento y alterando el código JavaScript que ejecuta se obtiene:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302183117.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M3/Pasted%20image%2020220302183123.png" text-align="center" />
+</div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#redteam">redteam</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Ataque+a+aplicaciones+web.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-02-Ataques_a_aplicaciones_web%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-02-02-Ataques_a_aplicaciones_web%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-02-Ataques_a_aplicaciones_web%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-02-01-Ataques_a_Infraestructuras_y_Redes/" data-toggle="tooltip" data-placement="top" title="Ataques a Infraestructuras y Redes">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-02-03-Ataques_aplicaciones_android/" data-toggle="tooltip" data-placement="top" title="Ataques a aplicaciones Android">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

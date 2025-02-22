@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>8. File Upload.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="8. File Upload.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-13T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-13-8.File_upload_vulnerabilities/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="8. File Upload.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>8. File Upload.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de subida de ficheros a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 13, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Introducción al concepto de File Upload Vulnerability.
+    <ul>
+      <li>1.1. Concepto.</li>
+      <li>1.2. Impacto de la vulnerabilidad.</li>
+      <li>1.3. Planteamiento de las vulnerabilidades.</li>
+    </ul>
+  </li>
+  <li>2 Procesamiento de ficheros estáticos por parte de los servidores.</li>
+  <li>3 Explotando vulnerabilidades de subida de ficheros.
+    <ul>
+      <li>3.1. Explotando vulnerabilidades que permiten la ejecución de código.</li>
+      <li>
+        <p>3.2. Explotando fallas de validación de subida de ficheros.</p>
+
+        <p><br /></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-introducción-al-concepto-de-file-upload-vulnerability">1. Introducción al concepto de File Upload Vulnerability.</h3>
+
+<h4 id="11-concepto">1.1. Concepto.</h4>
+<p>File upload vulnerabilities o vulnerabilidades de subida de ficheros, es un tiop de vullnerabilidad o debilidad que se da cuando un servidor web permite a los usuarios subir ficheros al sistema ficheros del servidor sin la correcta implementación de un conjunto de mecanismos que verifiquen la inocuidad del archivo.</p>
+
+<p><br /></p>
+
+<h4 id="12-impacto-de-la-vulnerabilidad">1.2. Impacto de la vulnerabilidad.</h4>
+
+<p>La vulnerabilidad puede generar un impacto dependiente fundamentalmente de dos factores clave.</p>
+
+<ul>
+  <li>
+    <p>Qué característica del fichero falla en comprobarse apropiadamente (puede ser el tamaño, el tipo, el contenido, etc) ya que de eso dependerá la forma en la que se realiza la intrusión, cada una proporciona un vector de ataque distinto.</p>
+  </li>
+  <li>
+    <p>Una vez que se sube el fichero satisfactoriamente qué restricciones se imponen sobre el mismo en el back-end.</p>
+  </li>
+</ul>
+
+<p>En el peor escenario podría suceder que no se compruebe el tipo de fichero que se sube desde el navegador y además en el servidor no se regula la ejecución de archivos ejecutables con extensiones .php, etc.</p>
+
+<p>De esta forma se podría conseguir incrustar código php (o similar) puediendo dar lugar a una inyección de código, webshell, etc.</p>
+
+<p>Este tipo de vulnerabilidad se puede combinar con otras vulnerabilidades como Directory Traversal (cruce de directorios) lo cual les permite subir el archivo malicioso a otras partes del sistema de ficheros del servidor.</p>
+
+<p>Recordamos que dicha vulnerabilidad te permite cambiar la localización de llamada de un fichero estático que se muestra en la respuesta http, cambiando la localización se cambia el fichero sobre el que se realiza la llamada.</p>
+
+<p><br /></p>
+
+<h4 id="13-planteamiento-de-las-vulnerabilidades">1.3. Planteamiento de las vulnerabilidades.</h4>
+
+<p>Como ya hemos explicado anteriormente, las vulnerabilidades relacionadas con la subida de ficheros maliciosos consisten en malas validaciones de las características del fichero que se sube ya sea en el front-end cuando el fichero se sube desde el navegador o bien en el back-end, cuando el fichero se recibe y procesa en el servidor.</p>
+
+<p>Por tanto, desde una perspectiva realista, es muy poco probable que a día de hoy nadie pueda encontrar un sitio web que no valide de alguna forma los ficheros que se suben en una aplicación web, <strong>de forma que las vulnerabilidades de este tipo se suceden debido a que un desarrollador implementa un modelo de validación que considera robusto pero que en realidad no lo es</strong>, lo cual crea una estructura débil y por extensión potencialmente vulnerable. Más adelante veremos ejemplos de estas fallas de validación y cómo explotarlas.</p>
+
+<p><br /></p>
+
+<h3 id="2-procesamiento-de-ficheros-estáticos-por-parte-de-los-servidores">2. Procesamiento de ficheros estáticos por parte de los servidores.</h3>
+
+<p>Antes de continuar con la lección y explorar algunas de las fallas más comunes en diferentes sitios webs, vamos a ver cómo un servidor procesa una petición de subida de un fichero estático.</p>
+
+<p>A su vez, un fichero estático es un documento completo en sí mismo que no cambia a noser que sea remplazado por otro documento. En contraposición, un fichero dinámico es un fichero que cambia en tiempo real sin necesidad de ser reemplazado en su totalidad como documento, se trata de un fichero construido por partes que van modificandose a conveniencia por orden del servidor.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412122749.png" text-align="center" />
+</div>
+
+<p>La <strong>diferencia fundamental es que mientras que el contenido de un fichero estático está dentro del mismo fichero en une región concreta del filesystem de la aplicación web, un fichero dinámico está compuesto, además de por un “core” que se encuentra en una región concreta, por un conjunto de partes cuya localización puede diferir mucho de la localización del core y del resto de partes del mismo documento</strong>.</p>
+
+<p>Historicamente, los sitios web consistían básicamente en un conjunto de ficheros estáticos que se mandaban en función de las distintas peticiones que un usuario podía hacer. Esto a su vez provocaba que, si se hacían las peticiones adecuadas, un usuario pudiera terminar mapeando el sistema de ficheros de un sitio web.</p>
+
+<p>En gran medida esto sigue siendo así a día de hoy. Sin embargo, hoy en día las aplicaciones web cuentan sobre todo con ficheros dinámicos que vuelven mucho más ardua la tarea del mapeo del sistema de ficheros del sitio web.</p>
+
+<p>Aún así, algunas también contienen ficheros estáticos como imágenes y la forma en la que esta clase de ficheros son procesados sigue siendo en gran medida la misma.</p>
+
+<p>En primer lugar, se parsea la ruta de la request para identificar la extensión del fichero, seguidamente, con la extensión, se identifica el tipo de fichero que es y en base a esto el camino se bifurca:</p>
+
+<ul>
+  <li>
+    <p>Si el archivo es un no ejecutable, como podría serlo una imagen, sencillamente se envía el contenido del fichero en la respuesta HTTP.</p>
+  </li>
+  <li>
+    <p>Si el fichero es un ejecutable, porque se trata de un fichero PHP, puede suceder que el servidor esté o no configurado para ejecutar el fichero. Si lo está, se se ejecuta y el resultado se adjuntará en la respuesta HTTP, de lo contrario saltará un error.</p>
+  </li>
+</ul>
+
+<p><strong>La cabecera Content-Type contiene normalmente el resultado de la asignación de extensión de archivo/tipo MIME</strong>. Como tal, puede proporcionar pistas sobre qué tipo de archivo se ha subido al servidor (aunque no necesariamente coinciden).</p>
+
+<p>Por otra parte el tipo MIME (<strong>Multipurpose Internet Mail Extensions</strong>) indica la naturaleza y formato del documento o fichero. Se da en la siguiente sintaxis:</p>
+
+<pre><code class="language-default">type/subtype:parameter=value
+</code></pre>
+
+<ul>
+  <li><strong>type</strong> Representa la categoría general a la que pertenece el documento, como texto, vídeo, audio, etc.</li>
+  <li>
+    <p><strong>subtype</strong> Muestra concretamente qué tipo de dato dentro de la categoría anterior. Es decir, si el type es texto, el subtipo puede ser plano (texto plano), html, calendario, etc.</p>
+  </li>
+  <li><strong>parameter</strong>: Adicionalmente puede haber algún parámetro con algún valor.</li>
+</ul>
+
+<p>Generalmente, algunos ejemplos serían: text/plain, video/mp4, image/jpeg, etc.</p>
+
+<p>Un dato a tener en cuenta es que dentro de los mime-types, en la categoría application se engloban tanto ejecutables como binarios que necesitan ser procesados por una aplicación para ser utilizados. Por ejemplo, un pdf tendría un content-type como application debido aque aunqeu el resultado final sea texto, se trata de un binario que necesita ser renderizado como tal para ser visualizado como texto.</p>
+
+<p><br /></p>
+
+<h3 id="3-explotando-vulnerabilidades-de-subida-de-ficheros">3. Explotando vulnerabilidades de subida de ficheros.</h3>
+
+<h4 id="31-explotando-vulnerabilidades-que-permiten-la-ejecución-de-código">3.1. Explotando vulnerabilidades que permiten la ejecución de código.</h4>
+
+<p>Denominamos como <strong>webshell</strong> a un script malicioso que permite a un atacante ejecutar comandos de manera arbitraria en un servidor remoto, esta puede estar escrito en varios lenguajes de programación como PHP, Python, etc.</p>
+
+<p>Desde la perspectiva de la ciberseguridad el peor escenario posible es cuando un sitio web admite la inclusión de scripts php, java, etc que pueden ser ejecutables por el servidor que corre la aplicación web. De forma que si consigues hacerte con una webshell tienes control total del servidor.</p>
+
+<p>En este caso vamos a hacer algo parecido, vamos a introducir un script que nos permita leer el contenido de un fichero:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'/path/to/target/file'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Remote code execution via web shell upload</strong>.</p>
+
+<p>Este laboratorio contiene una función de subida de imagen vulnerable a la validación del tipo de fichero que se sube. Para resolver el laboratorio hay que conseguir leer el contenido del fichero /home/carlos/secret. Tenemos las credenciales: wiener:peter.</p>
+
+<p>En primer lugar, accedemos al laboratorio y vemos la función de subida de imagenes. Subimos una imagen de prueba y vemos cómo responde la aplicación web:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175211.png" text-align="center" />
+</div>
+
+<p>Aparace un mensaje informándonos de que el fichero se ha subido correctamente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175246.png" text-align="center" />
+</div>
+
+<p>Y comprobamos que existe una pequeña muestra de la imagen que hemos subido al volver a My account:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175323.png" text-align="center" />
+</div>
+
+<p>Así pues, ahora generamos un fichero que contenga la línea de código php antes mencionada:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175754.png" text-align="center" />
+</div>
+
+<p>Y la subimos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175526.png" text-align="center" />
+</div>
+
+<p>Obteniendo al ver la imagen:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412175832.png" text-align="center" />
+</div>
+
+<p>Esto significa fundamentalmente que el servidor además de no regular qué archivo se sube desde el navegador, tampoco impone controles en el servidor y además está habilitado para ejecutar ficheros.</p>
+
+<p>Resolviendo así el laboratorio.</p>
+
+<p><br /></p>
+
+<p>Antes de finalizar con esta sección merece la pena comentar que una inyección de comandos más sofisticada se haría con la siguiente línea de código:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">system</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'command'</span><span class="p">]);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Que hace que el sistema ejecute el comando entre dos comillas simples pasándole como parámetro el comando en cuestion:</p>
+
+<pre><code class="language-default">GET /example/exploit.php?command=id
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="32-explotando-fallas-de-validación-de-subida-de-ficheros">3.2. Explotando fallas de validación de subida de ficheros.</h4>
+
+<p>En términos prácticos, es muy dificil que se encuentre un sitio web que no tenga protección alguna contra los ataques de subida de archivos.</p>
+
+<p>Vamos en este sección a ver algunas formas de hacer bypass a algunas medidas de seguridad.</p>
+
+<ul>
+  <li><strong>Fallas en la validación del tipo de fichero</strong></li>
+</ul>
+
+<p>Tipicamente, los datos se envían dentro de un POST que contiene la cabecera <strong>Content-type</strong> con el valor application/x-www-form-url-encoded. Haciendo referencia a que los datos se encuentran codifcados y en forma de parámetros de URL.</p>
+
+<p>Este es un método que sirve para mandar datos que tienen un contenido pequeño en forma de valor de variables, como el nombre, dirección etc. Sin embargo no sirve para mandar datos con un contenido más grande. Para ello tenemos otro mime-type: multipart/form-data</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412191407.png" text-align="center" />
+</div>
+
+<p>Con ella podemos separar el cuerpo del mensaje en partes que nos permiten hacer una descripción precisa de las distintas características que tiene el fichero que vamos a subir al servidor. A su vez, cada una de estas partes contienen otra cabecera; <strong>Content-Disposition</strong> que expone los datos que describen la característica en cuestión.</p>
+
+<p>Los problemas vienen en el momento en el que servidor no realiza una validación autonóma sobre si el contenido enviado coincide con el que informa el tipo MIME (Multipurpose Internet Mailn Extensions) si esta validación no se hace, se puede engañar al servidor mediante el Burp Repeater.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Web shell upload via Content-Type bypass</strong>.</p>
+
+<p>Este laboratorio contiene una funcionalidad de subida de imagenes vulnerable. La falla del mecanismo consiste en la falta de validación por parte del servidor de que, como explicábamos antes, no se asegura de que el tipo de fichero y mime-type que aparece en la cabecera de la request coincidan.</p>
+
+<p>De esta forma, el navegador nos deja subir un fichero que podemos interceptar y cambiar el mime-type a image/png para que el servidor lo reciba:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412195441.png" text-align="center" />
+</div>
+
+<p>Seguidamente aparecera un mensaje indicando que el fichero se ha subido correctamente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412195457.png" text-align="center" />
+</div>
+
+<p>Así, investigamos cuál es la localización de la que se extrae la imagen inspeccionando el elemento de la muestra de la imagen que hemos subido anteriormente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412195955.png" text-align="center" />
+</div>
+
+<p>Y accedemos a dicha dirección cambiando el nombre del archivo al que accedemos, obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220412200011.png" text-align="center" />
+</div>
+
+<p>Y habríamos terminado el laboratorio.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Prevención de la ejecución de ficheros en directorios accesibles para el usuario</strong>:</li>
+</ul>
+
+<p>Si bien es claramente mejor evitar que se carguen tipos de archivos peligrosos en primer lugar, <strong>la segunda línea de defensa es evitar que el servidor ejecute cualquier script que se adentre desde la red</strong>.</p>
+
+<p>Como precaución, los servidores generalmente solo ejecutan secuencias de comandos cuyo mime-type ha sido configurado explícitamente para ejecutar. De lo contrario, pueden devolver algún tipo de mensaje de error o, en algunos casos, mostrar el contenido del archivo como texto plano.</p>
+
+<pre><code class="language-default">GET /static/exploit.php?command=id HTTP/1.1
+Host: normal-website.com
+
+
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 39
+
+&lt;?php echo system($_GET['command']); ?&gt;
+</code></pre>
+
+<p>Esto en concreto puede ser aprovechado en cierto sentido ya que generalmente,<strong>estas reglas tan estrictas se refieren a un directorio concreto del servidor en el que se suben los ficheros escritos por el usuario a la web</strong>. Si lográsemos introducir un fichero a un directorio distinto, (utilizando la ya mencionada vulnerabilidad de Directory Traversal) quizá podríamos llegar a ejecutar su contenido si el directorio de destino está desprotegido.</p>
+
+<p>El directorio de destino se determina desde el campo ‘filename’ en multi/partform.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Web shell upload via path traversal.</strong></p>
+
+<p>Este laboratorio contiene una función de subida de imagenes vulnerables. El servidor está configurado para prevenir la ejecución de ficheros proporcionados por el usuario a través de la aplicación web, pero puede ser bypasseado mediante una vulnerabilidad secundaria (Directory Traversal) con la que vamos a <strong>evitar el directorio de subida de ficheros por defecto que está estrictamente regulado para prevenir la ejecución de scripts</strong>.</p>
+
+<p>En primer lugar, vamos a verificar que efectivamente, el servidor no ejecuta en el directorio files/avatar los ficheros que el usuario sube. Por un lado, el navegador no nos impide subir un fichero que no sea una imagen:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413105058.png" text-align="center" />
+</div>
+
+<p>Pero, por otro lado, se tiene que al intentar acceder, la página aparece en blanco y se ha devuelto en el documento http el script en texto plano:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413105223.png" text-align="center" />
+</div>
+
+<p>De esta forma, hemos comprobado que el servidor no ejecuta en dicho directorio scripts php.</p>
+
+<p>Para llevar a cabo un bypass de esta medida de seguridad modificando el Content-Disposition de la request de upload de la imagen para conseguir,mediante un directory traversal, que la imagen se suba a otro directorio.</p>
+
+<p>Así, en primer lugar, iniciamos burpsuite, preparamos el fichero para subirlo e interceptamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413105949.png" text-align="center" />
+</div>
+
+<p>Observamos que de nuevo, el tipo MIME es multipart/form-data y que por tanto vamos a encontrar una descripción del fichero por partes.</p>
+
+<p>En la primera parte encontramos un parámetro, <strong>filename</strong>. Podemos asumir que la forma en la que el servidor almacena el fichero consiste en incrustar a la ruta de almacenamiento el nombre del fichero.</p>
+
+<p><strong>De forma que si modificáramos el nombre del fichero podríamos alterar el path absoluto y conseguiríamos que el fichero se subiéra a otra localización</strong>.</p>
+
+<p>De esta forma introducimos por nombre ../exploit.php, que codificado en forma URL sería:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413110633.png" text-align="center" />
+</div>
+
+<p>Y al subir el fichero obtendríamos el mensaje:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413110708.png" text-align="center" />
+</div>
+
+<p>Así, accedemos a la localización del fichero que es un direectorio anterior a la localización por defecto:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220413110731.png" text-align="center" />
+</div>
+
+<p>Y habríamos solucionado el laboratorio.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Listado de tipos de ficheros insuficientes</strong>:</li>
+</ul>
+
+<p>Una de las formas más obvias de evitar que los usuarios carguen scripts maliciosos es incluir en la lista negra las extensiones de archivo potencialmente peligrosas como .php.</p>
+
+<p>La práctica de las listas negras es inherentemente defectuosa, ya que es difícil bloquear explícitamente todas las extensiones de archivo posibles que podrían usarse para ejecutar código. Estas listas negras a veces se pueden omitir mediante el uso de extensiones de archivo alternativas menos conocidas que aún pueden ser ejecutables, como .php5, .shtml, etc.</p>
+
+<p>Vamos a ver varias formas de hacer esto:</p>
+
+<ol>
+  <li><strong>Anulando la configuración del servidor</strong>.</li>
+</ol>
+
+<p>Como hemos comentado anteriormente, los servidores no ejecutarán ficheros a no ser que estén configurados para hacerlo.</p>
+
+<p>Por ejemplo, para que un servidor Apache ejecute PHP, los desarrolladores del servidor deberían de incluir las siguientes líneas en el fichero <strong>/etc/apache2/apache2.conf</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LoadModule php_module /usr/lib/apache2/modules/libphp.so
+AddType application/x-httpd-php .php
+</code></pre></div></div>
+
+<p><strong>Muchos servidores también permiten a los desarrolladores crear archivos de configuración especiales dentro de directorios individuales para anular o agregar una o más configuraciones sobre ese directorio</strong>. Los servidores Apache, por ejemplo, cargarán una configuración específica del directorio desde un archivo llamado <strong>.htaccess</strong>, si hay uno presente. Del mismo modo, los desarrolladores pueden realizar configuraciones específicas de directorios en servidores IIS utilizando un archivo <strong>web.config</strong>.</p>
+
+<p>Los servidores web usan este tipo de archivos de configuración cuando están presentes, pero normalmente no se le permite acceder a ellos mediante solicitudes HTTP. Sin embargo, Apuntes Pictures Templates posible que eventualemente se puedan hallar servidores que no le impidan cargar su propio archivo de configuración malicioso**. En este caso, incluso si la extensión de archivo que necesita está en la lista negra, es posible que pueda engañar al servidor para que asigne una extensión de archivo personalizada y arbitraria a un tipo MIME ejecutable.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Web shell upload via extension blacklist bypass</strong>.</p>
+
+<p>Este laboratorio contiene una función de subida de imagenes vulnerable. Ciertos tipos de ficheros están en una lista negra y no son admitidos como ejecutables, sin embargo, la falla del servidor consiste en una malconfiguración del fichero que gestiona la lista negra en cuestión.</p>
+
+<p>Para completar el laboratorio es necesario extraer los contenidos del fichero <strong>/home/carlos/secret</strong></p>
+
+<p>En primer lugar, probamos a subir un script malicioso php al servidor y obtenemos como respuesta que no está permitido subir ficheros .php.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418123425.png" text-align="center" />
+</div>
+
+<p>Además, viendo la respuesta desde el http proxy history podemos observar que se trata un servidor Apache:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418170103.png" text-align="center" />
+</div>
+
+<p>Y por tanto podemos intentar modificar su configuración subiendo un fichero de configuración malicioso que nos permita ejecutar scripts que tengan una extensión concreta.</p>
+
+<p>Para ello, volvemos emitir una subida de ficheros e interceptamos la request añadiendo los siguientes valores:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418175830.png" text-align="center" />
+</div>
+
+<p>Esto nos permitirá sobreescribir el fichero .htaccess para que podamos ejecutar scripts de php que tengan la extensión .l33t.</p>
+
+<p>Una vez hemos mandado la request cambiamos el nombre de nuestro script de exploit.php a exploit.l33t y lo subimos y acto seguido intentamos acceder a él obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418180216.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ol>
+  <li><strong>Ofuscación de extensiones</strong>.</li>
+</ol>
+
+<p>La ofuscación de extensiones consiste en aprovecharse de malconfiguraciones de las blacklists que bloquean ficheros que contengan extensiones como .py o .php cambiando la extensión del fichero por un nombre distinto que no se detecte por el programa que efectúe el filtrado pero que sea interpretado de la misma manera por el servidor como .pHp o .pY, etc.</p>
+
+<p>Entre las técnicas de ofuscación más utililzadas están:</p>
+
+<ul>
+  <li><strong>Múltiples extensiones</strong>: exploit.php.jepg</li>
+  <li><strong>Agregar caracteres finales</strong>: exploit.php.</li>
+  <li><strong>URL encoding</strong>:exploit%2Ephp</li>
+  <li><strong>Añadir punto y coma</strong>: exploit.asp;.jpg</li>
+  <li><strong>Repetir la extensión</strong>: exploit.pphphp</li>
+</ul>
+
+<p>Esto no es más que unos cuantos ejemplos de las múltiples técnicas de ofuscación que existen. Todas ellas dependen de la configuración del servidor y de su comportamiento a la hora de detectar extensiones no permitidas.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Web shell upload via obfuscated file extension</strong>.</p>
+
+<p>Este laboratorio contiene una función de subida de imagenes vulnerable debido a que ciertas extensiones están restringidas mediante una lista pero esta defensa puede ser evitada mediante ofuscación de extensión de un fichero.</p>
+
+<p>Si intentamos subir el script malicioso obtenemos como respuesta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418190839.png" text-align="center" />
+</div>
+
+<p>Sin embargo, podemos llevar a cabo una ofuscación cambiando el valor del parámetro filename por exploit.php%00.jpg ya que %00 es literalmente ningún caracter.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418191350.png" text-align="center" />
+</div>
+
+<p>Obteniendo al acceder al fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418191416.png" text-align="center" />
+</div>
+
+<ul>
+  <li><strong>Validación del contenido del fichero defectuosa</strong>:</li>
+</ul>
+
+<p>Ya hemos comentado que una de las mayores fallas de seguridad que existen a este nivel consiste en la falta de comparativas por parte del servidor para verificar que el contenido del fichero coincide con lo que se espera según indica la cabecera Content-type, por ejemplo en el caso de una función de carga de imágenes, el servidor podría intentar verificar ciertas propiedades intrínsecas de una imagen, como sus dimensiones. Si intenta cargar un script PHP, por ejemplo, no tendrá ninguna dimensión. Por lo tanto, el servidor puede deducir que no puede ser una imagen y rechazar la carga en consecuencia.</p>
+
+<p>Esta es una forma mucho más sólida de validar el tipo de archivo, pero incluso esto no es infalible. Usando herramientas especiales, como<strong>ExifTool</strong>, puede ser trivial crear un archivo JPEG políglota que contenga código malicioso dentro de sus metadatos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Remote code execution via plyglot web shell upload.</strong></p>
+
+<p>Este laboratorio contiene una función de subida de imagenes vulnerable. Vamos a introducir un payload maliciosa sobre un fichero de imagen que introduciremos en el servidor.</p>
+
+<p>En primer lugar, intentamos introducir un script malicioso php y obtenemos un mensaje de error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418202118.png" text-align="center" />
+</div>
+
+<p>Asi, procedemos a construir una imagen que posea un payload ejecutable con exiftools:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sb">`</span>exiftool <span class="nt">-Comment</span><span class="o">=</span><span class="s2">"&lt;?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?&gt;"</span> &lt;YOUR-INPUT-IMAGE&gt;.jpg <span class="nt">-o</span> polyglot.php<span class="sb">`</span>
+</code></pre></div></div>
+
+<p>De esta forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418202518.png" text-align="center" />
+</div>
+
+<p>Y subimos dicho fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418202602.png" text-align="center" />
+</div>
+
+<p>Y accediendo al contenido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220418202745.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Exploiting file upload race conditions</strong>.</li>
+</ul>
+
+<p>Los frameworks modernos están más endurecidos contra este tipo de ataques. Por lo general, no suben archivos directamente a su destino previsto en el sistema de archivos. En su lugar, toman precauciones como:</p>
+
+<ul>
+  <li>
+    <p>Subir primero a un directorio temporal en un espacio aislado.</p>
+  </li>
+  <li>
+    <p>Aleatorizar el nombre para evitar sobrescribir los archivos existentes.</p>
+  </li>
+  <li>
+    <p>Realizan la validación de este archivo temporal y</p>
+  </li>
+</ul>
+
+<p>Y finalmente, solo lo transfieren a su destino una vez que se considera seguro hacerlo.</p>
+
+<p>Dicho esto, los desarrolladores a veces implementan su propio procesamiento de carga de archivos independientemente de cualquier framework. No solo es bastante complejo hacerlo bien, sino que también puede introducir <strong>race conditions</strong> que permiten a un atacante eludir por completo incluso la validación más robusta.</p>
+
+<p>Por ejemplo, algunos sitios web cargan el archivo directamente en el sistema de archivos principal y luego lo eliminan nuevamente si no pasa la validación. Este tipo de comportamiento es típico en sitios web que dependen de software antivirus y similares para buscar malware. Esto puede tomar solo unos pocos milisegundos, pero durante el breve tiempo que el archivo existe en el servidor, el atacante aún puede ejecutarlo.</p>
+
+<p>Estas vulnerabilidades suelen ser extremadamente sutiles, lo que las hace difíciles de detectar durante los auditorias black box, a menos que pueda encontrar una manera de filtrar el código fuente relevante.</p>
+
+<p><br /></p>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=8.+File+Upload.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-13-8.File_upload_vulnerabilities%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-13-8.File_upload_vulnerabilities%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-13-8.File_upload_vulnerabilities%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-12-7.Access_control/" data-toggle="tooltip" data-placement="top" title="7. Access Control.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-14-9.Server-side_request_forgery/" data-toggle="tooltip" data-placement="top" title="9. Server-Side Request Forgery.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

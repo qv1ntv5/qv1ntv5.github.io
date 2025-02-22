@@ -1,0 +1,172 @@
+<h1 id="informe-ctf-elevación-privilegios">Informe CTF Elevación Privilegios.</h1>
+
+<h1 id="1-desempaquetando-la-máquina">1. Desempaquetando la máquina.</h1>
+
+<p>En primer lugar, nos descargamos la máquina comprimida con ZIp e intentamos descomprimirla. Como está comprimida con contraseña, nos disponemos a utilizar la herramienta fcrackzip con la lista rockyou.txt sobre el fichero zip descargado que contiene la máquina. Puede ser buena idea, dado que el fichero se llama 250620, que la contraseña sea la línea número 250620 de la lista rockyou.txt que estamos utilizando:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131133717.png" text-align="center" />
+</div>
+<p>Da resultado y obtenemos la máquina.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131134035.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h1 id="2-accediendo-a-la-máquina">2. Accediendo a la máquina.</h1>
+
+<h2 id="21-analizando-puertos">2.1. Analizando puertos.</h2>
+
+<p>Una vez hemos importado satisfactoriamente la máquina toca conseguir alguna credencial de logeo que nos permita acceder a la misma. Con tal finalidad, exploramos los puertos abiertos de la máquina con nmap:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131145856.png" text-align="center" />
+</div>
+
+<p>De manera que, por descarte, podemos averiguar que <strong>la IP de la máquina es 10.0.2.18</strong> y que tiene dos puertos abiertos: el http y el ssh.</p>
+
+<p><br /></p>
+
+<h2 id="22-introduciéndonos-en-la-web">2.2. Introduciéndonos en la web.</h2>
+<p>Como tiene el puerto http abierto podemos ver si una página web sería accesible para investigar e intentando acceder desde firefox a la dirección: http://10.0.2.18:80 nos encontramos con que así es:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131150152.png" text-align="center" />
+</div>
+
+<p>De esta manera, procedemos a utilizar herramientas de escaneo web como <strong>dirb</strong> para llevar a cabo un repaso de los directorios y ficheros web de la máquina:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131150416.png" text-align="center" />
+</div>
+
+<p>Entre los ficheros web disponibles podemos ver que hay el <strong>robots.txt</strong>, que puede contener información sobre ficheros que contengan contenido sensible.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131150523.png" text-align="center" />
+</div>
+
+<p>Dirigiéndonos al subdirectorio <strong>users</strong> observamos que hay información relativa a lo que podrían ser distintos usuarios y concretamente, dentro del también subdirectorio chung encontramos un .jpg con lo que parecen ser sus credenciales de logeo a la máquina:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131150746.png" text-align="center" />
+</div>
+
+<p>Probamos a acceder mediante el puerto ssh con estas credenciales para ver si de esa manera podemos acceder a la máquina:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131150940.png" text-align="center" />
+</div>
+
+<p>Y con esto habríamos accedido a la máquina.</p>
+
+<p><br /></p>
+
+<h1 id="3-elevación-de-privilegios">3. Elevación de privilegios.</h1>
+
+<h2 id="31-chung">3.1. Chung.</h2>
+<p>Dentro del usuario <strong>chung</strong> nos encontramos dentro del directorio <strong>/var/www/html</strong> y eso nos da la opción de seguir indagando dentro de la información contenida en la página web.</p>
+
+<p>Escarvando dentro del directorio wordpress llegamos a un directorio <strong>secret.php</strong> en el que aparecen las credenciales de otra usuario; angela:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131151724.png" text-align="center" />
+</div>
+
+<p>cifradas en base 64. Así, pasándo dicha cadena por un decodificador de base64 obtenemos que sus credenciales son: ..r0ut1n3…</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131152121.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="32-angela">3.2. Angela.</h2>
+
+<p>Una vez dentro del usuario Angela, comenzamos dentro de su directorio de trabajo y después de haber examinado todas sus carpetas, evaluamos sus acciones dentro del historial de comandos contenido en: <strong>.bash_history</strong></p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131152330.png" text-align="center" />
+</div>
+
+<p>De entre todos los comandos podemos observar que ejecuta el binario <strong>find</strong> contenido en el mismo directorio de trabajo dentro de la carpeta <strong>bin</strong>. Acudiendo a la misma carpeta y ejecutando los comandos que ella ejecuta obtenemos que:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131152617.png" text-align="center" />
+</div>
+
+<p>y por tanto, hemos saltado al usuario <strong>darlene</strong>.</p>
+
+<p><br /></p>
+
+<h2 id="33-darlene">3.3. Darlene.</h2>
+<p>Una vez hemos accedido al usuario <strong>Darlene</strong>, intentamos acudir al directorio de trabajo de dicha usuario. Una vez dentro, hay un directorio oculto cuyo nombre es <strong>.private</strong> y dentro de la misma hay unas credenciales de otro usuario:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131153026.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131153127.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="34-whiterose">3.4. Whiterose.</h2>
+
+<p>Una vez nos hemos logeado como el usuario <strong>whiterose</strong> tenemos que empezamos de neuvo en su directorio de trabajo. Examinando de nuevo el historial de comando vemos una secuencia rara:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131153701.png" text-align="center" />
+</div>
+
+<p>Y al intentar reproducirla obtenemos un error:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131154406.png" text-align="center" />
+</div>
+
+<p>Y al permutar los parámetros, cambiamos de usuario:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131154427.png" text-align="center" />
+</div>
+
+<p>Analizando el comando introducido no queda más remedio que asumir que hemos obtenido las credenciales de un usuario nuevo; <strong>darkarmy:d@t@w@arxx</strong>.</p>
+
+<p><br /></p>
+
+<h2 id="35-darkarmy">3.5. Darkarmy.</h2>
+
+<p>De nuevo, estamos con otro usuario y en el directorio de trabajo de otro usuario distinto. Al dirigirnos a nuestro directorio de trabajo y examinar de nuevo su historial de comandos encontramos que ha ejecutado <strong>cmd</strong> y al repetir nostros la instrucción obtenemos:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131154940.png" text-align="center" />
+</div>
+
+<p>Y hemos vuelto a cambiar de usuario.</p>
+
+<p><br /></p>
+
+<h2 id="36-eliott">3.6. Eliott.</h2>
+
+<p>De nuevo, comenzamos en el directorio de trabajo de otro usuario y al vovler al directorio de trabajo de eliott y examinar su historial de comandos observamos que ha ejecutado dpkg -l con sudo y al intentar reproducir nosotros dicho comando nos encontramos con que no nos pide contraseña para utilizar dpkg -l con privilegios de super usuario.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131155311.png" text-align="center" />
+</div>
+
+<p>De esta forma, si puediéramos utilizar dpkg para que nos abriera una shell  como root habríamos escalado de privilegios al superusuario.</p>
+
+<p>De esta manera, se tiene que mirándo en gtfobins nos encontramos con el siguiente comando para nuestro propósito:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/Wargames/Pasted%20image%2020220131155431.png" text-align="center" />
+</div>
+
+<p>De esta forma, introduciendo dicho comando secuencialmente obtendríamos una shell de root y habríamos escalado de privilegios al super usuario y tomado control total sobre la máquina.</p>
+

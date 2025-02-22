@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>Home</title>
+    
+    
+    <description>This website is a virtual proof that I&apos;m awesome</description>
+    
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      <item>
+        <title>2. Constants and Literals in C.</title>
+        <description>
+          Basics of Constants and Literals in C. - 
+          1. Constants. 1.1. Definition. A constant in C is nothing than a name that refers to location in memory whose value cannot be modify when is declared (in contrast with a variable). The use of constant have several benefits: Immutability, which prevents for some accidental errors changing critical data. Readability....
+        </description>
+        <pubDate>Tue, 10 Dec 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2024-12-10-1.ConstantsinC-copy/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024-12-10-1.ConstantsinC-copy/</guid>
+      </item>
+    
+      <item>
+        <title>1. Basics of C</title>
+        <description>
+          Basics of C programing. - 
+          1. Program Structure. Normally, the structure of a C program depends on his complexity, there are at least two main parts on any C program: Preprocessor Section, where we define preprocessors directives that server several purpuoses like: include the libraries of the program precided by the pre-processor directive ‘#’. The...
+        </description>
+        <pubDate>Mon, 02 Dec 2024 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2024-12-02-1.BasicsOfC/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024-12-02-1.BasicsOfC/</guid>
+      </item>
+    
+      <item>
+        <title>Gramáticas en Dharma</title>
+        <description>
+          Introducción a la construcción de gramáticas para Dharma. - 
+          Dharma Dharma es un mutational-grammar-based que genera programas con inputs (llamadas a webAPIs) sintáctica y semánticamente correctos pero incorporando cambios (mutaciones) en cada input con el objetivo de provocar un fallo, un bug, en el engine de procesamiento de los programas que crea. La variación de un input a otro...
+        </description>
+        <pubDate>Tue, 24 Sep 2024 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2024-09-24-Dharma_Tutorial/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024-09-24-Dharma_Tutorial/</guid>
+      </item>
+    
+      <item>
+        <title>Gramáticas en Dharma</title>
+        <description>
+          Introducción a la construcción de gramáticas para Dharma. - 
+          Dharma Dharma es un mutational-grammar-based que genera programas con inputs (llamadas a webAPIs) sintáctica y semánticamente correctos pero incorporando cambios (mutaciones) en cada input con el objetivo de provocar un fallo, un bug, en el engine de procesamiento de los programas que crea. La variación de un input a otro...
+        </description>
+        <pubDate>Fri, 22 Mar 2024 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2024-03-22-Dharma_Tutorial-copy/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024-03-22-Dharma_Tutorial-copy/</guid>
+      </item>
+    
+      <item>
+        <title>Mi experiencia con el OSCP</title>
+        <description>
+          Client Side attacks. - 
+          En este blog resumo las experiencias e ideas que he ido recogiendo a lo largo del curso PEN200. Puntos claves sobre el curso. Pasa rápidamente a los laboratorios. Al ser esta una certificación eminentemente práctica, el autentico aprendizaje comienza cuando empiezas los laboratorios. Todo el tiempo de más que dedicas...
+        </description>
+        <pubDate>Sun, 19 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-19-PEN200_Experience/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-19-PEN200_Experience/</guid>
+      </item>
+    
+      <item>
+        <title>Client Side</title>
+        <description>
+          Client Side attacks. - 
+          En los tiempos modernos se ha vuelto cada vez más raro encontrar y explotar vulnerabilidades en servicios de networks empresariales. El Phising es ahora el segundo vector de ataque más utilizado despúes del robo de credenciales. El Phising es un tipo de ataque que se realiza enviando a los usuarios...
+        </description>
+        <pubDate>Fri, 17 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-17-17.Client_Side_Attacks/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-17-17.Client_Side_Attacks/</guid>
+      </item>
+    
+      <item>
+        <title>Deep Packet Tunneling</title>
+        <description>
+          Tunneling through deep packet inspection - 
+          Deep packet inspection es una tecnología que implementa un monitoreo de tráfico en base a conjunto de reglas. A menudo, esto se realiza sobre un perímetro de red en el que se puede dilucidar algún indicio de compromiso. Los dispositivos de inspección de paquetes están configurados para dejar pasar tráfico...
+        </description>
+        <pubDate>Thu, 16 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/</guid>
+      </item>
+    
+      <item>
+        <title>Report</title>
+        <description>
+          Make report. - 
+          Importancia del report en un pentest. En una prueba de penetración se toman notas a medida que se avanza para garantizar que haya un report detallado de lo que se hizo. Esto asegura que: la prueba de penetración se puede repetir si es necesario para demostrar que un problema es real....
+        </description>
+        <pubDate>Wed, 15 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-15-15.Making_Reports/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-15-15.Making_Reports/</guid>
+      </item>
+    
+      <item>
+        <title>Metasploit</title>
+        <description>
+          Metasploit Exercises. - 
+          1. Once connected through SSH on VM #1, in order to get the flag look through the saved activities and scans in the Metasploit database’s workspace. Nos conectamos a través de SSH y activamos msfconsole y cambiamos el workspace a PWK: msf6&amp;gt; workspaces PWK Y de ahí buscamos la flag...
+        </description>
+        <pubDate>Tue, 14 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-14-14.Metasploit/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-14-14.Metasploit/</guid>
+      </item>
+    
+      <item>
+        <title>Password Attacks</title>
+        <description>
+          Password Attacks Basics. - 
+          En esta sección vamos a cubrir los siguientes temas: Attacking network services logins. Password Cracking Fundamentals. Working with passwords hashings. 21.1. Attacking Networks Services Login. SSH y RDP En esta sección vamos a ver cómo lanzar lo que se denomina como un ataque de lista de diccionario contra servicios de...
+        </description>
+        <pubDate>Mon, 13 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-13-13.Password_Attacks/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-13-13.Password_Attacks/</guid>
+      </item>
+    
+      <item>
+        <title>Active Directory Attacks</title>
+        <description>
+          Active Directory Attacks basics - 
+          Active Directory Domain Services, también referido simplemente como Active Dierctory o AD, es un servicio que permite a administradores de sistemas actualizar y gestionar sistemas operativos, aplicaciones, usuarios y acceso de datos a gran escala. Es decir, es un servicio que proporciona una gestión centralizada de una red corporativa (a...
+        </description>
+        <pubDate>Sun, 12 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-12-12.Active_Directory_Attacks/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-12-12.Active_Directory_Attacks/</guid>
+      </item>
+    
+      <item>
+        <title>Port Forwarding</title>
+        <description>
+          Port Forwarding Basics. - 
+          1. Port Redirection and Tunneling. Segmented Networks. Firewalls. Una Network o Red es un conjunto de ordenadores conectados entre sí, es decir, que pueden comunicarse entre ellos. Atendiendo a la topología podemos diferenciar dos tipos de redes: Flat Networks: Cuando todos las máquinas de una red se pueden comunicar entre...
+        </description>
+        <pubDate>Sat, 11 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-11-11.Port_Forwarding/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-11-11.Port_Forwarding/</guid>
+      </item>
+    
+      <item>
+        <title>Privilege Escalation</title>
+        <description>
+          Privilege Escalation Basics. - 
+          Durante una prueba de penetración, a menudo obtenemos un punto de apoyo inicial en un sistema como usuario estándar o sin privilegios. En estos casos, generalmente buscamos obtener derechos de acceso adicionales antes de que podamos demostrar el impacto total del compromiso. Este proceso se conoce como escalada de privilegios (PrivEsc) y es una...
+        </description>
+        <pubDate>Fri, 10 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-10-10.Privilege_Escalation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-10-10.Privilege_Escalation/</guid>
+      </item>
+    
+      <item>
+        <title>File Transfers</title>
+        <description>
+          File Transfers Basics. - 
+          El término Post-explotation refiere a las acciones realizadas por el atacante cuando ya ha tomado control de la máquina. Entre estas acciones se encuentran el escalar privilegios, ganar persistencia, efectuar una operación de limpieza de la máquina, etc. 1. Antecedentes. 1.1. Dangers of Transferring Attack Tools. En algunos casos, es...
+        </description>
+        <pubDate>Thu, 09 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-09-9.File_Tranfers/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-09-9.File_Tranfers/</guid>
+      </item>
+    
+      <item>
+        <title>Buffer Overflows</title>
+        <description>
+          Buffer Overflows Basics. - 
+          1. Introduction to BuffersOverflow. En este apartado cubriremos los fundamentos sobre los que se asienta una vulnerabilidad muy común denominada Buffer Overflow. Recorreremos: Cómo se usa la memoria en la ejecución de un programa. Cómo ocurre el desbordamiento del buffer. Cómo tomar control del flujo de ejecución de la aplicación....
+        </description>
+        <pubDate>Wed, 08 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-08-8.Buffer_Overflows/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-08-8.Buffer_Overflows/</guid>
+      </item>
+    
+      <item>
+        <title>Vulnerability Scanning.</title>
+        <description>
+          VUlnerability Scanning Basics. - 
+          El Vulnerability Discovery es una parte integral de una evaluación de seguridad. Aunque se puede hacer de forma manual nosotros cubriremos sobre todo herramientas de escaneo de vulnerabilidades automatizadas. 1. Introducción al escaneo de vulnerabilidades. Cómo funciona un escanner de vulnerabilidades Aunque la implementación varia, la mayoría de los escaneres...
+        </description>
+        <pubDate>Tue, 07 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-07-7.Vulnerability_Scanning/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-07-7.Vulnerability_Scanning/</guid>
+      </item>
+    
+      <item>
+        <title>Information Gathering</title>
+        <description>
+          Information gathering basics. - 
+          Active Information Gathering es un término que remite directamente a la recopilación de información sobre un sistema o una estructura empleando métodos que realizan una interación directa con dicha estructura para recabar información como escaneo de red, escaneo de puertos, enumeración de servicios como DNS, SMB, NFS, SMTP o SNMP,...
+        </description>
+        <pubDate>Mon, 06 Nov 2023 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2023-11-06-6.Active_Information_Gathering/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-06-6.Active_Information_Gathering/</guid>
+      </item>
+    
+      <item>
+        <title>Windows</title>
+        <description>
+          Windows Basics. - 
+          1. Windows Basics. Una cosa destacable entre Windows y Linux es que los paths de los ficheros de Windows no son ‘case-sensitive’. En Windows ambas rutas designan el mismo fichero: C:\&amp;gt; type HelloMoon.txt C:\&amp;gt; type helLoMoon.txt 1.1. Windows Shells Shells Windows dispone de tres diferentes interfaces cli: Command Prompt, PowerShell...
+        </description>
+        <pubDate>Sun, 05 Nov 2023 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2023-11-05-5.Windows/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-05-5.Windows/</guid>
+      </item>
+    
+      <item>
+        <title>Networking</title>
+        <description>
+          Basics Net Concepts. - 
+          1. Networking Fundamentals. Un pentester debe ser un individuo bien versado en conceptos fundamentales de Networking. 1.1. TCP/IP model Layer. Un modelo de red es una descripción del curso que siguen los paquetes cuando estos viajan a través de dos ordenadores. Uno de los modelos más empleados es el modelo...
+        </description>
+        <pubDate>Sat, 04 Nov 2023 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2023-11-04-4.Networking/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-04-4.Networking/</guid>
+      </item>
+    
+      <item>
+        <title>Scripting</title>
+        <description>
+          Scripting Basics. - 
+          1. Bash Scripting Basics. 1.1. Intro to Bash Scripting. GNU Bourne-Again Shell (Bash) es un potente entorno de trabajo y un motor de secuencias de comandos. Un script de Bash es un archivo de texto sin formato que tiene una serie de comandos que se ejecutan como si se hubieran escrito...
+        </description>
+        <pubDate>Fri, 03 Nov 2023 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2023-11-03-3.Scripting/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023-11-03-3.Scripting/</guid>
+      </item>
+    
+  </channel>
+</rss>

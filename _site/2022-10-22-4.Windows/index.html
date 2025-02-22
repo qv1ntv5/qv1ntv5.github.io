@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>4.Windows</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Recopilation of notes about Windows from Tryhackme&apos;s path.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="4.Windows">
+  <meta property="og:description" content="Recopilation of notes about Windows from Tryhackme&apos;s path.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-10-22T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-10-22-4.Windows/">
+  <link rel="canonical" href="http://localhost:4000/2022-10-22-4.Windows/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="4.Windows">
+  <meta property="twitter:description" content="Recopilation of notes about Windows from Tryhackme&apos;s path.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>4.Windows</h1>
+          
+            
+              <h2 class="post-subheading">Recopilation of notes about Windows from Tryhackme's path.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on October 22, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. índice</h2>
+<ul>
+  <li>1 Fundamentos de Windows.</li>
+  <li>1.1. Fundamentos de Windows I</li>
+  <li>1.2. Fundamentos de Windows II</li>
+  <li>1.3. Active Directory Basics.</li>
+  <li>2 Windows Internals</li>
+  <li>2.1. Windows Internals</li>
+  <li>2.2. Core Windows Process</li>
+  <li>2.3. Abusing Windows Internals</li>
+  <li>3 Windows Privilege Escalation</li>
+  <li>3.1. Windows PrivEsc I</li>
+  <li>3.2. Windows PrivEsc II</li>
+  <li>4 Windows Reverse Engenering</li>
+  <li>5 Windows Services
+<br /></li>
+</ul>
+
+<h3 id="1-fundamentos-de-windows">1. Fundamentos de Windows.</h3>
+
+<h4 id="11-fundamentos-de-windows-i">1.1. Fundamentos de Windows I.</h4>
+
+<p><strong>Introducción al Windows OS</strong></p>
+
+<p>El sistema operativo Windows es actualmente el dominante tanto en redes corporativas como en redes domésticas. Por esta razón, Windows es uno de los sistemas más atacados.</p>
+
+<p><br /></p>
+
+<p><strong>Escritorio de Windows</strong></p>
+
+<p>El escritorio de Windows emplea el GUI (Graphical User Interface) para mostrar un escritorio interactivo y visual en la máquina.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165538.png" text-align="center" />
+</div>
+
+<ol>
+  <li>The Desktop</li>
+  <li>Start Menu</li>
+  <li>Search Box (Cortana)</li>
+  <li>Task View</li>
+  <li>Taskbar</li>
+  <li>Toolbars</li>
+  <li>Notification Area</li>
+</ol>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Desktop</em>:</li>
+</ul>
+
+<p>El escritorio es una sección en la que comúnmente encontramos accesos directos a otros artefactos informáticos. Así como carpetas, aplicaciones, etc.</p>
+
+<p>La apariencia del escritorio puede ser modificada al gusto así como los iconos que muestran, está diseñado para ser cómodo, personalizado y ofrecer un acceso rápido a los aparatos con los que el usuario suele intarctuar más amenudo.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>The Start Menu</em>:</li>
+</ul>
+
+<p>El “start” menu es una parte de Windows que da acceso completo a cualquier otra parte del dispositivo</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165539.png" text-align="center" />
+</div>
+
+<p>Se divide en la barra de búsqueda, las aplicaciones más recientemente añadidas y una sugerencia de Windows.</p>
+
+<p><br /></p>
+
+<p><strong>The File System</strong></p>
+
+<p>El sistema de ficheros empleado en las versiones más modernas es el <em>NTFS</em>, siglas que responden a <em>New Technology File System</em>.</p>
+
+<p>Antes se encontraban FAT16/32 (File Alocation System) y el HPFS (High Performance File System).</p>
+
+<p>NTFS se conoce como un “journaling file system” (sistema de ficheros basado en registro). Es decir, <strong>en caso de fallo, el sistema de archivos puede reparar automáticamente las carpetas/archivos en el disco utilizando la información almacenada en un archivo de registro</strong>. Esta función no es posible con sistemas anteriores.</p>
+
+<p>Entre algunas de las características más importantes están:</p>
+
+<ul>
+  <li>Soporta ficheros que pesan más de 4GB</li>
+  <li>Puede configurar permisos específicos sobre carpetas y ficheros. Estos son permisos son:</li>
+  <li>Full control.</li>
+  <li>Modify.</li>
+  <li>Read &amp; Execute.</li>
+  <li>List folder contents.</li>
+  <li>Read.</li>
+  <li>Write.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165540.png" text-align="center" />
+</div>
+
+<p>Los permisos pueden verse mediante los siguientes pasos: Click-derecho sobre carpeta &gt; Propiedades &gt; Seguridad &gt; Usuario o grupo cuyos permisos se desean ver.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165541.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Admite archivos comprimidos (ya sean carpetas o ficheros).</li>
+  <li>El sistema de archivos puede cifrarse.</li>
+  <li>Alternate Data Streams (ADS), permite archivas metadatos de un fichero sin necesidad de crear otro fichero para almcenar estos metadatos creando más de un flujo de datos para un solo fichero. Desde la perspectiva de la ciberseguridad esto es importante debido a que se podría ocultar datos en un segundo streams de datos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>The Windows\System32 Folders</strong></p>
+
+<p>La carpeta “C:\Windows” se conoce tradicionalmente como la carpeta que contiene el sistema operativo de windows, aunque técnicamente y variando convenientemente las “variables de entorno” no tiene por qué encontrarse en esa localización tan concreta.</p>
+
+<p>Dentro de esta carpeta encontramos un montón de archivos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165542.png" text-align="center" />
+</div>
+
+<p>Y entre todas esas carpetas encontramos específicamente la carpeta System 32:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165543.png" text-align="center" />
+</div>
+
+<p>Esta carpeta contiene archivos que pueden ser críticos para el sistema operativo, borrarlos podría resultar en una falta de funcionalidad por parte del sistema.</p>
+
+<p><br /></p>
+
+<p><strong>User Accounts Profiles and Permissons</strong></p>
+
+<p>En Windows hay dos tipos de usuarios: Administrator o Standard User.</p>
+
+<p>El tipo de cuenta de usuario determina las acciones que el mismo puede hacer:</p>
+
+<ul>
+  <li>
+    <p>Administartor: puede llevar a cabo cambios: añadir usuarios, borrar usuarios, modificar configuraciones, etc.</p>
+  </li>
+  <li>
+    <p>Standard User: Sólo puede hacer modificaciones sobre archivos sobre los que tiene propiedad.</p>
+  </li>
+</ul>
+
+<p>Para ver qué otros usuarios hay en la máquina podemos buscar en “Start Menu”, Other User y acudir a System Settings &gt; Other users.</p>
+
+<p>Todos los usuarios tienen asociados una serie de “carpetas personales” (Desktop, Documents, Downloads, …) estos documentos son accesibles desde el Local User and Group Management: Win+R &gt; lusrmgr.msc</p>
+
+<p><br /></p>
+
+<p><strong>User Account Control</strong></p>
+
+<p>UAC son siglas que responde a User Account Control y se trata de una herramienta de protección y acompasamiento entre un usuario con capacidades de adminstrador y el sistema.</p>
+
+<p>Concretamente, sirve para que cada vez que el usuario lleva a cabo una acción (él o una aplicación que él ejecuta) no tenga que elevarse a administrador sino sencillamente conceder permisos. Cada vez que se requiere salta una ventana que pide al usuario una concesión de permisos. Cada vez que esto pueda ser necesario para una aplicación aparecera un escudo junto al logotipo indicando que la UAC elevara privilegios al ejecutar el programa:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165544.png" text-align="center" />
+</div>
+
+<p>Una vez intentemos ejecutar el programa no saltara una ventanita como la siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183746.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Settings and The Control Panel</strong></p>
+
+<p><em>Settings</em> y <em>Control Panel</em> son dos conjuntos de opciones donde podemos modificar preferencias a nuestro gusto Windows 10:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183747.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183748.png" text-align="center" />
+</div>
+
+<p>Desde opciones de configuración de cuentas, red, a apariencia del escritorio, etc.</p>
+
+<p><br /></p>
+
+<p><strong>Task Manager</strong></p>
+
+<p>El <em>Task Manager</em> (Administrador de tareas) proporciona información sobre las aplicaciones y los procesos que se ejecutan actualmente en el sistema. También hay disponible otra información, como la cantidad de CPU y RAM que se utilizan, que se incluye en Rendimiento.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183749.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="12-fundamentos-de-windows-ii">1.2. Fundamentos de Windows II.</h4>
+
+<p><strong>System Configuration</strong></p>
+
+<p>El <em>System Configuration</em> (msconfig) es una utilidad la resolución avanzada de problemas. Su propósito principal es el de ayudar a diagnosticar problemas del inicio del equipo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183750.png" text-align="center" />
+</div>
+
+<p>Es probable que se necesiten permisos de administrador para utilizar esta herramienta.</p>
+
+<p>Una vez hemos abierto esta herramienta encontramos cinco pestañas: General, Boot, Services, Startup, Tools.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183751.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>General</em>: Desde esta pestaña podemos elegir qué dispositivos o servicios se inician desde el inicio del sistema.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183752.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Boot</em>: Definimos opciones de arranque del sistema.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183753.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Service</em>: Muestra una lista de todos los servicios (procesos en segundo plano) que corren en el sistema:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183754.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Tools</em>: Presenta una lista de herramientas que pueden configurarse y que esta instaladas.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183755.png" text-align="center" />
+</div>
+
+<p>Notemos el recuadro “Selected Command”</p>
+
+<p><br /></p>
+
+<p><strong>Change UAC Settings</strong></p>
+
+<p>Se pueden cambiar los controles de la UAC para que sea menos restrictiva. Existen diversos niveles:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183756.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Computer Management</strong></p>
+
+<p>Dentro del panel del <em>System Configuration</em> encontramos el <em>Computer Management</em> (compmgmt) la cual tiene tres secciones: <em>System Tools</em>, <em>Storage</em>, <em>Services &amp; Applications</em>.</p>
+
+<ul>
+  <li>
+    <p><em>System Tools</em>: Dentro de esta sección tenemos una serie de herramientas:</p>
+  </li>
+  <li>
+    <p><em>Task Scheduler</em>: Con esta herramienta podemos programar la ejecución de una tarea.</p>
+  </li>
+  <li>
+    <p><em>Event Viewer</em>: Nos permite acceder al registro de eventos. Existen 5 tipos de eventos:</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183757.png" text-align="center" />
+</div>
+
+<p>Y cuatro tipos de logs:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183758.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Shared Folder</em>: Un listado completo de todas las carpetas compartidas a otros usuarios.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183759.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p><em>Local Users and Grupos</em>: Nos lleva al archivo “lusrmgr.msc” ya visto en la sección anterior.</p>
+  </li>
+  <li>
+    <p><em>Perfomance</em>: Tenemos acceso al Perfomance Monitor (perfom).</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183760.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Storage</em>: En Storage podemos encontrar una interfaz que nos guía a lo largo del manejo del disco duro:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183761.png" text-align="center" />
+</div>
+
+<p>En esta interfaz podemos crear un nuevo espacio, extender una partición, partir una partición o asignar una letra a una parte del espacio vacío.</p>
+
+<ul>
+  <li><em>Services &amp; Applications</em>: Aplicaciones y servicios.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>System Information</strong></p>
+
+<p>Windows contiene una herramienta denominada Microsoft System Information (Msinfo32.exe) que recopila información sobre el ordenador y despliega una vista comprensible del hardware, componentes del sistema, entorno del software que puede ser empleado para detectar problemas del ordenador.</p>
+
+<p>La información se divide en tres secciones principalmente:</p>
+
+<ul>
+  <li>Harware Resources.</li>
+  <li>Components: Información específica de dispositivos instalados en el sistema.</li>
+  <li>Software Enviroment: Variables de entorno y Network.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183762.png" text-align="center" />
+</div>
+
+<p>Particularmente importante es la última sección:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183763.png" text-align="center" />
+</div>
+
+<p>Y la sección de Network:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183764.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Resource Monitor</strong></p>
+
+<p>Resource Monitor muestra información de uso de CPU, memoria, disco y red por proceso y agregada, además de proporcionar detalles sobre qué procesos están utilizando identificadores de archivos y módulos individuales. El filtrado avanzado permite a los usuarios aislar los datos relacionados con uno o más procesos (ya sean aplicaciones o servicios), iniciar, detener, pausar y reanudar servicios y cerrar aplicaciones que no responden desde la interfaz de usuario. También incluye una función de análisis de procesos que puede ayudar a identificar procesos bloqueados y conflictos de bloqueo de archivos para que el usuario pueda intentar resolver el conflicto en lugar de cerrar una aplicación y perder datos potencialmente.</p>
+
+<p>Existen cuatro pestañas fundamentalmente:</p>
+
+<ul>
+  <li>CPU</li>
+  <li>Disk</li>
+  <li>Network</li>
+  <li>Memory</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>cmd</strong></p>
+
+<p>La <strong>cmd</strong> es la terminal de Windows. Existen algunos comandos importantes como:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>nombre</th>
+      <th>descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hostname</td>
+      <td>Despliega el nombre de la computadora.</td>
+    </tr>
+    <tr>
+      <td>whoami</td>
+      <td>El nombre del usaurio logeado.</td>
+    </tr>
+    <tr>
+      <td>ipconfig</td>
+      <td>Despliga información de red.</td>
+    </tr>
+    <tr>
+      <td>/?</td>
+      <td>Despliega información del manual del comando precedente. Por ejemplo: ipconfig /?</td>
+    </tr>
+    <tr>
+      <td>cls</td>
+      <td>Clear.</td>
+    </tr>
+    <tr>
+      <td>netstat</td>
+      <td>Información de red en TCP/IP. Admite parámetros: -a, -b, -e.</td>
+    </tr>
+    <tr>
+      <td>net</td>
+      <td>Opciones de red.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><strong>Registry Editor</strong></p>
+
+<p>El Windows Registry es una base de datos jerarquica empleada para almacenar información necesaria para configurar el sistema para uno o más usuarios, aplicaciones, hardware, etc.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183765.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="13-active-directory-basics">1.3. Active Directory Basics.</h4>
+
+<p><strong>Introducción a Active Directory</strong></p>
+
+<p>Active Directory, AD o Directorio Activo, es una herramienta perteneciente a la empresa Microsoft para proporcionar servicios de directorio en una red LAN.</p>
+
+<p>Concretamente, <em>AD proporciona un servicio ubicado en uno (o varios) servidores capaz de crear objetos como usuarios, equipos o grupos para administrar las credenciales de los equipos que se conectan a una red o directamente gestionar las políticas de comportamiento de la misma (gestión de permisos, bandejas de correo, etc)</em>.</p>
+
+<p>A grandes rasgos se puede decir que Active Directory es una base de datos, concretamente es una <em>Multi-Master Distributed Database</em> es decir, es una base de datos almacenada en distintos dispositivos sobre la que se puede hacer cambios en la mayoría de las instancias (los cambios que se hacen en una localización se actualiza al resto de dispositivos). En esta base de datos se almacenan datos relacionados con usuarios, grupos de seguridad, maquinas, etc.</p>
+
+<p><br /></p>
+
+<p><strong>Como funciona Active Directory</strong></p>
+
+<p>Los protocolos mas utilizados por AD son: LDAP, DHCP, KERBEROS y DNS:</p>
+
+<ul>
+  <li>
+    <p><em>LDAP</em>: Responde a Lightweigth Directory Access Protocol, gestiona el acceso a servicios de directorio.</p>
+  </li>
+  <li>
+    <p><em>DHCP</em>: Responde a Dynamic Host Configuration Protocol y es un protocolo empleado para asiganar a un dispositivo una dirección IP.</p>
+  </li>
+  <li>
+    <p><em>KERBEROS</em>: Se trata de un protocolo de autenticación de peticiones de servicios entre un host confiable y una red no fiable (como Internet).</p>
+  </li>
+  <li>
+    <p><em>DNS</em>: DNS es un protocolo que asigna un dominio concreto (un nombre) a una dirección IP.</p>
+  </li>
+</ul>
+
+<p>De esta forma y con la ayuda de los protocolos anteriores AD actúa como una especie de base de datos que almacena información en tiempo real sobre la autenticación de usuarios dentro de una red y haciendo que todos los dispositivos estén sincronizados bajo un elemento central, el Domain Controller.</p>
+
+<p>Por ejemplo, supongámos que en un servidor de AD tenemos un objeto usuario compuesto por los típicos atributos: Nombre, Apellidos, etc. Este usuario a su vez pertenece a un grupo por el que se le conceden determinados niveles de privilegios. El equipo cliente se conecta con el servidor y debe autenticarse, cuando se autentica se carga la información relativa al usuario en el equipo cliente desde el servidor.</p>
+
+<p><br /></p>
+
+<p><strong>Conceptos importantes en Active Directory</strong></p>
+
+<p>A continuación vamos a definir un conjunto de términos con los que trabajeremos a la hora de describir técnicamente cómo funciona Active Directory:</p>
+
+<ul>
+  <li>
+    <p><em>Unidad Organizativa</em>: Contenedor de objetos del mismo tipo. Varias unidades suelen conforman el cuerpo de un dominio.</p>
+  </li>
+  <li>
+    <p><em>Dominio</em>: En AD, un Dominio es un conjunto de ordenadores conectados a una red que disponen de un servidor que actúa con el rol de gestor de credenciales. Este servidor recibe el nombre de <em>Domain Controller</em> o controlador de dominio y está caracterizado por un nombre.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220724175052.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Tree</em>: Un árbol es un conjunto de dominios que penden de una raíz común y están organizados con una determinanda jerarquía.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220724175101.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Bosque</em>: Es el nivel de organización más alto que existe en AD y contiene a todos los dominios de una red de Active Directory.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220724175540.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><em>Trust</em>: Las relaciones entre dos dominios; como compartir recursos, etc se denominan como <em>relaciones de confianza</em> o <em>trust</em>. Las relacionaes de confianza son de dos tipos:</p>
+  </li>
+  <li>
+    <p><em>Confianza Directa</em>: Una confianza explícita entre dos dominios, uno de confianza al que se concede acceso a otro dominio.</p>
+  </li>
+  <li>
+    <p><em>Confianza Transitiva</em>: Es una confianza explícita entre dos dominios que es a su vez y en contraste con la anterior, recíproca entre ambos dominios.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><em>Objeto</em>: Un objeto es un nombre genérico que se emplea para referirse a cualquier componente dentro de un directorio. Los objetos se dividen en tres tipos distintos:</p>
+  </li>
+  <li><em>Usuarios</em>: Entendidos como las credenciales de acceso a las estaciones de trabajo almacenadas en el servidor.</li>
+  <li><em>Recursos</em>: Son los elementos a los que distintos usuarios tienen acceso en función de sus permisos.</li>
+  <li><em>Servicios</em>: Son las funcionalidades a las que cada usuario puede acceder (correo, impresoras, etc.)</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Controladores de Dominio. Almacén de datos AD DS.</strong></p>
+
+<p>Hemos hablado de que en esencia, Active Directory es un mecanismo de gestión de un grupo de máquinas conectadas a una central, esta máquina central recibe el nombre de <em>Domain Controllery</em> y actúa bajo el rol de gestor de los recursos del dominio a los que distintos objetos del mismo quieren acceder.</p>
+
+<p>Un controlador de dominio se encarga de:</p>
+
+<ul>
+  <li>Guardar el almacén de datos del AD DS.</li>
+  <li>Maneja la autenticación y autorización de servicios.</li>
+  <li>Replica las actualizaciones de otros controladores de domino que se encuentren distribuidos por la red.</li>
+  <li>Permite a los administradores manejar recursos del dominio.</li>
+</ul>
+
+<p>Se trata de una máquina Windows Server que tiene el Active Directory Domain Services (AD DS) instalado y contiene el <em>AD DS Data Store</em> que es donde se guardan las bases de datos y procesos necesarios para almacenar y administrar la información del directorio como usuarios, grupos y servicios.</p>
+
+<p>Algunos de los contenidos y características son:</p>
+
+<ul>
+  <li>
+    <p><em>NTDS.dit</em>: Una base de datos que contiene toda la información de un controlador de dominios de Active Directory así como los hashes de contraseña.</p>
+  </li>
+  <li>
+    <p>El AD DS está almacenada por defecto en %SystemRoot%\NTDS</p>
+  </li>
+  <li>
+    <p>Sólo es accesible desde un controlador de dominos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>De esta forma y en términos muy simples la red de Active Directory se extiene por todos y cada uno de los dispositivos incorporados en una red concreta. Hay una pieza física fundamental, el controlador de dominios, el cual es un Servidor Windows que tiene instalado el AD DS que es la herramienta que le permite llevar a cabo una gestión de todo lo referente a Active Directory gracias entre otras cosas al AD DS Data Store que se trata de una base de datos embebida dentro del propio servidor que contiene las bases de datos y procesos necesarios para desempeñar la gestión adecuadamente.</p>
+
+<p><br /></p>
+
+<p><strong>AD Forest</strong></p>
+
+<p>Un Active Directory Forest o AD Forest es el nivel de organización más alto dentro de Active Directory. Cada bosque comparte una única base de datos, una única lista global de direcciones y un límite de seguridad. De forma predeterminada, un usuario o administrador de un AD Forest no puede acceder a otro AD Forest.</p>
+
+<p>De una forma menos técnica, un AD Forest es una colección de uno o más dominios dentro de una red de Active Directory.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220721184109.png" text-align="center" />
+</div>
+
+<p>A su vez, un “forest” consiste en las siguientes partes que veremos en partes ulteriores con más detalles:</p>
+
+<ul>
+  <li><em>Trees</em>: Una subjerarquía de dominios en el AD DS.</li>
+  <li><em>Domain</em>: Un nombre sobre el que se agrupa un conjunto de objetos dirigidos desde un Domain Controller.</li>
+  <li><em>Organizational Units</em>: También conocidas como OUs, son contenedores de grupos, ordenadores, usuarios, impresoras…</li>
+  <li><em>Trusts</em>: Permisos que permiten a los usuarios acceder a recursos en otros dominios.</li>
+  <li><em>Objects</em>: Usuarios, grupos, maquinas, recursos compartidos (shares).</li>
+  <li><em>Domain Services</em>: DNS Server, LLMNR, IPv6.</li>
+  <li><em>Domain Schema</em>: Reglas para la creación de objetos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Users + Groups</strong></p>
+
+<p>Los usuarios y los grupos que existen dentro de Active Directory se crean desde el Domain Controller. Este aparece con grupos y usuarios por defecto: Administrator y Guest. A partir de ahí, los usuarios y grupos adicionales necesitan ser creados por una entidad con permisos suficientes.</p>
+
+<p>Existen cuatro tipos de usuarios en Active Directory:</p>
+
+<ul>
+  <li><em>Domain Admins</em>: Son los únicos que tienen acceso al controlador de Dominio y además juegan con el rol de administrador.</li>
+  <li><em>Service Accounts</em>: (Pueden ser Domain Admins). Estos en gran medida sólo aparecen para cuestiones de mantenimiento u otras gestiones relacionadas con la misma temática.</li>
+  <li><em>Local Administrators</em>: Estos usuarios poseen un rol de administrador sobre una máquina pero no tienen acceso al Domain Controller.</li>
+  <li><em>Domain Users</em>: El usuario común, sus privilegios dependerá de la configuración que depende de cada contexto.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Con respecto a los grupos existen dos tipos de grupos en Active Directory:</p>
+
+<ul>
+  <li><em>Security Groups</em>: Son grupos que se utilizan para especificar permisos a un conjunto amplio de usuarios.</li>
+  <li><em>Distribution Groups</em>: Estos grupos se emplean para especificar listas de distribución de emails. Para un atacante estos grupos pueden ser benficioso desde el punto de vista de la enumeración.</li>
+</ul>
+
+<p>Algunos de los grupos de seguridad que están por defecto son:</p>
+
+<ul>
+  <li>Domain Controllers - All domain controllers in the domain</li>
+  <li>Domain Guests - All domain guests</li>
+  <li>Domain Users - All domain users</li>
+  <li>Domain Computers - All workstations and servers joined to the domain</li>
+  <li>Domain Admins - Designated administrators of the domain</li>
+  <li>Enterprise Admins - Designated administrators of the enterprise</li>
+  <li>Schema Admins - Designated administrators of the schema</li>
+  <li>DNS Admins - DNS Administrators Group</li>
+  <li>DNS Update Proxy - DNS clients who are permitted to perform dynamic updates on behalf of some other clients (such as DHCP servers).</li>
+  <li>Allowed RODC Password Replication Group - Members in this group can have their passwords replicated to all read-only domain controllers in the domain</li>
+  <li>Group Policy Creator Owners - Members in this group can modify group policy for the domain</li>
+  <li>Denied RODC Password Replication Group - Members in this group cannot have their passwords replicated to any read-only domain controllers in the domain</li>
+  <li>Protected Users - Members of this group are afforded additional protections against authentication security threats. See http://go.microsoft.com/fwlink/?LinkId=298939 for more information.</li>
+  <li>Cert Publishers - Members of this group are permitted to publish certificates to the directory</li>
+  <li>Read-Only Domain Controllers - Members of this group are Read-Only Domain Controllers in the domain</li>
+  <li>Enterprise Read-Only Domain Controllers - Members of this group are Read-Only Domain Controllers in the enterprise</li>
+  <li>Key Admins - Members of this group can perform administrative actions on key objects within the domain.</li>
+  <li>Enterprise Key Admins - Members of this group can perform administrative actions on key objects within the forest.</li>
+  <li>Cloneable Domain Controllers - Members of this group that are domain controllers may be cloned.</li>
+  <li>RAS and IAS Servers - Servers in this group can access remote access properties of users.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Trust + Policies</strong></p>
+
+<p>Los <em>trusts</em> son mecanismos que actúan como fideicomisos (un documento que deposita confianza sobre otro individuo para perpetrar ciertas acciones) sobre los usuarios de la red para que puedan acceder a otros recursos de un dominio. Son un mecanismo por el que se esboza la forma en la que dominios dentro de un AD Forest se comunican entre sí y en algunos casos como el AD Forest se comunica con dominios externos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220723174457.png" text-align="center" />
+</div>
+
+<p>Existen dos tipos de trust que pueden determinar como los dominios se comunican entre sí:</p>
+
+<ul>
+  <li><em>Direccional</em>: Los trust pueden ser direccionales en el sentido de que especifican la dirección del acceso entre dos dominios.</li>
+  <li><em>Transitive</em>: La relación de confianza se expande más allá de dos dominios para incluir a otros dominios de confianza.</li>
+</ul>
+
+<p>De esta forma a través de los Trust se establecen las relaciones entre dominios por las cuales estos se pasan datos entre dominios e incluso entre forest.</p>
+
+<p><br /></p>
+
+<p>Por otra parte las <em>policies</em> o políticas dictan cómo se comporta el servidor. Se puede entender una política como un conjunto de reglas que se aplican a un dominio concreto.</p>
+
+<p><br /></p>
+
+<p><strong>Active Directory Domain Services + Domain Authentication</strong></p>
+
+<p>El <em>Domain Services</em> son un conjunto de servicios que el controlador de dominios proporciona al resto de dominios o directamente a un tree (recordemos; una estructura de dominios jerarquizada). Los Domain Services por defecto son:</p>
+
+<ul>
+  <li><em>LDAP</em>: Lightweight Directory Access Protocol; provee comunicación entre aplicaciones y directory services.</li>
+  <li><em>Certificate Services</em>: Permite al controlador de dominios crear, validar y revocar certificados de clave.</li>
+  <li><em>DNS, LLMNR, NBT-NS</em>: Domain Services que permiten identificar IP hostnames.</li>
+</ul>
+
+<p><br /></p>
+
+<p>La parte más importante de Active Directory (y a su vez la parte más vulnerable) son los protocolos de autenticación.</p>
+
+<p>Existen dos tipos fundamentales de autenticación en Active Directory:</p>
+
+<ul>
+  <li>
+    <p><em>Kerberos</em>: El servicio de autenticación predeterminado para Active Directory utiliza “tickets” de otorgamiento de “tickets” y vales de servicio para autenticar a los usuarios y darles acceso a otros recursos en todo el dominio.</p>
+  </li>
+  <li>
+    <p><em>NTLM</em>: El protocolo de autenticación predeterminado de Windows utiliza un protocolo de desafío/respuesta cifrado.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Los servicios de dominio de Active Directory son el principal punto de acceso para los atacantes y contienen algunos de los protocolos más vulnerables.</p>
+
+<p><br /></p>
+
+<p><strong>AD in the Cloud</strong></p>
+
+<p>Aunque toda la estructura de Active Directory está diseñada para un entorno material, con dispositivos físicos integrados en una estructura de red, recientemente ha habido un cambio para adaptar el AD a redes cloud.</p>
+
+<p>El provedor más notable de AD Cloud es Azure AD,</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220724104718.png" text-align="center" />
+</div>
+
+<p>su configuración por defecto es mucho más segura que la configuración de otras redes AD físicas aunque sigue teniendo vulnerabilidades.</p>
+
+<p>La forma de actuación que tiene Azure AD es ser el agente que comunica un Active Directory físico con las interacciones de los clientes que interactúan con un Domain Controller de dicho forest de Active Directory.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220724104658.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Hands-On Lab</strong></p>
+
+<p>Vamos a explorar un Active Directory Server con las credenciales de un administrador.</p>
+
+<p>En primer lugar y con tanto la máquina Kali como con el Windows Server activo, comprobamos que tenemos conectividad y llevamos a cabo un escaneo TCP de todos los puertos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725105848.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap 10.10.53.226 <span class="nt">-sT</span> <span class="nt">-p-</span> <span class="nt">-vv</span> <span class="nt">-T5</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725105919.png" text-align="center" />
+</div>
+
+<p>Como tiene el puerto SSH abierto y poseemos las credenciales administrator:password123@ procedemos a logearnos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725110117.png" text-align="center" />
+</div>
+
+<p>Hasta aqui tendríamos abierta una cmd como el administrador, pero queremos abrir una shell en PowerShell, para ello empleamos el siguiente comando:</p>
+
+<pre><code class="language-cmd">powershell -ep bypass
+</code></pre>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725110533.png" text-align="center" />
+</div>
+
+<p>Y cargamos el modulo PowerView con el comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span> .<span class="se">\P</span>owerView.ps1
+</code></pre></div></div>
+
+<p>A partir de aquí, procedemos a recopilar información del sistema con los distintos comandos:</p>
+
+<ul>
+  <li><em>Nombre del sistema operativo</em>:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetComputer <span class="nt">-fulldata</span> | <span class="k">select </span>operatingsystem
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725111143.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Nombre de la otra cuenta con privilegios de administrador</em>:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-NetUser | <span class="k">select </span>cn
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725111343.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Listar los grupos del dominio</em>:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725111949.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Preferencias de configuración de un servicio</em>:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220725112036.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="2-windows-internals">2. Windows Internals.</h3>
+
+<h4 id="21-windows-internals">2.1. Windows Internals.</h4>
+
+<p><strong>Intro</strong></p>
+
+<p>El sistema operativo es gran obra de ingenieria y tecnología, en esta sección cubriremos las partes más importantes que hacen que el sistema operativo funcione. En partes anteriores, en contraste con lo que vamos a hacer en esta, hemos visto programas con los que un usuario interactúa con distintas partes del sistema operativo. Ahora vamos a ver cómo funciona por dentro el sistema.</p>
+
+<p><br /></p>
+
+<p><strong>Process</strong></p>
+
+<p>Un proceso mantiene y representa la ejecución de un programa. Por otra parte, una aplicación puede constar de varios programas y por tanto puede ser mantenida por varios procesos. Estos son el núcleo de cómo funcionan las funcionalidades de Windows.</p>
+
+<p>Un proceso está constituido por una serie de componentes, pueden ser divididos en características:</p>
+
+<ul>
+  <li>
+    <p><em>Private Virtual Address Space</em>: Dirección de memoria virtual en el que el proceso se aloja.</p>
+  </li>
+  <li>
+    <p><em>Executable</em>: Código y datos alojados en el espacio virtual anteriormente mencionado.</p>
+  </li>
+  <li>
+    <p><em>Open Handles</em>: Define permisos para que el proceso pueda acceder a recursos del sistema.</p>
+  </li>
+  <li>
+    <p><em>Security Context</em>: Lo que un proceso puede o no puede hacer se contextualiza mediante el token de acceso propio del usuario que ha inicializado el proceso heredándo de este los grupos de sguridad, privilegios, etc.</p>
+  </li>
+  <li>
+    <p><em>Process ID</em>: Identificador numérico del proceso.</p>
+  </li>
+  <li>
+    <p><em>Threads</em>: Sección de un proceso programado para ser ejecutado.</p>
+  </li>
+</ul>
+
+<p>De esta forma, podemos decir que un proceso es un programa en ejecución, al programa se le ha asignado un espacio en memoria en el que se ha alojado los datos a procesar, unos permisos y unos recursos con los que actuar.</p>
+
+<p>Esta sería la concepción a nivel general de un proceso, pero también podemos describir un proceso a bajo nivel según cómo reside en el espacio de memoria virtual:</p>
+
+<ul>
+  <li><em>Code</em>: Código a la espera de ser procesado.</li>
+  <li><em>Global Variables</em>: Variables guardadas.</li>
+  <li><em>Process Heap</em>: El Heap es un área de almacenamiento principal de la máquina reservada previamente que un proceso puede usar para almacenar datos en una cantidad variable que no se conocerá hasta que el programa se esté ejecutando. Es la reserva de memoria que el proceso utiliza.</li>
+  <li><em>Process Resources</em>: Define recursos del proceso.</li>
+  <li><em>Enviroment Block</em>: Estructura de datos para definir la información del proceso</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220905131235.png" text-align="center" />
+</div>
+
+<p>Aunque toda esta información está bastante bien tenerla presente para explotar o abusar de tecnologíoas subyacentes, sigue siendo demasiado abastracta. Lo ideal para familiarizarte con los procesos en Windows es utilizar herramientas descriptivas como <a href="https://github.com/processhacker/processhacker">Process Hacker 2</a>, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer">Process Explorer</a>, o <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procmon">Procmon</a></p>
+
+<p>Abrimos el <em>Windows Task Manager</em> con “Win+R” y tecleando taskmgr:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220905184313.png" text-align="center" />
+</div>
+
+<p>O directamente “Ctrl+Shift+Esc”</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220905184412.png" text-align="center" />
+</div>
+
+<p>En otras herramientas como las anteriormente mencionadas podremos ver:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220905184903.png" text-align="center" />
+</div>
+
+<p>Veámos un ejemplo práctico con <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procmon">Procmon</a>. Al abrir un fichero con Procmon obtenemos la siguiente vista:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906143111.png" text-align="center" />
+</div>
+
+<p>En ella tenemos a la vista los distintos procesos capturados en el fichero caracterizados por distintos términos: Process name, Process ID, Operation, path…</p>
+
+<p>También podemos buscar o filtrar el contenido de un fichero en función de distintos términos, enter ellos, el nombre:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906162751.png" text-align="center" />
+</div>
+
+<p>Podemos encontrar detalles más específicos en el apartado “Event” en la pestaña “Process”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906162908.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Threads</strong></p>
+
+<p>Un Thread o hilo es la unidad ejecutable principal empleada en el manejo de un proceso por el procesador. En otras palabras, se trata, desde la perspectiva del sistema, de la herramienta empleada en la gestión del desarrollo de un proceso; este queda dividido en uno varios hilos que poseen un contexto propio y que son procesados individualmente a medida que se ejecuta el proceso en el procesador. También reciben el nombre de segmento del procesador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906170458.png" text-align="center" />
+</div>
+
+<p>Desde el punto de vista de la ciberseguridad el abuso de los threads puede conducir a ejecución de código o concatenar llamadas a la API.</p>
+
+<p>Además de las características propias del proceso, un hilo contiene su propio Stack, Thread Local Storage, Stack Argument y Context Structure:</p>
+
+<ul>
+  <li><em>Stack</em>: Todos aquellos datos relevantes para el thread.</li>
+  <li><em>Thread Local Storage</em>: Punteros para alojar almacenamiento en memoria.</li>
+  <li><em>Stack Argument</em>: Valor único asignado a cada thread.</li>
+  <li><em>Context Structure</em>: Valores de registro utilizados para labores de manteniemiento por el kernel.</li>
+</ul>
+
+<p>Por otra parte, podemos investigar los threads con herramientas como Procmon. Procmon ordena los procesos y las operaciones que estos hacen entre las cuales se encuentran la de crear hilos como podemos ver en la siguiente imagen:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906171144.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Virtual Memory</strong></p>
+
+<p><em>Virtual Memory</em> o Memoria Virtual es un componente crítico en cómo funciona Windows internamente. En términos muy simples, la memoria virtual permite la interacción de otros componentes internos del sistema con la memoria física sin riesgo de colisión entre aplicaciones (esto es, que a varias aplicaciones se les asigne regiones de memoria solapadas).</p>
+
+<p>Concretamente, esto se hace mediante el proporcionamiento a cada proceso de una <em>dirección de espacio virtual privado</em> de forma que un <em>memory manager</em> se encarga de trasladar las direcciones virtuales a las memorias físicas. Al interactuar con un espacio virtual y no físico, las acciones de los procesos son en cierta medida reversibles o, dicho de otra forma, son reversibles con menor riesgo de provocar daños a otras partes de la memoria.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906172808.png" text-align="center" />
+</div>
+
+<p>Una unidad de transferencia de memoria que emplea el memory manager con frecuencia son las <em>pages</em>.</p>
+
+<p><br /></p>
+
+<p><strong>Dynamic Link Libraries</strong></p>
+
+<p>Las <em>Dynamic Link Libraries</em> también conocidas por sus siglas <em>DLL</em> son definidas por Microsoft docs como: librerias que contienen código que pueden ser utilizados por más de un programa a la vez. Un ejemplo de un fragmento de DLL sería:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906174512.png" text-align="center" />
+</div>
+
+<p>Este no es más que un fragmento de código escrito en C++.</p>
+
+<p>Las DLLs son uno de los mecanismos fundamentales detrás de la ejecución de Windows, el uso de DLL ayuda a promover la modularización (fragmentos, módulos, de código incorporables de forma externa con una función específica) y la reutilización del código, el uso eficiente de la memoria y la reducción del espacio en disco. Por lo tanto, el sistema operativo y los programas se cargan más rápido, se ejecutan más rápido y ocupan menos espacio en el disco de la computadora</p>
+
+<p>Sin embargo, desde la perspectiva de los atacantes, las DLLs constituyen un vector de ataque muy frecuente. Cuando un programa se utiliza junto con una DLL a modo de código auxiliar, esta se asigna como una dependencia del mismo programa. Así, un atacante puede localizar una DLL a la que tenga acceso, añadir su propio código malicioso y luego ejecutar el programa asociado cargando así la DLL maliciosa y ejecutando código arbitrario en el sistema.</p>
+
+<p>Estos ataques se conocen bajo el nombre de:</p>
+
+<ul>
+  <li>DLL Hijacking (<a href="https://attack.mitre.org/techniques/T1574/001/">T1574.001</a>)</li>
+  <li>DLL Side-Loading (<a href="https://attack.mitre.org/techniques/T1574/002/">T1574.002</a>)</li>
+  <li>DLL Injection (<a href="https://attack.mitre.org/techniques/T1055/001/">T1055.001</a>)</li>
+</ul>
+
+<p>Podemos ver las DLLs que utiliza un proceso con Procmon:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906174953.png" text-align="center" />
+</div>
+
+<p>Podemos ver que el path de la operación es de hecho una librería.</p>
+
+<p>También podemos listar todas las librerias mediante el filtro de Procmon:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906175226.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Portable Executable Format</strong></p>
+
+<p>Los “ejecutables” y las “aplicaciones” representan una gran porción de cómo se comportan los elementos vistos anteriormente, los Windows Internals, a alto nivel.</p>
+
+<p>El PE Format (Portable Executable) se trata de un formato de ficheros ejecutables en sistemas Microsoft Windows (PE y COFF) que define la estructura de la información sobre el ejecutable y los datos almacenados en el mismo. Es una estructura general para archivos ejecutables y objetos. El término Portable hace referencia a que dicho formato no es específico de ninguna arquitectura.</p>
+
+<p>Esencialmente el formato consta de 7 partes bien definidas, cada una con una funcionalidad bien diferenciada:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906214407.png" text-align="center" />
+</div>
+
+<p>En primer lugar tenemos un ejecutable (file.exe) que contiene datos que el sistema necesita organizar previo a la ejecución del mismo.</p>
+
+<p>Aquí el sistema acude a investigar la cabecera del ejecutable que contiene la estructura del PE Format para orientar al sistema sobre como tiene que tratar el fichero. La cabecera consta de cinco partes:</p>
+
+<ul>
+  <li><em>DOS Header</em>: Este define el tipo de fichero que en este caso es un .exe, que se puede en un Hexdump tool:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906222411.png" text-align="center" />
+</div>
+
+<p>El magic del DOS Header es MZ, los dos primeros bytes de la cabecera.</p>
+
+<ul>
+  <li><em>PE Header</em>: Define el formato del archivo, contiene la firma y el encabezado del archivo de imagen y otros encabezados de información.</li>
+</ul>
+
+<p>El encabezado del archivo PE es la sección con la salida menos legible por humanos. </p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906222745.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p><em>Image Optional Header</em>: Es una parte importante de la sección anterior demasiado complicada como para explayarla aquí.</p>
+  </li>
+  <li>
+    <p><em>Data Dictionaries</em>: Es parte del encabezado opcional. Apuntan a la estructura del directorio de datos de imagen.</p>
+  </li>
+  <li>
+    <p><em>Section Tables</em>: Definirá las secciones disponibles y la información en la imagen. Como se mencionó anteriormente, las secciones almacenan el contenido del archivo, como código, importaciones y datos.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906223213.png" text-align="center" />
+</div>
+
+<p>Así, el sistema ha obtenido al información necesaria y puede empezar a ejecutar acciones de gestión con esta información en el apartado Section:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220906223355.png" text-align="center" />
+</div>
+
+<p>En resumidas cuentas, todos los ejecutables de la familia de sistemas Microsoft Windows OS tienen una cabecera adaptada según el PE Format a través de la cual el sistema comprende qué tiene que hacer con la información del ejecutable para su posterior ejecución.</p>
+
+<p><br /></p>
+
+<h4 id="22-core-windows-process">2.2. Core Windows Process.</h4>
+
+<p><strong>Intro</strong></p>
+
+<p>En el apartado anterior hemos cubierto los componentes más importantes que integran los mecanismos de funcionamiento de Windows, los procesos. Ahora en esta sección vamos a cubrir cuáles son los procesos más importantes en Windows OS.</p>
+
+<p>La idea es obtener un conocimiento general de qué procesos son los que hacen que Windows trabaje con normalidad.</p>
+
+<p><br /></p>
+
+<p><strong>Task Manager</strong></p>
+
+<p>En primer lugar, presentamos el Administrador de Tareas, que puede abrirse desde el menú de búsqueda de Windows o pulsando las teclas “Ctrl+Shit+Esc”. Este <em>built-in GUI-based program</em> permite al usuario ver qué se está ejecutando en el sistema operativo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908102551.png" text-align="center" />
+</div>
+
+<p>Haciendo click derecho sobre algunas de las características de la tabla de procesos podemos ver que podemos elegir qué columnas mostrar y cuáles no:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908102713.png" text-align="center" />
+</div>
+
+<ul>
+  <li><strong>Type</strong>: Cada proceso se clasifica en 1 de 3 categorías (aplications, Bakcground process o Windows Process).</li>
+  <li><strong>Editor</strong>: El nombre del autor del programa/archivo.</li>
+  <li><strong>PID</strong>: Esto se conoce como el número de identificación del proceso. Windows asigna un identificador de proceso único cada vez que se inicia un programa. Si el mismo programa tiene varios procesos en ejecución, cada uno tendrá su propio identificador de proceso único (PID).</li>
+  <li><strong>Nombre del proceso</strong> : este es el nombre de archivo del proceso. En la imagen de arriba, el nombre de archivo del Administrador de tareas es Taskmrg.exe. </li>
+  <li><strong>Línea de comando</strong> : el comando completo utilizado para iniciar el proceso. </li>
+  <li><strong>CPU</strong> : la cantidad de CPU (potencia de procesamiento) utilizada por el proceso.</li>
+  <li><strong>Memoria</strong> : la cantidad de memoria de trabajo física utilizada por el proceso.</li>
+</ul>
+
+<p><br /></p>
+
+<p>De esta manera, es útil observar los procesos que corren en Windows pudiendo organizar la información que vemos de distintas formas.</p>
+
+<p>Otras herramientas complementarias para ser utilizadas junto con el administrador de tareas son <em>Process Hacker</em> y <em>Process Explorer</em></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908103531.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908103539.png" text-align="center" />
+</div>
+
+<p>A continuación vamos a estudiar algunos de las tareas o procesos más importantes para el sistema Windows. Muchos de estos procesos son visibles desde el mismo Administrador de Tareas.</p>
+
+<p><br /></p>
+
+<p><strong>System</strong></p>
+
+<p>El primer proceso que vamos a ver es <em>System</em>, este es un proceso que siempre tiene asociado el PID 4, y que inicia subprocesos que corren en modo kernel.</p>
+
+<p>Un procesador en una computadora que ejecuta Windows tiene dos modos diferentes: <em>user mode</em> y <em>modo kernel</em>. El procesador cambia entre los dos modos según el tipo de código que se esté ejecutando en el procesador. Las aplicaciones se ejecutan en modo usuario y los componentes principales del sistema operativo se ejecutan en modo kernel. Si bien muchos controladores se ejecutan en modo kernel, algunos controladores pueden ejecutarse en modo de usuario.</p>
+
+<p>Utilizando Process Explorer podemos estudiar en detalle este proceso:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908134043.png" text-align="center" />
+</div>
+
+<p>Podemos ver que los parámetros que caracterizan a este proceso son:</p>
+
+<ul>
+  <li><em>Image Path</em>: N/A.</li>
+  <li><em>Parent Process</em>: None.</li>
+  <li><em>Number of Instances</em>: One.</li>
+  <li><em>User Account</em>: Local System.</li>
+  <li><em>Start Time</em>: At boot time.</li>
+</ul>
+
+<p>Aunque empleando Process Hacker podemos observar que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908134229.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Image Path</em>: C:\Windows\system32\ntoskrnl.exe (NT OS Kernel)</li>
+  <li><em>Parent Process</em>: System Idle Process (0)</li>
+</ul>
+
+<p>Así, ¿qué podría ser considerado como un comportamiento insual para este proceso?:</p>
+
+<ul>
+  <li>Un parent process diferente de System Idle Process (0).</li>
+  <li>Múltiples instancias de System (debería tan sólo haber una instancia).</li>
+  <li>Un PID diferente.</li>
+  <li>No corriera en sesión 0.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>System &gt; smss.exe</strong></p>
+
+<p>El <em>smss.exe</em>, (Session Manager Subsystem) o Windows Session Manager es responsable de crear nuevas sesiones. Se trata por otra parte del proceso que se ejecuta en user mode. Este proceso por otra parte comienza el kernle mode y el user mode del subsiste de Windows, este subsistema se compone de win32k.sys, winsrv.dll y csrss.exe.</p>
+
+<p>De esta forma, smss.exe inicia csrss.exe (subsistema de Windows) y wininit.exe en la Sesión 0, una sesión de Windows aislada para el sistema operativo, y csrss.exe y winlogon.exe para la Sesión 1, que es la sesión del usuario. La primera instancia secundaria crea instancias secundarias en nuevas sesiones. Esto se hace mediante la copia de smss.exe en la nueva sesión y la finalización automática.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908141425.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908141447.png" text-align="center" />
+</div>
+
+<p>Podemos ver las propiedades de este proceso de nuevo con Process Hacker:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908142333.png" text-align="center" />
+</div>
+
+<p>De forma que las características son:</p>
+
+<ul>
+  <li><em>Image Path</em>:  %SystemRoot%\System32\smss.exe</li>
+  <li><em>Parent Process</em>:  System</li>
+  <li><em>Number of Instances</em>:  One master instance and child instance per session. The child instance exits after creating the session.</li>
+  <li><em>User Account</em>:  Local System</li>
+  <li><em>Start Time</em>:  Within seconds of boot time for the master instance</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso padre diferente que no sea System(4).</li>
+  <li>La ruta de la imagen es diferente de C:\Windows\System32.</li>
+  <li>Más de 1 proceso en ejecución. (los niños se autoterminan y salen después de cada nueva sesión).</li>
+  <li>El usuario no es SISTEMA.</li>
+  <li>Entradas de registro inesperadas para subsistema.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>csrss.exe</strong></p>
+
+<p>Como hemos mencionado anteriormente, csrss.exe (Client Server Runtime Process) es el user-mode del subsistema de Windows ejecutado por smss.exe, siempre está en ejecución y es crítico para el sistema operativo , su fallo resultaría en un fallo del sistema operativo. Este proceso es responsable de la ventana de la consola Win32 y de la creación y eliminación de subprocesos de procesos. Para cada instancia se cargan csrsrv.dll, basesrv.dll y winsrv.dll (junto con otros). También es responsable de hacer que la API de Windows esté disponible para otros procesos, asignar letras de unidad y manejar el proceso de apagado de Windows.</p>
+
+<p>Desde Process Hacker:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908171236.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908172822.png" text-align="center" />
+</div>
+
+<p>Observemos que el <em>parent process</em> es el smss.exe que se cierra automáticamente, por eso no existe.</p>
+
+<ul>
+  <li><em>Image Path</em>:  %SystemRoot%\System32\csrss.exe</li>
+  <li><em>Parent Process</em>:  Created by an instance of smss.exe</li>
+  <li><em>Number of Instances</em>:  Two or more</li>
+  <li><em>User Account</em>:  Local System</li>
+  <li><em>Start Time</em>:  Within seconds of boot time for the first 2 instances (for Session 0 and 1).  Start times for additional instances occur as new sessions are created, although often only Sessions 0 and 1 are created.</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso padre real. (smss.exe llama a este proceso y termina automáticamente)</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32</li>
+  <li>Sutiles errores ortográficos para ocultar procesos maliciosos disfrazados de csrss.exe a plena vista</li>
+  <li>El usuario no es SISTEMA</li>
+</ul>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><strong>wininit.exe</strong></p>
+
+<p>El <em>wininit.exe</em> o Windows Initialization Process es responsable de lanzar <em>services.exe</em> (Service Control Manager), lsass.exe (Local Security Authority) y lsaiso.exe dentro de la sesión 0.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908174150.png" text-align="center" />
+</div>
+
+<p>Nota: lsaiso.exe es un proceso asociado con <strong>Credential Guard y Key Guard</strong> . Solo verá este proceso si Credential Guard está habilitado.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220908174157.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Image Path</em>: %SystemRoot%\System32\wininit.exe</li>
+  <li><em>Parent Process</em>: Created by an instance of smss.exe</li>
+  <li><em>Number of Instances</em>: One</li>
+  <li><em>User Account</em>: Local System</li>
+  <li><em>Start Time</em>: Within seconds of boot time</li>
+</ul>
+
+<p><br /></p>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un parent process existente. (smss.exe llama a este proceso y termina automáticamente)</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32.</li>
+  <li>Errores de ortografía sutiles para ocultar el proceso deshonesto a simple vista.</li>
+  <li>Múltiples instancias en ejecución.</li>
+  <li>No se ejecuta como SYSTEM.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>wininit.exe &gt; services.exe</strong></p>
+
+<p>El siguiente proceso es <em>SCM</em> (Service Control Manager) del ejecutable services.exe. Su responsabilidad principal consiste en el manejo de servicios de sistemas, esto es; cargar, intearctuar, iniciar o parar servicios.
+Mantiene entre otras cosas una base de datos interna de windows accesible desde <em>sc.exe</em>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909112155.png" text-align="center" />
+</div>
+
+<p>Por otra parte, ha información sobre los servicios guardada en <em>HKLM\System\CurrentControlSet\Services</em></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909121902.png" text-align="center" />
+</div>
+
+<p>También, este proceso es responsable de setear el valor de Last Known Good control set cuando un usuario se logea a la máquina.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909122125.png" text-align="center" />
+</div>
+
+<p>Por último, está emparentado con múltiples procesos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909122355.png" text-align="center" />
+</div>
+
+<p>Así, pasamos a valorar los atributos de este proceso con Process Hacker:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909122608.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Image Path</em>: %SystemRoot%\System32\services.exe</li>
+  <li><em>Parent Process</em>: wininit.exe</li>
+  <li><em>Number of Instances</em>: One</li>
+  <li><em>User Account</em>: Local System</li>
+  <li><em>Start Time</em>: Within seconds of boot time</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso principal que no sea wininit.exe.</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32.</li>
+  <li>Errores de ortografía sutiles para cultar el proceso deshonesto a simple vista.</li>
+  <li>Múltiples instancias en ejecución.</li>
+  <li>No se ejecuta como SYSTEM.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>wininit.exe &gt; services.exe &gt; svchost.exe</strong></p>
+
+<p>El proceso <em>svchost.exe</em> es un proceso iniciado por <em>services.exe</em> responsable de hostear y gestionar servicios de Windows:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909124218.png" text-align="center" />
+</div>
+
+<p>Los servicios que este proceso maneja se implementan en el mismo mediante DLLs, almacenadas a su vez en el registro identificable por el “subkey” <em>Parameters</em> en ServiceDLL. El path completo es: HKLM\SYSTEM\CurrentControlSet\Services\SERVICE NAME\Parameters, por ejemplo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909125250.png" text-align="center" />
+</div>
+
+<p>Para ver información dentro de Process Hacker sobre el servicio le damos al botón derecho:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909131739.png" text-align="center" />
+</div>
+
+<p>Y sobre la pestaña “Services” le damos a Propierties:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909135522.png" text-align="center" />
+</div>
+
+<p>Dado que svchost.exe siempre tiene varios procesos en ejecución en cualquier sistema Windows, este proceso ha sido un objetivo frecuente de uso malicioso. Los adversarios crean malware para hacerse pasar por este proceso e intentan ocultarse entre los procesos legítimos de svchost.exe. Pueden llamar al malware svchost.exe o escribirlo mal, como scvhost.exe. Al hacerlo, la intención es pasar desapercibida. Otra táctica es instalar/llamar a un servicio malicioso (DLL).</p>
+
+<p>Los parámetros adecuados son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909135823.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Ruta de la imagen</em>: %SystemRoot%\System32\svchost.exe</li>
+  <li><em>Proceso padre</em>: services.exe</li>
+  <li><em>Número de instancias</em>: muchas</li>
+  <li><em>Cuenta de usuario</em>: Varía (SISTEMA, Servicio de red, Servicio local) según la instancia de svchost.exe. En Windows 10, algunas instancias pueden ejecutarse como el usuario que inició sesión.</li>
+  <li><em>Hora de inicio</em>: por lo general, segundos después del tiempo de arranque. Se pueden iniciar otras instancias después del arranque.</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso principal que no sea services.exe</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32</li>
+  <li>Errores de ortografía sutiles para ocultar el proceso deshonesto a simple vista</li>
+  <li>La ausencia del parámetro -k en el comand line.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>lsass.exe</strong></p>
+
+<p>El proceso <em>lsass.exe</em> o Local Security Authority Subsystem Service es un proceso en los sistemas operativos Microsoft Windows que es responsable de hacer cumplir la política de seguridad en el sistema. Verifica que los usuarios inicien sesión en una computadora o servidor con Windows, maneja los cambios de contraseña y crea tokens de acceso. También escribe en el registro de seguridad de Windows.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909141352.png" text-align="center" />
+</div>
+
+<p>Este es otro proceso que suele ser objeto de ataques a través de la herramienta <em>mimikatz</em> que vuelva las credenciales a través de lsass.exe</p>
+
+<p>Los parámetros normales son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909141930.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Image Path</em>: SystemRoot%\System32\lsass.exe</li>
+  <li><em>Parent Process</em>: wininit.exe</li>
+  <li><em>Number of Instances</em>: One</li>
+  <li><em>User Account</em>: Local System</li>
+  <li><em>Start Time</em>: Within seconds of boot time</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso principal que no sea wininit.exe</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32</li>
+  <li>Errores de ortografía sutiles para ocultar el proceso deshonesto a simple vista</li>
+  <li>Múltiples instancias en ejecución</li>
+  <li>No se ejecuta como SYSTEM</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>winlogon.exe</strong></p>
+
+<p>El <em>winlogon.exe</em> o Windows Logon es responsable de manejar el SAS o Secure Attention Sequence (ALT+CTRL+DELETE) que el usuario utiliza para introducir sus credenciales. También carga el perfil de usuario o bloquaer la pantalla y lanzar el salvapantallas.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909142750.png" text-align="center" />
+</div>
+
+<p>Los parámetros normales son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909142842.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909142852.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Image Path</em>: %SystemRoot%\System32\winlogon.exe</li>
+  <li><em>Parent Process</em>: Created by an instance of smss.exe that exits, so analysis tools usually do not provide the parent process name.</li>
+  <li><em>Number of Instances</em>: One or more</li>
+  <li><em>User Account</em>: Local System</li>
+  <li><em>Start Time</em>: Within seconds of boot time for the first instance (for Session 1).  Additional instances occur as new sessions are created, typically through Remote Desktop or Fast User Switching logons.</li>
+</ul>
+
+<p><br /></p>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso padre existente. (smss.exe llama a este proceso y termina automáticamente).</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows\System32</li>
+  <li>Errores de ortografía sutiles para ocultar el proceso deshonesto a simple vista</li>
+  <li>No se ejecuta como SYSTEM</li>
+  <li>Valor de shell en el registro que no sea explorer.exe</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Explorer.exe</strong></p>
+
+<p>El último proceso que veremos es el <em>explorer.exe</em> (Windows Explorer). Este es el proceso que le da acceso al usuario a sus carpetas y archivos. También proporciona funcionalidad a otras funciones, como el menú de inicio, la barra de tareas, etc.</p>
+
+<p>Como se mencionó anteriormente, el proceso Winlogon ejecuta userinit.exe, que inicia el valor en <em>HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</em>. Userinit.exe sale después de generar explorer.exe. Debido a esto, el parent process no existe.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909143305.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220909143313.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Ruta de la imagen</em>: %SystemRoot%\explorer.exe</li>
+  <li><em>Parent process</em>: creado por userinit.exe que termina automáticamente después.</li>
+  <li><em>Número de instancias</em>: una o más por usuario conectado de forma interactiva.</li>
+  <li><em>Cuenta de usuario</em>: Usuario(s) registrado(s)</li>
+  <li><em>Hora de inicio</em>: Primera instancia cuando comienza la primera sesión de inicio de sesión de usuario interactivo.</li>
+</ul>
+
+<p>¿Qué es inusual?</p>
+
+<ul>
+  <li>Un proceso padre existente. (userinit.exe llama a este proceso y sale).</li>
+  <li>Ruta del archivo de imagen que no sea C:\Windows.</li>
+  <li>Ejecutando como un usuario desconocido.</li>
+  <li>Errores de ortografía sutiles para ocultar el proceso deshonesto a simple vista.</li>
+  <li>Conexiones TCP/IP salientes.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Resúmen</strong></p>
+
+<ul>
+  <li><em>System</em>: Siempre tiene asociado el PID 4 e inicia subprocesos que corren en modo kernel.</li>
+  <li><em>smss.exe</em>: (Sesion Manager Subsystem) Responsable de crear nuevas sesiones. Inicia dos sesiones, sesión 0 para windows y sesión 1, para el usuario.</li>
+  <li><em>wininit.exe</em> (Sesion 0): (Windows Initialization Process) Inicia procesos entre los que se encuentran services.exe, lsass.exe, lsaiso.exe</li>
+  <li><em>services.exe</em> (Sesion 0): (Service Control Manager) su responisabilidad principal consiste en el manejo de servicios de sistemas.</li>
+  <li><em>sc.exe</em> (Sesion 0): Proceso encargado de mantener una base de datos interna de Windows.</li>
+  <li><em>scvhost.exe</em> (Sesion 0): Responsable de hostear y gestionar serviicos de Windows.</li>
+  <li><em>lsass.exe</em> (Sesion 0): (Local Security Authority Subsystem Service) Responsable de hacer cumplir la política de seguridad del sistema</li>
+  <li><em>lsaiso.exe</em> (Sesion 0).</li>
+  <li><em>csrss.exe</em> (Sesion 1): (Client Server Runtime Process) User-mode para el subsistema de windows. Créa y destruye subprocesos. Gestiona la API de Windows, asigna letras de unidad y maneja el proceso de apagado de Windows.</li>
+  <li><em>winlogon.exe</em> (Sesion 1): (Windows Logon) Responsable de manejar el SAS que el usuario utiliza para introducir sus credenciales y bloquear la pantalla. También ejecuta userinit.exe.</li>
+  <li><em>userinit.exe</em> (Sesion 1): Carga la shell de usuario y ejecuta explorer.exe.</li>
+  <li><em>explorer.exe</em> (Sesion 1): Gestiona el sistema de ficheros del usuario.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="23-abussing-windows-internals">2.3. Abussing Windows Internals.</h4>
+
+<h3 id="3-windows-privilege-escalation">3. Windows Privilege Escalation.</h3>
+
+<h3 id="4-windows-reversing">4. Windows Reversing.</h3>
+<h4 id="41-windows-x64-assembly">4.1. Windows x64 Assembly.</h4>
+
+<p><strong>Intro</strong></p>
+
+<p>Esta es una sección en el que nos vamos a introducir al Reversing en Windows. El <em>Reversing</em> consiste esencialmente en apartir de un objeto o resultado de una operación concreta, a través de una serie de técnicas, tratar de entender cómo se ha llegado a dicho objeto o resultado.</p>
+
+<p>Por ejemplo, a partir de un código PHP de autenticación, tratar de descifrar cuál es la contraseña de acceso es un proceso de reversing. Para un profesional de la ciberseguridad el reversing es fundamental para encontrar puntos flacos en la seguridad de estructuras de sistemas.</p>
+
+<p><br /></p>
+
+<p><strong>Sistemas Numéricos</strong></p>
+
+<p>A continuación vamos a presentar distintos sistemas numéricos:</p>
+
+<p>Un sistema numérico es un conjunto de símbolos empleados en la representación de cantidades. Dentro de los sistemas numéricos se encuentra un concepto clave que es el de <em>base</em> este es el número que se utiliza para representar el resto de cantidades numéricas en dicho sistema.</p>
+
+<p>Entre los sistemas de numeración más importantes tenemos:</p>
+
+<ul>
+  <li>Base 10: 243 = (10^2 * 2) + (10^1 * 4) + (10^0 * 3) = 200 + 40 + 3.</li>
+  <li>Base 7: 243(in base 7) = (7^2 * 2) + (7^1 * 4) + (7^0 * 3) = 98 + 28 + 3 = 129(in decimal).</li>
+  <li>Base 2: 2^10 = 1024, 2^9 = 512, 2^8 = 256, 2^7 = 128.</li>
+  <li>Base 16 (Hexadecimal): 0x4A = (161 * 4d) + (160 * 10d) = 64d + 10d = 74d.</li>
+</ul>
+
+<p>En general para distinguir entre sistemas numéricos adherimos prefijos o sufijos pra distinguir entre unos y otros:</p>
+
+<ul>
+  <li>El decimal se representa con el <em>sufijo “d”</em> o sin nada. Ejemplos: 12d o 12.</li>
+  <li>El hexadecimal se representa con el <em>prefijo “0x”</em> o el <em>sufijo “h”</em> . Ejemplos: 0x12 o 12h. Otra forma de representar el hexadecimal es con el prefijo “\x”. Sin embargo, esto se usa típicamente por byte. Dos dígitos hexadecimales hacen un byte. Ejemplos: \x12 o \x12\x45\x21. Si los bits y los bytes parecen un poco extraños, pronto nos ocuparemos de ellos, así que no se preocupe.</li>
+  <li>El binario se representa con un <em>sufijo “b”</em> o con  un <em>relleno de ceros al comienzo</em>. Ejemplos: 100101b o 00100101. El relleno al comienzo se usa a menudo porque un número decimal no puede comenzar con cero.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Bits &amp; Bytes</strong></p>
+
+<p>Los Bits y los Bytes tienen su importancia debido al hecho de que es el tipo de represetanción de la información que procesan los ordenadores a bajo nivel. Un bit uno de los dos símbolos del sistema numérico binario (0 o 1) y un byte es un número binario (100101).</p>
+
+<p>Veámos ahora la transferencia de los tipos de datos en bits y bytes:</p>
+
+<ul>
+  <li><em>Char</em>: Un caracter ocupa un byte.</li>
+  <li><em>Int</em>: Los hay de 2, 4 y 8 bytes.</li>
+  <li><em>Bool</em>: Un valor booleano ocupa un byte.</li>
+</ul>
+
+<p>Por último, hablaremos de los offset. Un offset refeire a la distancia en bytes de la dirección del priemer byte de información.</p>
+
+<p>Es decir, una variable que almacena un valor tiene alojado en memoria un espacio para el mismo que consta de un rango de direcciones de memoria que son en esencia bytes. Así, para referirnos a una dirección concreta dentro de dicho rango hablamos del offset ‘x’ para hablar de la dirección que se encuentra x posicions alejada de la primera dirección de memoria.</p>
+
+<p><br /></p>
+
+<p><strong>Operaciones binarias</strong></p>
+
+<p>Con los bytes que en esencia son números binarios se pueden realizar un conjunto de operaciones concretas NOT, AND, OR y XOR. Veámoslas:</p>
+
+<ul>
+  <li><em>NOT</em>: Establece el valor contrario.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220913110253.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>AND</em>: Basado en la tabla lógica de la conjunción lógica:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220913110409.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>OR</em>: Basado en la tabla lógica de la disyunción lógica:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220913110432.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>XOR</em>: Basado en la tabla lógica de la disyunción excluyente:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220913110452.png" text-align="center" />
+</div>
+
+<p>También existen el NAND y el NOR que son respectivamente un AND y un OR pero con un NOT al final.</p>
+
+<p><br /></p>
+
+<p><strong>Assembly. Registers</strong></p>
+
+<p>Para todo lo siguiente, supongámos que nos encontramos en un sistema de 64-bits.</p>
+
+<p>Por un lado, sabemos que cuando trabajamos con un lenguaje de programación compilado (como C) necesitamos a su vez un compilador para ejecutar el código que hemos escrito. El compilador es un programa cuya tarea es pasar código de bajo nivel a instrucciones que el CPU pueda entender. Este último es el llamado Lenguaje Assembly o Ensamblador.</p>
+
+<p>Este lenguaje instruye al procesador en tareas sencillas como mover datos, hacer comparaciones, modificar valores etc.</p>
+
+<p>Veámos un simple código en C y su equivalente en Assembly:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+<span class="n">func1</span><span class="p">();</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Este código compara el valor de x con cuatro y si son iguales llama a la función <em>func1()</em></p>
+
+<pre><code class="language-assembly">mov RAX, x
+cmp RAX, 4
+jne 5 ; Line 5 (ret)
+call func1
+ret
+</code></pre>
+
+<p>En el código anterior se mueve RAX (un registro de Assembly) sobre la variable X y seguidamente se compara el contenido de RAX con el valor 4, si son iguales se llama a <em>func1</em> de lo contrario se salta a la Linea 5 del código que contiene un return.</p>
+
+<p>De esta forma, adentrémonos en los registros de Assembly.</p>
+
+<p>Los registros en Assembly (General Purpose Registers o GPRs) son contenedores de información de rápida accesibilidad pero de tamaño limitado. Todo lo que supere un tamaño específico pasa a almacenarse en la RAM que tiene una capacidad volumen más extenso pero tiene una accesibilidad más lenta. Sobra decir que el CPU prioriza la velocidad y por tanto, siempre que pueda intentará alojar datos en registros antes que en RAM y en RAM antes que en el disco duro.</p>
+
+<ul>
+  <li><em>RAX</em>: Conocido como el <em>registro acumulador</em>. A menudo se utiliza para almacenar el valor de retorno de una función.</li>
+  <li><em>RBX</em>: a veces conocido como <em>registro base</em> , no debe confundirse con el puntero base. A veces se utiliza como puntero base para el acceso a la memoria.</li>
+  <li><em>RDX</em>: a veces conocido como el <em>registro de datos</em>.</li>
+  <li><em>RCX</em>: a veces conocido como <em>registro de contador</em>. Se utiliza como contador de bucles.</li>
+  <li><em>RSI</em>: conocido como el <em>índice fuente</em>. Se utiliza como puntero de origen en las operaciones de cadena.</li>
+  <li><em>RDI</em>: Conocido como el <em>índice de destino</em>. Se utiliza como puntero de destino en operaciones de cadena.</li>
+  <li><em>RSP</em>: el <em>puntero de la pila</em>. Contiene la dirección de la parte superior de la pila.</li>
+  <li><em>RBP</em>: el <em>puntero base</em>. Contiene la dirección de la base (parte inferior) de la pila.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Uno de los registros no mencionados anteriormente es el registro RIP que es el registro asociado al “Instruction Pointer” el cual es un puntero que apunta en la dirección de la siguiente línea de código en ser ejecutada.</p>
+
+<p><br /></p>
+
+<p>Todos los registros pueden ser divididos en segmentos más pequeños que pueden ser referenciados con el nombre de otros registros.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220913165359.png" text-align="center" />
+</div>
+
+<p>Por otra parte Assambly distingue dos tipos de valores:</p>
+
+<ul>
+  <li><em>Floating Point Values</em>: Valores en coma flotante.</li>
+  <li><em>Integer Values</em>: Enteros, booleanos, caracteres, etc.</li>
+</ul>
+
+<p>No se pueden poner diferentes tipos de datos en cualquier registro. Los valores de coma flotante se representan de forma diferente a los enteros.</p>
+
+<p><br /></p>
+
+<p><strong>Instrucciones</strong></p>
+
+<ul>
+  <li><em>Intro</em>:</li>
+</ul>
+
+<p>La habilidad para leer y comprender código Assembly es vital para cualquier reverser. Antes de comenzar, debemos de tener claros los siguientes conceptos:</p>
+
+<ul>
+  <li>
+    <p><em>Valores inmediatos</em>: O simplemente IM son valores directos como 1, 2 12, etc. No se tratan ni de variables ni de direcciones de memoria. Son valores constantes.</p>
+  </li>
+  <li>
+    <p><em>Registro</em>: Los hemos mencionado antes. Contenedores de memoria de accesibilidad inmediata.</p>
+  </li>
+  <li>
+    <p><em>Direcciones de memoria</em>: Refiere a un número que refiere a una sección de memoria en la que hay alojado o se espera alojar un objeto.</p>
+  </li>
+</ul>
+
+<p>Una vez tenemos claros estos conceptos, empezemos a entender cómo
+son las instrucciones de Assembly.</p>
+
+<p>El formato de las instrucciones suele ser el siguiente:</p>
+
+<p><strong>&lt;Instruction &lt;Destination Operand&gt;, &lt;Source Operand&gt;</strong></p>
+
+<p>Por ejemplo,</p>
+
+<pre><code class="language-assembly">mov RAX, 5
+</code></pre>
+
+<p>El análogo de esto en C sería RAX=5.</p>
+
+<ul>
+  <li><em>Common Instructions</em>:</li>
+</ul>
+
+<p><em>Data Movement</em></p>
+
+<ul>
+  <li><em>MOV</em>: La instrucción MOV se utiliza para mover o almacenar el “source” sobre el “destination operand”. Como por ejemplo, y repitiendo lo anterior:</li>
+</ul>
+
+<pre><code class="language-assembly">mov RAX, 5
+</code></pre>
+
+<ul>
+  <li><em>LEA</em>: Esencialmente se trata de una instrucción muy parecida a MOV excepto para direcciones.</li>
+  <li><em>PUSH</em>: Mueve el valor del destination operand sobre la cima del stack.</li>
+  <li><em>POP</em>: Extrae un dato de la cima del stack sobre la variable pasada como destination operand.</li>
+</ul>
+
+<p><em>Arithmetic</em></p>
+
+<ul>
+  <li><em>INC/DEC</em>: Incrementa/Decrementa el “destination operand” en uno.</li>
+</ul>
+
+<pre><code class="language-asm">mov RAX, 8
+inc RAX
+</code></pre>
+
+<ul>
+  <li><em>ADD/SUB</em>: Añade/Substrae el valor del “source operand” al “destination operand”.</li>
+  <li><em>MUL/DIV</em>: Este operador multiplica o divide, debido a que los resultados pueden ser muy grandes generalmente los resultados de estas operaciones se almacenan en dos registros de 8 bytes cada uno que usualmente se nota como RDX:RAX.</li>
+</ul>
+
+<pre><code class="language-asm">mov RAX, 25
+mov RBX, 5
+mul RBX ; Multiplies RAX (25) with RBX (5)
+</code></pre>
+
+<p>Después de la ejecución del código, el resultado se almacena en RDX:RAX, pero en la mayoría de las ocasiones basta con ver el contenido de RAX, RDX es por seguridad.</p>
+
+<p>Recordamos que el ‘;’ marca el inicio de un comentario.</p>
+
+<pre><code class="language-asm">mov RAX, 18
+mov RBX, 3
+div RBX ; Divides RAX (18) by RBX (3)
+</code></pre>
+
+<p>Lo mismo aplica en este caso.</p>
+
+<p><em>Flow Control</em></p>
+
+<ul>
+  <li><em>RET</em>: De return, se utiliza para devolver un valor.</li>
+</ul>
+
+<pre><code class="language-asm">mov RAX, 10 ret
+</code></pre>
+
+<p>Esto sería similar a “return 10” en un lenguaje de programación de alto nivel.</p>
+
+<ul>
+  <li><em>CMP</em>: Compara dos operantos y setea un valor en función del resultado:</li>
+</ul>
+
+<pre><code class="language-asm">mov RAX, 5
+cmp RAX, 5
+</code></pre>
+
+<p>El resultado de la operación anterior se setea sobre el Zero Flag, en este caso, 1.</p>
+
+<p>Seguidamente, las instrucciones posteriores se procesarán en función del valor de ZF:</p>
+
+<div class="language-nasm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">mov</span> <span class="nb">RAX</span><span class="p">,</span> <span class="nv">x</span>
+<span class="nf">cmp</span> <span class="nb">RAX</span><span class="p">,</span> <span class="mi">4</span>
+<span class="nf">jne</span> <span class="mi">5</span> <span class="c1">; Line 5 (ret) -&gt; si ZF=0</span>
+<span class="nf">call</span> <span class="nv">func1</span> <span class="o">-&gt;</span> <span class="nb">si</span> <span class="nv">ZF</span><span class="err">=</span><span class="mi">1</span>
+<span class="nf">ret</span>
+</code></pre></div></div>
+
+<ul>
+  <li><em>JCC Instructions</em>: Se emplean para dar saltos condicionales a lo largo del código en base a un conjunto de valores planteados previamente. No es exactamente una instrucción sino un conjunto de ellas entre las que se incluyen JNE, JLE, JNZ y otras más.</li>
+</ul>
+
+<pre><code class="language-asm">mov RAX, 5
+cmp RAX, 5
+jne 5 ; Jump to line 5 (ret) if not equal.
+mov RBX, 10
+ret
+</code></pre>
+
+<p><strong>Flags</strong></p>
+
+<p>Los <em>flags</em> se emplean para mostrar el resultado de una operación ejecutada anteriormente (como una operación de comparación).</p>
+
+<p>Los flags están contenidos en unos registros llamados EFLAGS (x86) o RFLAGS (x64). Hagámos un repaso de los tipos de flags que hay y comprobemos un par de ejemplos:</p>
+
+<ul>
+  <li><em>Zero Flag (ZF)</em>: Seteada si el resultado de una operación es cero. No se establece si el resultado de una operación NO es cero.</li>
+  <li><em>Carry Flag (CF)</em>: Seteada si la última operación aritmética unsigned añade o toma un bit más allá del tamaño del registro También se establece cuando una operación tiene un resultado negativo si no fuera porque la operación es sin signo (unsigned).</li>
+  <li><em>Overflow Flag (OF)</em>: se establece si una operación aritmética con signo es demasiado grande para que la contenga el registro.</li>
+  <li><em>Sign Flag (SF)</em>: se establece si el resultado de una operación es negativo.</li>
+  <li><em>Adjust/Auxiliary Flag (AF)</em>: igual que la Carry Flag pero para operaciones decimales codificadas en binario (BCD).</li>
+  <li><em>Parity Flag (PF)</em>: Seteada si el número de bits establecido en los últimos 8 bits es par. (10110100 -&gt; FP=1; 10110101 -&gt; FP=0).</li>
+  <li><em>Trap Flag (TF)</em>: Permite un solo paso de programas.</li>
+</ul>
+
+<p>Veámos ahora una serie de ejemplos en los que aplica el seteo de distintas flags vistas anteriormente:</p>
+
+<ul>
+  <li><em>Basic Comparison</em>:</li>
+</ul>
+
+<pre><code class="language-assembly">mov RAX, 4
+cmp RAX, 4
+jne 5 ; Line 5 (ret)
+call func1
+ret
+; ZF = 1, OF = 0, SF = 0
+</code></pre>
+
+<p>En este caso se realiza una operación de comparación con la instrucción CMP. CMP actúa como un SUB, sólo que en lugar de guardar el resultado en RAX setea a 1 el Zero Flag si el resultado de la diferencia es 0.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Substraction</em>:</li>
+</ul>
+
+<pre><code class="language-assembly">mov RAX, 2
+sub RAX, 8 ; 2 - 8 = -6.
+; ZF = 0, OF = 0, SF = 1
+</code></pre>
+
+<p>En este caso, el valor guardado en RAX debería de tener un valor negativo. Lo que se guarda en RAX es el valor absoluto de dicha operación y se setea el Signed Flag indicando que el valor del resultado es negativo.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Addition</em>:</li>
+</ul>
+
+<pre><code class="language-assembly">mov AL, 75
+add AL, 60
+; ZF = 0, OF = 1, SF = 1
+</code></pre>
+
+<p>En este caso, al utilizar registros de 8-bits, el número más grande que se puede almacenar es 128 y por ende el resultado de la operación en el código va a desbordar la capacidad del registro. En consecuencia, se setea el Overflow Flag y en lugar de guardarse el valor 135 en el registro se guarda: -121 = (135 - 128) - 128 y como además tiene valor negativo se guarda 121 y se setea a su vez el Signed Flag.</p>
+
+<p><br /></p>
+
+<p><strong>Memory Layout. Memory Sections. Stack Frames.</strong></p>
+
+<p>Veámos ahora cómo está diseñada la memoria del sistema. Podemos encontrar la memoria repartida en distintas secciones en función del propósito de la misma.</p>
+
+<ul>
+  <li><em>Stack</em>: Guarda variables locales no estáticas.</li>
+  <li><em>Heap</em>: Contiene datos alojados de forma dinámica y que pueden no estar inicializadas.</li>
+  <li><em>.data</em>: Contiene datos globales y locales inicializados a un valor no nulo.</li>
+  <li><em>.bss</em>: Contiene datos globales o locales que pueden o no estar inicializados.</li>
+  <li><em>.text</em>: Contiene código del programa.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914132641.png" text-align="center" />
+</div>
+
+<p>Veámos con más profundidad algunas de estas secciones:</p>
+
+<ul>
+  <li><em>Stack</em>: área de la memoria que se puede usar rápidamente para la asignación de datos estáticos. </li>
+</ul>
+
+<p>Podemos imaginar la pila con direcciones bajas en la parte superior y direcciones altas en la parte inferior como una lista numérica normal. </p>
+
+<p>Los datos se leen y escriben como <em>“último en entrar, primero en salir” (Last-In-First-Out)</em>. La estructura LIFO de la pila a menudo se representa con una pila de platos. No puedes simplemente sacar el tercer plato desde arriba, tienes que sacar los dos platos que le anteceden en posición para llegar a él. Solo puede acceder a la parte de datos que está en la parte superior de la pila, por lo que para acceder a otros datos necesita mover lo que está en la parte superior fuera del camino. </p>
+
+<p>Cuando decimos que la pila contiene datos estáticos, se entiende que son datos que tienen una longitud conocida, como un número entero. El tamaño de un entero se define en tiempo de compilación, el tamaño suele ser de 4 bytes, por lo que podemos colocarlo en la pila. A menos que se especifique una longitud máxima, la entrada del usuario debe almacenarse en el <em>heap</em> porque los datos tienen un tamaño variable. </p>
+
+<p>Cuando decimos que introducimos datos sobre el Stack realizamos un <em>push</em>hacia la pila. <em>Cuando los datos se insertan en la pila, la pila crece hacia direcciones de memoria más bajas.</em> Cuando elimina un dato de la parte superior de la pila, se realiza un <em>pop</em> de la pila. <em>Cuando los datos se extraen de la pila, la pila se reduce hacia direcciones más altas.</em> Todo eso puede parecer extraño, pero recuerde, es como una lista numérica normal donde 1, el número más bajo, está en la parte superior. 10, el número más alto, está en la parte inferior. </p>
+
+<p>Se utilizan dos registros para realizar un seguimiento de la pila. El <em>Stack Pointer (RSP/ESP/SP)</em> que se utiliza para realizar un seguimiento de la parte superior de la pila y el <em>Base Pointer (RBP/EBP/BP)</em> se utiliza para realizar un seguimiento de la base/parte inferior de la pila. Esto significa que cuando los datos se insertan en la pila, el puntero de la pila disminuye ya que la pila creció hacia direcciones más bajas. Del mismo modo, el puntero de la pila aumenta cuando los datos se extraen de la pila. El puntero base no tiene por qué cambiar cuando empujamos o sacamos algo de la pila. Hablaremos más sobre el puntero de pila y el puntero base a medida que pase el tiempo.</p>
+
+<ul>
+  <li><em>Heap</em>: Similar al stack, pero se usa para la asignación dinámica y es un poco más lento de acceder. El heap se usa normalmente para datos que son dinámicos (cambiantes o impredecibles). Cosas como estructuras y entradas del usuario pueden almacenarse en el montón. Si el tamaño de los datos no se conoce en tiempo de compilación, generalmente se almacena en el montón. <em>Cuando agrega datos al montón, crece hacia direcciones más altas.</em></li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914174349.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p><em>Program Image</em>: Parte de la memoria en la que está cargada la instancia del ejecutable.</p>
+  </li>
+  <li>
+    <p><em>Stack Frames</em>: Son fragmentos de memoria reservados para entorno de datos asociados a ciertas funciones. Estos datos incluyen variables locales, el puntero base guardado, la dirección de retorno del caller y los parámetros de la función.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914174717.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="42-windows-reversing">4.2. Windows Reversing.</h4>
+
+<p><strong>Intro</strong></p>
+
+<p>En esta sección veremos Reversing enfocado a Windows con herramientas como IDA.</p>
+
+<p><br /></p>
+
+<p><strong>IDA Overview</strong></p>
+
+<p>El *análisis estático** implica observar el programa tal como existe en el disco; El programa nunca se ejecuta. </p>
+
+<p>*El análisis dinámico** implica analizar el proceso a medida que se ejecuta. </p>
+
+<p>Por lo general, se prefiere el análisis dinámico a menos que se trate de malware. El análisis dinámico le permite ver los datos en la memoria y cómo se utilizan. La estática, por otro lado, requiere que adivines o hagas ingeniería inversa detallada para resolverlo.</p>
+
+<p>La herramiennta con la que trabajemos debe al menos cubrir tres funcionalidades principales: desensamblaje (disassembling), descompilación (decompiling), depuración (debuggin). </p>
+
+<ul>
+  <li><em>Desensambladores</em>: Traducirán el programa desde sus stream de bytes en el disco o en la memoria a su código Assembly equivalente y lo presentarán de manera estructurada. </li>
+  <li><em>Descompiladores</em>: Son similares a los desensambladores, excepto que en lugar de darnos el código Assembly, intentan recrear el código en C/C++. La desventaja de los descompiladores es que pueden ser inexactos o carecer de información. Debido a esto, si está utilizando un descompilador, es una buena idea tener el código desensamblado junto al código descompilado para comprobar si hay imprecisiones. </li>
+  <li><em>Depuradores</em>: junto con desensambladores y descompiladores, nos permitirá colocar puntos de interrupción dentro del programa mientras se ejecuta y analizar registros, memoria, estados y más.</li>
+</ul>
+
+<p>Entre las herramientas de reversing más famosas y precisas que hay encontramos IDA. Entre otras cosas, IDA proporciona:</p>
+
+<ul>
+  <li><em>Debuggin</em></li>
+  <li><em>Code View</em>: Representación de código en forma de grafo.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914170335.png" text-align="center" />
+</div>
+
+<p>Aunque también admite un forma de renderizado similar a una tabla en el que añade las instrucciones de aseembly, direcciones de memoria, flags, etc.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914170442.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Decompiler</em>: Tiene su propio decompilador en el que ofrece un pseudo código</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220914170542.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Imports/Exports de ficheros</em>.</li>
+  <li><em>Funciones</em>.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Function Prologue/Epilogue</strong></p>
+
+<p>Recordamos que siemrpe que una función se llamade a través de un caller, se crea para el entorno de esta función un stack frame que no es más que una reserva para los datos asociados a dicha función.</p>
+
+<p>Para esto se encuentran los prólogos y los epilogos los cuales ccrearán, configurarán y destrruirán los stack frames de acuerdos a conveniencias del código.</p>
+
+<ul>
+  <li><em>Prologue</em>: El prólogo viene antes de que se ejecute el cuerpo de una función. Y suceden las tres siguientes cosas:</li>
+</ul>
+
+<ol>
+  <li>Los registros volátiles se guardan. Si hay espacio de sombra disponible y se eligen las opciones de compilación apropiadas, el espacio de sombra se puede usar para contener registros volátiles. Si no hay espacio en el espacio de sombra, los registros se colocan en la pila.</li>
+  <li>El espacio se asigna para el stack frame restándolo de RSP. La cantidad restada de RSP se puede utilizar para determinar el número de parámetros de función.</li>
+  <li>RSP o RBP pueden conservarse para restaurarse más tarde. Dado que RBP no se usa mucho para fines de pila en x64 cuando se conserva, es probable que <em>no</em> se conserve para mantener segura una dirección de pila, sino que se trate de la misma manera que los otros registros volátiles. En el caso de que se <em>utilice</em> con fines de pila, es posible que vea algo mov RSP, RBP similar a lo que mueve RSP a donde estaba RBP, configurando un nuevo marco de pila justo al lado del anterior.</li>
+</ol>
+
+<ul>
+  <li><em>Epílogo</em>: El epílogo es bastante sencillo, deshace/desenrolla cualquier cosa relacionada con la pila, principalmente causada por el prólogo. El epílogo puede ser un buen lugar para verificar que no te perdiste nada dentro del prólogo, pero generalmente es más inútil para una ingeniería inversa que el prólogo.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Structures</strong></p>
+
+<p>Las <em>Estructuras</em> son muy comunes en software moderno, especialmente en Windows. El Windows OS es de hecho un sistema orientado a objetos, la definción general que se da de estructura es la de un tipo de dato que contiene varios tipos de datos. Veámos una serie de estructuras comunes:</p>
+
+<ul>
+  <li><em>Arrays</em>: Los <em>arrays</em> o matrices almacenan múltiples valores del mismo tipo secuencialmente en la memoria. Las matrices suelen ser fáciles de analizar, como la matriz de caracteres (cadena).</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220915123711.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Clases</em>: Las clases son objetos pueden tener múltiples datos de diferentes tipos. Esto hace que sea más difícil trabajar con ellos al realizar un proceso de reversing. Para averiguar el diseño de una clase, habrá que hacer un análisis: averiguar cuántas cosas hay en la clase, tipos de datos, etc. Esto generalmente se reduce a mirar las funciones que usan la clase y prestar mucha atención a cómo la usan. En C, una clase tiene el siguiente aspecto:</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Human</span> <span class="p">{</span>
+<span class="nl">public:</span>
+<span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">height</span><span class="p">;</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
+<span class="n">Human</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">newName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newAge</span><span class="p">,</span> <span class="kt">float</span> <span class="n">newHeight</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">age</span><span class="p">(</span><span class="n">newAge</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">newHeight</span><span class="p">),</span> <span class="n">name</span><span class="p">(</span><span class="n">newName</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Que tiene su análogo en Assembly:</p>
+
+<pre><code class="language-asm">mov RAX, 0x4000 ; RAX = Address of the class and the age variable (offset 0)
+lea RBX, [RAX+0x4] ; RBX = Address of height
+lea RCX, [RAX+0x8] ; RCX = Address of name
+mov [RAX], 0x32 ; age = 50
+mov [RBX], 0x48 ; height = 72
+mov [RCX], 0x424F42 ; name = "BOB"
+</code></pre>
+
+<p>Una de las cosas a las que hay que prestar atención cuando se trata de clases es el uso de direcciones/punteros y la instrucción LEA. Esto se hace porque normalmente desea acceder a los datos de la clase, no a una copia de los mismos.</p>
+
+<p><br /></p>
+
+<p><strong>DLL</strong></p>
+
+<p>Recordamos que una DLL son las siglas de Dynamic-Link Library y son archivos de código que puede ser utlizado por más de un programa a la vez.</p>
+
+<p>El proceso de ingeniería inversa de una DLL es básicamente el mismo que el de los ejecutables, pero suele ser más sencillo, ya suele haber más nombres de funciones. También es más común ver símbolos de depuración provistos con DLL que verlos con ejecutables.</p>
+
+<p>Distinguimos tres tipos de funciones en una DLL:</p>
+
+<ul>
+  <li>Las <em>Importaciones</em> son las funciones que el ejecutable usa/importa desde una DLL.</li>
+  <li>Las <em>Exportaciones</em> son las funciones que proporciona/exporta una DLL.</li>
+  <li>Los <em>Módulos</em> son esencialmente cualquier cosa relacionada con un proceso que importa o exporta funciones.</li>
+</ul>
+
+<p>Al aplicar una operación de reversing sobre una DLL, es posible que desee ejecutarla para poder analizarla en un debugger. Esto presenta un problema obvio, no puede simplemente ejecutar una DLL ya que se trata de una librería compartida. </p>
+
+<p>Así, cuando se carga una DLL, la función DllMain() se ejecuta dentro del contexto del proceso que importa el código de la DLL. A partir de ahí, el código de la DLL para a ser procesado como si fuera código nativo del programa. Un tipo de ataque frecuente es la <em>DLL Injection</em>, consistente en hacer que el proceso de destino llame a LoadLibrary() en una DLL maliciosa, lo que hará que DllMain() dentro de dicha DLL se ejecute dentro del contexto del proceso de destino cargan así código malicioso.</p>
+
+<p><br /></p>
+
+<h3 id="5-windows-services">5. Windows Services.</h3>
+
+<p><strong>Definition of Windows Services</strong></p>
+
+<p>Los servicios de Windows son un componente principal del Microsoft Windows Operating System, cumplean la importante función the habilitar la creación y gestión de ‘long-running’ process.</p>
+
+<p>Es decir, al contrario que el software convencional, que se ejecuta por orden directa del usuario que interactúa con el sistema, Windows Services se ejecutan sin la intervención del usuario y a menudo su ejecución sobrevive a la permanencia del usuario en el sistema. Estos servicios se ejecutan en segundo plano (background) y muchos se ejecutan nada más iniciarse el sistema.</p>
+
+<p>Un servicio es básicamente la herramienta a través de la cual se lleva a cabo la gestión del Microsoft Windows OS, majena una amplia variedad de funciones, como conexiones de red, creación de backups, credenciales de usuario, etc.</p>
+
+<p>Un servicio está asociado a un ejecutable (service binary), la iniciación de un servicio consiste en la ejecución del Service Binary.</p>
+
+<p>Los Servicios de Windows se dividen en general en tres categorías según las acciones y aplicaciones que controlan: Servicios locales, Servicios de red y Servicios de Sistema. Las aplicaciones de terceros, como el software antivirus, también pueden instalar sus propios servicios.</p>
+
+<p>Los servicios pueden ser eliminados por un usuario con privilegios administrativos, pero como hacerlo puede volver inestable el sistema operativo, debe hacerse solo cuando sea necesario y con precaución.</p>
+
+<p><br /></p>
+
+<p><strong>Windows Services Control Manager</strong></p>
+
+<p>Los servicios de Windows se pueden gestionar a través del Services Control Manager panel. El panel muestra una lista de servicios con distintos campos: nombre, descripción, status, y el tipo de servicio. También podemos listar los servicios desde el Command Prompt a través de un cmdlet de powershell ‘Get-Services’.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020221115125506.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Summary</strong></p>
+
+<ul>
+  <li>
+    <p><em>Mecanismo de inicio</em>: el usuario final inicia manualmente una aplicación normal desde el escritorio o el menú Inicio. Los servicios de Windows se inician cuando se encienden la máquina o en cualquier caso, sin intervención del usuario.</p>
+  </li>
+  <li>
+    <p><em>Interfaz de usuario</em>: a diferencia de las aplicaciones normales, los Servicios de Windows no tienen una interfaz de usuario; se ejecutan en segundo plano y el usuario no interactúa directamente con ellos. Un servicio de Windows no se detiene cuando un usuario cierra sesión en la computadora; una aplicación regular si se detendrá.</p>
+  </li>
+  <li>
+    <p><em>Derechos de administrador</em> : los servicios de Windows generalmente se ejecutan con privilegios administrativos incluso cuando un usuario que no es administrador inicia sesión y usa la computadora. El servicio de Windows promedio tiene más control sobre la máquina en comparación con una aplicación normal</p>
+  </li>
+</ul>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#thm">thm</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=4.Windows&url=http%3A%2F%2Flocalhost%3A4000%2F2022-10-22-4.Windows%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-10-22-4.Windows%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-10-22-4.Windows%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-09-02-3.JRPenetrationTester/" data-toggle="tooltip" data-placement="top" title="3.Junior Penetrationtester path">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-10-30-5.RedTeam/" data-toggle="tooltip" data-placement="top" title="5.RedTeam">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

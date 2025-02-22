@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Análisis de Objetivos</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Introducción a OSINT y análisis de objetivos de ataque.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Análisis de Objetivos">
+  <meta property="og:description" content="Introducción a OSINT y análisis de objetivos de ataque.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-01-28T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/">
+  <link rel="canonical" href="http://localhost:4000/2022-01-28-An%C3%A1lisis_de_Objetivos/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Análisis de Objetivos">
+  <meta property="twitter:description" content="Introducción a OSINT y análisis de objetivos de ataque.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Análisis de Objetivos</h1>
+          
+            
+              <h2 class="post-subheading">Introducción a OSINT y análisis de objetivos de ataque.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on January 28, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h1 id="1-introducción-osint">1. Introducción OSINT.</h1>
+
+<h2 id="11-análisis-de-objetivos">1.1 Análisis de Objetivos.</h2>
+
+<h3 id="111-índice">1.1.1. Índice.</h3>
+
+<ul>
+  <li>Qué es.</li>
+  <li>Para qué sirve.</li>
+  <li>Qué es OSINT.</li>
+  <li>Google Hacking.</li>
+  <li>Búsqueda de información por buscadores.</li>
+  <li>Perfil Social</li>
+  <li>Perfil Tecnologico.</li>
+  <li>Información adicional a obtener.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="112-qué-es-el-análisis-de-objetivos">1.1.2. Qué es el análisis de objetivos.</h3>
+
+<p>Se trata de una fase en la que se busca recopilar toda la información básica acerca del objetivo para poder definir un plan de ataque. Por ejemplo:</p>
+
+<ul>
+  <li>Localización de la compañia / Residencia de la persona.</li>
+  <li>Trabajadores de la compañía / Lugar de trabajo de la persona.</li>
+  <li>Correos electrónicos.</li>
+  <li>Infraestructura informática.</li>
+  <li>Metadatos en documentos públicos.</li>
+</ul>
+
+<p>Para buscar esta información empleamos:</p>
+
+<ul>
+  <li>Google.</li>
+  <li>Registro Mecantil: eInforma, datosCIF, empresia.es, boe, rmmercantil.es.</li>
+  <li>Redes Sociales:
+    <ul>
+      <li>Web de la empresa/persona.</li>
+      <li>Twitter/Facebook.</li>
+      <li>Opiniones en foros y compañía.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="113-qué-es-osint">1.1.3. Qué es OSINT?</h3>
+
+<p>Es un término creado y utilizado por militares, fuerzas del orden y personal de inteligencia de las agencias gubernamentales. Se trata de un acrónimo que refiere a “Open Source Intelligence” Inteligencia de Fuentes abiertas.</p>
+
+<p>Las fuentes OSINT se refieren a cualquier información desclasificada y públicamente accesible en internet de forma gratuita.</p>
+
+<ul>
+  <li>
+    <p>Es lo contrario a las fuentes de información clasificadas, reservadas o de pago (bases de datos de los cuerpos y fuerzas de seguridad del estado).</p>
+  </li>
+  <li>
+    <p>Son abiertas y gratuitas.</p>
+  </li>
+  <li>
+    <p>Son fuentes PASIVAS de información. No estás accediendo a servidores, máquinas de la empresa para tener acceso a dicha información, esta se encuentra pública en la red.</p>
+  </li>
+  <li>
+    <p>Las más valiosas suelen estar en la DeepWeb (Internet profunda) que a su vez no está registrada en los motores de búsqueda. Accesible mediante el buscador TOR.</p>
+  </li>
+  <li>
+    <p>OSINT incluye tanto a las fuentes de información de la internet superficial como de la internet profunda.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="114-para-qué-sirve-osint">1.1.4. Para qué sirve OSINT?</h3>
+
+<ul>
+  <li>
+    <p>OSINT sirve para hacer inteligencia, buscar y obtener información sobre la que tomar decisiones.</p>
+  </li>
+  <li>
+    <p>Estas decisiones se toman según los datos recopilados que puede ser sobre una entidad, persona, sistema o empresa. En nuestro caso, Red Team, servirá para realizar el modelado de amenazas y estrategias de ataque.</p>
+  </li>
+  <li>
+    <p>También puede ser útil para llevar a cabo otras tareas como:</p>
+    <ul>
+      <li>Tener una situación más ventajosa en una empresa de trabajo.</li>
+      <li>Conocer la situación actual de la empresa.</li>
+      <li>Reuniones de investigación.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>A nivel de persona, estudiamos dos apartados:</p>
+
+<ul>
+  <li><strong>Datos tecnológicos</strong>: Direcciones de correo electónico, servidores, IPs, dominos, usuarios, sede social, registro mercantil…</li>
+  <li><strong>Datos personales</strong>: Dirección de vivienda, usuarios de redes sociales, familia, etc.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="115-proceso-de-gestion-de-osint">1.1.5. Proceso de gestion de OSINT.</h3>
+
+<p>1) ¿Dónde buscar?
+2) Recopilar
+3) Procesar
+4) Analizar
+5) Generar Informe.</p>
+
+<p><br /></p>
+
+<h2 id="12-herramientas-a-utilizar">1.2. Herramientas a utilizar.</h2>
+
+<ul>
+  <li>Herramientas Online (Web)
+    <ul>
+      <li>No es necesario instalarlas (pueden usarse desde cualquier lugar desde el que se tenga conexión a internet).</li>
+      <li>Generalmente llevan a cabo búsquedas en motores o BBDD existentes.</li>
+    </ul>
+  </li>
+  <li>Comandos y Aplicaciones Linux / Windows.
+    <ul>
+      <li>Comándos estándar de consulta de infraestructura tecnológica.</li>
+      <li>Aplicaciones propias de OSINT.</li>
+      <li>Simplifican la festion de la información adquirida.</li>
+      <li>Utilizan generalmente APIs de terceros.</li>
+      <li>Automatizan informes</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="121-herramientas-online">1.2.1. Herramientas Online.</h3>
+
+<h4 id="1211-whois-domain-tool">1.2.1.1. Whois Domain Tool.</h4>
+
+<p>Se trata de una página web que te permite buscar información relativa a un dominio. (Si está libre, a quién pertenece, cuándo expira …).</p>
+
+<p>Pueden existir registro También podemos utilizar NIC.es (cada país tiene el suyo propio). Whois puede no tener acceso a determindas bases de datos, pero sin embargo te dirá a qué sitio ir en caso de no tener acceso a dicho dato.</p>
+
+<p>Aunque también se trata de un comando de kali, es decir, también se puede utilizar como comando.</p>
+
+<p>Nota: Si el apartao DNSSEC no está firmado : unsigned, es una capa de seguridad menos.</p>
+
+<p>Proporciona información como:</p>
+
+<ul>
+  <li>Si el registro está o no cogido.</li>
+  <li>Dominio de registro ID.</li>
+  <li>Fecha de creación.</li>
+  <li>Fecha de de update.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="1212-ipv4info">1.2.1.2. IPv4info.</h4>
+<p>Página web. Da información acerca de la IP proporcionada, también le podemos pasar con dominios, ASN (numero de asignación que se le da a ciertos autónomos) o el nombre de una compañía. Ofrece información en forma de tabla de:</p>
+
+<ul>
+  <li>Rango de IPs asocidas al dominio.</li>
+  <li>Tamaño del rango.</li>
+  <li>Dominios asociado al mismo AS (identificador internacional).</li>
+  <li>Identificador.</li>
+  <li>Organización a la que está asociada todos esos dominios.</li>
+  <li>País.</li>
+  <li>Status del dominio.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="1213-dns-dumpster">1.2.1.3. DNS Dumpster.</h4>
+<p>Ofrecen información tanto gráfica como textual acerca de elementos relacionados con el DNS de un dominio:</p>
+
+<ul>
+  <li>
+    <p><strong>Hosting</strong>: El hosting es un servicio que ofrece alojamiento para contenidos de páginas web o correos. En este caso se ofrece como gráfica que muestra una barra respecto del tanto porciento.</p>
+  </li>
+  <li>
+    <p><strong>GeoIP Host Location</strong>: Localización de los host a los que el dominio ofrece servicio.</p>
+  </li>
+  <li>
+    <p><strong>DNS servers</strong>: El DNS es un protocolo que se traduce en el “sistema de nombres de domino” y se encarga de asociar una IP a un dominio y viceversa, de forma que un servidor DNS es un servidor que asocia la IP al domino para el dominio o rango de dominios que estamos buscando en concreto.</p>
+  </li>
+  <li>
+    <p><strong>MX Records</strong>: Estos son los registros de los servicios MX (mail exchanger), que se trata de una máquina que recoge todos los emails que gente que tiene cuenta en dicho dominio.</p>
+  </li>
+  <li>
+    <p><strong>TXT Records</strong>: Registros de ficheros que contienen alguna referencia al dominio.</p>
+  </li>
+  <li>
+    <p><strong>Host Records</strong>:Registros de operaciones hechos con dicho dominio por parte de máquinas.</p>
+  </li>
+  <li>
+    <p><strong>Mapeado del dominio</strong></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="1214-the-wayback-machine-archiveorg">1.2.1.4. The wayback machine (archive.org).</h4>
+
+<p>Ofrece información acerca de páginas web asociados a un dominio archivadas a lo largo del tiempo junto con:</p>
+
+<ul>
+  <li>Sus distintas versiones guardadas en snapshots. Además, si se paga está antigua versión puede ser restaurada.</li>
+  <li>El número de veces que ha sido modificada.</li>
+  <li>Cuándo han sido modificadas. Ordenado en un calendario.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="1215-robtextcom">1.2.1.5. robtext.com</h4>
+<p>Robtext es una página web utilizada para recoger información general acerca de números IP, nombres de dominio, etc.</p>
+
+<p>Utilitza fuentes públicas o directamente hace uso de otras páginas web para recopilar información que almacena en una fuente de datos y finalmente te da acceso a dichos datos.</p>
+
+<p>Muy útil, tiene el mismo mecanismo que VirusTotal, recopila informaicón de sitios web y ordena y muestra la inforamación recopilada.</p>
+
+<p><br /></p>
+
+<h3 id="122-herramientas-y-aplicaciones-de-linuxwindows">1.2.2. Herramientas y aplicaciones de Linux/Windows.</h3>
+
+<h4 id="1221-whois">1.2.2.1. Whois.</h4>
+
+<p>Comando que opera igual que la herramienta online.</p>
+
+<p><br /></p>
+
+<h4 id="1222-host">1.2.2.2. Host.</h4>
+<p>Es una herramienta para hacer búsquedas DNS, se utiliza normalmente para identificar la IP que pertenece a un dominio y viceversa. Dónde lo único obligatorio es indicar el nombre de la máquina (dominio o subdomino) a investigar.</p>
+
+<p>Se le puede añadir información adicional, si se sabe, por ejemplo modificadores o distintos dominios para poder contrastar si la información que tenemos es la misma.</p>
+
+<p>Puede proporcionar la siguiente información:</p>
+
+<ul>
+  <li>Gestor de emails mx (mail xchanger <strong>mirar</strong>).</li>
+  <li>Los alias que se utilizan como redirecciones para poder abarcar más dominios.</li>
+  <li>IP asociado al dominio.</li>
+  <li>IPs redundadas.</li>
+</ul>
+
+<p>y más.</p>
+
+<p><br /></p>
+
+<h4 id="1223-nslookup">1.2.2.3. Nslookup.</h4>
+
+<p>Supuestamente obsoleto. Aunque sigue teniendo algunas utiliades.</p>
+
+<ul>
+  <li>Servidor que nos conectamos.</li>
+  <li>IP y puerto de conexión.</li>
+  <li>Si se trata de un DNS auténtico o réplica (DNS falso que tiene la información cacheada) y en el caso de que se trata de una réplica indicarlo, también podemos saber el DNS original aplicando ‘whois’ o nic.es.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="1224-dig">1.2.2.4. dig</h4>
+<p>El comando <strong>dig</strong> se utiliza de la siguiente forma:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig <span class="o">[</span>server] <span class="o">[</span>name] <span class="o">[</span><span class="nb">type</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Donde:</p>
+
+<ul>
+  <li><strong>server</strong>: El nombre del host o la dirección ip sobre la que está diriga la búsqueda.</li>
+  <li><strong>name</strong>: El dominio del servidor a buscar.</li>
+  <li><strong>type</strong>: El tipo de registro DNS. Por defecto dig utiliza un tipo A.</li>
+</ul>
+
+<p>Se trata de un comando superior a los anteriores, traslada el mismo tipo que los anteriores pero además admite muchos tipos de funcionalidades.</p>
+
+<p>Se pueden con modificadores los tipos de consultas que se quieren hacer. Por ejemplo, axfr (transferencia total de zona) es un modificador que te da acceso a todo, sin embargo esto no está permitido y muchas configuraciones de seguridad no lo permite.</p>
+
+<p><br /></p>
+
+<h4 id="1225-urlcrazy">1.2.2.5. urlcrazy.</h4>
+
+<p>Te dice todo los nombres asociados a un dominio y te dice si dicho nombre está o no registrado basado . Cambia TLDs, SLD, caracter repetidos, quita caracteres…</p>
+
+<p><br /></p>
+
+<h4 id="1226-dnsenum">1.2.2.6. dnsenum.</h4>
+
+<p>Automáticamente identifica registros básicos de DNS como MX, NS.</p>
+
+<p><br /></p>
+
+<h4 id="1227-sublist3r--d">1.2.2.7. sublist3r -d.</h4>
+
+<p>Para utilizarlo con un dominio. Busca subdominios.</p>
+
+<p><br /></p>
+
+<h4 id="1228-theharvester">1.2.2.8. theHarvester.</h4>
+
+<p>Tiene muchos modificadores, un ejemplo sería:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>theHarvester <span class="nt">-d</span> thebridgeschool.es <span class="nt">-l</span> 1000 <span class="nt">-b</span> linkedin
+</code></pre></div></div>
+
+<p>theHarvester es una herramienta poco fiable que hay que meter varias veecs en distintos momentos al día.</p>
+
+<p>Ofrece información de email, personas, máquinas, IP, casi de todo.
+Con este comando le estamos diciendo que busque el domino thebridgeschool.es, una búsqueda en linkedin, que busque 1000 búsquedas.</p>
+
+<p>Si queremos obtener ayuda sobre un comando metemos -h.</p>
+
+<p><br /></p>
+
+<h1 id="2-buscadores-y-metadatos">2. Buscadores y Metadatos.</h1>
+
+<h2 id="21-buscadores">2.1 Buscadores.</h2>
+
+<h3 id="211-libreborme">2.1.1. Libreborme.</h3>
+<p>Una págian librebor.me es para buscar información mercantil de empresas con el CIF o el nombre con el que dicha empresa está registrada en el registro mercantil.</p>
+
+<p>Ofrece información como:</p>
+
+<ul>
+  <li>NIF.</li>
+  <li>Situación Mercantil.</li>
+  <li>Fecha de constitución.</li>
+  <li>Domicilio.</li>
+  <li>Objeto social.</li>
+  <li>
+    <p>Capital social.</p>
+  </li>
+  <li>Cargos directivos tantos activos como no activos.</li>
+</ul>
+
+<p>Tenemos un número de búsquedas limitadas.</p>
+
+<p><br /></p>
+
+<h3 id="212-infocifes">2.1.2. Infocif.es.</h3>
+
+<p>De nuevo, se trata de una página en la que buscamos una empresa por Nombre, Razón Social (Nombre del registro mercantil) o NIF.</p>
+
+<p><br /></p>
+
+<h3 id="213-boees">2.1.3. boe.es.</h3>
+
+<p>Con Ctrl+f puedes buscar un nombre, y de esa forma puedes acceder a los informes del boe en busca de una empresa o una persona.</p>
+
+<p>El boe es propio de españa, en ese sentido, hay que buscar el análogo en otros países.</p>
+
+<p><br /></p>
+
+<h3 id="214-explotid-dbcom">2.1.4. Explotid-db.com.</h3>
+
+<p>Exploit Database (ExploitDB) es un archivo de exploits para propósito de la seguridad pública.</p>
+
+<p>Se trata de un recurso que te puede ayudar a identificar posibles debilidades en tu red y para estar al día sobre posibles ataques ocurridos en otras redes.</p>
+
+<p>Funciona enseñandote distintas archivos sobre vulnerabilidades en relación a la palabra que tu metas en tu búsqueda.</p>
+
+<p><br /></p>
+
+<h3 id="215-shodanio">2.1.5. Shodan.io.</h3>
+
+<p>Shodan es un motor de búsqueda para encontrar dispostivos específicos y tipos de dispositivos. Las búsquedas más populars son cosas como “webcam”, “linksys”, “cisco”, etc.</p>
+
+<p>Funciona escaneando internet entero y parseando los banners que devuelven diversos dispositivos. De esta forma, Shodan puede darte información acerca de los dispositivos relacionados con tu búsqueda, más concretamente, te devuelve la red que está creada por distintos dispostivos que están conectados a internet, recopilan entonces dicha información y acto seguido te la enseña, pudiendo tener acceso al sistema operativo que se está utilizando, los puertos que se emplean, etc.</p>
+
+<p><br /></p>
+
+<h4 id="2152-guía-de-shodanio">2.1.5.2. Guía de Shodan.io.</h4>
+
+<h5 id="21521-webcams">2.1.5.2.1. Webcams.</h5>
+
+<p>Lo primero que hay que precisar es que Shodan.io es un buscador técnico, requiere de búsquedas de dispositivos específicos haciendo uso de filtros. En este caso, se buscaría un modelo de cámara de alguna marca conocida y se buscaría</p>
+
+<p>Se lleva a cabo una búsqueda y tiene aparecen los dispositivos encontrados relacionados con esta búsqueda junto con su IP el protcolo y el puerto y si está abierto o no.</p>
+
+<p><br /></p>
+
+<h3 id="216-censysio">2.1.6. censys.io</h3>
+
+<p>Página que permite buscar vulnerabilidades. Y ampliar la superficie de ataque. De pago.</p>
+
+<p><br /></p>
+
+<h3 id="217-yandexcom">2.1.7. Yandex.com</h3>
+
+<p>Búsqueda fotos relacionadas con una palabra.</p>
+
+<p><br /></p>
+
+<h2 id="22-googles-dork">2.2 Google’s Dork.</h2>
+
+<p>Cómo hacer uso eficiente de las búsquedas de google. Estudiar google dork. Se pueden ver en https://securitytrails.com/blog/google-hacking-techniques</p>
+
+<p><br /></p>
+
+<h3 id="221-qué-es-google-dork">2.2.1. Qué es Google Dork?</h3>
+
+<p>Un google dork (también conocido como Google Dorking o Google Hacking), es una valiosa herramienta de búsqueda para investigadores de seguridad.</p>
+
+<p>Google tiene una capacidad enorme para el rastreo web y puede indexar una gran cantidad de información que se encuentre dentro de tu sitio web, incluyendo información sensible. Esto significa que un sitio web puede estar exponiendo más información de la cuenta. Es decir, Google Dorking consiste en la práctica de buscar servidores y sitios web vulnerables mediante el <strong>uso de las capacidades naticas del motor de búsqueda de google</strong>.</p>
+
+<p>A menos que bloquee recursos específicos de su sitio web mediante un archivo; <strong>robots.txt</strong>, google indexa toda la informacíon que este presente en un archivo web. Así, cualquier persona puede tener acceso a esa información si sabe qué buscar. También puede tener acceso a la base de datos de piratería de Google que contiene todos los comandos de dorking de google. Esta información está disponible públicamente en Internet, y Google la proporciona y alienta a que se use de manera legal. A parte del hecho de que Google tiene acceso a su identidad mientras realiza estas búsquedas y por tanto no es tán anonimo como piensa.</p>
+
+<p><br /></p>
+
+<h2 id="23-filtraciones">2.3. Filtraciones.</h2>
+
+<p>Filtraciones, filtración de datos debido a una vulnerabilidad.</p>
+
+<p>Para saber si tu cuenta ha sido vulnerada:</p>
+
+<ul>
+  <li>
+    <p><strong>haveibeenpwned.com</strong>: Metes tu correo electrónico y te dice si ha habido alguna filtración en la que has estado involucrado.</p>
+  </li>
+  <li>
+    <p><strong>pastebin.com</strong>. Muestra filtraciones.</p>
+  </li>
+  <li>
+    <p><strong>StalkFace.com</strong>: Estalkea perfil de facebook de una víctima. Existen páginas web que también estalquean otros perfiles.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="24-api-key">2.4. API key</h2>
+
+<h3 id="231-qué-son-las-apis">2.3.1. Qué son las APIs.</h3>
+
+<p>API es el acrónimo de “Application Programing Interface” (Interfaz de programación de aplicaciones). A su vez, una interfaz es un lazo compartido entre o más componentes separados de un sistema informático que permite a estos intercambiar información.</p>
+
+<p>Se trata de algo así como un intermedario que permite que dos aplicaciones puedan intercambiar datos entre sí. En otras palabras es el protocolo de comunicación que utilizan dos aplicaciones para intercambiar datos.</p>
+
+<p>Las APIs son interfaces que ayudan a construir software y definen cómo las piezas de software interactuan entre sí. Se utilizan comunmente en dispositivos IoT, ya sean aplicaciones o servidores web con la finalidad de recopilar o procesar datos, (token functionality).</p>
+
+<p><br /></p>
+
+<h3 id="232-api-keys">2.3.2. API Keys.</h3>
+
+<p>Las API Key son un identificador, un código utilizado para identificar y autenticar a una aplicación o a un usuario que pretende utilizar una API para modificar el código de una aplicación externa. Estas son accesibles mediante plataformas. También actuan como identificadores y proveen token secretos para propósitos de autenticación.</p>
+
+<p>Una aplicación que utiliza APIs, lo que hace es llamar a la API para pedir información sobre el usuario. De esta forma se llega a controlar qué usuarios tienen acceso a la aplicación, cómo el usuario está utilizando los datos de la aplicación, etc.</p>
+
+<p><br /></p>
+
+<h2 id="24-metadatos-datos-acercas-de-los-datos">2.4. Metadatos: Datos acercas de los datos.</h2>
+
+<p>La definición más concreta de los metadatos es qué son “datos acerca de los datos” y sirven para suministrar información sobre los datos producidos, por ejemplo una foto o un fichero. Es decir, consisten en información que caracteriza datos, describen el contenido, calidad, condiciones, historia, disponibilidad y otras características de los datos.</p>
+
+<p>Los Metadatos permiten a una persona ubicar y entender los datos, incluyen información requerida para determinar qué conjuntos de datos existen para una localización geográfica particular, la información necesaria para determinar si un conjunto de datos es apropiado para fines específicos, la información requerida para recuperar o conseguir un conjunto ya identificado de datos y la información requerida para procesarlos y utilizarlos.</p>
+
+<p><strong>La generación de Metadatos no solo es aplicable a la información digital, también debe aplicarse a cualquier conjunto de datos independientemente del soporte en el cual se encuentren</strong>, ya que ello puede facilitar su localización, y así, agregarle un valor añadido a la información histórica con la que cuenta una entidad.</p>
+
+<p>Los <strong>metadatos de información georreferenciada</strong> con que cuenta una organización o un País, constituyen elementos centrales de sus Infraestructuras de Datos Espaciales, pues solo a través de éstos es posible conocer las características de los datos georreferenciados existentes, buscarlos y seleccionar los datos que se necesitan.</p>
+
+<p>A través de los metadatos, se pueden responder las siguientes preguntas para saber si un conjunto determinado de datos se ajusta a nuestras necesidades:</p>
+
+<ul>
+  <li>¿Dónde se originó?</li>
+  <li>¿Qué pasos se siguieron para crearlo?</li>
+  <li>¿Qué atributos contiene?</li>
+  <li>¿Cómo están proyectados los datos?</li>
+  <li>¿Qué área geográfica cubre?</li>
+  <li>¿Cómo obtener la información completa?</li>
+  <li>¿Cuánto cuesta?</li>
+  <li>¿Con que persona se puede contactar para obtener una copia?, etc.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="242-metagoofil">2.4.2. Metagoofil.</h3>
+
+<p>Se trata de un comando que permite la extración de metadatos de documentos públicos de una página web, se le pasa como argumento un dominio.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>metagoofil <span class="nt">-d</span> nmap.org <span class="nt">-t</span> pdf <span class="nt">-l</span> 200 <span class="nt">-n</span> 10 <span class="nt">-o</span> /tmp <span class="nt">-f</span> 
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="243-foca-windows">2.4.3. FOCA (Windows).</h3>
+
+<p>Es una herramienta de windows, que te permite extraer metadatos de documentos. A esto si le puedes pasar un fichero manuelamente.</p>
+
+<p><br /></p>
+
+<h3 id="244-exiftool">2.4.4. Exiftool.</h3>
+
+<p>Lee o manipula datos de archivos.  Se puede descargar como herramienta para kali y también le puedes pasar ficheros.</p>
+
+<p><br /></p>
+
+<h1 id="3-personalidad-ficticia-y-spiderfoot">3. Personalidad ficticia y Spiderfoot.</h1>
+
+<h2 id="31-personalidad-ficticia">3.1. Personalidad Ficticia.</h2>
+
+<p>Para poder crear una personalidad fictica utilizamos las siguientes herramientas:</p>
+
+<p><br /></p>
+
+<h3 id="311-this-person-does-not-exist">3.1.1. This person does not exist.</h3>
+
+<p>https://thispersondoesnotexist.com/</p>
+
+<p>Esta página web genera una cara aleatoria combinando múltiples caras de personas de imágenes públicas. De forma que aunque pueda ser realista en ningún caso se trata de una suplantación de identidad.</p>
+
+<p><br /></p>
+
+<h3 id="312-fake-name-generator">3.1.2. fake name generator</h3>
+
+<p>https://www.fakenamegenerator.com/</p>
+
+<p>Esta página construye una identidad falsa pero con ciertos márgenes de realismo de la siguietne forma:</p>
+
+<ul>
+  <li>
+    <p><strong>Nombre</strong>: los nombres se generan al extraer aleatoriamente un nombre y un apellido de una base de datos. La base de datos se compiló a partir de fuentes de dominio público. Lo más probable es que alguien de entre los miles de millones de personas que han vivido en este planeta haya tenido el mismo nombre que el que se generó. Sin embargo, te aseguramos que estos nombres se generan aleatoriamente.</p>
+  </li>
+  <li>
+    <p><strong>Dirección postal</strong>: el número de la casa es un número generado aleatoriamente. El nombre de la calle se extrae de una base de datos de nombres de calles plausibles para el estado / país que se está generando. Lo más probable es que la dirección postal generada no sea válida.</p>
+  </li>
+  <li>
+    <p><strong>Ciudad, estado y código postal</strong>: Hemos compilado una base de datos que contiene cientos de miles de combinaciones válidas de ciudad, estado y código postal. Una de estas combinaciones se extrae aleatoriamente de la base de datos para cada identidad.</p>
+  </li>
+  <li>
+    <p><strong>Dirección de correo electrónico</strong>: la dirección de correo electrónico generada tiene el formato Nombre generado @ Servicio de correo electrónico anónimo.com. Los servicios de correo electrónico anónimo son proporcionados de forma gratuita por Fake Mail Generator, <strong>nuestro servicio de correo electrónico temporal</strong>. Este puede ser utilizado desde la página web.</p>
+  </li>
+  <li>
+    <p><strong>Número de teléfono</strong>: Hemos compilado una base de datos de prefijos y códigos de área válidos. Una de estas combinaciones se extrae aleatoriamente de la base de datos y luego se agrega un número aleatorio de la longitud adecuada al final para que el número de teléfono tenga la longitud correcta.</p>
+  </li>
+  <li>
+    <p><strong>Apellido de soltera de la madre</strong>: Se extrae un nombre aleatorio de nuestra base de datos de apellidos y se enumera como “apellido de soltera de la madre”.</p>
+  </li>
+  <li>
+    <p><strong>Cumpleaños</strong>: el cumpleaños es una fecha generada aleatoriamente.</p>
+  </li>
+  <li>
+    <p><strong>Tarjeta de crédito</strong>: utilizamos el generador de tarjetas de crédito PHP de Graham King. <strong>Este script crea un número de tarjeta de crédito falso, pero con sintaxis válida</strong>. La fecha de vencimiento se genera aleatoriamente para que sea una fecha próxima. <strong>Usamos prefijos inactivos para asegurarnos de que estas tarjetas no se utilicen con fines fraudulentos. Estos números de tarjetas de crédito no reflejan el número de tarjeta de crédito real de nadie</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Número de identificación nacional</strong>: los números de seguro social se generan utilizando el patrón descrito por la Administración del Seguro Social. Los números de seguro social se generan utilizando el patrón descrito en Wikipedia. Estos números son completamente aleatorios y <strong>es muy poco probable que coincidan con el nombre generado</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="32-spiderfoot">3.2. Spiderfoot.</h2>
+
+<p>Spiderfoot es una aplicación que se puede encontrar en Github. Se trata de una herramienta de reconocimiento que automáticamente buscar sobre 100 fuentes de datos públicos (OSINT) para recopilar información de inteligencia sobre:</p>
+
+<ul>
+  <li>Direcciones IP.</li>
+  <li>Dominios.</li>
+  <li>Direcciones e-mail.</li>
+  <li>nombres y más.</li>
+</ul>
+
+<p>Se utiliza pasándole una IP y un puerto, separándo la ip del puerto con dos puntos.</p>
+
+<p>El puerto debe de estar por encima de 1024 y no se puede estar usando previamente.</p>
+
+<p>Con esta herramienta montamos una especie de servidor web al que podemos acceder metiendo la IP proporcionada al crearse la página web. Por defecto, introduciremos nuestra IP loopback.</p>
+
+<p>Al realizar un scaneo e introducir la dirección IP de nuestro objetivo, esta misma web recopilará toda la información de dicho sitio que se conecta y la guarda y la muestra por dicho servidor web. Se trata de una herramienta espía. Especialmente eficaz contra un router.</p>
+
+<p>De esta forma, la herramienta se utiliza dándo click en nuevo escaneo y añadiendo el nombre del escaneo y la IP del nuestro objetivo.</p>
+
+<p><br /></p>
+
+<h1 id="4-sherlock-epieos-maltego">4. Sherlock, Epieos, Maltego</h1>
+<h2 id="41-sherlock">4.1. Sherlock.</h2>
+
+<p>Busca nombres en cuentas de redes sociales. Hay que descargarla desde github aunque también puede descargarse como un paquete de python desde la apt.</p>
+
+<p><strong>El manual contiene un fallo, si se descarga como un script de python en github primero hay que trasladarse a la carpeta ./sherlock para instalar la aplicación y después hay que trasladarse de nuevo a la carpeta /sherlock/sherlock para utilizar sherlock.</strong></p>
+
+<p>Existe un archivo, (una vez instalado la aplicación) que se llama README.txt dentro de la carpeta sherlock que actúa a modo de instrucciones.</p>
+
+<p>En ella podemos encontrar los siguientes elementos interesantes:</p>
+
+<ul>
+  <li>Las cuentas encontradas tras una búsqueda se almacenarán en un fichero de texto cuyo nombre se corresponde con el nombre de la búsqueda.</li>
+</ul>
+
+<p>Suplantación de identidad.</p>
+
+<p><br /></p>
+
+<h2 id="42-epieos">4.2. Epieos.</h2>
+
+<p>Se trata de una página web a la que le puedes pasar una dirección de correo o un teléfono y hace OSINT sobre dicha dirección de correo electrónico o teléfono.</p>
+
+<p><br /></p>
+
+<h2 id="43-maltego">4.3. Maltego.</h2>
+
+<p>Existen distintas versiones de maltego, nosotros utilizaremos la versión que obtienes nada más logearte. Necesitas estas logeado para utilizar la versión CE, comunity edition.</p>
+
+<p>Maltego es una aplicación que ofrece un servicio con el potencial de encontrar información sobre personas y empresas en internet, permitiendo cruzar datos para obtener perfiles en redes sociales, servidores de correo, etc.</p>
+
+<p>Maltego, como ya hemos dicho contiene dos versiones, la básica y la profesional, la diferencia entre ambas estriba en el número de módulos disponibles que tiene cada uno. Un módulo no es más que una funcionalidad extra que se añade al servicio de rastreo que ofrece Maltego.</p>
+
+<h3 id="431-realizando-un-rastreo">4.3.1. Realizando un rastreo.</h3>
+
+<p>Una vez realizada la isntalación e iniciada la sesión, deberemos crear una hoja de búsqueda nueva y arrastrar la entidad (este es el tipo de búsqueda que queremos hacer) para luego ver la búsqueda y comprobar qué resultados arroja.</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#redteam">redteam</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=An%C3%A1lisis+de+Objetivos&url=http%3A%2F%2Flocalhost%3A4000%2F2022-01-28-An%25C3%25A1lisis_de_Objetivos%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-01-28-An%25C3%25A1lisis_de_Objetivos%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-01-28-An%25C3%25A1lisis_de_Objetivos%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-02-01-Ataques_a_Infraestructuras_y_Redes/" data-toggle="tooltip" data-placement="top" title="Ataques a Infraestructuras y Redes">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

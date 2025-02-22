@@ -1,0 +1,371 @@
+---
+layout: post
+title: Movimientos Laterales
+subtitle: Introducción a pivoting y tunneling.
+tags: [redteam] 
+---
+
+# 1. Movimientos Laterales.
+
+## 1.1. Concepto: Pivoting.
+
+El **pivoting** es una técnica muy utilizada por pentesters que **consiste en utilizar un sistema comprometido para atacar otros sistemas diferetes de la misma red** que de otra forma serían inaccesibles por otros medios de seguridad, como firewalls, etc.
+
+Técnicamente se define como el enrutamiento de tráfico a través de una red mediante un host comprometido y tiene la finalidad de generar el compromiso de otras máquinas dentro de la misma red.
+
+<br />
+
+## 1.2. Concepto: Tunneling.
+
+El **tunneling** es una técnica de interconexión de redes que se utiliza cuando se van a conectar dos redes del mismo tipo a través de una red de distinto tipo. 
+
+En la siguiente imágen se puede ver como dos máquinas (**host**) de dos redes distintas del mismo tipo (**ethernet**) se conectan a través de un **tunel WAN**; esto es, que se mandan paquetes WAN entre sí.
+
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203171616.png' | relative_url }}" text-align="center"/>
+</div>
+
+De forma que los pasos son los siguientes:
+
+- En primer lugar A construye un paquete IP con la IP de B.
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203173642.png' | relative_url }}" text-align="center"/>
+</div>
+	
+- Seguidamente este paquete, dado que el host se encuentra en un marco Ethernet, recibe un envoltorio de red Ethernet y se dirige al enrutador multiprotocolo M1.
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203174835.png' | relative_url }}" text-align="center"/>
+</div>
+	
+- Cuando M1 recibe el paquete, inserta el envoltorio IP como payload dentro de un paquete WAN que se envia al enrutador M2 perteneciente a la otra red.
+
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220203174937.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	De esta forma, el paquete IP viaja desde la red de A a la red de B como si estuviéran en una WAN.
+
+- Una vez que M2 recibe el paquete WAN, extrae de este el paquete IP del payload y de ahí lo envía a B.
+
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203175034.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br />
+
+De esta forma, el intercambio de mensajes se ha llevado a cabo a través de una serie de pasos con los que ninguno de los dos host ni el paquete en sí ha tenido que lidiar. Los únicos que han tenido que ser conscientes de la presencia de un paquete WAN han sido los enrutadores, como si se trataran de dos bocas opuestas de un mismo túnel por el que ha pasado el paquete de un host al otro. Esta analogía justifica el nombre de túnel al mecanismo empleado.
+
+En esencia lo que se ha hecho es encapsular un protocolo de red dentro de otro con la finaliadad de pasar un paquete por varios tráficos de red y hacerle llegar a su destino.
+
+<br />
+
+El **tunneling** a menudo se emplea como recurso dentro del **pivoting** para utilizar pseudo redes formadas por dos máquinas que se intercambian paquetes entre sí:
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203181108.png' | relative_url }}" text-align="center"/>
+</div>
+
+De esta manera se manda un paquete de un host a otro a travesando distintas máquinas a modo de enrutadores y evadiendo así múltiples sistemas de seguridad como firewalls, proxys, etc. Es algo así como **un mecanismo que permite camuflar tus datos en forma de tráfico legítimo entre dos máquinas** utilizando un encapsulamiento de un protocolo de red sobre otro.
+
+<br />
+
+# 2. Movimientos Laterales con SSH.
+
+## 2.1. Malconfiguración de ssh: sshd_config.
+
+Como ya sabemos, **ssh** es un protocolo que proporciona un servicio de adminstración remota entre dos máquinas. 
+
+En las comunicaciones que se llevan a cabo entre dos máquinas a través de ssh se distinguen servidores; que procesan peticiones de administración y clientes, que llevan a cabo peticiones de administración sobre un servidor.
+
+Por otra parte, también es sabido que una misma máquina puede ser objeto de una petición por parte de otra y ejercer así el papel de servidor o puede llevar a cabo un petición de administración de un servidor remoto ejerciendo así el papel de cliente, con lo que necesita una configuración para cliente (**/etc/ssh/ssh_config**) y otra configuración para el servidor(**/etc/ssh/sshd_config**). 
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203183302.png' | relative_url }}" text-align="center"/>
+</div>
+
+
+Dentro del fichero de configuración del servidor de ssh existe un montón de opciones que tienen asociadas un valor, entre ellas **AllowTcpForwarding** que permite el redireccionado de puertos TCP. Esto se trata de un fallo de configuración del servicio que permitiría a un atacante pivotar desde este servicio a otras máquinas de la misma red.
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203183101.png' | relative_url }}" text-align="center"/>
+</div>
+
+
+**Podemos ver que por defecto está comentado y eso significa que tiene el valor por defecto eso no significa que este deshabilitado. El valor por defecto de esta opción está puesto al lado: yes**.
+
+Por otra parte, también existe la opción GatewayPorts; esta opción, cuyo valor por defecto es no, **regula que los puertos que se abren con la finalidad de redireccionar conexiones se expongan a conexiones externas**. Cambiando esta opción a 'yes' volvemos estos puertos visibles para las máquinas externas. Esto será importante en la *redirección remota* en el que una máquina remota se conecta a nuestra máquina local a través de una intermediaria.
+
+<br />
+
+## 2.2. Túneles locales SSH. Port Forwarding.
+
+### 2.2.1. Túnel local SSH: Concepto.
+
+Una vez hemos entrado en una máquina y hemos realizado un trabajo de post-explotación y hemos averiguado que es vulnerable ante una redirección de puertos SSH, podemos utilizar los siguientes comandos para generar *túneles locales*.
+
+Los túneles locales SSH se basan en la redirección de puertos (**port forwarding**) desde una máquina local a una máquina remota. Es decir, tu te conectas desde una máquina local a una máquina intermedia a un puerto y esta redirige tu petición al puerto de una máquina remota que es la que realmente recibe los datos.
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203190735.png' | relative_url }}" text-align="center"/>
+</div>
+
+Por ejemplo, en la imágen anterior, un atacante (Cliente SSH) quiere establecer conexión con una máquina (RDP) dentro de una red pero un firewall bloquea cualquier conexión no deseada.
+
+Este atacante ya tiene acceso a una máquina (Servidor SSH) que sabe que permite la redirección de puertos SSH. De esta forma, primero penetra en la red, atravesando el firewall camuflando sus datos con el protocolo SSH (tunneling), 
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220205231730.png' | relative_url }}" text-align="center"/>
+</div>
+
+conectándose a la máquina servidor SSH que, mediante la redirección de puertos, redirige su petición al genuino receptor de la información, RDP (pivoting).
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220205231743.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br />
+
+### 2.2.2. Túnel local SSH: Ejemplos y aplicaciones prácticas.
+
+Veámos un ejemplo práctico con Kali, Ubuntu y Metasploitable. Lo que pretendemos es enviar datos desde la Kali a la Metasploitable a través de un tunel con la Ubuntu. Ubuntu aquí asume el rol de una máquina víctima sobre la que ya hemos ganado control total.
+
+En primer lugar, nos aseguramos de que metasploitable tiene la opción AllowTcpForwarding permitida. Explorando el contenido del archivo podemos observar que dicha opción no está y por tanto, al tener nosotros control de la máquina, añadimos la opción para que permita el redireccionado de puertos y nos aseguramos de que sea posible (aunque sabemos que el hecho de que esta opción no este en el fichero es equivalente a que este comentada y, por tanto, estaría con el valor por defecto; yes, aún así lo añadimos por razones pedagógicas y por asegurarnos).
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/M9/Pasted image 20220203232830.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br />
+
+- **Redirección web**:
+
+
+	Ahora que tenemos la certeza de que la máquina que va adesempañar el papel de servidor en nuestro pivoting ssh puede redireccionar puertos, escribimos el comando adecuado siguiendo la sintaxis correcta en nuestra máquina atacante:
+
+	```bash
+	ssh -L LPORT:RHOSTIP:RPORT user@SERVIP
+	```
+
+	Es decir, las peticiones que se envíen al puerto 'LPORT' (Local PORT) en nuestra máquina se redireccionarán al puerto 'RPORT' (Remote PORT) de la máquina destino 'RHOSTIP' (Remote HOST IP) mediante la acción de la máquina 'SERVIP' con usuario 'user'.
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220203233027.png' | relative_url }}" text-align="center"/>
+	</div>
+
+	
+	Así pues, en este caso en concreto, todas las peticiones que se envíen al puerto 9999 de nuestra máquina kali serán peticiones de conexión redirigidas al puerto 80 de la máquina Metasploitable. 
+	
+	<br />
+	
+	De forma que en nuestro navegador Firefox, al intentar acceder al puerto 9999 de nuestro bucle local, obtenemos:
+	
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220203233606.png' | relative_url }}" text-align="center"/>
+	</div>
+
+	Aunque también habría dado resultado la IP 0.0.0.0
+	
+<br />
+
+- **Nmap con redirección SSH**: 
+
+	Supongámos ahora que queremos conocer qué puertos están abiertos con Nmap en la máquina Metasploitable. Como esta se encuentra aislada de la WAN y sólo es accesible a través de nuestro servidor Ubuntu no podemos efectuar un nmap convencional. 
+	
+	Sin embargo, haciendo uso de la redirección local de opuertos a través de ssh nuestra conexión puede ser redirigida desde un puerto local a otro puerto remoto de la máquina Metasploitable del que podríamos obtener información como se ve en el siguiente ejemplo:
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205194443.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	En dicha imágen redireccionamos nuestro puerto 9999 al puerto 80 y a la derecha efectúamos un nmap de nuestro bucle local (interno) y observamos que tan sólo hay un puerto abierto el 9999 que aloja el servicio http. En realidad ya se puede intuir que esta información es falsa, nuestro puerto 9999 pone en conexión a los paquetes de nmap con el puerto 80 de la metasploitable con lo que la información que se recopila del puerto 9999 de nuestra máquina es la información del puerto 80 de la máquina metasploitable.
+		
+	(Es un buen momento para mencionar que la redirección se efectúa desde una escucha interna, es decir, que si una máquina foránea intentáse ponerse en contacto con nuestro puerto 9999, se lo encontraría cerrado:
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205194922.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	esto puede verse más claramente desde **lsof**:
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205195123.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	Ahí podemos apreciar claramente que el puerto 9999 se encuentra en escucha activa a peticiones internas ya que escucha en TCP 127.0.0.1:9999)
+	
+	De esta manera, podemos aprovecharnos de esta característica para confeccionar un script apoyándonos en herramientas auxiliares para hacer un nmap de 'x' puertos a la máquina remota a través de ssh:
+	
+	```bash
+	#!/bin/bash
+
+	DestIP= # IP de la máquina de destino.
+	ServerIP= # IP de la máquina intermediaria.
+	ServerUser= # Usuario SSH de la máquina intermediaria.
+	ServerPass= # Contraseña SSH de la máquina intermediaria.
+
+	# Este script funciona pasándole como parámetro el número de puertos de los que queremos obtener un escaneo. Además hay que tener instalado 'sshpass', se puede descargar desde la apt (sudo apt-get install sshpass).
+
+	for Puerto in `seq 1 $1`
+		do
+			sshpass -p $ServerPass ssh -N -L 9999:$DestIP:$Puerto $ServerUser@$ServerIP 2> /dev/null & # Redirecicción de puertos.
+			echo -n "$Puerto -> "
+			nmap -sV -T5 127.0.0.1 -p 9999 | grep 9999 # Nmap por pantalla.
+			kill `pidof sshpass` # Matamos la redirección de puertos para abrirla de nuevo con otro puerto en la siguiente iteración.
+		done
+		
+	# Con 'sshpass' nos libramos de introducir la contraseña en cada iteración y con el modificador '-N' evitamos que nos abra una shell ssh de la conexión con el servidor permitiéndonos pasar el proceso a segundo plano con el ampersand '&' y que la terminal no se quede estancada.
+	```
+
+	Y obtendríamos algo así: 
+
+	<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205200532.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	
+	El término *tcpwraped*, hace referencia al hecho de que nmap ha sido capaz de enlazarse mediante un handshaking tcp al puerto, pero que este no le ha devuelto ninguna información, esto significa básicamente que ha sido capaz de enlazarse con nuetro puerto local pero este le ha redireccionado con un puerto de la metasploitable que estaba cerrado y que por tanto no le ha devuelto ninguna información.
+	
+	<br />
+	
+- **Telnet con redirección ssh**:
+
+	La moraleja de estos ejemplos sobre la tunelización con ssh es que este es un proceso de encapsulación de información que sólo atañe a los agentes que transportan los paquetes a través de la red, pero no afecta ni al emisor ni al receptor de la información **en el sentido de que este puede utilizarse con cualquier protocolo de comunicación**.
+	
+	Para ver un ejemplo más supongámos que hemos encontrado las credenciales de logeo de un usuario de esta máquina aislada Metasploitable; msfadmin:msfadmin.
+	
+	Entonces, como con nmap hemos comprobado que tiene abierto el puerto de telnet, vamos a abrir una shell con este servicio a través de la redirección ssh:
+	
+	<br />
+	
+	1. Establecemos la redirección adecuadamente:
+
+		<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205203122.png' | relative_url }}" text-align="center"/>
+		</div>
+		
+		Como queremos abrir un shell con telnet, el puerto objetivo es el 23.
+		
+	<br />
+		
+	2. Utilizamos el servicio de telnet y nos conectamos internamente a nuestro puerto local (indicado en el comando anterior) e introducimos las credenciales:
+
+		<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205203325.png' | relative_url }}" text-align="center"/>
+		</div>
+		
+		<br />
+		
+	
+		De esta manera tendríamos acceso a la máquina.
+	
+	<br />
+	
+## 2.3. Redirección remota.
+
+### 2.3.1. Remote Forwarding SSH: Concepto.
+ 
+Hemos visto que la **redirección local** consiste en redireccionar una conexión interna a un puerto local hacia un puerto de un host remoto aprovechando una conexión ssh con una máquina intermedia.
+
+La **redirección remota** consiste en el proceso inverso: Una máquina remota se pone en contacto con un puerto de una máquina intermedia y esta conexión se redirecciona a un puerto concreto de nuestra máquina local a través de un túnel ssh.
+
+
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205231025.png' | relative_url }}" text-align="center"/>
+</div>
+
+Teniendo en mente la imágen anterior: la máquina Cliente SSH ofrece un servicio en el puerto 3389 y la máquina RDP desea conectarse a ese puerto pero un firewall lo bloquea. La redirección de puertos remota permite poner en contacto el Cliente SSH y RDP a través de un túnel ssh en una máquina intermedia.
+
+De esta forma, cuando la redirección remota se establece, la máquina intermedia queda en escucha en un puerto concreto (9090) y cuando la máquina RDP se conecta a ServidorSSH:9090 
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205231855.png' | relative_url }}" text-align="center"/>
+</div>
+
+se redirecciona esta conexión a ClienteSSH:3389 poniéndo en contacto ambas máquinas a través de una conexión ssh (pivoting).
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205232108.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br />
+
+### 2.3.2. Remote Forwading SSH: Aplicación.
+
+En este ejemplo vamos a utilizar una Ubuntu a modo de máquina local que ofrece un servicio web en el puerto 80, una Kali con usuario root a modo de máquina intermediaria y una Kali a modo de máquina cliente que quiere conectarse a la Ubuntu.
+
+En primer lugar, para que la redirección de puertos remota pueda tener lugar hay que habilitar la opción **GatewayPorts** a yes en sshd_config en la máquina intermediaria que, recordemos, está seteada por defecto a no.
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205233703.png' | relative_url }}" text-align="center"/>
+</div>
+
+Seguidamente, desde nuestra máquina local, ejecutamos el comando de redirección:
+
+```bash
+ssh -L RPORT:LHOSTIP:LPORT user@SERVIP
+```
+
+De manera que cualquier conexión que se realice sobre el puerto RPORT de la máquina SERVIP (intermediaria) será redireccionada sobre LHOSTIP:LPORT (nuestra máquina local en el puerto del servicio que ofertamos):
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205234157.png' | relative_url }}" text-align="center"/>
+</div>
+
+Concretamente, en el ejemplo anterior activamos el puerto 9999 de la máquina intermediaria (10.0.2.11) para que cualquier máquina que se conecte a dicho host en dicho puerto sea automáticamente redireccionado por ssh a nuestra ubuntu en el puerto 80 (10.0.2.10).
+
+Ahora, con la kali convencional, abrimos firefox y escribimos la IP de la máquina intermediaria y el puerto:
+
+<div style="text-align:center">
+	<img src="{{ 'assets/img/M9/Pasted image 20220205234748.png' | relative_url }}" text-align="center"/>
+</div>
+
+Y podemos comprobar que efectivamente accedemos al servicio http de la Ubuntu.
+
+Antes de concluir, vamos a analizar cómo cambia *GatewayPorts* el comportamiento de la máquina intermediaria sobre el puerto de redirección:
+
+- En primer lugar, sin modificar la opción, ejecutamos el comando de redirección remota en la máquina local sobre el puerto 9999 hacia el 80 de nuestra Ubuntu y atendemos a los puertos que están escuchando en la máquina intermedia con lsof:
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235106.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	podemos por tanto observar que la escucha es interna y no son visibles para una máquina externa que pretenda conectarse y redirigirse sobre la Ubuntu:
+	
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235305.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	<br />
+	
+- Ahora, introducimos la opción correctamente, reiniciamos el servicio ssh y volvemos a ejecutar el comando de redirección en la máquina local:
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235434.png' | relative_url }}" text-align="center"/>
+	</div>
+
+	<br />
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235446.png' | relative_url }}" text-align="center"/>
+	</div>	
+
+	y volvemos sobre los puertos en escucha en la máquina intermedia:
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235538.png' | relative_url }}" text-align="center"/>
+	</div>
+	
+	Ahora sí son visibles para las máquinas externas:
+
+	<div style="text-align:center">
+		<img src="{{ 'assets/img/M9/Pasted image 20220205235608.png' | relative_url }}" text-align="center"/>
+	</div>
+
+	(Observemos el servicio y versión que rigen en el puerto en cuestión, coinciden con los del puerto 80 de nuestra máquina local).

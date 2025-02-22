@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Metasploit</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Introducción a la herramienta Metasploit.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Metasploit">
+  <meta property="og:description" content="Introducción a la herramienta Metasploit.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-02-04T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/">
+  <link rel="canonical" href="http://localhost:4000/2022-02-04-Metasploit_B%C3%A1sico/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Metasploit">
+  <meta property="twitter:description" content="Introducción a la herramienta Metasploit.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Metasploit</h1>
+          
+            
+              <h2 class="post-subheading">Introducción a la herramienta Metasploit.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on February 4, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h1 id="1-metasploit-básico">1. Metasploit Básico.</h1>
+<h2 id="11-antecedentes">1.1. Antecedentes.</h2>
+
+<h2 id="11-exploits">1.1. Exploits.</h2>
+
+<p>Denominamos como <strong>exploit</strong> a un programa informático, una parte de software o una secuencia de comandos que se aprovecha de un error o vulnerabilidad para provocar un comportamiento no intencionado o imprevisto en un software, hardware o en cualquier dispositivo electrónico.</p>
+
+<p><br /></p>
+
+<h3 id="112-payload">1.1.2. Payload.</h3>
+<p>El payload es la parte del código que se inyecta y actúa después de haber explotado la vulnerabilidad para conseguir realizar una tarea dentro de la máquina victima como recoger datos, abrir una shell, cifrar, etc.</p>
+
+<p><br /></p>
+
+<h2 id="13-backdoor">1.3. Backdoor.</h2>
+
+<p>Un backdoor es un mecanismo que proporciona un acceso ilícito a un equipo víctima.</p>
+
+<p>Estos inicialmente no estan concebidos como un elemento malicioso, existes backdoors que se utilizan en caso de crasheo del sistema y para situaciones de emergencia. Sin emabrgo pueden ser utilizadas de manera maliciosa por un usuario ilegitimo.</p>
+
+<p>Un backdoor no debe confundirse con un reverse shell. <strong>El backdoor consiste en el acceso ilícito y el reverse shell es el mecanismo que nos da acceso a una terminal del equipo</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="114-shellcode">1.1.4. Shellcode.</h3>
+
+<p>Una shellcode es un fragmento de código que se introduce en el exploit a modo de payload que se encargará de abrirnos una shell en una máquina víctima.</p>
+
+<p><br /></p>
+
+<h2 id="12-metasploit">1.2. Metasploit.</h2>
+
+<h3 id="121-qué-es-metasploit-framework">1.2.1. Qué es Metasploit Framework.</h3>
+
+<p>Metasploit Framework es una herramienta para desarrollar y ejecutar código de explotación contra una máquina de destino remota. Esta cuenta con un mecanismo de inyección de exploits y payloads en una vulnerabilidad detectada sobre una máquina remota. Con él podemos por ejemplo ejecutar una shellcode y demás acciones.</p>
+
+<p><br /></p>
+
+<h3 id="122-preparación">1.2.2. Preparación.</h3>
+
+<p>Metasploit Framework puede ser instalado desde la apt (con apt-get install) y necesita la base de datos PostgreSQL operativa para poder funcionar correctamente. Esta se puede activar antes o después de haber iniciado el programa de Metasploite con los comandos systemctl o service.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220114101535.png" text-align="center" />
+</div>
+
+<p>Cuando apagemos la máquina, el servicio de postgre quedará inactivo en él</p>
+
+<p><br /></p>
+
+<h3 id="123-iniciando-metasploite-comandos-importantes">1.2.3. Iniciando Metasploite. Comandos importantes.</h3>
+
+<p>Una vez tenemos instalado metasploit-framework y tenemos activado el servicio de postgre iniciamos el framework con los siguientes comandos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220205202228.png" text-align="center" />
+</div>
+
+<p>Se abrirá el entorno de trabajo de Metasploite.</p>
+
+<p>En él podemos seleccionar los siguientes comandos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220114110601.png" text-align="center" />
+</div>
+
+<p>use: usar exploits.</p>
+
+<p><br /></p>
+
+<h3 id="124-ejemplo-de-uso-de-metasploite">1.2.4. Ejemplo de uso de Metasploite.</h3>
+
+<p>Vamos a hacer un ejemplo de uso con Metasploite y una máquina virtual.</p>
+
+<p>Supongámos que hemos hecho OSINT sobre una máquina concreta, por ejemplo un servidor, y descubrimos que posee la vulnerabilidad: <strong>CVE-2004-2687</strong>.</p>
+
+<p>Una vez sabemos para qué vulnerabilidad buscamos el exploit acudimos a Metasploite no sin antes haber iniciado el servicio de postgre con <strong>systemctl</strong>.</p>
+
+<p>Una vez nos hemos cerciorado de que el servicio de postgre corre satisfactoriamente iniciamos el framework de Metasploite con <strong>msfconsole</strong> y buscamos los módulos asociados a la CVE con <strong>search</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220116202019.png" text-align="center" />
+</div>
+
+<p>De esta forma y tal y como se puede ver en la imágen anterior, Metasploite te devolverá una lista indexada de los modulos asociados a dicha vulnerabilidad. Para operar con uno utilizamos el comando <strong>use</strong> seguido del índice asociado al exploite o del nombre del mismo. Una vez escogido el módulo, pedimos a la consola que nos enseñe los payloads mediante <strong>show payloads</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220116203604.png" text-align="center" />
+</div>
+
+<p>Así, se nos muestra una lista de líneas que describen brevemente en qué consiste el payload en cuestión y cómo está hecho.</p>
+
+<p>Cada payload tiene su entorno correspondiente que necesita de variables a las que da un valor para que pueda operar de manera correcta y algunos, pese a estar correctamente configurados, pueden no funcionar. Probaremos con un payload con <strong>set payload</strong> seguido del índice o nombre asociado al payload y examinaremos sus opciones con <strong>options</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220116205657.png" text-align="center" />
+</div>
+
+<p>Podemos observar en el listado de variables que aparece que algunas tienen valor y otras y no, pero más importantes, algunas variables como <em>RHOST</em> son necesarias para expedir el exploit y por tanto hay que rellenarlas. En este caso RHOST es “remote host” y se trata de la dirección IP de la máquina remota.</p>
+
+<p>Ajustamos este valor con <strong>set rhost  &lt;IP&gt;</strong> y ejecutamos con <strong>run</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220116213432.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220116213501.png" text-align="center" />
+</div>
+
+<p>Así, podemos comprobar que efectivamente el exploit se ha ejecutado correctamente en la víctima y gracias al payload msfconsole nos devuelve una shell desde la que podemos inyectar comandos permitiéndonos así tomar el control del equipo de la víctima.</p>
+
+<p>Además, conviene añadir que podemos enviar una sesión abierta al “background” para seguir utilizando sobre ella módulos de post explotación u otras herramientas que ya requieran de tener una conexión con la máquina víctima:</p>
+
+<ul>
+  <li><strong>Meterpreter session</strong>: bg.</li>
+  <li><strong>Non-meterpreter session</strong>: Ctrl + Z.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220131104402.png" text-align="center" />
+</div>
+
+<p>Luego podemos acudir a ella con el comando session -i o sessions.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220114110714.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h1 id="2metasploit-offensive-security">2.Metasploit Offensive Security.</h1>
+
+<h2 id="21-introducción-a-metasploit">2.1. Introducción a Metasploit.</h2>
+
+<h3 id="211-intro">2.1.1. Intro.</h3>
+
+<p>Metasploit Framework (MSF) es una de las herramientas de auditoria y pentesting que pueden obtenerse de manera.  Se trata de un marco de trabajo que le permite buscar exploits a vulnerabilidades conocidas y lanzarlos sobre máquinas victimas con la finalidad de tomar control sobre las mismas gracias a la acción de los payloads que cada exploit tiene asociado.</p>
+
+<p><br /></p>
+
+<h3 id="212-requisitos-de-software-de-metasploit">2.1.2. Requisitos de Software de Metasploit.</h3>
+
+<p>Para poder hacer uso de Metasploit, además de saber con certeza de que se cumplen los requisitos de hardware en la máquina donde tenemos instalada la herramienta, necesitamos los siguientes componentes:</p>
+
+<ul>
+  <li>
+    <p><strong>KaliLinux</strong>, distro de linux con herramientas de pentesting en el que tendremos instalado la herramienta Metasploite. Puede ser virtual.</p>
+  </li>
+  <li>
+    <p><strong>Máquina Victima</strong>. Una máquina vulnerable sobre la que ejecutar el exploit conveniente. Puede ser virtual.</p>
+  </li>
+  <li>
+    <p><strong>HiperVisor</strong>, programa que regule la comunicación entre ambas máquinas, como VirtualBox.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="213-arquitectura-de-metasploit">2.1.3. Arquitectura de Metasploit.</h3>
+
+<h4 id="2131-instalación-y-lugar-de-almacenamiento">2.1.3.1. Instalación y lugar de almacenamiento.</h4>
+
+<p>Metasploit es un software escrito en Ruby. <strong>Metasploit puede instalarse desde la apt mediante el paquete metasploit-framework que se instala en /usr/share/metasploit-framework</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="2132-sistema-de-ficheros">2.1.3.2. Sistema de ficheros.</h4>
+
+<p>Dentro de la carpeta /usr/share/metasploit-framework encontramos entre otras las carpetas: data, documentation, lib, modules, plugins, scripts, tools.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220117163125.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>data</strong>: El directorio ‘data’ contiene archivos editables utilizados por Metasploit para almacenar los binarios necesarios para ciertos elementos como exploits, wordlists, imágenes, etc.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117163306.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>documentation</strong>: En la carpeta documentation podemos encontrar documentación disponible del entorno de trabajo de Metasploit.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117164506.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>lib</strong>: El directorio lib contiene el código que soporta la base del entorno de trabajo.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117165416.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>modules</strong>: Es donde se encuentran los modules de MSF para los exploits; auxiliary, post modules, payloads, encoders, etc.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117165553.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>plugins</strong>: los plugins para añadir funcionalidades al comportamiento del software Metasploit y pueden ser requeridos para que Metasploit interactúe con aplicaciones externas como nmap.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117165740.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>scripts</strong>: Contiene elementos como Meterpreter y otros scripts utilizados en payloads.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117165817.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Tools</strong>: Utilidades de la línea de comandos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117170130.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h4 id="2133-librerias-de-metasploit">2.1.3.3. Librerias de Metasploit.</h4>
+
+<p>Las libreras son fragmentos de códigos que en este caso están incorporados dentro de la aplicación y que nos evitan realizar ciertas tareas manualmente mediante la incorporación de código extra a la hora de expedir los exploits como HTTP request, codificar los payloads, etc. Algunas de las bibliotecas son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220117170827.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<h3 id="214-modulos-localizaciones-y-tipos">2.1.4. Modulos: Localizaciones y Tipos.</h3>
+
+<h4 id="2141-definición-y-localización">2.1.4.1. Definición y Localización.</h4>
+
+<p>En Metasploit <em>un módulo es una pieza o bloque de código que implementa una o varias funcionalidades</em> como ejecutar un exploit concreto o el escaneo de máquinas remotas, etc. Todos los módulos son clases de Ruby.</p>
+
+<p>Estos módulos son buscados en dos localizaciones concretamente:</p>
+
+<ul>
+  <li>
+    <p><strong>/usr/share/metasploit-framework/modules/</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117171611.png" text-align="center" />
+  </div>
+  </li>
+  <li>
+    <p><strong>~/.msf4/modules/</strong></p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220117171850.png" text-align="center" />
+ </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="2142-tipos-de-módulos">2.1.4.2. Tipos de módulos.</h4>
+
+<p>Entre los tipos de módulos que encontramos tenemos: Exploits, Auxiliary, Payloads, Encoders, Nops.</p>
+
+<ul>
+  <li>
+    <p><strong>Exploits</strong>: Un Exploit es un tipo de módulo que utiliza un payload. Es decir, que utiliza un fragmento de código adicional. Estos pueden encontrarse en: <strong>/usr/share/metasploit-framework/modules/exploits</strong>:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117172617.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Auxiliary</strong>: Los módulos auxiliares son aquellos que se utilizan para generar acciones que tienen un propósito auxilar a la tarea principal. Entre este tipo de tareas encontramos: Escaneo de puertos, fuzzers, sniffers y más. Acciones que pueden ayudarnos a elegir mejor el tipo de exploit, de payload, etc.</p>
+
+    <p>Estos pueden encontrarse en: <strong>/usr/share/metasploit-framework/modules/auxiliary</strong>:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117173117.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Payload, Encoders, Nops</strong>:</p>
+
+    <ul>
+      <li>
+        <p>Los <strong>payloads</strong> consisten en código que se ejecuta en la máquina en la que se ha explotado una vulnerabilidad para conseguir algún tipo de beneficio (abrir una términal, información, cifrar, etc).</p>
+      </li>
+      <li>
+        <p>Los <strong>Encoders</strong> son módulos que se aseguran de mantener la integridad del payload mientras llega a su destino.</p>
+      </li>
+      <li>
+        <p>Los <strong>Nops</strong> mantienen el tamaño del payload consistente a través de los distintos intentos de Metasploit.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>Otros</strong>: Metasploite te da la opción de cargar módulos  de forma externa en “runtime” (cuando el programa se está ejecutando) con el modificador <strong>-m</strong>.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117192944.png" text-align="center" />
+  </div>
+
+    <p>También se dispone de el comando <strong>loadpath</strong> para cargar módulos en las rutas adecuadas.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220117192802.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="22-fundamentos-de-metasploit">2.2. Fundamentos de Metasploit.</h2>
+
+<h3 id="221-interfaces-de-metasploit">2.2.1. Interfaces de Metasploit.</h3>
+
+<p>Una <strong>interfaz</strong> es un mecanismo o herramienta que conecta dos elementos. Existe un tipo concreto de interfaz que es la interfaz de usuario que ayuda a un humano a interactuar con un programa o dispositivo.</p>
+
+<p>Existen muchas interfaces diferentes para utilizar Metasploit cada una con sus ventajas y desventajas. Además, es conveniente añadir que no existe una interfaz perfecta para usar con la consola de Metasploit, aunque MSFConsole es la única forma admitida de acceder a la mayoría de los comandos de Metasploit. Sin embargo, sigue siendo beneficioso conocer el resto de interfaces.</p>
+
+<p><br /></p>
+
+<h3 id="222-msfcli-msfcomandline">2.2.2. MSFCLI (msfcomandline).</h3>
+
+<p>El <strong>msfcli</strong> proporciona una potente interfaz de línea de comandos para el marco. Esto le permite agregar fácilmente exploits de Metasploit en cualquier secuencia de comandos que pueda crear.</p>
+
+<p><strong>En versiones más recientes de Metasploit se eliminó msfcli como comando, una forma de obtener una funcionalidad similar es a través de msfconsole -x; concretamente sería:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kali@kali:<span class="err">$</span>
+msfconsole <span class="nt">-x</span> <span class="s2">"</span><span class="se">\&lt;</span><span class="s2">msfcomand&gt;"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="223-msfconsole">2.2.3. MSFConsole.</h3>
+
+<p>La consola de MSFConsole es el la interfaz principal que existe para interactuar con el framework de Metasploit.</p>
+
+<p>Para más información:</p>
+
+<p>https://www.offensive-security.com/metasploit-unleashed/msfconsole-commands/</p>
+
+<p><br /></p>
+
+<h3 id="224-exploits">2.2.4. Exploits.</h3>
+
+<p>Como hemos dicho en apartados anteriores, un ‘exploit’ es un tipo de módulo que va acompañado de otro tipo de módulo denominado ‘payload’. En Metasploit hay dos tipos fundamentales de exploits: <strong>Activos y Pasivos</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="2241-exploits-activos">2.2.4.1. Exploits activos.</h4>
+
+<p>Un exploit activo explotará una vulnerabilidad de un host específico, se ejecutará hasta copletarse y finalmente terminará. Por ejemplo:</p>
+
+<ul>
+  <li>Los módulos <strong>Brute-Force</strong> se irán cuando una shell quede abierta para la víctima.</li>
+  <li>La ejecución de los módulos parará si encuentran un error.</li>
+  <li>Puedes forzar a un módulo activo al background con el modificador <strong>-j</strong> al comando <em>run</em>.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220119191744.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="2242-exploits-pasivos">2.2.4.2. Exploits Pasivos.</h4>
+
+<p>Los exploits pasivos esperan a los hosts entrantes y los explotan a medida que se conectan.</p>
+
+<ul>
+  <li>Los exploits pasivos casi siempre se centran en clientes como navegadores web, clientes FTP, etc.</li>
+  <li>También se pueden usar junto con exploits de correo electrónico, esperando conexiones.</li>
+  <li>Los exploits pasivos informan shells a medida que ocurren se pueden enumerar pasando ‘-l’ al comando de sesiones. Pasar ‘<strong>-i</strong>’ interactuará con un shell.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="2243-uso-de-exploits">2.2.4.3. Uso de exploits.</h4>
+
+<p>Para utilizar los exploits se cuenta con una serie de comandos entre los cuales se encuentran, dado un exploit:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220119233833.png" text-align="center" />
+</div>
+
+<p>Además hay una serie de comandos entre los que están:</p>
+
+<ul>
+  <li>
+    <p><strong>show</strong>: Show es un comando que te puede enseñar todo aquello que esté relacionado con un determinado término, entre los que están: targets, payloads, options, advanced, evasion.</p>
+
+    <ul>
+      <li><strong>targets</strong>: Sistemas operativos compatibles.</li>
+      <li><strong>payloads</strong>: Payloads</li>
+      <li><strong>options</strong>: Opciones del módulo y del payload si está.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="225-payloads">2.2.5. Payloads.</h3>
+
+<p>Un módulo payload en Metasploit es un fragmento de código que acompaña a los exploits y se ejecuta tras la finalización del exploit que explota la vulnerabilidad y es el encargado de manipular la máquina víctima para el atacante cifrando, devolviendo una shell, etc. A nuestro nivel sólo se utilizaran en conjunto con los exploits.</p>
+
+<p><br /></p>
+
+<h2 id="23-bases-de-datos">2.3. Bases de datos.</h2>
+
+<h3 id="231-intro-y-bases-de-datos">2.3.1. Intro y bases de datos.</h3>
+
+<p>Metasploit tiene configurado soporte para el sistema de base de datos PostgreSQL con la finalidad de que el usuario pueda tener un acceso rápido y fácil a todala información relacionada con la prueba de penetración. El sistema permite un acceso rápido y fácil a la información de escaneo y podemos importar y exportar resultados de escaneo de varias herramientas de terceros. Lo importante es que mantiene nuestros datos limpios y organizados.</p>
+
+<p>Algunos de los comandos asociados a la base de datos de Metasploit son:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220121164120.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Por ejemplo; para saber el estado de la base de datos introducimos: <strong>db_status</strong>. Si todo va bien debería de aparecer:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220121164325.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Junto con los comandos aparecen las distintas bases de datos que están disponibles y que son accesibles desde el prompt:</p>
+
+<ul>
+  <li><strong>hosts</strong>: Guarda información sobre hosts.</li>
+  <li><strong>loot</strong>: Guarda información “robada” de la máquina víctima.</li>
+  <li><strong>notes</strong>: Guarda notas.</li>
+  <li><strong>services</strong>: Lista todos los servicios con los que nos hemos puesto en contacto en máquinas víctimas.</li>
+  <li>
+    <p><strong>vulns</strong>: Lista información sobre vulnerabilidades presentes en máquinas con las que nos hemos puesto en contacto.</p>
+  </li>
+  <li><strong>workspace</strong>: Lista los espacios de trabajo disponibles.</li>
+</ul>
+
+<p>Podemos obtener más información sobre cómo interactuar adecuadamente con cada una de estas bases de datos escribiendo <strong>help &lt;comando&gt;</strong> o <strong>&lt;comando&gt; -h</strong>. Por ejemplo:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220121170052.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="232-utilizando-las-bases-de-datos">2.3.2. Utilizando las bases de datos.</h3>
+
+<h4 id="2321-montando-la-base-de-datos">2.3.2.1. Montando la base de datos.</h4>
+
+<p>En Metasploit hay que montar el servidor postgresql antes de empezar a utilizar la base de datos. Desde la kali, introducimos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl start postgresql
+</code></pre></div></div>
+
+<p>Y seguidamente:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>msfdb init
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Para cerciorarnos de que la base de datos está bien construida ponemos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf <span class="o">&gt;</span> db_status
+</code></pre></div></div>
+
+<p>tal y como hemos indicado en la imágen anterior.</p>
+
+<p><br /></p>
+
+<h4 id="2322-workspaces">2.3.2.2. Workspaces.</h4>
+
+<p>Los workspaces son un mecanismo de Metasploit para organizar diferentes trabajos, datos, etc en regiones distintas con la finalidad de organizar un poco mejor la información relativa a cada proyecto. Cada workspace tiene sus propias bases de datos hosts, vulns, notes…</p>
+
+<p>Con el comando <strong>workspaces</strong> desde la msfconsole se desplegará la lista de directorios de trabajo y con el comando <strong>workspace</strong> operaremos con cada base de datos individualmente gracias a los siguientes modificadores:</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220121172450.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="2323-escaneando-e-importando-información">2.3.2.3. Escaneando e Importando información.</h4>
+
+<p>Metasploit permite al usuario interactuar con determinadas aplicaciones externas (nmap, nikto, nessus, etc) a través del marco de trabajo del propio metasploit. Además, podemos importar el report generado por la aplicación (siempre y cuando tenga un formato que Metasploit soporte) en las bases de datos de nuestro directorio de trabajo del marco de trabajo.</p>
+
+<p>Por ejemplo: En primer lugar ejecutamos un escaneo con Nmap:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122152147.png" text-align="center" />
+</div>
+
+<p>En la imágen podemos comprobar que hemos al final añadido el modificador <strong>-oX</strong> para indicar que el formato que se expida tendrá que hacerlo en XML (aunque existen un montón de opciones para cambiar el formato de expedición del report).</p>
+
+<p>Una vez ha terminado, acudimos la ruta donde está nuestro informe y se lo pasamos como argumento al comando db_import del entorno de Metasploit:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122152404.png" text-align="center" />
+</div>
+
+<p>Y como la información que se ha recopilado es información acerca de hosts lo más razonable es que toda esta información se haya almacenado en la tabla <strong>hosts</strong> dentro del workspaces en el que hemos hecho el import.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122152534.png" text-align="center" />
+</div>
+
+<p>Aunque en realidad la información se divide entre las distintas tablas disponibles del workspace, por ejemplo, en <strong>services</strong> obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122152645.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="2324-exportar-datos">2.3.2.4. Exportar datos.</h4>
+
+<p>También podemos crear copias de seguridad de nuestros datos utilizando el término <strong>db_export</strong>.</p>
+
+<p><br /></p>
+
+<h1 id="3-metasploit-avanzado">3. Metasploit Avanzado.</h1>
+
+<h2 id="31-comandos-importantes">3.1. Comandos Importantes.</h2>
+
+<p>Es conveniente saber el uso de los siguientes comandos.</p>
+
+<ul>
+  <li><strong>show targets</strong>: Dado un ‘exploit’ concreto, show targets es un comando que muestra el sistema operativo para el que va dirigido dicho exploit.</li>
+  <li><strong>set target</strong>: Dado un exploit y habiendo listado los targets con el comando anterior este comando permite asociar al exploit un target.</li>
+  <li><strong>set RHOST/RPORT</strong>: Concede un valor a las variables RHOST/RPORT. Hay variables a las que sólo se tiene acceso cuando se carga un módulo concreto (por ejemplo un payload o un auxiliary).</li>
+  <li><strong>show/setpayloads</strong>: Respectivamente, dado un exploit, muestra y selecciona un payload para utilizar con el exploit seleccionado.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="32-meterpreter">3.2. Meterpreter.</h2>
+
+<h3 id="321-concepto">3.2.1. Concepto.</h3>
+<p>Meterpreter es un payload que utiliza una inyección de memoría DLL para ofrecer una shell interactiva que no es necesariamente una consola del sistema operativo, sino una shell propia con comandos intrínsecos de Meterpreter en la que el atacante puede explorar la máquina víctima y ejecutar código e incluso abrir una consola del sistema operativo.</p>
+
+<p>Al utilizar Meterpreter inyección de DLL en memoria opera directamente sobre la memoria y no escribe nada en el disco duro. No  se crean procesos nuevos ya que al operar directamente sobre memoria interactúa sobre procesos existentes y por tanto deja poca huella.</p>
+
+<p><br /></p>
+
+<h3 id="322-uso-de-meterpreter">3.2.2. Uso de Meterpreter.</h3>
+<p>Un framework es un entorno de trabajo que contiene variables, archivos y características que un determinado programa puede utilizar para usarlo correctamente. Meterpreter genera su propio framework (es un subframework del framework de Metasploit), y eso significa que tiene sus propias variables de entorno, comandos ejecutables, etc. Veámos algunos comandos importantes asociados al entorno de Meterpreter y de Metasplotable asociados al uso de Meterpreter.</p>
+
+<ul>
+  <li>
+    <p><strong>help</strong>: help muestra una lista de comandos que se pueden utilizar y una descripción de los mismos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220118123712.png" text-align="center" />
+  </div>
+
+    <p>Además, pasándole un comando como argumento a help te despliega una ayuda sobre cómo utilizar dicho comando:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220118124934.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>sessions</strong>: Una sesión es una terminal que tienes abierta en la máquina víctima. Puedes tener varias sesiones abiertas en función del número de veces que has ejecutado el exploit (puedes ejecutar el exploit y meter la sesión en segundo plano con <em>background</em> y volver a ejecutar el exploit).</p>
+
+    <p>Con el comando <em>sessions</em> podemos interactuar con las distintas sesiones que tenemos abiertas, no desde la terminal de meterpreter.</p>
+
+    <pre><code class="language-meterpreter">  sessions &lt;id&gt;
+</code></pre>
+
+    <p>Desde el framework de Metasploit podemos también utilizarlo siempre y cuando tengamos sessiones corriendo en segundo plano.</p>
+
+    <p>Recordamos:</p>
+
+    <ul>
+      <li>Meterpreter: bg</li>
+      <li>Non-meterpreter: Ctrl + Z</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>background</strong>: El comando backgroudn se utiliza para mandar una session a segundo plano. De esta forma la session sigue activa pero no bloquea nuestra terminal y nos permite seguir operando con Metasploit para por ejemplo abrir otra session.</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>show sessions</strong>: Desde Metasploit podemos listar el número de sessiones que tenemos abiertas con meterpreter</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220118131737.png" text-align="center" />
+  </div>
+
+    <p>Como podemos ver en la imágen nos lista las sesiones y nos da información sobre las mismas, el tipo de sesión, usuario, el host, host origen, etc.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>multi/handler</strong>: El módulo <em>multi/handler</em> es un exploit de tipo <strong>handler</strong>.</p>
+
+    <p>Los handler son modulos que proveen todas las caracterísitcas del sistema de payloads de Metasploit a exploits que han sido lanzados desde fuera del marco de trabajo. Es decir, es un mecanismo que utilizamos para dependiendo del payload:</p>
+
+    <ol>
+      <li>
+        <p>Escuchar una conexión por parte del payload (reverse payload).</p>
+      </li>
+      <li>
+        <p>Iniciará una conexión contra un host en un puerto especificado. (bind payload).</p>
+      </li>
+    </ol>
+
+    <p><strong>Antes de levantar un multi/handler hace falta configurar adecuadamente el payload que definirá el tipo de conexión que se tiene levanta o que se quiere levantar contra la máquina víctima</strong>. Es decir, que si nosotros estamos escuchando un payload configurado como meterpreter_reverse__tcp, el multihandler debe tener configurado un payload equivalente al de esta conexión para que sea compatible.</p>
+
+    <p>Para mandar el multihandler primero debemos haber iniciado una conexión previa con otro exploit y de ahí, con la primera session en el background, configurar las variables del exploit con options y ejecutar el módulo como un “job”.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  run <span class="nt">-jz</span>
+</code></pre></div>    </div>
+
+    <p>Los jobs o tareas son procesos que se lanzan y quedan en la máquina víctima corriendo en segundo plano. En este caso, el handler quedará corriendo como una tarea que se quedará escuchando peticiones en un puerto.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220119164920.png" text-align="center" />
+  </div>
+
+    <p>Evidentemente la sessión no se crea porque se ejecuta en segundo plano como un job.</p>
+
+    <p>Se puede ver los jobs activos mediante el comando <strong>jobs</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="3metasploit-sistemas-y-redes">3.Metasploit: Sistemas y Redes.</h1>
+
+<h2 id="31-intro">3.1. Intro.</h2>
+
+<p>Metasploit tiene configurado soporte para el sistema de base de datos PostgreSQL con la finalidad de que el usuario pueda tener un acceso rápido y fácil a todala información relacionada con la prueba de penetración. El sistema permite gestionar de mejor manera la información que se almacena en cada prueba de penetración.</p>
+
+<p>La base de datos se estructura en espacios de trabajo que tienen sus propias tablas de información. De esta forma la información se divide en función del proyecto al que esta pertezca y dentro de cada proyecto, se divide en función del tipo de información que es: <strong>host</strong>, <strong>loot</strong>, <strong>services</strong>, etc.</p>
+
+<p><br /></p>
+
+<h2 id="32-gestionando-la-base-de-datos">3.2. Gestionando la base de datos.</h2>
+
+<h3 id="321-preparación">3.2.1. Preparación.</h3>
+
+<p>La base de datos que está asociada a Metasploit utiliza el servicio PostgreSQL. Antes de comenzar a gestionar la base de datos hay que tener activo el servicio de postgresql:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl start postgresql
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfdb init
+</code></pre></div></div>
+
+<p>Comprobamos que está todo correcto con el comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf <span class="o">&gt;</span> db_status
+</code></pre></div></div>
+
+<p>y si está todo correcto debería de informar que está conectada a la base de datos de Postgresql.</p>
+
+<p><br /></p>
+
+<h3 id="322-workspaces">3.2.2. Workspaces.</h3>
+
+<p>Los <strong>workspace</strong> son divisiones que se hacen de la información y que están orientados a dividir los proyectos de pentesting que se hacen con metasploit. Con <strong>workspace</strong> listamos todos los workspaces disponibles.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122185202.png" text-align="center" />
+</div>
+
+<p>Podemos crear, añadir y en general interactuar con los espacios de trabajo con la ayuda de la información que aparece tras el modificador -h.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122185433.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="323-importar-y-exportar-datos">3.2.3. Importar y exportar datos.</h3>
+
+<p>Si tenemos ficheros con información que hemos recopilado utilizando aplicaciones externas (nmap, nikto, Nessus, etc) podemos importarlos para que Metasploit procese la información que contienen a través del formato de fichero que son y reparta dicha información entre las distintas bases de datos mencionadas anteriormente.</p>
+
+<p>El comando es <strong>db_import</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122191250.png" text-align="center" />
+</div>
+
+<p>En la imágen anterior podemos ver cómo se usa el comando en cuestión y que formatos de ficheros están permitidos. El más común es xml aunque conviente observar que también se encuentra  Nessus XML, Nmap XML, Nikto XML.</p>
+
+<p>Veamos varios ejemplos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122230933.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122231000.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220122231018.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Aquí utilizamos Nmap para generar un análisis y guardar el informe en un formato xml gracias al modificador: <strong>-oX</strong>. Este informe posteriormente es recuperado por Metasploit al importar el fichero y podemos ver cómo la información se reparte entre las bases de datos del espacio de trabajo.</p>
+
+<p>Por otra parte, tenemos también el comando db_nmap utilizado de la siguiente manera:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db_nmap &lt;comando nmap&gt;
+</code></pre></div></div>
+
+<p>Que guardará los resultados obtenidos directamente en las bases de datos de tu directorio de trabajo sin necesidad de importat ningún archivo.</p>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220123003356.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220123003115.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220123003540.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220123003635.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>En este ejemplo generarmos un informe con nessus, lo exportamos con Nessus en formato .nessus y el fichero resultante lo importamos desde Metasploit.</p>
+
+<p><br /></p>
+
+<h3 id="324-tablas-de-las-bases-de-datos">3.2.4. Tablas de las bases de datos.</h3>
+
+<p>Como ya mencionábamos antes para cualquier espacio de trabajo existen tablas en los que se almacena la información que se recopila o se importa desde ese directorio de trabajo:</p>
+
+<ul>
+  <li><strong>hosts</strong>: Información de los hosts.
+    <ul>
+      <li>Información: <strong>host -h</strong></li>
+      <li>Ver columnas: <strong>host -c &lt;IP&gt;</strong></li>
+      <li>Añadir host: <strong>host -a &lt;IP&gt;</strong></li>
+      <li>Buscar host: <strong>host -S</strong></li>
+      <li>Cambia la variable RHOSTS al resultado de la búsqueda -&gt; <strong>host -R</strong></li>
+      <li>Exportar a CSV -&gt; <strong>-o ruta.csv</strong></li>
+    </ul>
+  </li>
+  <li><strong>Servicios</strong> -&gt; Información de protocolos y servicios detectados.
+    <ul>
+      <li>Información: <strong>services -h</strong></li>
+      <li>Ver columnas -&gt; <strong>-c</strong></li>
+      <li>Ver puertos -&gt; <strong>-p</strong></li>
+      <li>Añadir servicios -&gt; <strong>services -a</strong></li>
+      <li>Buscar Servicios -&gt; <strong>services -S</strong></li>
+    </ul>
+  </li>
+  <li><strong>Credenciales</strong> -&gt; Cookies o usuario:contraseña.
+    <ul>
+      <li>Añadir a mano -&gt; <strong>creds -a IP -p PUERTO -u USUARIO -P PASSWORD</strong></li>
+    </ul>
+  </li>
+  <li>Vulnerabilidades (vulns):
+    <ul>
+      <li>Buscar vulnerabilidad: <strong>vulns -S MS11-030</strong></li>
+    </ul>
+  </li>
+  <li>Notas (notes)</li>
+  <li>Loot (Hashes)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="33-módulos-asociados-a-aplicacionesservicios">3.3. Módulos asociados a aplicaciones/servicios.</h2>
+
+<h3 id="331-complementos-de-metasploit">3.3.1. Complementos de Metasploit.</h3>
+<p>Existen módulos que están estrechamente relacionadas con determinadas aplicaciones informáticas o servicios.</p>
+
+<p>El comando <strong>load</strong> podemos cargar en el entorno de metasploit complementos de aplicaciones como por ejemplo: <strong>Nessus</strong>, <strong>Openvass</strong>. Después de haber cargado con <em>load</em> bien Nessus o bien OpenVas.</p>
+
+<ul>
+  <li>
+    <p><strong>Nessus</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nessus_connect username:password@127.0.0.1:8834
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>OpenVas</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  openvas_connect username password 127.0.0.1 9390 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="332-módulos-auxiliares-interesantes">3.3.2. Módulos auxiliares interesantes.</h3>
+<p>Ahora vamos a ver una serie de módulos auxiliares que van a hacer uso de servicios o aplicacions externas para efectuar acciones que pueda ayudarnos a aprovechar una vulnerabilidad más allá de un simple exploit de penetración, como por ejemplo: listado, escaneos, ataques de fuerza bruta en distintos protocolos. Veámos algunos de ellos divididos por servicios.</p>
+
+<p>Si nosotros escaneáramos una máquina con nmap y obtuviésemos que tiene puertos abiertos podríamos probar a recopilar información utilizando los siguientes módulos en función del servicio que riga el puerto.</p>
+
+<ol>
+  <li>
+    <p><strong>MySQL</strong>.</p>
+
+    <p><strong>Fuerza bruta utilizando fichero PASS_FILE</strong> -&gt;  auxiliary/scanner/mysql/mysql_login</p>
+
+    <p>Podemos ver que configurando las opciones y corriendo el exploit auxiliary obtenemos:</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125150831.png" text-align="center" />
+ </div>
+
+    <p>Hay un logeo con username root y sin contraseña.</p>
+
+    <p><br /></p>
+
+    <p><strong>Conecta con credenciales y hace una enumeración de ficheros</strong> -&gt; auxiliary/admin/mysql/mysql_file_enum</p>
+
+    <p>Esto en primera instancia se conecta con un usuario y una contraseña y si tiene éxito en el logeo lleva a cabo una enumeración de ficheros a través de una lista que se le pasa como una variable. Sería por tanto conveniente tener unas credenciales de acceso antes de utilizar este módulo.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125152301.png" text-align="center" />
+ </div>
+
+    <p><br /></p>
+
+    <p><strong>Volcado de esquema de todas las tablas de la base de datos</strong> -&gt; auxiliary/scanner/mysql/mysql_schemadump</p>
+
+    <p>Realiza un volcado de las tablas de la base de datos. Funciona mejor con credenciales pero es algo prescindible.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125153254.png" text-align="center" />
+ </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>FTP</strong>.</p>
+
+    <p><strong>Fuerza bruta usando determinadas características</strong> -&gt; auxiliary/scanner/ftp/ftp_login</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125161322.png" text-align="center" />
+ </div>
+
+    <p>Podemos observar que entre las opciones hay variables muy interesantes como BLANCK_PASSWORDS, THREADS, BRUTEFORCE_SPEED, VERBOSE… y más, conviene siempre mirar las opciones.</p>
+
+    <p>Por ejemplo, configurando:</p>
+
+    <p>BLANCK_PASSWORDS -&gt; true
+ USERNAME -&gt; Anonymous
+ PASSWORD -&gt;</p>
+
+    <p>Obtenemos:</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125161733.png" text-align="center" />
+ </div>
+
+    <p>Y ya tenemos una contraseña lista.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Samba</strong>: Samba es un servidor que opera sobre el protocolo SMB y que se utiliza para conectar.</p>
+
+    <p><strong>Ver los recursos (pipes) compartidos</strong> -&gt; auxiliary/scanner/smb/pipe_auditor</p>
+
+    <p><br /></p>
+
+    <p><strong>Ver los recursos Samba compartidos</strong> -&gt; auxiliary/scanner/smb/smb_enumshares</p>
+
+    <p><br /></p>
+
+    <p><strong>Listado de usuarios del sistema</strong> -&gt; auxiliary/scanner/smb/smb_enumusers</p>
+
+    <p><br /></p>
+
+    <p><strong>Fuerza bruta de Samba usando PASS_FILE</strong> -&gt; auxiliary/scanner/smb/smb_login</p>
+
+    <p>De nuevo, se trata de la misma lógica que en ataques de fuerza bruta de cosas anteriores.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125170435.png" text-align="center" />
+ </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>SSH</strong>.</p>
+
+    <p><strong>Fuerza bruta con SSH</strong> -&gt; auxiliary/scanner/ssh/ssh_login</p>
+
+    <p>De la misma forma que hemos operado en el resto de casos anteriores, se ajustan los parámetros y se lanza el módulo.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125192059.png" text-align="center" />
+ </div>
+
+    <p>Aparte de este existen más comandos SSH que realizan más o menos las mismas funcionalidades que en los casos anteriores, fuerza bruta, enumeración de usuarios, recopilación de información etc.</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125192259.png" text-align="center" />
+ </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Telnet</strong>.</p>
+
+    <p><strong>Fuerza bruta Telnet</strong> -&gt; auxiliary/scanner/telnet/telnet_login</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220125194004.png" text-align="center" />
+ </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>VNC</strong>.</p>
+
+    <p><strong>Fuerza bruta de VNC usando PASS_FILE</strong> -&gt; auxiliary/scanner/vnc/vnc_login</p>
+
+    <p>De nuevo, otro ataque de fuerza bruta:</p>
+
+    <div style="text-align:center">
+ <img src="/assets/img/M6/Pasted%20image%2020220126144954.png" text-align="center" />
+ </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="33-servidores-falsos">3.3. Servidores falsos.</h2>
+<p>Otras de las herramientas que podemos utilizar con metasploit es abrir un servidor falso en nuestra máquina y de esa forma montar una treta para que un individuo ‘cliente’ se conecte y poder así perjudicarle.</p>
+
+<p>Los <strong>servicios disponibles</strong> son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220126150810.png" text-align="center" />
+    </div>
+
+<p>La mayoría son iguales, veámos algún ejemplo. En las opciones, las variables básicas son:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220126180803.png" text-align="center" />
+    </div>
+
+<p>De entre las cuales las más importantes,  están <strong>RedirectURL</strong>, <strong>SRVPORT</strong>, <strong>SRVHOST</strong>, etc.</p>
+
+<p>Por ejemplo, introducimos RedirectURL= https://www.google.com de manera que, cuando corremos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220126182124.png" text-align="center" />
+    </div>
+
+<p>Y al conectarnos desde la máquina obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220126182539.png" text-align="center" />
+    </div>
+
+<p>Nos piden usuario y contraseña y se nos ofrece, en este caso están en ambos en blanco.</p>
+
+<p>Otros módulos del mismo poseen más opciones como modificar las contraseñas, cambios de protocolo etc.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220118101845.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<h1 id="4-metasploit-aplicaciones-web">4. Metasploit: Aplicaciones web.</h1>
+
+<h2 id="41-intro">4.1. Intro.</h2>
+<p>Se tiene que Metasploit tiene configuradas tanto herramientas configuradas a nivel de entorno (comandos: db_nmap, …) como a nivel de módulos (exploits, payloads, auxiliary, …).</p>
+
+<p><br /></p>
+
+<h2 id="42-wmap">4.2. WMap.</h2>
+<h3 id="421-intro">4.2.1. Intro.</h3>
+<p><strong>WMAP</strong> es un escáner de vulnerabilidades de aplicaciones web rico en funciones que se creó originalmente a partir de una herramienta llamada SQLMap. Esta herramienta está integrada con Metasploit y nos permite realizar escaneos de aplicaciones web desde la consola de Metasploit.</p>
+
+<p><br /></p>
+
+<h3 id="422-entendiendo-wmap">4.2.2. Entendiendo WMap.</h3>
+<p>Primero creamos una nueva base de datos para almacenar los resultados de nuestro escaneo WMAP, cargamos el complemento <strong>wmap</strong> con <strong>load</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127111031.png" text-align="center" />
+    </div>
+
+<p>y ejecutamos la ayuda con <strong>help</strong> para ver qué nuevos comandos están disponibles para nosotros. Entre los distintos apartados que obtenemos con la ayuda tenemos el siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127111225.png" text-align="center" />
+    </div>
+
+<p>Todos estos comandos contribuyen a formar parte de una configuración holística de la herramienta. Así, tenemos por ejemplo la forma de hacer las siguientes acciones:</p>
+
+<p>-&gt; <strong>Añadir sitio web</strong>: wmap_sites -a http://IP 
+-&gt; <strong>Listado de sitios</strong>: wmap_sites -l
+-&gt; <strong>Añadir URL</strong>: wmap_targets -t http://IP/path
+-&gt; <strong>Ver los plugins</strong>: wmap_run -t
+-&gt; <strong>Ejecución WMAP</strong>: wmap_run -e
+-&gt; <strong>Listado de vulnerabilidades</strong>: wmap_vulns -l (Aunque puede haber información repartida en otras tablas de la base de datos).</p>
+
+<p>Para entender mejor esta información podemos ver un ejemplo.</p>
+
+<p><br /></p>
+
+<h3 id="423--ejemplo-de-wmap">4.2.3.  Ejemplo de WMap.</h3>
+
+<p>En este ejemplo vamos a encender la máquina Metasploitable y vamos a intentar escanear el sitio web Mutillidae de esta máquina.</p>
+
+<p>Los pasos a seguir que tomamos son, añadir la dirección del servidor, añadir la URL del sitio web a analizar, ejecutar wmap:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127115632.png" text-align="center" />
+    </div>
+
+<p>Podemos explorar, una vez finalizado el proceso, los resultados con wmap_vulns -l:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127115948.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<h2 id="43-módulos-auxiliares-para-aplicaciones-webs">4.3. Módulos auxiliares para aplicaciones webs.</h2>
+<p>Tenemos módulos auxiliares para ayudarnos a recopilar información sobre aplicaciones web ya sean ficheros webs, contraseñas, robots.txt, etc.</p>
+
+<p><br /></p>
+
+<h3 id="431-escaneo-de-directorios-o-ficheros-web">4.3.1. Escaneo de directorios o ficheros web.</h3>
+
+<p>Existen módulos que nos pueden facilitar el listado de directorios o ficheros dentro de un directorio web:</p>
+
+<p><br /></p>
+
+<p><strong>Dirbuster sobre directorios</strong> -&gt; auxiliary/scanner/http/dir_scanner</p>
+
+<p>Puede utilizarse sobre sobre dominios pero lo más probable es que no funcione correctamente, lo más aconsejable es hacer el cambio de dominio a ip y de ahí ejecutar el módulo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127140932.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<p><strong>Dirbuster sobre ficheros</strong> -&gt; auxiliary/scanner/http/files_dir</p>
+
+<p>De nuevo, lista ficheros de un sitio web basándose en extensiones como .xml, .exe, etc.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127143133.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<p><strong>Busca en archive.org versiones anteriores de la web guardadas</strong> -&gt; 
+auxiliary/scanner/http/enum_wayback</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127143833.png" text-align="center" />
+    </div>
+
+<p><br /></p>
+
+<p>Además, tenemos el <strong>módulo de fuerza bruta para servidores http</strong> visto en el tema anterior de este mismo módulo para metasploit.</p>
+
+<p><br /></p>
+
+<h3 id="432-craking-de-contraseñas-para-aplicaciones-web">4.3.2. Craking de contraseñas para aplicaciones web.</h3>
+
+<p>En el contexto de la seguridad informática, el <strong>cracking contraseñas</strong> (descifrado de contraseñas) es el proceso por el cual se pretende recuperar una contraseña partiendo con la información que nos proporcionan datos almacenados o transmitidos por un dispositivo de forma codificada.</p>
+
+<p>Un enfoque común es intentar adivinar repetidamente la contraseña y compararla con un <strong>hash criptográfico</strong> disponible de la contraseña, es decir; la contraseña cifrada mediante un algoritmo de hash. Esta generalmente se encuentra almacenada e algún lugar del servidor y el obtenerla permite al atacante realizar múltiples pruebas offline hasta dar con la contraseña para luego hacer un único logeo en online y conseguir acceso a la máquina.</p>
+
+<p>JOHN THE RIPPER OBSOLETO, INSTALAR DE GITHUB PARA KALI.</p>
+
+<p><br /></p>
+
+<h2 id="44-msfvenom">4.4. MSFVenom.</h2>
+
+<p>MSFVenom es una instancia de línea de comandos que se utiliza para generar y expedir todo tipo de payload y código shell disponible en Metasploit. Puede utilizarse con Android, Windows y Linux. Se utiliza con el siguiente comando desde la consola de kali:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>msfvenom –p &lt;payload&gt; &lt;LHOST&gt; &lt;LPORT&gt; <span class="o">&gt;</span> &lt;BIN&gt;
+</code></pre></div></div>
+
+<p>Esto en esencia lo que hace es convertir un payload en un binario que se ejecutará en la máquina víctima para perjudicarla. Por ejemplo, un payload “backdoor” se pasa por MSFVenom para convertirse en binario y ser mandando a una máquina víctima done se ejecuta. Posteriormente el atacante utiliza un handler desde Metasploit para conectarse a la sesión y conseguir así acceso a una shell de la máquina víctima.</p>
+
+<p>Tenemos diversas opciones:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127155329.png" text-align="center" />
+    </div>
+
+<p>Así por ejemplo no sólo tenemos la opción de utilizar payloads, podemos añadir encoders, time-outs, etc, para poder modificar personalmente nuestro ataque. Veamos un ejemplo:</p>
+
+<p>En primer lugar, elegimos un payload y un puerto y montamos el ejecutable malicioso con MSFVenom:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127174730.png" text-align="center" />
+    </div>
+
+<p>Con <strong>-p</strong> indicamos que queremos utilizar un payload y con <strong>-f</strong> definimos el formato del binario construido, en este caso <strong>.exe</strong>. Seguidamente, utilizamos SCPWindows ara conectarnos a la kali y extraer el binario.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127175113.png" text-align="center" />
+    </div>
+
+<p>Ahora, lo que hemos utilizado como payload es un reverse shell, este es un payload que consigue una shell que se abre en nuestra máquina kali que, a su vez, está escuchando la conexión de la máquina víctima que realiza la request de conexión. Por tanto, en primer lugar montamos el multi/handler con metasploit, configurando el payload adecuado (que coincida con el que nosotros hemos montado con msfvenom), el puerto y el host local y lanzamos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127180452.png" text-align="center" />
+    </div>
+
+<p>Seguidamente ejecutamos el .exe en windows y:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M6/Pasted%20image%2020220127180652.png" text-align="center" />
+    </div>
+
+<p>Es importante observar que estamos, de nuevo, utilizando una reverse shell. Si estuviéramos utilizando una bind_shell el orden de la operación se invertiría, seríamos nosostros los que pediríamos una conexión a un puerto de la máquina víctima en escucha que nos concedería acceso una shell y por tanto, <strong>primero ejecutaríamos el malware y luego nosotros correríamos el handler desde metasploit</strong>, primero la máquina escucharía peticiones en un puerto y luego nosotros lanzaríamos una conexión a dicho puerto.</p>
+
+<p>Este mismo resultado se puede repetir en cualquier sistema operativo siempre y cuando se genere un ejecutable con el formato adecuado.</p>
+
+<p><br /></p>
+
+<h1 id="5-post-explotación">5. Post-explotación.</h1>
+
+<h2 id="51-post-explotación">5.1. Post-explotación.</h2>
+<h3 id="511-concepto">5.1.1. Concepto.</h3>
+
+<p>En un ataque a una máquina denominamos como <strong>Post-Explotación</strong> a la etapa del ataque posterior a la explotación y ejecución del payload consistente en la recopilación de información sobre la máquina, el usuario, los contactos que mantiene el usuario y en general cualquier tipo de dato relevante que podamos encontrar en la misma.</p>
+
+<p>La herramienta <strong>meterpreter</strong> de Metasploit dispone de una serie de módulos que se encargarán, según el sistema operativo, de automatizar la recopilación de información en distintos sectores del sistema operativo. Los dividimos en: <strong>Generales</strong>, <strong>Linux</strong>, <strong>Android</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="512-módulos-generales">5.1.2. Módulos generales.</h3>
+<p>La información la obtenemos de las páginas:</p>
+
+<p>https://www.offensive-security.com/metasploit-unleashed/windows-post-gather-modules/</p>
+
+<p>https://www.offensive-security.com/metasploit-unleashed/windows-post-capture-modules</p>
+
+<p>Destacamos cinco módulos: <strong>env, firefox_creds, ssh_creds, execute, check_malware</strong>.</p>
+
+<ul>
+  <li>
+    <p><strong>env</strong>: El módulo <strong>env</strong> es un módulo que recopila las variables de entorno del sistema operativo que corre en la máquina víctima.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120143121.png" text-align="center" />
+  </div>
+
+    <p>Sin embargo, si el comando no funciona podemos realizar una operación que nos devuelva un resultado similar pidiendo a meterpreter que nos abra una shell (según el sistema operativo que toque) y pasando el comando <strong>printenv</strong> en Linux o enseñar varible a variable en Windows.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>firefox_creds</strong>: El modulo <em>firefox_creds</em> recopila credenciales (contraseñas, cookies) relacionadas con firefox</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120144932.png" text-align="center" />
+  </div>
+
+    <p>Tal y como indica, estos datos se almacenan en la base de datos: <strong>loot</strong>.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120145518.png" text-align="center" />
+  </div>
+
+    <p><strong>localizada en ~/.msf4/loot</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>ssh_creds</strong>: Este módulo recopilará la información del directorio <strong>.ssh</strong> de la máquina víctima. Además, ficheros como knwon_hosts, authorized_keys también so descargados.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120145836.png" text-align="center" />
+  </div>
+
+    <p>De nuevo, almacena los datos en la base de datos <strong>loot</strong> y también podemos especificamente situarnos en esa subcarpeta para volcar los ficheros robados.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120150152.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>execute</strong>: Meterpreter es una herramienta que abre su propio entorno con sus propios comandos que hace que meterpreter genere instrucciones que inyecta en la máquina vulnerable. No se trata de un acceso directo a una terminal del sistema operativo de la máquina objetivo.</p>
+
+    <p>Para ello, para introducir comandos propios del sistema operativo, disponiemos del comando <strong>execute</strong>, que inyecta un comando propio del sistema operativo de la máquina en cuestión. Podemos por ejemplo crear un fichero:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120152500.png" text-align="center" />
+  </div>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120152515.png" text-align="center" />
+  </div>
+
+    <p>Aquí he creado un fichero mediante el comando <em>touch</em> y pasándole como argumento el nombre del fichero que es <em>TEST</em> mediante el modificador -a.</p>
+
+    <p>Podemos desplegar las opciones de este comando con <strong>execute -h</strong>.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>check_malware</strong>: Este módulo nos permite analizar si un fichero es malware subiéndolo a VirusTotal. Se tiene que correr desde Metasploit, no desde meterpreter a modo de módulo tipo POST.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120155741.png" text-align="center" />
+  </div>
+
+    <p>Evidentemente podemos reproducir el mismo resultado descargándonos el fichero y subiéndolo manualmente a VirusTotal.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="513-módulos-windows">5.1.3. Módulos Windows.</h3>
+
+<p>Disponemos de una serie de módulos específicos para Windows.</p>
+
+<ul>
+  <li>
+    <p><strong>keylog_recorder</strong>: Se trata de una herramienta que captura las teclas pulsadas por el usario en el teclado conectado a la máquina víctima.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120161349.png" text-align="center" />
+  </div>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120161827.png" text-align="center" />
+  </div>
+
+    <p>Como podemos ver en la imagen, no se ha capturado ninguna tecla en el fichero especificado debido a que el teclado de una máquina virtual en ningún caso es físico. Pero ahí deberían aparecer los caracteres tecleados.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>arp_scanner</strong>: Efectúa un escaneo arp para ver qué máquinas (IP y MAC) se han puesto en contacto con la máquina. Se corre utilizando un módulo post:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120165858.png" text-align="center" />
+  </div>
+
+    <p>Pese a que lo que hace es realizar alguna prueba de conectividad, este comando deja poco rastro.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>checkvm</strong>: Este módulo checkea si la máquina víctima es o no una máquina virtual.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120170059.png" text-align="center" />
+  </div>
+
+    <p>Es conveniente observar que no ofrece ningún tipo de información acerca del sistema operativo que corre, sólo si es o no una máquina virtual. Esto además también se puede hacer comprobando la MAC del dispositivo, <strong>08:00:27</strong> es por ejemplo propia de virtualbox.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>credential_collector</strong>: Recopilar credenciales</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120171501.png" text-align="center" />
+  </div>
+
+    <p>Con este comando recopilamos los hashes de los usuarios y los tokens/objetos de autorización.</p>
+
+    <p>Por motivos de seguridad, es posible que desee almacenar las contraseñas en formato hash. Esto evita la posibilidad de que alguien que obtenga acceso no autorizado a la base de datos pueda recuperar las contraseñas de todos los usuarios del sistema.</p>
+
+    <p>El <strong>Hashing</strong> realiza una transformación unidireccional en una contraseña, convirtiendo la contraseña en otra Cadena, llamada contraseña hash . “Unidireccional” significa que es prácticamente imposible ir hacia el otro lado: convertir la contraseña codificada nuevamente en la contraseña original.</p>
+
+    <p><strong>El valor de la contraseña hash no se cifra antes de que se almacene en la base de datos. Cuando un miembro intenta iniciar sesión, el módulo de personalización toma la contraseña proporcionada, realiza un hash unidireccional similar y lo compara con el valor de la base de datos. Si las contraseñas coinciden, entonces el inicio de sesión es exitoso.</strong></p>
+
+    <p>También tenemos el modulo <strong>hashdump</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120193257.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>enum_applications</strong>: Listado de aplicaciones instaladas</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120173756.png" text-align="center" />
+  </div>
+
+    <p>Y como se puede observar, el resultado se almacena en un fichero.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>enum_logged_on_users</strong>: Listado de usuarios que han iniciado sesión</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120171602.png" text-align="center" />
+  </div>
+
+    <p>Y de nuevo el resultado se almacena en un fichero.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>enum_shares</strong>: Listado de recursos compartidos.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120174644.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p><strong>usb_history</strong>: Dispositivos USB conectados</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120194110.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>https://www.offensive-security.com/metasploit-unleashed/windows-post-manage-modules/</p>
+  </li>
+  <li>
+    <p><strong>Borrado de usuario</strong> -&gt; post/windows/manage/delete_user USERNAME=hacker</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="14-sistemas-de-linux">1.4. Sistemas de Linux.</h2>
+
+<ul>
+  <li>
+    <p>Comprobar si es una VM -&gt;<strong>post/linux/gather/checkvm</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120194848.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Listado de ficheros de configuración de aplicaciones -&gt; <strong>post/linux/gather/enum_configs</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120220013.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Recopilar estado de red y equipos -&gt; post/linux/gather/<strong>enum_network</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120220037.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Software Blue Team -&gt; post/linux/gather/<strong>enum_protections</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120221948.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Información de sistema -&gt; post/linux/gather/<strong>enum_system</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120222443.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>Registro de comandos (shell, mysql, vim…) -&gt; post/linux/gather/<strong>enum_users_history</strong></p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220120223616.png" text-align="center" />
+  </div>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="52-persistencia">5.2. Persistencia.</h2>
+
+<h3 id="521-concepto">5.2.1. Concepto.</h3>
+<p>En informática el término <strong>persistence</strong> o persistencia se refiere al estado de un sistema que sobrevive (persiste) más del proceso que lo ha creado. En lo referente al malware tiene que ver con cómo este persiste más alla de la terminación del proceso que lo ha crea cuando se apaga el ordenador, cuando se cambia de sistema operativo, etc.</p>
+
+<p><br /></p>
+
+<h3 id="522-uso-y-ejemplo">5.2.2. Uso y ejemplo.</h3>
+
+<p>Metasploit y Meterpreter tienen una opción con la que podemos volver un malware persistente. Veamos un ejemplo de uso:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar, utilizamos la máquina WIndowsploitable y utilizamos un exploit contra ella, por ejemplo EternalBlue, con un payload de Meterpreter:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220212121425.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Seguidamente, utilizamos el comando que tiene meterpreter para generar persistencia:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220212121710.png" text-align="center" />
+  </div>
+
+    <p>Observemos que esta opción lo que hace es generar un script en el que almacena un payload y que está constantemente ejecutando en una localización del sistema operativo. Dicho payload es: <strong>windows/meterpreter/reverse_tcp</strong>.</p>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p>Así pues, supongámos que perdemos la sesión actual que tenemos abierta con Meterpreter. Entonces, sabemos que el payload que se ha guardado en el ordenador a modo de script es un reverse shell y por tanto podemos recuperar la conexioń levantando un <strong>multihandler</strong> y configurando el payload adecuadamente de forma que coincida con el payload que está pidiendo una conexión desde la máquina víctima.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M6/Pasted%20image%2020220212122208.png" text-align="center" />
+  </div>
+
+    <p>Y así habríamos recuperado la conexión. Observemos que de nuevo, es importante hacer coincidir ambos payloads.</p>
+  </li>
+</ul>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#redteam">redteam</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Metasploit&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-04-Metasploit_B%25C3%25A1sico%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-02-04-Metasploit_B%25C3%25A1sico%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-04-Metasploit_B%25C3%25A1sico%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-02-03-Ataques_aplicaciones_android/" data-toggle="tooltip" data-placement="top" title="Ataques a aplicaciones Android">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-02-05-Escalada_de_privilegios/" data-toggle="tooltip" data-placement="top" title="Escalada de privilegios">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

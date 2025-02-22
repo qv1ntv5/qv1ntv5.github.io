@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>1.Pre-Security path.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Notes of the TryHackMe&apos;s path Pre-Security.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="1.Pre-Security path.">
+  <meta property="og:description" content="Notes of the TryHackMe&apos;s path Pre-Security.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-07-11T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-07-11-1Pre-Security/">
+  <link rel="canonical" href="http://localhost:4000/2022-07-11-1Pre-Security/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="1.Pre-Security path.">
+  <meta property="twitter:description" content="Notes of the TryHackMe&apos;s path Pre-Security.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>1.Pre-Security path.</h1>
+          
+            
+              <h2 class="post-subheading">Notes of the TryHackMe's path Pre-Security.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on July 11, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Network Fundamentals.
+    <ul>
+      <li>1.1. Network. Internet. Dirección IP. MAC. Ping.</li>
+      <li>1.2. Intro to LAN.</li>
+      <li>1.3. Understanding OSI model.</li>
+      <li>1.4. Packets &amp; Frames.</li>
+      <li>1.5. Extending your Network.</li>
+    </ul>
+  </li>
+  <li>2 Web Fundamentals.
+    <ul>
+      <li>2.1. DNS in detail.</li>
+      <li>2.2. HTTP in detail.</li>
+      <li>2.3. How Websites works.</li>
+      <li>2.4. Other componentes. Web servers.</li>
+    </ul>
+  </li>
+  <li>3 Linux Fundamentals.
+    <ul>
+      <li>3.1. Linux Fundamentals I.</li>
+      <li>3.2. Linux Fundamentals II.</li>
+      <li>3.3. Linux Fundamentals III.</li>
+    </ul>
+  </li>
+  <li>4 Windows Fundamentals.
+    <ul>
+      <li>4.1. Windows Fundamentals I.</li>
+      <li>4.2. Windows Fundamentals II.</li>
+      <li>4.3. Windows Fundamentals III.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-network-fundamentals">1. Network Fundamentals.</h3>
+
+<h4 id="11-network-internet-dirección-ip-mac-ping">1.1. Network. Internet. Dirección IP. MAC. Ping.</h4>
+
+<p><br /></p>
+
+<p><strong>Network. Internet.</strong></p>
+
+<p>Vamos a comenzar definiendo que una Red es un conjunto de dispositivos conrectados que comparten información. En concreto, Internet es una red gigante de la que participan la amplia mayoría de los dispositivos existentes con capacidad para conectarse a otro dispositivo.</p>
+
+<p>Internet a su vez está constituida por redes más pequeñas conectadas entre sí.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704171831.png" text-align="center" />
+</div>
+
+<p>Estas redes más pequeñas se denominan como “redes privadas”.</p>
+
+<p><br /></p>
+
+<p><strong>Direcciones IP. Direcciones MAC.</strong></p>
+
+<p>Para que dos dispositivos puedan comunicarse deben de tener la capacidad de identificar y ser identificados por otro dispositivo. Para ello se emplean dos entidades fundamentales:</p>
+
+<ul>
+  <li>Dirección IP.</li>
+  <li>Dirección MAC.</li>
+</ul>
+
+<p>La dirección IP (no confundir con el protocolo IP) es un número que sirve para identificar un host (ordenador) dentro de una red. Más concretamente es un conjunto de números separados en cuatro octetos (debido a que en esencia los ordenadores procesan cada número en binario y cada uno de los cuatro números que componen la IP consta de 8 bits):</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704173123.png" text-align="center" />
+</div>
+
+<p>En la imagen anterior lo que tenemos es una dirección IP expresada de forma decimal. Es importante saber que: <strong>no pueden haber dos IPs iguales en la misma red</strong>. A su vez, diferenciamos entre IPs públicas que no pueden estar repetidas en ningún caso, e IPs privadas que pueden estar repetidas en redes privadas distintas. Generalmente, los dispositivos que poseen una IP privada emplean un dispositivo con IP pública para comunicarse con otro dispositivo a través de una red pública como Internet.</p>
+
+<p>Por otra parte, la dirección MAC es una dirección asociada a un chip interno que actúa como una interfaz de red física (se trata de una dirección física del dispositivo en sí) y que supuestamente actúa como un identificador único de la máquina. Mientras que las IPs pueden variar en el tiempo, las direcciones MAC no lo harán nunca. Sin embargo, existen procesos de “MAC spoofing” con los que se puede suplantar la identidad MAC de un dispositivo.</p>
+
+<p>En esencia la dirección MAC es una dirección de 6 números hexadecimales. Los tres primeros identifican al vendedor del dispositivo y el segundo identifica a la interfaz de red del dispositivo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704175629.png" text-align="center" />
+</div>
+
+<p>Cabe decir que no todos los protocolos de comunicación emplean la MAC.</p>
+
+<p><br /></p>
+
+<p><strong>Ping</strong></p>
+
+<p>Ping es una herramienta fundamental en el campo del Networking. Este emplea el ICMP (Internet Control Message Protocol) para determinar el funcionamiento de una red. <strong>El tiempo que tardan los paquetes ICMP en llegar al host de destino es medido por la herramienta y mostrado al usuario por pantalla.</strong></p>
+
+<p>Esta herramienta viene con frecuencia integrada en dispositivos en forma de comando del propio OS del dispositivo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704180818.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="12-lan-topologías-swtichs-routers-subnetting-arp-dhcp">1.2. LAN. Topologías. Swtichs. Routers. Subnetting. ARP. DHCP.</h4>
+<p>Recordamos que una red es un conjunto de dispositivos conectados y la topología de red consiste en el diseño de esas conexiones. A lo largo de la historia se han implementado diversos diseños de topología:</p>
+
+<p><br /></p>
+
+<p><strong>Topologías</strong>:</p>
+
+<ul>
+  <li><em>Topología de estrella</em>:</li>
+</ul>
+
+<p>Los dispositivos de la red están individualmente conectados a un <strong>switch</strong>, es una de las más comúnes hoy en día:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704210442.png" text-align="center" />
+</div>
+
+<p>Este esquema funciona conectando cada host a un dispositivo llamado switch que pone a todos ellos en contacto. Es una buena elección para manejar redes pequeñas pero la cosa cambia cuando la network crece.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Topología de Bus</em>:</li>
+</ul>
+
+<p>En esta topología todos los ordenadores están conectados a un cable principal denominado “espina dorsal” (backbone) por el que circula la información:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704212209.png" text-align="center" />
+</div>
+
+<p>El problema de este tipo topología es que se satura con facilidad. No puede manejar un exceso de información.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Topología de anillo</em>:</li>
+</ul>
+
+<p>En este caso, los ordenadores también están conectados entre sí formando un anillo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704212537.png" text-align="center" />
+</div>
+
+<p>Si observamos que si algunos de los dispositivos quedase incapacitado o el cable sufriese algún tipo de daño la comunicación se vería cortada sin remedio.</p>
+
+<p><br /></p>
+
+<p><strong>Switch. Router.</strong></p>
+
+<p>Como ya hemos indicado, la topología más importante por ser la más frecuente consisten en aquella en la que todos los dispositivos están conectados entre sí mediante los <strong>swtich</strong>. Este es un dispositivo encargado de dos funciones fundamentales:</p>
+
+<ul>
+  <li>Agregar más dispositivos a la red.</li>
+  <li>Llevar la información que le transmiten los dispositivos conectados al equipo de destino que generalmente se trata de un router.</li>
+</ul>
+
+<p>Por otra parte, un <strong>router</strong> es un dispositivo que como su propio nombre indica, enruta la información hacia otra network.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220704214854.png" text-align="center" />
+</div>
+
+<p>De esta forma, el esquema general es que en una red de dispositivos, uno emite información contra el switch que es reenviada al router que la dirige sobre la network donde se encuentra el host de destino.</p>
+
+<p><br /></p>
+
+<p><strong>Subnetting. Mascaras de red. Gateaway.</strong></p>
+
+<p>Subnetting es el término que hace referencia a la división de una network en redes de menor tamaño:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705141115.png" text-align="center" />
+</div>
+
+<p>En este caso el ejemplo expone redes, grupos de ordenadores que comparten una categoría concreta. Para diferenciar entre cada pequeña subred se emplean las máscaras de red.</p>
+
+<p>Este no es más que una pequeña parte de la IP que se queda fija para cada dispositivo de la subred. Esto permite identificar tres datos fundamentales:</p>
+
+<ul>
+  <li>Identificar la dirección de red.</li>
+  <li>Identificar la dirección del host.</li>
+  <li>Identificación del Gateaway.</li>
+</ul>
+
+<p>El Gateaway es aquel dispositivo dentro de una red que se pone en contacto con otra red. Frecuentemente suele ser el router.</p>
+
+<p>Así por ejemplo, una mascara de red que fija los 3 primeros octetos de una red cuya dirección es: 192.168.1.0 tendrá 254 direccione disponibles para asociar dispositivos. Así, por ejemplo, para el dispositivo 192.168.1.100 se sabe que, teniendo en cuenta la máscara de red:</p>
+
+<ul>
+  <li>192.168.1.0 –&gt; Network Address.</li>
+  <li>192.168.1.100 –&gt; Host Address.</li>
+  <li>192.168.1.254 –&gt; Default Gateway.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Protocolo ARP, DHCP</strong></p>
+
+<p>El término <strong>ARP</strong> responde sobre: Address Resolution Protocol y asocia una dirección MAC con una dirección IP dentro de una red. Se emplea para poner en contacto dispositivos dentro de una misma red.</p>
+
+<p>Funciona enviando un mensaje de difusión (broadcast) a todos los ordenadores de una red buscándo aquel dispositivo que tenga una IP concreta (ARP request), el dispositivo que posee dicha IP se identifica aportando al emisor del mensaje original su MAC (ARP replay) y este último guarda la misma en el <strong>ARP cache</strong> para no tener que repetir el proceso cada vez que quiera ponérse en contacto con dicho dispositivo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705164629.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Por otro lado, el protocolo <strong>DHCP</strong> responde a Dynamic Host Configuration Protocol y se trata de un protocolo que asigna a un dispositivo nuevo en una red una dirección IP. El proceso consiste en que el dispositivo que no tiene todavía una dirección IP se pone en contacto con el servidor que gestiona dicho proceso a menudo referido como DHCP Server (DHCP Discover), este le proporciona una IP (DHCP Offer), el dispositivo la confirma (DHCP Request) y por último el servidor le manda una confirmación de su confirmación (DHCP ACK).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705170235.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="13-osi-model">1.3. OSI model.</h4>
+
+<p><strong>Introducción al modelo OSI</strong></p>
+
+<p>El modelo OSI (Open System Interconnection Model) es modelo fundamental empleado en la conexión entre dispositivos. Este ofrece un framework consistente en un conjunto de reglas que dictan cómo se emiten, reciben e interpretan los datos que dos dispositivos comparten. Este modelo está construido para permitir que los dispositivos que participen de él desempeñen cualquier tipo de funcionalidad.</p>
+
+<p>Se compone de 7 campos de abstracción, llamados <em>capas</em>, cada uno con un conjunto de responsabilidades distinto en las que operan una serie de protocolos (reglas de acción que manipulan los datos).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705220858.png" text-align="center" />
+</div>
+
+<p><strong>Los datos viajan a través de cada capa y en el proceso se le van añadiendo fragmentos de información relativos a cada campo</strong>(encapsulamiento de datos).</p>
+
+<p><br /></p>
+
+<p><strong>Layer 7: Application</strong></p>
+
+<p>La capa de aplicación es la capa que en la operan aquellos protocolos que deciden cómo el usuario interactúa con los datos que recibe.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705222016.png" text-align="center" />
+</div>
+
+<p>En muchas ocasiones, estos datos son transferidos a la interfaz <strong>GUI</strong> (Graphical User Interface) para que el usuario pueda interactuar con ellos de una manera más comoda.</p>
+
+<p><br /></p>
+
+<p><strong>Layer 6: Presentation</strong></p>
+
+<p>En la capa de presentación entran en juego aquellos protocolos que estandarizan la información en función del que sea esta. Por ejemplo, muchos desarrolladores pueden elaborar software que envíe datos de formas múltiples y arbitrarias, sin embargo, este último se debe de manejar de la misma forma en todas las máquinas y por ello debe ser estandarizada. Actúa como una especie de capa traductora de datos.</p>
+
+<p><br /></p>
+
+<p><strong>Layer 5: Session</strong></p>
+
+<p>Llamamos <strong>sesión</strong> a una conexión satisfactoriamente establecida entre dos dispositivos. Una vez que los datos han sido correctamente traducidos desde la capa de presentación, pasan a la capa de sesión. En ella se encuentran protocolos que llevan a cabo un manejo de la sesión que conecta los dos dispositivos que se están pasando los datos.</p>
+
+<p>Concretamente, la capa de sesión sincroniza las dos máquinas para asegurarse de que ambas máquinas esperan enviar y recibir los mismos datos e impone medidas de seguridad que pretenden garantizar la integridad de la sesión. Seguidamente, se procede a dividir estos en fragmentos de datos (paquetes) que serán posteriormente enviados de forma individual uno cada vez. Esto se hace principalmente para prevenir pérdida de información en caso de que falle la comunicación entre ambas máquinas.</p>
+
+<p>Sin embargo, lo más destacable es que la sessión permite una cobertura de seguridad ya que los datos viajan a través de una misma sesión y se prevenie el cruce de datos entre sesiones.</p>
+
+<p><br /></p>
+
+<p><strong>Layer 4: Transport</strong></p>
+
+<p>La capa de transporte del modelo OSI juega un papel importante en la transmisión de datos a lo largo de la red. Empezaremos aclarando que cuando dos ordenadores se ponen en contacto y comienzan a intercambiar paquetes emplean uno de los siguientes protocolos de transporte:</p>
+
+<ul>
+  <li>TCP</li>
+  <li>UDP</li>
+</ul>
+
+<p>El protocolo <strong>TCP</strong> que responde a <em>Transmision Control Protocol</em> esta diseñado para transmitir datos entre dispositivos de manera fiable y garantizada. Existen dos características distintivas del protocolo TCP:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar se formaliza una conexión entre ambos dispositivos (Three-way handshaking) que se abre antes de comenzar el intercambio de datos y se cierra al terminalo. Esta sesión TCP implementa varios mecanismos de seguridad a través de los cuales se garantiza de que la información llegue completa y ordenada.</p>
+  </li>
+  <li>
+    <p>Además incorpora un mecanismo de checkeo de errores que garantiza que los paquetes fragmentados en la capa de sesión sean reensamblados de forma correcta.</p>
+  </li>
+</ul>
+
+<p>De esta forma y en resumidas cuentas se puede afirmar que es seguro y fiable pero el conjunto de mecanismos que implementa para garantizar las características anteriores lo vuelven más lento de lo que inicialmente sería se enviará la información sin más además de que se puede volver aún más lento si la conexión entre ambos dispositivos no es la adecuada.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220705232658.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Por otra parte, <strong>UDP</strong> que atiende a <em>User Datagram Protocol</em> se emplea para la misma función que el protocolo anterior pero no posee sus características ni sus mecanismos de seguridad. Por lo tanto, es más rápido pero la información que se reparte no tiene las mismas garantias.</p>
+
+<p><br /></p>
+
+<p>Ninguno de los dos es mejor que el otro. Sirven para distintos propósitos en función de la importancia que se le de al estado de la información recibida.</p>
+
+<p>Por lo general, TCP es preferible cuando se traspasan datos que resultan en una gran cantidad de paquetes, tales como emails, fotos, etc. UDP tiene el propósito contrario, cuando los datos que se mandan ocupan muy pocos paquetes, por ejemplo, protocolos de sincronización temporal o de descubrimiento de dispositivos.</p>
+
+<p><br /></p>
+
+<p><strong>Layer 3: Network</strong></p>
+
+<p>En la capa de red es la capa donde sucede el enrutamiento y el reensamblado de paquetes a la forma original de los datos sucede.</p>
+
+<p>Lo que tiene lugar en primera instancia es el routing, este determina la ruta por la que enviar a estos paquetes de datos. Entre los protocolos que se encargan de determinar la ruta correcta encontramos el OSPF (Open Shortest Path First) y el RIP (Routing Information Protocol), estos llevan a cabo su tarea mediante el sopesamiento de las siguientes cuestiones:</p>
+
+<ul>
+  <li>La ruta más corta.</li>
+  <li>La ruta más fiable.</li>
+  <li>La ruta con la conexión física más rápida. (Conexión por cable, fibra óptica, etc.)</li>
+</ul>
+
+<p>En esta capa, el componente más importante sobre el que se realiza todos los cálculos es la dirección IP que se adhiere en el paquete.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706101724.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Layer 2: Data link</strong></p>
+
+<p>La capa de enlace de datos se concentra en la parte de la transmisión que tiene que ver con la dirección física. Recibe los paquetes de la capa de red con la dirección IP incluida y seguidamente y añade la dirección MAC del dispositivo de destino.</p>
+
+<p>Dentro de cada dispositivo habilitado para conectarse a una red contiene una Network Interface Card que contiene una dirección MAC única.</p>
+
+<p><br /></p>
+
+<p><strong>Layer 1: Physical</strong></p>
+
+<p>En la capa física se referencian los componentes físicos por los que los datos pasan a la hora de cruzar la red. Cable ethernet, señales electricas, etc.</p>
+
+<p><br /></p>
+
+<p>Así, a modo de resumen, tenemos la siguiente tabla:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>nº</th>
+      <th>nombre</th>
+      <th>función</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7</td>
+      <td>Application</td>
+      <td>Cómo el usuario interactúa con los datos, a menudo GUI.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Presentation</td>
+      <td>Estandarización de los datos provenientes de la capa anterior.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Session</td>
+      <td>Mecanismos de seguridad que garantizan una buena conexión entre ambos dispositivos.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Transport</td>
+      <td>Cómo se envían los datos (TCP, UDP).</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Network</td>
+      <td>Capa de transporte define las direcciones IP y la ruta óptima de circulación de los datos.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Data Link</td>
+      <td>Transferencia fiable de datos (ARP).</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Physical</td>
+      <td>Referencia los medios físicos por los que se van a transportar los datos.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>De esta forma, si nosotros envíasemos un email, los datos que nosotros mandamos recorren las capas de abstracción del modelo OSI de mayor a menor (7 –&gt; 1) sufriendo el proceso de encapsulación en cada capa hasta que los paquetes se envían y vuelven a recorrer dichas capas de abstracción de menor a mayor (1 –&gt; 7) donde a medida que suben se “desencapsulan” y procesan cuando son recibidos por el receptor de los datos.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706105841.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="14-packets--frames">1.4. Packets &amp; Frames.</h4>
+
+<p><strong>Definición y diferencia</strong></p>
+
+<p>Tanto los paquetes como los marcos (frames) son pequeñas porciones de datos que al ensamblarse de manera ordenada forman una pieza mayor que puede ser interpretada por una máquina.</p>
+
+<p>Sin embargo, es importante tener en cuenta la siguiente diferencia:</p>
+
+<ul>
+  <li>
+    <p>El término <strong>paquete</strong> refiere a la estructura que se forma en la capa 3, o de <em>Network</em>, y que contiene las direcciones IP.</p>
+  </li>
+  <li>
+    <p>Por otro lado, un <strong>frame</strong> es <strong>aquello que se aporta en la capa inmediatamente posterior, de la capa 2, o de <em>Data Link</em></strong> del modelo OSI. Más concretamente, un frame es una unidad de transmisión de datos digitales, actúa como un contenedor de un único paquete de red por encapsulamiento.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706124006.png" text-align="center" />
+</div>
+
+<p>Llegados a este punto, es seguro asumir que cuando hablamos de una dirección IP, estamos hablando de paquetes. Cuando se elimina la información de encapsulación, estamos hablando del marco en sí.</p>
+
+<p><br /></p>
+
+<p><strong>TCP/IP (Three-Way Handshake)</strong></p>
+
+<p>TCP/IP es otro modelo que representa la superación del modelo OSI en cuanto a la relación de dispositivos en la red se refiere. Como cualquier otro modelo, se trata de un conjunto de protocolos agrupados en capas de abstración que permiten la comunicación entre los ordenadores pertenecientes a una red.</p>
+
+<p>Las capas del modelo TCP/IP es:</p>
+
+<ul>
+  <li>Application</li>
+  <li>Transport</li>
+  <li>Internet</li>
+  <li>Network Interface</li>
+</ul>
+
+<p>De la misma forma que en el modelo OSI, los datos atraviesan las distintas capas de abstracción recopilando cabeceras y encapsulando datos hasta conformar el paquete.</p>
+
+<p>Una de las características del modelo TCP/IP es que emplea el protocolo TCP que es un <em>connection-based protocol</em> que significa que este protocolo se asegura de abrir una sesión TCP entre ambos dispositivos antes de comenzar a enviar datos a modo de mecanismo de seguridad y garantía. Este proceso es conocido como Three-Way Handshaking.</p>
+
+<p>Vamos a ver algunas de las cabeceras más importantes que el paquete recopila en este modelo:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Source Port</td>
+      <td>Contiene el número del pueto desde el que se ha enviado los datos. Se elige de forma aleatoria entre el 0 y el 65535.</td>
+    </tr>
+    <tr>
+      <td>Destination Port</td>
+      <td>Contiene el número del puerto al que se dirigen los datos en el otro dispositivo. El número dependerá del servicio al que se esté intentando acceder, por ejemplo, un servicio web correría en el puerto 80, el ssh en el 22, etc.</td>
+    </tr>
+    <tr>
+      <td>Source IP</td>
+      <td>Contiene la dirección IP del dispositivo emisor.</td>
+    </tr>
+    <tr>
+      <td>Destination IP</td>
+      <td>Contiene la dirección IP del dispositivo de destino.</td>
+    </tr>
+    <tr>
+      <td>Sequence Number</td>
+      <td>El protocolo TCP enumera los paquetes de datos transmitidos para asegurar un orden.</td>
+    </tr>
+    <tr>
+      <td>Acknowledgement Number</td>
+      <td>Para la siguiente pieza de datos, el número que lleva es el número “sequence number + 1”.</td>
+    </tr>
+    <tr>
+      <td>Checksum</td>
+      <td>Se trata de una cabecera que lleva a cabo una correción de errores. Esto es la herramienta mediante la cual TCP garantiza una integridad.</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Los datos en sí, contenido HTTP, HTML, etc.</td>
+    </tr>
+    <tr>
+      <td>Flag</td>
+      <td>Esta cabecera determina cómo se debería de manejar el paquete.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ahora que conocemos las cabeceras más importantes, veámos cómo se produce una comunicación en el modelo TCP/IP. En este modelo que emplea el protocolo TCP (que recordemos es un <em>Connection-based protocol</em>) se emplea un Three-way handshaking consistente en una apertura formal en el que un dispositivo le manda un SYN (synchronise) a otro con la finalidad de abrir un canal de comunicación. Si el otro dispositivo está condiciones responderá con un SYN/ACK (SYNchronise ACKnowledge) y por último el emisor inicial devolverá un último ACK:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706171753.png" text-align="center" />
+</div>
+
+<p>Para cerrar una conexión el emisor mandar un FIN, el receptor devuelve un ACK en señal de que ha recibido el mensaje y seguidamente manda otro FIN y por último el emisor emite un último ACK que devuelve la conexión:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706171920.png" text-align="center" />
+</div>
+
+<p>De esta forma, se tiene que una comunicación TCP hay generalmetne la siguiente estructura:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paso</th>
+      <th>Mensaje</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>SYN</td>
+      <td>El primer mensaje que el cliente envía con la finalidad de abrir comunicación entre ambos dispositivos.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>SYN/ACK</td>
+      <td>Este paquete lo manda el servidor para aceptar la comunicaicón con el cliente.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>ACK</td>
+      <td>El cliente devuelve un último ACK para dar a entender al servidor que ha recibido su mensaje de confirmación.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Data</td>
+      <td>Una vez la conexión a tenido lugar se procede al envío de datos. Cada paquete mandado está serializado en una secuencia y tiene su propio ACK también respectivamente serializado.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>FIN</td>
+      <td>Este paquete se emplea por el cliente para indicar que desea finalizar la conexión. El servidor responde con su respectivo ACK y otro FIN.</td>
+    </tr>
+    <tr>
+      <td>#</td>
+      <td>RST</td>
+      <td>Si existe algún problema durante la comunicación este paquete indica la finalización de toda comunicación.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><strong>UDP/IP</strong></p>
+
+<p>De nuevo, UDP/IP es otro modelo que contiene como protocolos principales UDP e IP. Recordamos que UDP es <strong>User Datagram Protocol</strong> se otro protocolo que emplea para comunicar datos entre dispositivos que se centra más en la rapidez y menos en la calidad de la información. Se emplea en servicios en los que se puede tolerar una pérdida parcial de la información.</p>
+
+<p>Las cabeceras más importantes que acompañan al protocolo UDP son, entre otras:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Time To Live (TTL)</td>
+      <td>Este campo define un tiempo límite para el paquete de forma que se evita que la red cuelgue si no alcanza su destino.</td>
+    </tr>
+    <tr>
+      <td>Source Address</td>
+      <td>Dirección IP del emisor.</td>
+    </tr>
+    <tr>
+      <td>Destination Address</td>
+      <td>La IP del dispositivo de destino.</td>
+    </tr>
+    <tr>
+      <td>Source Port</td>
+      <td>Puerto desde el que se ha emitido el paquete. Recordamos que este es un número aleatorio desde el 0 al 65535.</td>
+    </tr>
+    <tr>
+      <td>Destination Port</td>
+      <td>Este es el puerto al que va dirigido el paquete. Dependerá del servicio al que esté dirigido.</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>El contenido a transmitir en sí.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A modo de diferencia, el diagrama que representa una comunicación UDP entre dos dispositivos sería el siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706180836.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Puertos comunes</strong></p>
+
+<p>Existen fundamentalmente dos tipos de puertos, comunes o permanentes y temporales. Los primeros abarcan desde el 0 –&gt; 1024 y corresponden a servicios conocidos que operan constantemente hasta que se le indican lo contrario y cada servicio tiene asociado un puerto específico:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Protocol</th>
+      <th>Nº Puerto</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>File Transfer Protocol</td>
+      <td>21</td>
+      <td>Se trata de un protocolo empleado por aplicaciones que comparten ficheros en un modelo cliente-servidor.</td>
+    </tr>
+    <tr>
+      <td>Secure Shell</td>
+      <td>22</td>
+      <td>Es un protocolo cryptográfico que entre otras aplicaciones se encuentra la <em>administración remota</em> entre otras. La comunicación está cifrada.</td>
+    </tr>
+    <tr>
+      <td>HyperText Transfer Protocol</td>
+      <td>80</td>
+      <td>Este es un protocolo fundamental en el uso de la exploración web.</td>
+    </tr>
+    <tr>
+      <td>HTTPS</td>
+      <td>443</td>
+      <td>Este protocolo es la variante HTTP cifrado con SSH.</td>
+    </tr>
+    <tr>
+      <td>Server Message Block</td>
+      <td>445</td>
+      <td>Este protocolo es similar a FTP pero exclusivo en Windows.</td>
+    </tr>
+    <tr>
+      <td>Remote Desktop Protocol</td>
+      <td>3389</td>
+      <td>Este protocolo se emplea por aplicaciones que comparten el escritorio de forma visual. Sería un homólogo de SSH pero sin las limitaciones de la terminal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="15-extending-your-network">1.5. Extending your Network.</h4>
+
+<p><strong>Introduction to Port Forwarding</strong></p>
+
+<p>La <strong>redirección de puertos</strong> o Port Forwarding es un componente esencial en la conexión de aplicaciones y servicios en Internet que permite extender las funcionalidades de una aplicación más allá de los confines de una red.</p>
+
+<p>Concretamente, la redirección de puertos permite la redirección de comunicación de una combinación direcciónIP/puerto a otra combinación direcciónIP/puerto.</p>
+
+<p>Por ejemplo, supongámos una red internat (Intranet) como la siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706194154.png" text-align="center" />
+</div>
+
+<p>Sin la redirección de puertos, todos los dispositivos quedarían restringidos a las funcionalidades presentes en los dispositivos de dicha red. Sin embargo, con el port forwarding se puede instaurar en el router un servicio que este coge de un dispositivo de una red externa. Más concretamente, cualquier conexión dirigida sobre el puerto 80 del router es redirigida sobre el mismo puerto en otro dispositivo accediendo a su contenido:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706194601.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Firewall</strong></p>
+
+<p>Un <strong>firewall</strong> o cortafuegos es un dispositivo dentro de una red responsable de determinar qué tráfico está permitido y cuál no. Está configurado por un administrador y los criterios empleados para determinar si el tráfico es o no bloqueado son múltiples:</p>
+
+<ul>
+  <li>Origen.</li>
+  <li>Destino.</li>
+  <li>Puerto de destino.</li>
+  <li>Protocolo empleado.</li>
+</ul>
+
+<p>El firewall lleva a cabo una inspección para resolver estas incógnitas y en base a la aplicación de una serie de reglas impuestas por un administrador decide a qué deja el paso.</p>
+
+<p>Un firewall puede tener dos actitudes:</p>
+
+<ul>
+  <li><em>Statefull</em>: En la que emplea la totalidad de la información que proporciona una conexión para decidir si permite el tráfico.</li>
+  <li><em>Stateless</em>: En la que analiza cada paquete individualmente para decidir si lo deja pasar o no basado en una serie de reglas.</li>
+</ul>
+
+<p>Observemos que los firewall regulan el tráfico y lo redireccionan, con lo que actúan sobre la capa 3 (Network) y la capa 2 (Data Link) del modelo OSI.</p>
+
+<p><br /></p>
+
+<p><strong>VPN basics</strong></p>
+
+<p>VPN es el acrónimo de Virtual Private Network y se trata de una tecnología que permite a dispositivos en redes separadas comunicarse de forma segura creando rutas entre ellas a lo largo de Internet más conocido como <em>túneles</em>. <strong>Es precisamente a través de estos túneles mediante los que se forma una red privada de forma virtual</strong>.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706211150.png" text-align="center" />
+</div>
+
+<p>Así, los dispositivos conectados en la 3ª Network siguen formando parte de la 1ª y la 2ª respectivamente, sin embargo, al mismo tiempo ambos conforman un 3ª de forma virtual.</p>
+
+<p>Veámos algunos de los beneficios ofertadas por una VPN.</p>
+
+<ul>
+  <li>
+    <p>Permite una conexión de redes de distintas localizaciones geográficas en una red privada.</p>
+  </li>
+  <li>
+    <p>Ofrece privacidad. (Cifrado de datos).</p>
+  </li>
+  <li>
+    <p>Ofrece discreción. La VPN oculta la IP natural cambiandola por una artifical dentro de la red privada.</p>
+  </li>
+</ul>
+
+<p>Entre las tecnologías VPN más utilizadas se encuentran PPP y PPTP que actúan conjuntamente, concretamente, PPTP (Point-To-Point Protocol). También tenemos IPSec.</p>
+
+<p><br /></p>
+
+<p><strong>Routers y Switches en profundidad. VLANs.</strong></p>
+
+<p>Como ya hemos comentado antes, el trabajo de un router es el enrutar (routing) el tráfico en la dirección correcta mediante una serie de criteriors basados en información.</p>
+
+<p>A su vez, el routing o enrutar involucra el crear una ruta entre redes de forma que los datos puedan llegar de forma rápida y segura a su destino. Operan sobre la capa 3 del modelo OSI. Sobre todo son útiles cuando ambos dispositivos están conectados a lo largo de muchas rutas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706214919.png" text-align="center" />
+</div>
+
+<p>En la imagen anterior podemos ver dos dispositivos conectados mediante diversas rutas. Qué ruta seguirán los datos es algo que el primer router decidirá en base a las siguientes cuestiones:</p>
+
+<ul>
+  <li>Qué camino es más corto.</li>
+  <li>Qué camino es más seguro.</li>
+  <li>Qué camino tiene el medio físico (cable, fibra óptica, etc) más rápido.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Por otro lado, los switches son dispositivos dedicados responsables de la conexión de múltiples dispositivos de distintas redes a un router.</p>
+
+<p>Un switch puede operar con una funcionalidad que le sitúa o bien en la capa 2 (Data Link) o bien en la capa 3 (Network) de forma excluyente (no pueden operar en varias capas al mismo tiempo):</p>
+
+<ul>
+  <li>
+    <p>Un switch de capa 2 redireccionará <em>frames</em> (recordemos que los frames son un contenedor de paquetes, la estructura que contiene la cabecera IP y el IP payload, no es el paquete completo) al dispositivo correcto.</p>
+  </li>
+  <li>
+    <p>Un switch de capa 3 es algo más sofisticado que uno de capa 2 y puede desarrollar algunas compentencias de un router convencional en el sentido de que además de frames pueden enrutar paquetes.</p>
+  </li>
+</ul>
+
+<p>Por otra parte, tenemos el concepto de <strong>VLAN</strong> o Virtual Local Area Network, que permite a dispositivos específicos dentro de la misma red.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220706230453.png" text-align="center" />
+</div>
+
+<p>Esto está construido con ayuda de los switches, y en este contexto ambos departamentos no pueden comunicarse entre sí pese a pertencer al mismo router.</p>
+
+<p><br /></p>
+
+<p><strong>Protocolos en acción</strong></p>
+
+<p>Tenemos como último paso un evento que simula una comunicación real entre dos dispositivos en el que se nos pide que envíemos un paquete TCP de un dispositivo a otro. Se producen los siguientes eventos. Las flechitas indican el sentido de la comunicación:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>nº</th>
+      <th>Sentido</th>
+      <th>evento</th>
+      <th>descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>—&gt;</td>
+      <td>ARP Request</td>
+      <td>Con un <em>ARP request</em> se lleva a cabo un mensaje de difusión (broadcast) a todos los ordenadores con orden de que el propietario de una IP se identifique con su MAC.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>&lt;—</td>
+      <td>ARP Response</td>
+      <td>El propietario de la IP se identifica con su MAC mediante el envío de un ARP Response. En el caso de que el dispositivo buscado no se encuentre dentro de la red será el dispositivo el que envíe el ARP Response.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>—&gt;</td>
+      <td>TTWH SYN</td>
+      <td>Como se trata de un paquete TCP se formaliza una conexión entre ambos dispositivos envíando un paquete SYN de TCP Three-Way Handshaking. Notemos que cuando el paquete pasa a la otra red, antes que nada, se repite el proceso de búsqueda del dispositivo en cuestión mediante el protocolo ARP.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>&lt;—</td>
+      <td>TTWH SYN/ACK</td>
+      <td>El dispositivo con el que se quiere empezar una conexión responde con un mensaje de confirmación ACK al SYN, denominado SYN/ACK.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>—&gt;</td>
+      <td>TTWH ACK</td>
+      <td>El impulsor de la conexión termina con un último ACK al SYN/ACK antes de mandar el DATA.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>—&gt;</td>
+      <td>DATA</td>
+      <td>El contenido que se quiere transmitir de un dispositivo al otro.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>&lt;—</td>
+      <td>ACK</td>
+      <td>El receptor del DATA responde con un mensaje de confirmación al recibimiento del paquete.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Posteriormente habría una terminación de la comunicacíon mediante un FIN, ACK, FIN, ACK. Pero el paquete ha sido mandado.</p>
+
+<p><br /></p>
+
+<h3 id="2-web-fundamentals">2. Web Fundamentals.</h3>
+
+<h4 id="21-dns-en-detalle">2.1. DNS en detalle.</h4>
+
+<p><strong>Presentación del protocolo DNS</strong></p>
+
+<p>DNS son las siglas de Domain Name System, se trata de un protocolo que asocia un dominio, esto es; una entidad informática (o conjunto de ellas) identificadas por un nombre con su respectiva IP.</p>
+
+<p><br /></p>
+
+<p><strong>Jerarquía de dominios</strong></p>
+
+<p>Entre las partes que conforman un dominio distinguimos:</p>
+
+<ul>
+  <li>
+    <p><strong>TLD</strong>: Son las siglas de Top-Level Domain. Un TLD es la parte más a la derecha de un nombre de dominio. Dentro de los TLD se encuentran el gTLD que históricamente tenía el propósito de definir cuál era la función del dominio y el ccTLD que tenía propósitos geográficos.</p>
+  </li>
+  <li>
+    <p><strong>Second-Level Domain</strong>: Es el termino inmediantamente a la izquierda del TLD. Está limitado a 63 caracteres.</p>
+  </li>
+  <li>
+    <p><strong>Subdominio</strong>: El subdominio es el término a la izquierda del Second-Level Domain, generalmente separado por un punto.</p>
+  </li>
+</ul>
+
+<p>Así por ejemplo, en el término admin.tryhackme.com, admin es el subdominio, tryhackme es el second level domain y .com es el TLD.</p>
+
+<p><br /></p>
+
+<p><strong>DNS Record Types</strong></p>
+
+<p>Sin embargo, DNS también actúa más allá de los sitios web. Existen muchos tipos de registros de DNS:</p>
+
+<ul>
+  <li>A Record: Este se encargar de asociar direcciones IPv4, las más convencionales.</li>
+  <li>AAAA Record: Este registro asocia IPv6.</li>
+  <li>CNAME Record: Este tipo de registro asocia un nombre con otro en lugar de con una IP.</li>
+  <li>MX Record: Estos asocian un nombre con el servidor que gestiona los mails.</li>
+  <li>TXT Record: Se trata de listas de servidores que pueden mandar un mail en nombre del dominio.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Making a request</strong></p>
+
+<p>Cuando se realiza una request se llevan a cabo los siguientes pasos:</p>
+
+<ol>
+  <li>
+    <p>En primer lugar, el ordenador busca en el caché para comprobar si has buscado antes dicha dirección.</p>
+  </li>
+  <li>
+    <p>En segundo lugar, se firige sobre un Recursive DNS Server, que tiene un conjunto de dominios buscados recientemente por otros ordenadores en la misma red.</p>
+  </li>
+  <li>
+    <p>Si no se consigue localizar la IP adecuada mediante el Recurisve DNS se dirige al Root DNS Server, el cual es una base de datos mayor.</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="23-http-in-detail">2.3. HTTP in detail.</h4>
+
+<p><strong>Presentación de HTTP/s</strong></p>
+
+<p>HTTP son las siglas de HiperText Transfer Protocol, se trata de un protocolo que implementa unas reglas dirigidas al transporte de datos de páginas web, así como HTML, vídeos, imágenes, etc.</p>
+
+<p>En HTTPs, la s viene de secure porque el contenido se cifra.</p>
+
+<p><br /></p>
+
+<p><strong>Requests &amp; Responses. URL.</strong></p>
+
+<p>Cuando intentamos acceder a un sitio web desde un navegador este necesita hacer una request para adquirir elementos web del servidor como HTML, imagenes, etc y descarga el contenido.</p>
+
+<p>Pero antes, se necesita comunicar al navegador dónde y cómo acceder a estos recursos.</p>
+
+<p><br /></p>
+
+<p>Es en este punto en el que entra en juego la URL. Esta en la práctica no es más ue una instrucción que indica cómo acceder a un recurso desde internet.</p>
+
+<p>Una URL se compone de los siguientes componentes:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707142103.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Scheme</td>
+      <td>Protocolo que se utiliza para acceder al recurso. También podría utilizarse por ejemplo, HTTPs, FTP, etc.</td>
+    </tr>
+    <tr>
+      <td>User</td>
+      <td>Credenciales de autenticación requeridas por algunas páginas web.</td>
+    </tr>
+    <tr>
+      <td>Host/Domain</td>
+      <td>El dominio o dirección IP del servidor que custodia el recurso.</td>
+    </tr>
+    <tr>
+      <td>Port</td>
+      <td>El puerto al que conectarse que dependerá del servicio en el que esté basado el recurso. Por ejemplo, un documento HTML será un recurso web accesible desde el puerto 80 o 443, un servicio de administración remota por SSH es un recurso SSH accesible desde el puerto 22, etc.</td>
+    </tr>
+    <tr>
+      <td>Path</td>
+      <td>La ruta del fichero la que se intenta acceder.</td>
+    </tr>
+    <tr>
+      <td>Query String</td>
+      <td>Información extra que puede estar requerida en forma de valores, preferencias, parámetros, etc.</td>
+    </tr>
+    <tr>
+      <td>Fragment</td>
+      <td>Referncia de una localización de una página actual.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Una vez tenemos la URL, el buscador genera un documento HTTP con la siguiente forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707152857.png" text-align="center" />
+</div>
+
+<p>Esta es la forma más básica que puede tener una request, está compuesta de una línea que específica el método de la request (GET) y la versión de HTTP en la que está diseñado el documento (HTTP/1.1).</p>
+
+<p>Seguidamente, se añaden una serie de cabeceras que el servidor puede necesitar para gestionar adecuadamente la request.</p>
+
+<p>Automáticamente el servidor nos devolverá una HTTP Response como la siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707153240.png" text-align="center" />
+</div>
+
+<p>En el que además de lo anterior se añade el código HTML. El contenido y significado de las cabeceras se tratará más adelante.</p>
+
+<p>El resumen es sin embargo que nuestro buscador emplea la URL a modo de instrucción para construir de forma eficiente una HTTP request a un servidor para acceder a un recurso web. Este nos devolverá una HTTP Response que nuestro navegador procesará y nos mostrará permitiéndonos acceder al recurso si es el caso.</p>
+
+<p><br /></p>
+
+<p><strong>HTTP Methods</strong></p>
+
+<p>Un método HTTP es una herramienta que define lo que queremos del servidor a grandes rasgos. A cada método acompañan una serie de características o parámetros:</p>
+
+<ul>
+  <li>
+    <p><em>GET</em>: Empleamos el método GET para leer u obtener un recurso. Un GET satisfactorio devuelve una respuesta conteniendo la información pedida.</p>
+  </li>
+  <li>
+    <p><em>POST</em>: Empleamos el método POST para crear un nuevo recurso en el servidor. El POST necesita de un cuerpo en el que se define los datos con los que el nuevo recurso va a crearse.</p>
+  </li>
+  <li>
+    <p><em>PUT</em>: Empleamos el método PUT para modificar un recurso. De nuevo necesita un body con el contenido que va ha utilizarse para modificar recurso.</p>
+  </li>
+  <li>
+    <p><em>DELETE</em>: Se emplea para borrar información. Se necesita de nuevo un body como en los anteriores casos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>HTTP Status Codes</strong></p>
+
+<p>En las respuestas, tal y como hemos podido ver en el ejemplo anterior, se incluye un código que indica el status de la operación producida por la request. Estos códigos consisten en números de tres cifras pertenecientes a un conjunto de rangos con distintos significados:</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>100-199</strong>: Information Response. No son códigos muy comunes. Están para indicar que la primera parte de la request ha sido aceptada y que deben de seguir mandando requests</li>
+  <li><strong>200-299</strong>: Success. La request se ha procesado satisfactoriamente.</li>
+  <li><strong>300-399</strong>: Redirection. Este rango están para indicar que el navegador debe realizar otra request a otra dirección.</li>
+  <li><strong>400-499</strong>: Client Errors. Empleados para informar al cliente de que ha habido un error al procesar su request.</li>
+  <li><strong>500-599</strong>: Server Errors. Empleados para informar al cliente de que ha ocurrido un error de procesamiento con su request en el lado del servidor.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Algunos de los códigos más comunes son:</p>
+
+<ul>
+  <li><strong>200</strong> - OK</li>
+  <li><strong>201</strong> - Created. El recurso ha sido creado satisfactoriamente.</li>
+  <li><strong>301</strong> - Permanent Redirect. El recurso se ha movido de sitio a otra ubicación de forma permanente.</li>
+  <li><strong>302</strong> - Temporary Redirect. El recurso se ha movido de sitio temporalmente.</li>
+  <li><strong>400</strong> - Bad Request. Esto informa al cliente de que la request no ha sido construida correctamente.</li>
+  <li><strong>401</strong> - Not Authorised. El cliente tiene restringido el acceso a dicho recurso debido a una falta de autenticación o derivados.</li>
+  <li><strong>403</strong> - Forbidden. El cliente tiene el acceso restringido se autentique o no.</li>
+  <li><strong>404</strong> - Page not found. Página no encontrada.</li>
+  <li><strong>500</strong> - Internal Service Error. El servidor a encontrado un error en la request y no sabe cómo manejarla adecuadamente.</li>
+  <li><strong>503</strong> - Service Unavialable. El servidor no puede manejar la request debido a un fallo de mantenimiento del mismo.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Headers</strong></p>
+
+<p>Son bits extra de información que pueden ser envíados en la request. Algunas de ellas son necesarias en la mayoría de los casos para el correcto procesamiento de la request.</p>
+
+<p>Veámos algunas de las cabeceras más comunes:</p>
+
+<ul>
+  <li>
+    <p><strong>Host</strong>: El valor de esta cabecera contiene la dirección del dispositivo al que la request se dirige. Muchos servidores web hostean varias aplicaciones web al mismo tiempo. La cabecera host puede servir para distinguir la aplicación web a la que se dirige aunque el último uso que se hace del contenido de dicha cabecera depende de la aplicación web y su configuración. En muchos casos, un uso inapropiado de la cabecera host puede liderar a múltiples vulnerabilidades muy peligrosas.</p>
+  </li>
+  <li>
+    <p><strong>User-Agent</strong>: El contenido de esta cabecera contiene el software y el tipo de versión del que está hecho el buscador.</p>
+  </li>
+  <li>
+    <p><strong>Content-Length</strong>: El contenido de esta cabecera contiene el tamaño del cuerpo de la request. Es aquello que contiene ni la primera línea ni la cabecera.</p>
+  </li>
+  <li>
+    <p><strong>Accept-Encoding</strong>: Le dice al servidor que tipo de comprensión se ha empleado a la hora de transferir los datos.</p>
+  </li>
+  <li>
+    <p><strong>Cookie</strong>: Datos enviados en forma de parámetros extra.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Algunas cabeceras propias de las respuestas HTTP:</p>
+
+<ul>
+  <li>
+    <p><strong>Set-Cookie</strong>: Información que se almacena y se devuelve en cada respuesta.</p>
+  </li>
+  <li>
+    <p><strong>Cache-Control</strong>: Cuando tiempo (en segundos) lleva almacenada la respuesta en cache. Asocida a esta generalmente aparecen las cabeceras Cache-hit y Max-Age que definen respectivamente si la respuesta se cachea y cuál es el tiempo máximo que una respuesta aparece en cache.</p>
+  </li>
+  <li>
+    <p><strong>Content-Type</strong>: Esto informa al cliente qué tipo de datos se han devuelto.</p>
+  </li>
+  <li>
+    <p><strong>Content-Encoding</strong>: El método empleado para comprimir los datos.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Cookies</strong></p>
+
+<p>Las cookies, son solo una pequeña parte de los datos que se almacenan en la máquina y se envían al servidor siempre que se lleva a cabo una request.</p>
+
+<p>Las cookies se guardan cuando recibe un encabezado “Set-Cookie” de un servidor web. Luego, cada solicitud adicional que realice, enviará la cookie. Debido a que HTTP no tiene estado (no realiza un seguimiento de sus solicitudes anteriores).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183745.png" text-align="center" />
+</div>
+
+<p>Las cookies pueden verse fácilmente desde el navegador desde Inspeccionar Elemento &gt; Application (o Storage en firefox) &gt; Cookie.</p>
+
+<p><br /></p>
+
+<h4 id="24-how-websites-works">2.4. How websites works.</h4>
+
+<p><strong>Front-end y Back-end</strong></p>
+
+<p>Ahora que tenemos una noción básica acerca de cómo funcionan los dos protocolos más importantes que hay en internet, DNS y HTTP, veamos cómo un sitio web hace uso de ellos para proporcionar una serie de servicios a los que un cliente desde su navegador puede acceder.</p>
+
+<p>Cuando visitas un sitio web desde el buscador el navegador construye una request a partir de la URL pidiendo información para cargar la página al sitio web que estás pidiendo. La respuesta contiene la información necesaria para que el navegador pueda renderizar la página:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707211019.png" text-align="center" />
+</div>
+
+<p>De esta forma, distinguimos en lo que a una aplicación web se refiere, dos grandes componentes:</p>
+
+<ul>
+  <li>
+    <p><strong>front-end</strong>: Es aquella parte de la aplicación web que queda a disposición del cliente como las páginas web.</p>
+  </li>
+  <li>
+    <p><strong>back-end</strong>: Es aquella parte que queda en el lado del servidor, que no se muestra al cliente y que se utiliza para formar el front end.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>HTML</strong></p>
+
+<p>El Client-side de un sitio web se construye con tres componentes básicos:</p>
+
+<ul>
+  <li><em>HTML</em>, para construir la estructura de la página.</li>
+  <li><em>CSS</em>, para añadir opciones de decoración y estilo.</li>
+  <li><em>JavaScript</em>, para añadir funcionalidades complejas de interacción con el usuario a través del DOM.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Nos centraremos en el documento HTML, este suele tener una estructura parecida la que sigue:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707212301.png" text-align="center" />
+</div>
+
+<p>De forma que en ella podemos diferenciar los siguientes elementos:</p>
+
+<ul>
+  <li>
+    <p>La entidad <em>&lt;!DOCTYPE html&gt;</em> define que una página es un documento HTML5.</p>
+  </li>
+  <li>
+    <p>La entidad &lt;html&gt; define el comienzo del documento HTML, que consta de dos partes bien diferenciadas, la cabecera (head) y el cuerpo (body).</p>
+  </li>
+  <li>
+    <p>La entidad &lt;head&gt; contiene información sobre la página como su título y derivados. Sin embargo, nada de lo que hay en esta cabecera aparece renderizado en el navegador.</p>
+  </li>
+  <li>
+    <p>La entidad &lt;body&gt; define el cuerpo HTML que será renderizado por el navegador. Dentro de este podemos encontrar otras dos entidades HTML muy comunes:</p>
+  </li>
+  <li>&lt;h1&gt;; que define un encabezado.</li>
+  <li>&lt;p&gt;; que define un párrafo.</li>
+</ul>
+
+<p>Observamos que toda entidad &lt;tag&gt; se cierra con su respectivo &lt;/tag&gt;.</p>
+
+<p>Además, existen muchos tipos de entidades HTML que desempeñan funcionalidades distintas cada una de ellas y eso provoca que puedan contener atributos, u otro tipo de parámetros dentro del mismo tag.</p>
+
+<p><br /></p>
+
+<p><strong>JavaScript</strong></p>
+
+<p>JavaScript es uno de los más lenguajes de programación más populares y permite a las páginas volverse interactivas para el usuario, sin él serían completamente estáticas.</p>
+
+<p>El código JavaScript se inscrusta en el código HTML mediante la etiqueta &lt;script&gt;.</p>
+
+<pre><code class="language-HTML">&lt;script&gt;javascript/code&lt;/script&gt;
+</code></pre>
+
+<p>También pueden cargarse desde una localizacion mediante el atributo “src”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707221249.png" text-align="center" />
+</div>
+
+<p>Además, existen eventos especificos de ciertas entidades HTML que cargan código JavaScropt como “onmouseover”, “onclick”, etc.</p>
+
+<p><br /></p>
+
+<h4 id="24-other-componentes-how-work-server-websites">2.4. Other componentes. How work server websites.</h4>
+
+<p><strong>Other components</strong></p>
+
+<ul>
+  <li>
+    <p><em>Loaf Balancers</em>: Los balanceadores de carga son dispositivos que proveen dos características fundamentales:</p>
+  </li>
+  <li>Asegurarse de que el sitio web puede gestionar el tráfico de red.</li>
+  <li>Comprobar el estado del servidor mediante <strong>health checks</strong>. Enviar un mensaje de error si el servidor cae.</li>
+</ul>
+
+<p>Tienen una importancia fundamental en servidores web expuestos a una gran cantidad de tráfico y que necesitan aportar una gran disponibilidad.</p>
+
+<p>Se dedican a recibir el tráfico y desviarlo en función de un conjunto de algoritmos que le ayudan a decidir qué servidor puede lidiar, mejor con la request.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220708094625.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p><em>CDN</em>: El CDN o Content Delivery Networks puede ser un recurso excelente para cortar el tráfico de un sitio web ocupado.</p>
+  </li>
+  <li>
+    <p><em>Database</em>: Estructuras que son empleadas para almacenar información en particular por aplicaciones web.</p>
+  </li>
+  <li>
+    <p><em>WAF</em>: Una responde a Web Application Firewall y se trata nada más y nada menos que un firewall situado entre el cliente y el servidor de forma que intercepta las request, las analiza y decide si las deja pasar o no. Es un método de protección contra ataques convencionales, analiza la request, el número de request por monto de tiempo, etc.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Web Servers. Virtual Hosting. Static &amp; Dinamic content. Back-end languages.</strong></p>
+
+<p>Un <em>web server</em> o servidor web es un software que corre en una máquina denominada <em>servidor</em> que escucha peticiones entrantes y emplea el protocolo HTTP para compartir contenido web a los clientes. Existen muchos tipos de web servers, Apache, Nginx, NodeJS, etc.</p>
+
+<p>Un servidor web comparte ficheros a partir de lo que se conoce como el directorio raíz (root directory) que su localización por defecto es: /var/www/html o C:\inetpub\wwwroot pero que puede configurarse.</p>
+
+<p>Así por ejemplo, si realizamos una request para obtener la imagen https://example.com/image.png, el servidor buscará la imagen en /var/www/html/image.png (C:\inetpub\wwwroot\image.png) y la enviará en la HTTP response.</p>
+
+<p><br /></p>
+
+<p>Un solo servidor web puede hostear varias aplicaciones web con diferentes dominios a través de <em>virtual hosts</em>. El servidor web parsea la HTTP request y en concreto analiza el valor de la cabecera Host para saber qué aplicación web refiere la request.</p>
+
+<p><strong>A continuación busca el recurso en el host virtual, estos son sólo documetnos de textos almacenados en carpetas de la forma /var/www/website_x</strong>. En principio no hay límite en el número de websites que pueden hostear.</p>
+
+<p><br /></p>
+
+<p>Dentro del contenido que proporciona un servidro web y al que el cliente tiene acceso distinguimos fundamentalmente:</p>
+
+<ul>
+  <li>Contenido estático, que no cambia en función de la request, como imagenes, código JavaScript, etc.</li>
+  <li>Contenido dinámico, que cambia en función de la request, como comentarios, entradas de un blog, etc.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Aquello que se procesa en el backend suele estar guiado a partir de instrucciones en un lenguaje de programación que el servidor web entiende como PHP, Java, Python, Ruby, etc.</p>
+
+<p><br /></p>
+
+<h3 id="3-linux-fundamentals">3. Linux Fundamentals.</h3>
+
+<h4 id="31-fundamentos-de-linux-i">3.1. Fundamentos de Linux I.</h4>
+
+<p><strong>Presentación</strong>
+Linux es un sistema operativo basado en UNIX, es de código abierto (libre de modificar por otros usuarios) y con una gran cantidad de “flavours” o versiones cada una con su propósito, ventajas y desventajas.</p>
+
+<p><br /></p>
+
+<p><strong>Comandos importantes</strong></p>
+
+<p>Existe una herramienta muy importante en cualquier sistema Linux denominada Terminal. Este es un programa que ejecuta comandos que se traducen en instrucciones del sistema operativo y con los que podemos utilizar el mismo sin límites.</p>
+
+<p>Algunos de los comandos más importantes son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>echo</td>
+      <td>Sacar por pantalla lo que se le pasa como argumento al comando.</td>
+    </tr>
+    <tr>
+      <td>whoami</td>
+      <td>Saca por pantalla el usuario actual de la máquina.</td>
+    </tr>
+    <tr>
+      <td>ls</td>
+      <td>Lista el contenido de la carpeta actual.</td>
+    </tr>
+    <tr>
+      <td>cd</td>
+      <td>Cambia de directorio al definido por la ruta que se le pasa al comando como argumento.</td>
+    </tr>
+    <tr>
+      <td>cat</td>
+      <td>Muestra el contenido del fichero que se le pasa como argumento.</td>
+    </tr>
+    <tr>
+      <td>pwd</td>
+      <td>Muestra la ruta desde la raíz hasta el directorio actual.</td>
+    </tr>
+    <tr>
+      <td>find</td>
+      <td>Busca un fichero en nombre de una especificación que puede ser el nombre, el tamaño del fichero, la carpeta a buscar, etc. Para más información, man find en la terminal.</td>
+    </tr>
+    <tr>
+      <td>grep</td>
+      <td>Filtra el output de un comando mediante un término u otras especificaciones. Para más información man grep.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><strong>Operadores</strong></p>
+
+<p>Existen unos comandos que ejecutan instrucciones sobre el resultado de otros comandos comúnmente conocidos como <em>operadores</em>. Algunos de los más comunes son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&amp;</td>
+      <td>Este operador manda a segundo plano el proceso iniciado por el comando a su izquierda.</td>
+    </tr>
+    <tr>
+      <td>&amp;&amp;</td>
+      <td>Este comando permite concatenar un segundo comando de forma independiente después de un primero.</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>Este comando redirige el outpu (que normalmente saldría por pantalla) a cualquier receptor de output indicado a su izquierda, por ejemplo un fichero.</td>
+    </tr>
+    <tr>
+      <td>»</td>
+      <td>Este comando hace lo mismo que el anterior pero lo hace sin sobreesribir, de forma que si redirijiéramos el output sobre un fichero, si este fichero contuviera algo escrito, no se borraría.</td>
+    </tr>
+    <tr>
+      <td>|</td>
+      <td>Este comando introduce el output del comando de la izquierda como input al comando de la derecha. Ejemplo: cat lista.txt | grep teléfono</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="32-fundamentos-de-linux-ii">3.2. Fundamentos de Linux II.</h4>
+
+<p><strong>SSH</strong>
+También podemos conectarnos a una máquina Linux mediante SSH. SSH es un protocolo cryptográfico que posee una funcionalidad de administración remota que envía los datos cifrados.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220708184350.png" text-align="center" />
+</div>
+
+<p>Nos logeamos a una máquina remota en Linux con SSH mediante el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh username@IPAdress
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>Introducción a modificadores</strong></p>
+
+<p>Muchos de los comandos admiten argumentos y opciones que modifican su comportamiento de una forma concreta. A estos argumentos especiales se les llama modificadores y suelen ir precedidos de uno o dos guiones. Por ejemplo, el comando “ls” que lista ficheros tiene el modificador ‘a’ que muestra los ficheros ocultos (aquellos cuyo nombre comienza con un punto)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>El comando anterior listaría los contenidos del directorio actual incluyendo aquellos ficheros ocultos, no mostrados por el “ls” convencional.</p>
+
+<p>Para obtener una ayuda de los distintos modificadores que pdoemos aplicar a un comando tenemos generalemte el modificador “–help” o el comando “man &lt;comand&gt;” que nos aportará además una pequeña descripción del comando. (Man responde a manual).</p>
+
+<p><br /></p>
+
+<p><strong>Continuación de comandos importantes</strong></p>
+
+<p>|Comando|Nombre completo|Descripción|
+|-|-|-|
+|touch|touch|Crear un fichero|
+|mkdir|make directory|Crea un directorio (carpeta)|
+|cp|copy|Copia un fichero (o un directorio con -r, recursively)|
+|mv|move|Mueve un fichero o carpeta, renombrar|
+|rm|remove|Borra un fichero o carpeta|
+|file|file|Determina el tipo de contenido que contiene un fichero|
+|su|su|Cambia al usuario especificado en el argumento.|
+<br /></p>
+
+<p><strong>Permisos</strong></p>
+
+<p>Uno de los modificadores que exiten para el comando “ls” que lista el contenido de una carpeta es el ‘-l’, que expone los detalles de los archivos listados:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220708204114.png" text-align="center" />
+</div>
+
+<p>Concretamente, nos interesa el dato proporcionado por la primera columna. Los permisos que los distintos usuarios del sistema tienen.</p>
+
+<ul>
+  <li>Por un lado, estos se dividen en, el usuario propietario, el grupo propietario y otros.</li>
+  <li>Por otro lado, los permisos se exponen con:</li>
+  <li>r: read (permisos de lectura).</li>
+  <li>w: escritura (permisos de escritura).</li>
+  <li>x: execution (permisos de ejecución).</li>
+</ul>
+
+<p>De forma que en el ejemplo anterior nos dice que ambos ficheros; file1, file2 son ficheros puesto que hay un guión al princpio de la línea (si fuera una carpeta sería una d), el propietario puede leer y escribir en el documento, el grupo puede leer y cualquier otro usuario puede solamente leer.</p>
+
+<p>Debemos especificar que en linux, un usuario y un grupo no son más que dos ordenes de clasificación distintos, identificados por un “uid” (user id) y un “gid” (group id) respectivamente.</p>
+
+<p><br /></p>
+
+<p><strong>Directorio más comunes</strong></p>
+
+<ul>
+  <li>/etc -&gt; Archivos de configuración.</li>
+  <li>/var -&gt; Archivos cuyo contenido varia o se actualiza constantemente, como los logs, etc.</li>
+  <li>/root -&gt; Directorio personal de usuario root.4</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="33-fundamentos-de-linux-iii">3.3. Fundamentos de Linux III.</h4>
+
+<p><strong>Utilidades generales</strong></p>
+
+<p>Existen un conjunto de comandos especialmente útiles:</p>
+
+<ul>
+  <li><em>wget</em>: Este comando permite descargar ficheros vis HTTP. Los ficheros puede abrirse con un navegador.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709094911.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>scp</em>: Permite enviar ficheros de un host a otro via SSH.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709100108.png" text-align="center" />
+</div>
+
+<p>Y para recuperarlo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709100143.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>curl</em>: Tiene el mismo propósito que curl</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709100654.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><em>WebServers</em>: Podemos montar un servidor web mediante el siguiente comando:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709100944.png" text-align="center" />
+</div>
+
+<p>De forma que desde otro sistema podría acceder a los archivos contenidos en nuestra máquina con wget:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709101223.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Procesos. Definición y manejo.</strong></p>
+
+<p>Proceso es un término que alude a un programa en ejecución registrado y numerado por el sistema.</p>
+
+<p>El usuario puede acceder a la forma en la que el sistema ordena los procesos mediante un conjutno de comandos, como ps que muestra los procesos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165536.png" text-align="center" />
+</div>
+
+<p>top, que los muestra de una forma dinámica:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165537.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>Con el fin de gestionar procesos tenemos el comando kill, que los termina. Para empezarlos tenemos los comandos <em>systemctl</em> o <em>service</em>. Por ejemplo: systemctl start apache2</p>
+
+<p>Las opciones de systemctl son:</p>
+
+<ul>
+  <li>start</li>
+  <li>stop</li>
+  <li>enable</li>
+  <li>disable</li>
+</ul>
+
+<p>Cuando se ejecuta un proceso podemos emplear las teclas Ctrl+C para pararlo, o Ctrl+Z para llevarlo a segundo plano y que no bloquee la terminal. También podemos devolverlo a primer plano con ‘fg’.</p>
+
+<p><br /></p>
+
+<p><strong>Automatización de procesos</strong></p>
+
+<p>Para automatizar procesos podemos emplear <em>cron</em> que nos permite ajustar la hora y la periodicidad de ejecución de un proceso especificado concreto.</p>
+
+<p><br /></p>
+
+<h3 id="4-windows-fundamentals">4. Windows Fundamentals.</h3>
+
+<h4 id="41-fundamentos-de-windows-i">4.1. Fundamentos de Windows I.</h4>
+
+<p><strong>Introducción al Windows OS</strong></p>
+
+<p>El sistema operativo Windows es actualmente el dominante tanto en redes corporativas como en redes domésticas. Por esta razón, Windows es uno de los sistemas más atacados.</p>
+
+<p><br /></p>
+
+<p><strong>Escritorio de Windows</strong></p>
+
+<p>El escritorio de Windows emplea el GUI (Graphical User Interface) para mostrar un escritorio interactivo y visual en la máquina.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165538.png" text-align="center" />
+</div>
+
+<ol>
+  <li>The Desktop</li>
+  <li>Start Menu</li>
+  <li>Search Box (Cortana)</li>
+  <li>Task View</li>
+  <li>Taskbar</li>
+  <li>Toolbars</li>
+  <li>Notification Area</li>
+</ol>
+
+<p><br /></p>
+
+<ul>
+  <li><em>Desktop</em>:</li>
+</ul>
+
+<p>El escritorio es una sección en la que comúnmente encontramos accesos directos a otros artefactos informáticos. Así como carpetas, aplicaciones, etc.</p>
+
+<p>La apariencia del escritorio puede ser modificada al gusto así como los iconos que muestran, está diseñado para ser cómodo, personalizado y ofrecer un acceso rápido a los aparatos con los que el usuario suele intarctuar más amenudo.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><em>The Start Menu</em>:</li>
+</ul>
+
+<p>El “start” menu es una parte de Windows que da acceso completo a cualquier otra parte del dispositivo</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165539.png" text-align="center" />
+</div>
+
+<p>Se divide en la barra de búsqueda, las aplicaciones más recientemente añadidas y una sugerencia de Windows.</p>
+
+<p><br /></p>
+
+<p><strong>The File System</strong></p>
+
+<p>El sistema de ficheros empleado en las versiones más modernas es el <em>NTFS</em>, siglas que responden a <em>New Technology File System</em>.</p>
+
+<p>Antes se encontraban FAT16/32 (File Alocation System) y el HPFS (High Performance File System).</p>
+
+<p>NTFS se conoce como un “journaling file system” (sistema de ficheros basado en registro). Es decir, <strong>en caso de fallo, el sistema de archivos puede reparar automáticamente las carpetas/archivos en el disco utilizando la información almacenada en un archivo de registro</strong>. Esta función no es posible con sistemas anteriores.</p>
+
+<p>Entre algunas de las características más importantes están:</p>
+
+<ul>
+  <li>Soporta ficheros que pesan más de 4GB</li>
+  <li>Puede configurar permisos específicos sobre carpetas y ficheros. Estos son permisos son:</li>
+  <li>Full control.</li>
+  <li>Modify.</li>
+  <li>Read &amp; Execute.</li>
+  <li>List folder contents.</li>
+  <li>Read.</li>
+  <li>Write.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165540.png" text-align="center" />
+</div>
+
+<p>Los permisos pueden verse mediante los siguientes pasos: Click-derecho sobre carpeta &gt; Propiedades &gt; Seguridad &gt; Usuario o grupo cuyos permisos se desean ver.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165541.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Admite archivos comprimidos (ya sean carpetas o ficheros).</li>
+  <li>El sistema de archivos puede cifrarse.</li>
+  <li>Alternate Data Streams (ADS), permite archivas metadatos de un fichero sin necesidad de crear otro fichero para almcenar estos metadatos creando más de un flujo de datos para un solo fichero. Desde la perspectiva de la ciberseguridad esto es importante debido a que se podría ocultar datos en un segundo streams de datos.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>The Windows\System32 Folders</strong></p>
+
+<p>La carpeta “C:\Windows” se conoce tradicionalmente como la carpeta que contiene el sistema operativo de windows, aunque técnicamente y variando convenientemente las “variables de entorno” no tiene por qué encontrarse en esa localización tan concreta.</p>
+
+<p>Dentro de esta carpeta encontramos un montón de archivos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165542.png" text-align="center" />
+</div>
+
+<p>Y entre todas esas carpetas encontramos específicamente la carpeta System 32:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165543.png" text-align="center" />
+</div>
+
+<p>Esta carpeta contiene archivos que pueden ser críticos para el sistema operativo, borrarlos podría resultar en una falta de funcionalidad por parte del sistema.</p>
+
+<p><br /></p>
+
+<p><strong>User Accounts Profiles and Permissons</strong></p>
+
+<p>En Windows hay dos tipos de usuarios: Administrator o Standard User.</p>
+
+<p>El tipo de cuenta de usuario determina las acciones que el mismo puede hacer:</p>
+
+<ul>
+  <li>
+    <p>Administartor: puede llevar a cabo cambios: añadir usuarios, borrar usuarios, modificar configuraciones, etc.</p>
+  </li>
+  <li>
+    <p>Standard User: Sólo puede hacer modificaciones sobre archivos sobre los que tiene propiedad.</p>
+  </li>
+</ul>
+
+<p>Para ver qué otros usuarios hay en la máquina podemos buscar en “Start Menu”, Other User y acudir a System Settings &gt; Other users.</p>
+
+<p>Todos los usuarios tienen asociados una serie de “carpetas personales” (Desktop, Documents, Downloads, …) estos documentos son accesibles desde el Local User and Group Management: Win+R &gt; lusrmgr.msc</p>
+
+<p><br /></p>
+
+<p><strong>User Account Control</strong></p>
+
+<p>UAC son siglas que responde a User Account Control y se trata de una herramienta de protección y acompasamiento entre un usuario con capacidades de adminstrador y el sistema.</p>
+
+<p>Concretamente, sirve para que cada vez que el usuario lleva a cabo una acción (él o una aplicación que él ejecuta) no tenga que elevarse a administrador sino sencillamente conceder permisos. Cada vez que se requiere salta una ventana que pide al usuario una concesión de permisos. Cada vez que esto pueda ser necesario para una aplicación aparecera un escudo junto al logotipo indicando que la UAC elevara privilegios al ejecutar el programa:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220709165544.png" text-align="center" />
+</div>
+
+<p>Una vez intentemos ejecutar el programa no saltara una ventanita como la siguiente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183746.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Settings and The Control Panel</strong></p>
+
+<p><em>Settings</em> y <em>Control Panel</em> son dos conjuntos de opciones donde podemos modificar preferencias a nuestro gusto Windows 10:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183747.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183748.png" text-align="center" />
+</div>
+
+<p>Desde opciones de configuración de cuentas, red, a apariencia del escritorio, etc.</p>
+
+<p><br /></p>
+
+<p><strong>Task Manager</strong></p>
+
+<p>El <em>Task Manager</em> (Administrador de tareas) proporciona información sobre las aplicaciones y los procesos que se ejecutan actualmente en el sistema. También hay disponible otra información, como la cantidad de CPU y RAM que se utilizan, que se incluye en Rendimiento.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183749.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="42-fundamentos-de-windows-ii">4.2. Fundamentos de Windows II.</h4>
+
+<p><strong>System Configuration</strong></p>
+
+<p>El <em>System Configuration</em> (msconfig) es una utilidad la resolución avanzada de problemas. Su propósito principal es el de ayudar a diagnosticar problemas del inicio del equipo.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183750.png" text-align="center" />
+</div>
+
+<p>Es probable que se necesiten permisos de administrador para utilizar esta herramienta.</p>
+
+<p>Una vez hemos abierto esta herramienta encontramos cinco pestañas: General, Boot, Services, Startup, Tools.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183751.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>General</em>: Desde esta pestaña podemos elegir qué dispositivos o servicios se inician desde el inicio del sistema.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183752.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Boot</em>: Definimos opciones de arranque del sistema.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183753.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Service</em>: Muestra una lista de todos los servicios (procesos en segundo plano) que corren en el sistema:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183754.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Tools</em>: Presenta una lista de herramientas que pueden configurarse y que esta instaladas.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183755.png" text-align="center" />
+</div>
+
+<p>Notemos el recuadro “Selected Command”</p>
+
+<p><br /></p>
+
+<p><strong>Change UAC Settings</strong></p>
+
+<p>Se pueden cambiar los controles de la UAC para que sea menos restrictiva. Existen diversos niveles:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183756.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Computer Management</strong></p>
+
+<p>Dentro del panel del <em>System Configuration</em> encontramos el <em>Computer Management</em> (compmgmt) la cual tiene tres secciones: <em>System Tools</em>, <em>Storage</em>, <em>Services &amp; Applications</em>.</p>
+
+<ul>
+  <li>
+    <p><em>System Tools</em>: Dentro de esta sección tenemos una serie de herramientas:</p>
+  </li>
+  <li>
+    <p><em>Task Scheduler</em>: Con esta herramienta podemos programar la ejecución de una tarea.</p>
+  </li>
+  <li>
+    <p><em>Event Viewer</em>: Nos permite acceder al registro de eventos. Existen 5 tipos de eventos:</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183757.png" text-align="center" />
+</div>
+
+<p>Y cuatro tipos de logs:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183758.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Shared Folder</em>: Un listado completo de todas las carpetas compartidas a otros usuarios.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183759.png" text-align="center" />
+</div>
+
+<ul>
+  <li>
+    <p><em>Local Users and Grupos</em>: Nos lleva al archivo “lusrmgr.msc” ya visto en la sección anterior.</p>
+  </li>
+  <li>
+    <p><em>Perfomance</em>: Tenemos acceso al Perfomance Monitor (perfom).</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183760.png" text-align="center" />
+</div>
+
+<ul>
+  <li><em>Storage</em>: En Storage podemos encontrar una interfaz que nos guía a lo largo del manejo del disco duro:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183761.png" text-align="center" />
+</div>
+
+<p>En esta interfaz podemos crear un nuevo espacio, extender una partición, partir una partición o asignar una letra a una parte del espacio vacío.</p>
+
+<ul>
+  <li><em>Services &amp; Applications</em>: Aplicaciones y servicios.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>System Information</strong></p>
+
+<p>Windows contiene una herramienta denominada Microsoft System Information (Msinfo32.exe) que recopila información sobre el ordenador y despliega una vista comprensible del hardware, componentes del sistema, entorno del software que puede ser empleado para detectar problemas del ordenador.</p>
+
+<p>La información se divide en tres secciones principalmente:</p>
+
+<ul>
+  <li>Harware Resources.</li>
+  <li>Components: Información específica de dispositivos instalados en el sistema.</li>
+  <li>Software Enviroment: Variables de entorno y Network.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183762.png" text-align="center" />
+</div>
+
+<p>Particularmente importante es la última sección:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183763.png" text-align="center" />
+</div>
+
+<p>Y la sección de Network:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183764.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Resource Monitor</strong></p>
+
+<p>Resource Monitor muestra información de uso de CPU, memoria, disco y red por proceso y agregada, además de proporcionar detalles sobre qué procesos están utilizando identificadores de archivos y módulos individuales. El filtrado avanzado permite a los usuarios aislar los datos relacionados con uno o más procesos (ya sean aplicaciones o servicios), iniciar, detener, pausar y reanudar servicios y cerrar aplicaciones que no responden desde la interfaz de usuario. También incluye una función de análisis de procesos que puede ayudar a identificar procesos bloqueados y conflictos de bloqueo de archivos para que el usuario pueda intentar resolver el conflicto en lugar de cerrar una aplicación y perder datos potencialmente.</p>
+
+<p>Existen cuatro pestañas fundamentalmente:</p>
+
+<ul>
+  <li>CPU</li>
+  <li>Disk</li>
+  <li>Network</li>
+  <li>Memory</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>cmd</strong></p>
+
+<p>La <strong>cmd</strong> es la terminal de Windows. Existen algunos comandos importantes como:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>nombre</th>
+      <th>descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hostname</td>
+      <td>Despliega el nombre de la computadora.</td>
+    </tr>
+    <tr>
+      <td>whoami</td>
+      <td>El nombre del usaurio logeado.</td>
+    </tr>
+    <tr>
+      <td>ipconfig</td>
+      <td>Despliga información de red.</td>
+    </tr>
+    <tr>
+      <td>/?</td>
+      <td>Despliega información del manual del comando precedente. Por ejemplo: ipconfig /?</td>
+    </tr>
+    <tr>
+      <td>cls</td>
+      <td>Clear.</td>
+    </tr>
+    <tr>
+      <td>netstat</td>
+      <td>Información de red en TCP/IP. Admite parámetros: -a, -b, -e.</td>
+    </tr>
+    <tr>
+      <td>net</td>
+      <td>Opciones de red.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><strong>Registry Editor</strong></p>
+
+<p>El Windows Registry es una base de datos jerarquica empleada para almacenar información necesaria para configurar el sistema para uno o más usuarios, aplicaciones, hardware, etc.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220707183765.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="43-fundamentos-de-windows-iii">4.3. Fundamentos de Windows III.</h4>
+
+<p><strong>Windows Update</strong></p>
+
+<p>Windows Update es un servicio proveido por Microsoft para obtner actualizaciones de seguridad, mejoras de las características y parches para el OS Windows.</p>
+
+<p>Las actualizaciones generalmente se lanzan el segundo Jueves de cada mes (Patch Tuesday).</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711083528.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Windows Security</strong></p>
+
+<p>Windows Security es una herramienta de Microsoft para proteger el dispositivo</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711083529.png" text-align="center" />
+</div>
+
+<p>Existen distintos controles de seguridad:</p>
+
+<ul>
+  <li>Virus &amp; Thread protection.</li>
+  <li>Firewall &amp; network protection.</li>
+  <li>App &amp; browser control.</li>
+  <li>Device Security.</li>
+</ul>
+
+<p>Existen marcadores de status para cada uno de estos campus.</p>
+
+<ul>
+  <li>Verde: OK.</li>
+  <li>Amarillo: Recomendaciones de seguridad adicionales.</li>
+  <li>Rojo: Alerta.</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711083530.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>Virus &amp; Threat protection</strong></p>
+
+<p>Esta sección está dividida en dos partes:</p>
+
+<ul>
+  <li>
+    <p><em>Amenazas actuales</em>: En esta sección podemos encontrar la posibilidad de realizar un escaneo o de comprobar los resultados de escaneos anteriores.</p>
+  </li>
+  <li>
+    <p><em>Configuración sobre virus y amenazas</em>: Configuraciones referente a actualizaciones, protección en tiempo real, protección en la nube, etc.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Firewall &amp; network protection</strong></p>
+
+<p>El <em>firewall</em> regula el flujo de tráfico entre dispositivos.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711083531.png" text-align="center" />
+</div>
+
+<p>Como podemos ver, existen teers tipos de firewalls:</p>
+
+<ul>
+  <li>
+    <p>Domain: Cuando el host puede autenticatrse a un controlador de dominios.</p>
+  </li>
+  <li>
+    <p>Private: Para diseñar protecciones contra redes privadas o domésticas.</p>
+  </li>
+  <li>
+    <p>Public: Empleado para diseñar protección contra redes públicas.</p>
+  </li>
+</ul>
+
+<p>Al clickar en alguna de estas opciones accedemos a la posibilidad de activar o desactivar el firewall mencionado.</p>
+
+<p>Dentro de Windows Defender Firewall podemos habilitar a una aplicación a través del mismo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711085251.png" text-align="center" />
+</div>
+
+<p>Además puedes ver la configuración actual del perfil a través del botón “Details”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711085334.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>App &amp; browser control</strong></p>
+
+<p>En esta sección se puede cambiar la configuración de Microsoft Defender SmartScreen. Esta se trata de una herramienta que protege contra ataques de phising o malware de sitios web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711102546.png" text-align="center" />
+</div>
+
+<p>De forma que si intentamos ejecutar una aplicación desconocida en el sistema aparecerá el siguiente mensaje:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/THM/Pasted%20image%2020220711102615.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p><strong>BitLocker</strong></p>
+
+<p>BitLocker Drive Encryption es una característica de protección de datos integrada en el propio sistema operativo.</p>
+
+<p><br /></p>
+
+<p><strong>Volume Shadow Copy Service (VSS)</strong></p>
+
+<p>El VSS se coordina para realizar una serie de acciones para crear una copua de seguridad consistente.</p>
+
+<p>Si el VSS está habilitado se pueden realizar las siguientes acciones:</p>
+
+<ul>
+  <li>Crear un punto de restauración.</li>
+  <li>Llevar a cabo una restauración del sistema.</li>
+  <li>Configurar las opciones de restore.</li>
+  <li>Borrar puntos de restauración del sistema.</li>
+</ul>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#thm">thm</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=1.Pre-Security+path.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-07-11-1Pre-Security%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-07-11-1Pre-Security%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-07-11-1Pre-Security%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-07-10-0.Scripting_for_pentesters/" data-toggle="tooltip" data-placement="top" title="0.Scripting for pentesters.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-08-07-2.CompleteBegginer/" data-toggle="tooltip" data-placement="top" title="2.Complete Begginer path.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

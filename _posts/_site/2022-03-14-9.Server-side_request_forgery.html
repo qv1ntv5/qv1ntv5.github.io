@@ -1,0 +1,423 @@
+<h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Concepto de SSRF
+    <ul>
+      <li>1.1. Introducción al concepto.</li>
+      <li>1.2. Impacto.</li>
+    </ul>
+  </li>
+  <li>2 Ataques SSRF comunes.
+    <ul>
+      <li>2.1. Ataque SSRF contra el mismo servidor.</li>
+      <li>2.2. Ataques SSRF contra otros sistemas back-end.</li>
+    </ul>
+  </li>
+  <li>3 Evitando defensas comunes SSRF.
+    <ul>
+      <li>3.1. Defensa de SSRF basada en un filtro basado en lista negra.</li>
+      <li>3.2. Defensa de SSRF basada en un filtro basado en lista blanca.</li>
+      <li>3.3. Bypass del filtro SSRF via redirección abierta.</li>
+    </ul>
+  </li>
+  <li>
+    <p>4 Vulnerabilidades SSRF Ciegas.</p>
+
+    <p><br /></p>
+    <h3 id="1-concepto-de-ssrf">1. Concepto de SSRF.</h3>
+  </li>
+</ul>
+
+<h4 id="11-introducción-al-concepto">1.1. Introducción al concepto.</h4>
+
+<p>El Server Side Request Forgery (falsificación de solicitud del lado del servidor) es una vulnerabilidad web a través de la cual un atacante puede inducir a un servidor a realizar una petición a una dirección arbitraria.</p>
+
+<p>Típicamente, <strong>el atacante puede causar que un servidor haga una conexión a servicios internos dentro de la estructura de una organización, manipula un servidor para acceder a otros equipos de la red a la que dicho dispositivo pertenece</strong>.</p>
+
+<p>En casos más graves puede hacer que un servidor realice una petición a un servicio externo provocando una filtración de información sensible.</p>
+
+<p><br /></p>
+
+<h4 id="12-impacto">1.2. Impacto.</h4>
+
+<p>Un ataque SSRF puede resultar en acciones no autorizadas dentro de la organización (como conexiones, filtraciones de datos, inyección de comandos, etc) , ya sea en la propia aplicación vulnerable o en otros sistemas de back-end con los que la aplicación puede comunicarse.</p>
+
+<p><strong>Más grave sería una explotación de SSRF que provoca conexiones a sistemas externos, esto puede dar lugar a ataques posteriores cuyo origen aparenta ser la organización que aloja la aplicación vulnerable</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="2-ataques-ssrf-comunes">2. Ataques SSRF comunes.</h3>
+
+<p>Los ataques SSRF a menudo manipulan el servidor para que efectúe acciones por los atacantes y en ese sentido el potencial del ataque se basa en <strong>la expotación de relaciones de confianza entre el servidor y otras estructuras de la red</strong> para llevar a cabo acciones ilícitas.</p>
+
+<p><br /></p>
+
+<h4 id="21-ataque-ssrf-contra-el-mismo-servidor">2.1. Ataque SSRF contra el mismo servidor.</h4>
+
+<p>En este tipo de ataques el atacante induce a la aplicación que se haga una petición hacia el servidor que hostea la propia aplicación a través del <em>loopback</em>:127.0.0.1</p>
+
+<p>Veámos un ejemplo, consideremos una aplicación que gestiona una tienda online que permite ver a un usuario si hay o no stock de un producto. Para proporcionar la información de existencias, la aplicación debe consultar varias API REST (interfaz de relacion de aplicaciones que cumplenel modelo REST) de back-end, según el producto y la tienda en cuestión.</p>
+
+<p>Cuando un usuario ve el estado del stock de un artículo, su navegador hace una solicitud como esta:</p>
+
+<pre><code class="language-default">POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1
+</code></pre>
+
+<p>Es decir, recapitulando, existe un fichero <strong>/product/stock</strong> que tiene configurado realizar una petición siguiendo la dirección que tiene por valor un parámetro <strong>stockApi</strong> proporcionado en la request.</p>
+
+<p><strong>La vulnerabilidad consiste en el exceso de confianza que se tiene en el uso que hace el usuario de la aplicación que deriva en la falta de validación de la dirección que se proporciona en stockApi en el código del fichero /product/stock, pues un usuario mal intencionado podría interceptar la request, cambiar la dirección del parámetro stockApi y enviarla al servidor provocando un comportamiento malicioso en el servidor</strong>:</p>
+
+<pre><code class="language-default">POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://localhost/admin
+</code></pre>
+
+<p>Aquí, el servidor buscará el contenido de la URL /admin y se lo devolverá al usuario.</p>
+
+<p>Ahora, por supuesto, el atacante podría simplemente visitar la URL /admin directamente. Pero la funcionalidad administrativa normalmente solo es accesible para usuarios autenticados adecuados. Entonces, un atacante que simplemente visite la URL directamente no verá nada de interés. Sin embargo, cuando la solicitud a la URL /admin proviene de la propia máquina local, se omiten los controles de acceso normales. La aplicación otorga acceso completo a la funcionalidad administrativa, porque la solicitud parece originarse en una ubicación confiable.</p>
+
+<p>En este sentido y como ya hemos comentado anteriormente, <strong>el potencial de este tipo de ataque estriba en la explotación de las relaciones de confianza del servidor con otras estructuras de la red</strong>.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Basic SSRF against the local server</strong>.</p>
+
+<p>Este laboratorio tiene una función de verificación de existencias que obtiene datos de un sistema interno.</p>
+
+<p>En primer lugar, tratamos de acceder al fichero /admin y comprobamos que efectivamente quedamos bloqueados:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420101906.png" text-align="center" />
+</div>
+
+<p>De esta forma, vamos a aprovecharnos de la funcionalidad de chekeo de stock para intentar utilizar el servidor para acceder a la pestaña /admin.</p>
+
+<p>Entramos en la página que ofrece un producto y, abajo del todo, le damos al botón <strong>Check Stock</strong>:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420102246.png" text-align="center" />
+</div>
+
+<p>E interceptamos la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420102109.png" text-align="center" />
+</div>
+
+<p>Y cambuamos el contenido del parámetro <strong>stockApi</strong> y pones nuestra dirección preferente:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420102435.png" text-align="center" />
+</div>
+
+<p>Recordamos que debemos mantener el formato de codificación de URL y aparecerá:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420102503.png" text-align="center" />
+</div>
+
+<p>Aún así, sin embargo no habríamos terminado debido a que si seleccionamos Delete sobre Carlos se envíara una petición siendo nosotros un usuario normal y por tanto no tendrá efecto.</p>
+
+<p>Lo que si podemos hacer es interceptar la request y capturar la URL para ponerla dentro del parámetro stockApi:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420102826.png" text-align="center" />
+</div>
+
+<p>De la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420103053.png" text-align="center" />
+</div>
+
+<p>Para comprobar que nuestra petición ha tenido el efecto deseado volvemos a intentar ver el panel de admin:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420103158.png" text-align="center" />
+</div>
+
+<p>Ahí podemos comprobar que no se encuentra Carlos.</p>
+
+<p><br /></p>
+
+<h4 id="22-ataques-ssrf-contra-otros-sistemas-back-end">2.2. Ataques SSRF contra otros sistemas back-end.</h4>
+
+<p><strong>Otro tipo de relación de confianza que a menudo surge con la falsificación de solicitudes del lado del servidor es cuando el servidor de aplicaciones puede interactuar con otros sistemas de back-end</strong> a los que los usuarios no pueden acceder directamente. Estos sistemas a menudo tienen direcciones IP privadas no enrutables. <strong>Dado que los sistemas back-end normalmente están protegidos por la topología de la red, a menudo tienen una postura de seguridad más débil</strong>. En muchos casos, los sistemas back-end internos contienen funciones confidenciales a las que cualquier persona que pueda interactuar con los sistemas puede acceder sin autenticación.</p>
+
+<p>En el ejemplo anterior, suponga que hay una interfaz administrativa en la URL de back-end https://192.168.0.68/admin. Aquí, un atacante puede explotar la vulnerabilidad SSRF para acceder a la interfaz administrativa enviando la siguiente solicitud:</p>
+
+<pre><code class="language-default">POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://192.168.0.68/admin
+</code></pre>
+
+<p>Como hemos comentado, dicha estructura tiene una IP privada que solamente es accesible desde dentro de la red y por tanto está menos protegida por razones obvias.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Basic SSRF against another back-end system</strong>.</p>
+
+<p>Este laboratorio tiene una función de verificación de existencias que obtiene datos de un sistema interno.</p>
+
+<p>Para resolver el laboratorio, utilice la función de comprobación de existencias para escanear el rango interno 192.168.0.X en busca de una interfaz de administración en el puerto 8080 y, a continuación, utilícela para eliminar el usuario carlos.</p>
+
+<p>En primer lugar, exploramos la funcionalidad mencionada de checkeo de stock y comprobamos que efectivamente posee una funcionalidad de envío de peticiones a otras estructuras:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420111003.png" text-align="center" />
+</div>
+
+<p>Para comprobar si existen otras estructuras backend con las que el servidor puede ponerse en contacto vamos a utilizar el BurpIntruder para mandar peticiones a todas la IPs de la forma 192.168.0.x y observar las respuestas:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420111615.png" text-align="center" />
+</div>
+
+<p>Y como payload:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420111646.png" text-align="center" />
+</div>
+
+<p>De esta forma finalmente</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420114623.png" text-align="center" />
+</div>
+
+<p>Así, llevamos a cabo la siguiente request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420114924.png" text-align="center" />
+</div>
+
+<p>Y habríamos borrado efectivamente al usuario Carlos.</p>
+
+<p><br /></p>
+
+<h3 id="3-evitando-defensas-comunes-ssrf">3. Evitando defensas comunes SSRF.</h3>
+
+<p>Es común ver aplicaciones que contienen defensas destinadas a prevenir la explotación maliciosa de funcionalidades que hacen request a otras estructuras, es decir, a prevenir ataques SSRF. A menudo, estas defensas se pueden eludir.</p>
+
+<p><br /></p>
+
+<h4 id="31-defensa-de-ssrf-basada-en-un-filtro-basado-en-lista-negra">3.1. Defensa de SSRF basada en un filtro basado en lista negra.</h4>
+
+<p>Algunas aplicaciones bloquean la entrada que contiene nombres de host como 127.0.0.1 y localhost, o direcciones URL confidenciales como /admin.</p>
+
+<p>En esta situación, a menudo puede eludir el filtro utilizando varias técnicas:</p>
+
+<ul>
+  <li>
+    <p>Usando una representación IP alternativa; en lugar de 127.0.0.1, como 2130706433, 017700000001 o 127.1.</p>
+  </li>
+  <li>
+    <p>Registrando su propio nombre de dominio que se resuelve en 127.0.0.1. Puede usar spoofed.burpcollaborator.net para este propósito.</p>
+  </li>
+  <li>
+    <p>Ofuscación de cadenas bloqueadas mediante codificación de URL o variación de mayúsculas y minúsculas.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: SSRF with blacklist-based input filter</strong></p>
+
+<p>Este laboratorio tiene una función checkeo de stock que obtiene datos de un sistema interno.</p>
+
+<p>Para resolver el laboratorio, cambie la URL de verificación de existencias para acceder a la interfaz de administración en http://localhost/admin y elimine el usuario carlos.</p>
+
+<p>El desarrollador ha desplegado dos débiles defensas anti-SSRF que deberá eludir.</p>
+
+<p>En primer lugar, intentamos acceder a la pestaña admin desde la URL y vemos que nos bloquea la conexión:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420171329.png" text-align="center" />
+</div>
+
+<p>En el mensaje de bloqueo podemos observar que se nos informa que la interfaz de administrador sólo está habilitada para usuarios autenticados y para conexiones internas desde el loopback. De esta forma y gracias a esta información concluimos que sería buena idea intentar hacer que el propio servidor llevará a cabo dicha petición desde el bucle interno y nos devolviera la conexión.</p>
+
+<p>Afortunadamente para nosotros, existe una funcionalidad que carga en un parámetro, <strong>stockApi</strong> una dirección. Esto puede ser un indicio de que nuestro navegador envía una http request que se procesa en el lado del servidor haciendo a su vez otra petición de la que obtiene información que carga en la respuesta http que nos devuelve.</p>
+
+<p>De esta forma, podemos cambiar el valor de dicho parámetro para inducir un ataque SSRF al servidor de la aplicación web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420172441.png" text-align="center" />
+</div>
+
+<p>Sin embargo, a través del BurpRepeater podemos ver que aunque la funcionlidad está habilitada la petición se bloquea por cuestiones de seguridad:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420172827.png" text-align="center" />
+</div>
+
+<p>Sería buena idea probar a ofuscar la dirección de la petición para comprobar si podemos realizar un bypass al mecanismo de seguridad que bloquea nuestra petición.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420173122.png" text-align="center" />
+</div>
+
+<p>Finalmente obtenemos la forma de la dirección adecuada para conseguir acceso al panel de administrador. Así, envíamos la siguiente request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420173254.png" text-align="center" />
+</div>
+
+<p>Y habríamos borrado al usuario Carlos, completando así el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="32-defensa-de-ssrf-basada-en-un-filtro-basado-en-lista-blanca">3.2. Defensa de SSRF basada en un filtro basado en lista blanca.</h4>
+
+<p>Algunas aplicaciones solo permiten entradas que coincidan, comiencen o contengan valores que estén en una lista blanca de valores permitidos.</p>
+
+<p>En esta situación, a veces puede eludir el filtro aprovechando las incoherencias en el análisis de URL.</p>
+
+<p>La especificación de URL contiene una serie de características que pueden pasarse por alto al implementar el análisis ad hoc y la validación de URL:</p>
+
+<ul>
+  <li>
+    <p>Puede incrustar credenciales en una URL antes del nombre de host, utilizando el carácter @. Por ejemplo: https://expected-host@evil-host</p>
+  </li>
+  <li>
+    <p>Puede utilizar el carácter # para indicar un fragmento de URL. Por ejemplo:</p>
+  </li>
+</ul>
+
+<p>https://evil-host#expected-host</p>
+<ul>
+  <li>
+    <p>Puede aprovechar la jerarquía de nombres de DNS para colocar la entrada requerida en un nombre de DNS completamente calificado que usted controla. Por ejemplo:
+https://expected-host.evil-host</p>
+  </li>
+  <li>
+    <p>Puede codificar caracteres de URL para confundir el código de análisis de URL. Esto es particularmente útil si el código que implementa el filtro maneja los caracteres codificados en URL de manera diferente al código que realiza la solicitud HTTP de back-end.</p>
+  </li>
+  <li>
+    <p>Puede usar combinaciones de estas técnicas juntas.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: SSRF with whitelist-based input filter</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad que recoge datos del sistema.</p>
+
+<p>En primer lugar, accedemos al laboratorio y vamos directamente a la pestaña /admin obteniendo el siguiente mensaje de error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503172408.png" text-align="center" />
+</div>
+
+<p>Por otra parte, entre las funcionalidades de la página observamos que contiene un botón para revisar el stock de un producto. Al interceptar la request y revisarla observamos que hace una petición a un sistema interno:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503172719.png" text-align="center" />
+</div>
+
+<p>Mandamos dicha solicitud al BurpRepeater y cambiamos la URL con la finalidad de hacer un SSRF pero obtenemos el siguiente mensaje de error:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503172838.png" text-align="center" />
+</div>
+
+<p>Esto significa que el servicio interno está protegido por un filtro de lista blanca. Sin embargo, observamos que podemos alterar de ciertas formas la URL:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503173002.png" text-align="center" />
+</div>
+
+<p>Permite las credenciales embebidas dentro del dominio con lo que ahí podemos plantar nuestra dirección de loopback y bloquear con un # codeado en URL el resto del dominio:</p>
+
+<pre><code class="language-default">http://localhost:80%2523@stock.weliketoshop.net/admin/delete?username=carlos
+</code></pre>
+
+<p>De esta forma, después de llevar a cabo la solicitud no dirigimos de la misma manera a la pestaá admin y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220503173926.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="33-bypass-del-filtro-ssrf-via-redirección-abierta">3.3. Bypass del filtro SSRF via redirección abierta.</h4>
+
+<p>Algunas veces es posible utilizar otra clase de vulnerabilidad para eludir cualquier defensa basada en filtros.</p>
+
+<p>La vulnerabilidad utilizada en esta ocasión es la <strong>vulnerabilidad de redirección abierta</strong>. Se basa en introducir una URL que satisfaga el filtro que impone la aplicación web pero que al mismo tiempo redireccione la conexión a nuestro objetivo.</p>
+
+<p>Esta clase de vulnerabilidad se produce porque las URLs que están permitidas por el filtro poseen una opción de redirección y por tanto esta vulnerabilidad no es tanto del servidor de la aplicación web si no externa.</p>
+
+<p>Así, un ejemplo de esta vulnerabilidad sería una URL del siguiente tipo:</p>
+
+<pre><code class="language-default">/product/nextProduct?currentProductId=6&amp;path=http://evil-user.net
+</code></pre>
+
+<p>Así, en ese caso la URL a la que el servidor realiza la request realiza una segunda request basado en un parámetro.</p>
+
+<p>Así por ejemplo en una request en condiciones quedaría como sigue:</p>
+
+<pre><code class="language-default">POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://weliketoshop.net/product/nextProduct?currentProductId=6&amp;path=http://192.168.0.68/admin
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: SSRF with filter bypass via open redirection vulnerability</strong></p>
+
+<p>Vemos que este laboratorio contiene un botón de redirección al siguiente producto que muestra en una tienda online. La forma en la ue actúa la funcionalidad asociada al botón es através de una redirección en la que no existe una validación de la dirección que se introduce.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420181326.png" text-align="center" />
+</div>
+
+<p>Podemos aprovecharnos del hecho de que es el propio servidor y no nosotros como usuario el que hacemos la petición de redirección al siguiente producto. Así, podemos explotar las relaciones de confianza del servidor con sus estructuras internas para llegar hasta el panel de administrador de otro dispositivo.</p>
+
+<p>De esta forma, vamos al botón de check stock e interceptamos la request. De esta forma, modificamos la request y:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220420182330.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="4-vulnerabilidades-ssrf-ciegas">4. Vulnerabilidades SSRF Ciegas.</h3>
+
+<p>Del mismo modo que como ocurría con las vulnerabilidades SQLi ciegas, el blind SSRF se produce cuando se consigue que el servidor que hostea una aplicación web haga una request a una dirección arbitraria pero no muestra el contenido de la respuesta por pantalla.</p>
+
+<p>La forma más sencilla de encontrar vulnerabilidades SSRF ciegas consiste en utilizar BurpCollaborator y técnicas OAST.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Blind SSRF with out-of-band detection</strong></p>
+
+<p>Este laboratorio utiliza software analítico que extrae la URL especificada de la cabecera Referer cuando un producto es cargado en la página. Para resolver este laboratorio, provoque dicha funcionalidad haga una request HTTP al servidor público de Burp Collaborator.</p>
+
+<p>Como hemos visto en anteriores laboratorios de vulnerabiidades ciegas, cargamos el cliente de BurpCollaborator y copiamos el subdominio del mismo.</p>
+
+<p>Seguidamente, le damos a ver detalles de un producto, interceptamos la request y a continuación cambiamos el valor de la cabecera Referer:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220511141842.png" text-align="center" />
+</div>
+
+<p>Y vamos a la ventana del cliente de BurpCollaborator y al darle a pullnow observamos que:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220511141918.png" text-align="center" />
+</div>
+
+<p>Por lo que se ha efectuado una conexión y habríamos terminado el laboratorio.</p>
+

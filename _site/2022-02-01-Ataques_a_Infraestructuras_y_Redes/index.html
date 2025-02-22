@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Ataques a Infraestructuras y Redes</title>
+
+  
+  <meta name="author" content="Qv1nTv5">
+  
+
+  <meta name="description" content="Introducción a webs, análsis de puertos.">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="Home" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="Home">
+  <meta property="og:title" content="Ataques a Infraestructuras y Redes">
+  <meta property="og:description" content="Introducción a webs, análsis de puertos.">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Qv1nTv5">
+  <meta property="og:article:published_time" content="2022-02-01T00:00:00-05:00">
+  <meta property="og:url" content="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/">
+  <link rel="canonical" href="http://localhost:4000/2022-02-01-Ataques_a_Infraestructuras_y_Redes/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@Qvintvs1">
+  <meta name="twitter:creator" content="@Qvintvs1">
+
+  <meta property="twitter:title" content="Ataques a Infraestructuras y Redes">
+  <meta property="twitter:description" content="Introducción a webs, análsis de puertos.">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">Home</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Cpage">C</a>
+                  <a class="dropdown-item" href="/DHARMApage">Dharma</a>
+            </div>
+          </li>
+        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pentest</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/BURPSUITEpage">Burp</a>
+                  <a class="dropdown-item" href="/THMpage">Thm</a>
+                  <a class="dropdown-item" href="/HackTheBoxpage">Htb</a>
+                  <a class="dropdown-item" href="/PEN200page">BasicPentesting</a>
+                  <a class="dropdown-item" href="/REDTEAMBASICSpage">RedTeam</a>
+                  <a class="dropdown-item" href="/BLUETEAMBASICSpage">Blueteam</a>
+                  <a class="dropdown-item" href="/REDESpage">Net</a>
+                  <a class="dropdown-item" href="/2022-11-17-GitBasics">Git</a>
+            </div>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "2. Constants and Literals in C.", \
+          "category" : "C", \
+          "url"      : "/2024-12-10-1.ConstantsinC-copy/", \
+          "date"     : "December 10, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "1. Basics of C", \
+          "category" : "C", \
+          "url"      : "/2024-12-02-1.BasicsOfC/", \
+          "date"     : "December  2, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "DHA", \
+          "url"      : "/2024-09-24-Dharma_Tutorial/", \
+          "date"     : "September 24, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Gramáticas en Dharma", \
+          "category" : "fuzz", \
+          "url"      : "/2024-03-22-Dharma_Tutorial-copy/", \
+          "date"     : "March 22, 2024" \
+        }, \
+       \
+        { \
+          "title"    : "Mi experiencia con el OSCP", \
+          "category" : "pen", \
+          "url"      : "/2023-11-19-PEN200_Experience/", \
+          "date"     : "November 19, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Client Side", \
+          "category" : "pen", \
+          "url"      : "/2023-11-17-17.Client_Side_Attacks/", \
+          "date"     : "November 17, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Deep Packet Tunneling", \
+          "category" : "pen", \
+          "url"      : "/2023-11-16-16.Tunneling_Through_Deep_Packet_Inspection/", \
+          "date"     : "November 16, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Report", \
+          "category" : "pen", \
+          "url"      : "/2023-11-15-15.Making_Reports/", \
+          "date"     : "November 15, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "pen", \
+          "url"      : "/2023-11-14-14.Metasploit/", \
+          "date"     : "November 14, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Password Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-13-13.Password_Attacks/", \
+          "date"     : "November 13, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Active Directory Attacks", \
+          "category" : "pen", \
+          "url"      : "/2023-11-12-12.Active_Directory_Attacks/", \
+          "date"     : "November 12, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Port Forwarding", \
+          "category" : "pen", \
+          "url"      : "/2023-11-11-11.Port_Forwarding/", \
+          "date"     : "November 11, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Privilege Escalation", \
+          "category" : "pen", \
+          "url"      : "/2023-11-10-10.Privilege_Escalation/", \
+          "date"     : "November 10, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "File Transfers", \
+          "category" : "pen", \
+          "url"      : "/2023-11-09-9.File_Tranfers/", \
+          "date"     : "November  9, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Buffer Overflows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-08-8.Buffer_Overflows/", \
+          "date"     : "November  8, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Vulnerability Scanning.", \
+          "category" : "pen", \
+          "url"      : "/2023-11-07-7.Vulnerability_Scanning/", \
+          "date"     : "November  7, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Information Gathering", \
+          "category" : "pen", \
+          "url"      : "/2023-11-06-6.Active_Information_Gathering/", \
+          "date"     : "November  6, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Windows", \
+          "category" : "pen", \
+          "url"      : "/2023-11-05-5.Windows/", \
+          "date"     : "November  5, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Networking", \
+          "category" : "pen", \
+          "url"      : "/2023-11-04-4.Networking/", \
+          "date"     : "November  4, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Scripting", \
+          "category" : "pen", \
+          "url"      : "/2023-11-03-3.Scripting/", \
+          "date"     : "November  3, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Practical Tools", \
+          "category" : "pen", \
+          "url"      : "/2023-11-02-2.PracticalTools/", \
+          "date"     : "November  2, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Linux", \
+          "category" : "pen", \
+          "url"      : "/2023-11-01-1.Linux/", \
+          "date"     : "November  1, 2023" \
+        }, \
+       \
+        { \
+          "title"    : "Easy", \
+          "category" : "hack", \
+          "url"      : "/2022-12-01-Easy/", \
+          "date"     : "December  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Git Basics", \
+          "category" : "", \
+          "url"      : "/2022-11-17-GitBasics/", \
+          "date"     : "November 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier I", \
+          "category" : "hack", \
+          "url"      : "/2022-11-10-Tier_1/", \
+          "date"     : "November 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Tier 0", \
+          "category" : "hack", \
+          "url"      : "/2022-11-09-Tier_0/", \
+          "date"     : "November  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7.BufferOverflow.", \
+          "category" : "thm", \
+          "url"      : "/2022-11-02-7.BufferOverflow/", \
+          "date"     : "November  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6.Offensive Pentesting", \
+          "category" : "thm", \
+          "url"      : "/2022-11-01-6.OffensivePentesting/", \
+          "date"     : "November  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5.RedTeam", \
+          "category" : "thm", \
+          "url"      : "/2022-10-30-5.RedTeam/", \
+          "date"     : "October 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4.Windows", \
+          "category" : "thm", \
+          "url"      : "/2022-10-22-4.Windows/", \
+          "date"     : "October 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3.Junior Penetrationtester path", \
+          "category" : "thm", \
+          "url"      : "/2022-09-02-3.JRPenetrationTester/", \
+          "date"     : "September  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2.Complete Begginer path.", \
+          "category" : "thm", \
+          "url"      : "/2022-08-07-2.CompleteBegginer/", \
+          "date"     : "August  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1.Pre-Security path.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-11-1Pre-Security/", \
+          "date"     : "July 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "0.Scripting for pentesters.", \
+          "category" : "thm", \
+          "url"      : "/2022-07-10-0.Scripting_for_pentesters/", \
+          "date"     : "July 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Burp Certified Practitioner Practice Exam.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-30-PracticeExam/", \
+          "date"     : "March 30, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "22. OAuth Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-27-22.OAuth_authentication/", \
+          "date"     : "March 27, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "21. HTTP Request Smuggling.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-26-21.HTTP_request_smuggling/", \
+          "date"     : "March 26, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "20. HTTP Host Header Attacks.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-25-20.HTTP_Host_header_attacks/", \
+          "date"     : "March 25, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "19. Web Cache Poisoning.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-24-19.Web_cache_poisoning/", \
+          "date"     : "March 24, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "18. Server-Side Template Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-23-18.Serve-side_template_injection/", \
+          "date"     : "March 23, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "17. Insecure Deserialization.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-22-17.Insecure_deserialization/", \
+          "date"     : "March 22, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "16. WebSockets.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-21-16.WebSockets/", \
+          "date"     : "March 21, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "15.DOM-based XSS vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-20-15-DOM-based_vulnerabilities/", \
+          "date"     : "March 20, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "14. Clickjacking.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-19-14.Clickjacking/", \
+          "date"     : "March 19, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "13. Cross-Origin Resource Sharing.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-18-13.Cross-origin_resource_sharing_(CORS)/", \
+          "date"     : "March 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "12. Cross-Site Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-17-12.Cross-site_request_forgery_(CSRF)/", \
+          "date"     : "March 17, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "11. Cross-Site Scripting.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-16-11.Cross-site_scripting_(XSS)/", \
+          "date"     : "March 16, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "10. XXE Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-15-10.XXE_injection/", \
+          "date"     : "March 15, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "9. Server-Side Request Forgery.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-14-9.Server-side_request_forgery/", \
+          "date"     : "March 14, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "8. File Upload.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-13-8.File_upload_vulnerabilities/", \
+          "date"     : "March 13, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "7. Access Control.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-12-7.Access_control/", \
+          "date"     : "March 12, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "6. Information Disclosure.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-11-6.Information_disclosure/", \
+          "date"     : "March 11, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "5. Bussiness Logic Vulnerabilities.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-10-5.Business_logic_vulnerabilities/", \
+          "date"     : "March 10, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "4. Command Injection.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-09-4.Command_Injection/", \
+          "date"     : "March  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "3. Directory Traversal.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-08-3.Directory_Traversal/", \
+          "date"     : "March  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "2. Authentication.", \
+          "category" : "burp", \
+          "url"      : "/2022-03-07-2.Authentication/", \
+          "date"     : "March  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "1. SQLInjection", \
+          "category" : "burp", \
+          "url"      : "/2022-03-06-1.SQLInjection/", \
+          "date"     : "March  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Seguridad Perimetral", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Seguridad_Perimetral/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Hardening de sistemas", \
+          "category" : "blueteam", \
+          "url"      : "/2022-02-09-Hardening_de_sistemas/", \
+          "date"     : "February  9, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Bandit", \
+          "category" : "otw", \
+          "url"      : "/2022-02-08-Bandit/", \
+          "date"     : "February  8, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Proxy", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Proxys/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Protocolos Relevantes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Protocolos_Importantes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Curso Básico Redes", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-Precurso_Redes/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "IPs", \
+          "category" : "redes", \
+          "url"      : "/2022-02-07-IPs/", \
+          "date"     : "February  7, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Movimientos Laterales", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-06-Introducci%C3%B3n_a_movimientos_laterales/", \
+          "date"     : "February  6, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Evasión de Defensas", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Evasi%C3%B3n_de_Defensas/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Escalada de privilegios", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-05-Escalada_de_privilegios/", \
+          "date"     : "February  5, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Metasploit", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-04-Metasploit_B%C3%A1sico/", \
+          "date"     : "February  4, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a aplicaciones Android", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-03-Ataques_aplicaciones_android/", \
+          "date"     : "February  3, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataque a aplicaciones web.", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-02-Ataques_a_aplicaciones_web/", \
+          "date"     : "February  2, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Ataques a Infraestructuras y Redes", \
+          "category" : "redteam", \
+          "url"      : "/2022-02-01-Ataques_a_Infraestructuras_y_Redes/", \
+          "date"     : "February  1, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "Análisis de Objetivos", \
+          "category" : "redteam", \
+          "url"      : "/2022-01-28-An%C3%A1lisis_de_Objetivos/", \
+          "date"     : "January 28, 2022" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "Blueteam Basics", \
+          "category" : "page", \
+          "url"      : "/BLUETEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PortSwigger BurpSuite Course", \
+          "category" : "page", \
+          "url"      : "/BURPSUITEpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "C programming subjects.", \
+          "category" : "page", \
+          "url"      : "/Cpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Dharma Fuzzer language", \
+          "category" : "page", \
+          "url"      : "/DHARMApage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Exploiting &amp; Reversing", \
+          "category" : "page", \
+          "url"      : "/EXPREVpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Fuzzing JavaScript Engine", \
+          "category" : "page", \
+          "url"      : "/Fuzzpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "HackTheBox", \
+          "category" : "page", \
+          "url"      : "/HackTheBoxpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "PEN200 notes", \
+          "category" : "page", \
+          "url"      : "/PEN200page/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Proyectos", \
+          "category" : "page", \
+          "url"      : "/PROJECTSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Networking Basics", \
+          "category" : "page", \
+          "url"      : "/REDESpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "RedTeam Basics", \
+          "category" : "page", \
+          "url"      : "/REDTEAMBASICSpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Retired Machines", \
+          "category" : "page", \
+          "url"      : "/RetiredMachinespage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "TryHackMe", \
+          "category" : "page", \
+          "url"      : "/THMpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "THM", \
+          "category" : "page", \
+          "url"      : "/preOSCPpage/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page3/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page4/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page5/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page6/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page7/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page8/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page9/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page10/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page11/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page12/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page13/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page14/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Germán Sanmillán", \
+          "category" : "page", \
+          "url"      : "/page15/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Ataques a Infraestructuras y Redes</h1>
+          
+            
+              <h2 class="post-subheading">Introducción a webs, análsis de puertos.</h2>
+            
+          
+
+          
+            <span class="post-meta">Posted on February 1, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <!-- Este tag hace que el post salga en la lista de RedTeam-->
+
+<h1 id="1-escaneo-de-puertos-con-nmap">1. Escaneo de puertos con Nmap.</h1>
+
+<h2 id="11-antecedentes">1.1. Antecedentes.</h2>
+
+<h3 id="111-concepto-de-puertos">1.1.1. Concepto de puertos.</h3>
+
+<p>Dentro del contexto de redes, un <strong>puerto</strong> es una interfaz a través de la cual se produce la transferencia de datos en una máquina (Recordamos que una interfaz es un entorno software que facilita la conexión entre dos dispositivos o entre un humano y un dispositivo, interfaz de usuario). Es decir, los puertos son los elementos que utilizan los ordenadores para comunicarse con el mundo exterior.</p>
+
+<p>Existen <strong>puertos físicos</strong>, como las entradas USB, y <strong>puertos digitales</strong> aquellos que están regidos por un protocolo, es decir, cada uno de estos puertos digitales tiene una función, y dependiendo de la función el puerto atiende a unas peticiones u otras y el protocolo que se utiliza para la transferencia de datos puede ser distinto (TCP, UDP, HTTP, ICMP…) siendo a su vez distintas las pautas a seguir para comunicarse con ese ordenador mediante ese puerto. Esto quiere decir que; desde el punto de vista de la ciberseguridad, hay puertos más interesantes que otros, los puertos que tienen un protocolo cifrado como el 443 (https) son más seguros que otros y etc.</p>
+
+<p><br /></p>
+
+<h3 id="112-nmap-como-herramienta">1.1.2. Nmap como herramienta.</h3>
+
+<p>Nmap es una herramienta que se utiliza para llevar a cabo un escaneo de dispositivos de una red ya sea bien de forma individual; llevar a cabo un <strong>escaneo</strong> de puertos de un dispositivo en particular, hasta hacer una <strong>barrido</strong> de todos los dispositivos conectados a una red a través de distintos mecanismos (ping, TCP handshaking, UDP procotol, etc).</p>
+
+<p>Actúa mandando paquetes a los distintos puertos digitales del dispositivo para obtener información sobre los mismos y luego muestra por pantalla un informe que contiene, en general, para un dispositivo en concreto:</p>
+
+<ul>
+  <li><strong>Latencia</strong>: Tiempo que tarda en transmitirse un paquete.</li>
+  <li>Los puertos a los que ha tenido acceso.</li>
+  <li>
+    <p><strong>Estado del puerto</strong>: Abierto, cerrado, filtrado, etc.</p>
+
+    <ul>
+      <li><strong>Abierto</strong>: Acepta conexiones porque hay una aplicación escuchando peticiones en ese puerto.</li>
+      <li><strong>Cerrado</strong>: Accesible para Nmap, pero no hay una aplicación escuchando en ese puerto.</li>
+      <li><strong>Filtrado</strong>: Nmap no puede determinar que el puerto este abierto porque un filtrado de paquetes intercepta las sondas antes de que lleguen al equipo (un cortafuegos).</li>
+      <li><strong>No filtrado</strong>: Puerto accesible pero no se puede determinar si está o no abierto. Común con el sondeo ACK, otro tipo de escaneo puede ayudar a discenir si está o no abierto.</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>**Abierto</td>
+              <td>Filtrado**: Incapaz de determinar si está abierto o filtrado. (Ausencia de respuesta).</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>**Cerrado</td>
+              <td>Filtrado**: Incapaz de discernir si un puerto está cerrado o filtrado, sólo en escáneres IPID pasivo.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+  <li>Servicio/Protocolo que rige el puerto.</li>
+</ul>
+
+<p><strong>Sin embargo, este es sólo un esquema general y el comportamiento de Nmap puede alterarse con modificadores específicos que pueden asignar a Nmap una tarea que fuerze un cambio en el informe.</strong></p>
+
+<p><br /></p>
+
+<h2 id="12-instalación">1.2. Instalación.</h2>
+
+<p>Buscamos \^nmap en el apt-cache, (el gorrito es una expresión regular que hace que la búsqueda empiece siempre con la palabra que le sigue).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search <span class="se">\^</span>nmap
+</code></pre></div></div>
+
+<p>Y seguidamente apt-get install nmap.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>nmap
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="13-utilizando-nmap">1.3. Utilizando Nmap.</h2>
+
+<h3 id="131-barrido-de-red-con-nmap">1.3.1. Barrido de red con Nmap.</h3>
+
+<p>Con Nmap podemos llevar a cabo un barrido de una red, esto es; identificar el máximo número de dispositvos activos que forman parte de una red. Llevamos a cabo el siguiente procedimiento:</p>
+
+<ul>
+  <li>
+    <p>Cogemos la <strong>IP</strong> de un dispositivo y obtenemos de ella la <strong>IP de red</strong> (recordamos que en una IP hay dos partes, una parte que identifica al dispositivo, <strong>parte variable</strong>, y otra que identifica la red; la <strong>parte fija</strong>, en la que el dispositivo está).  Por ejemplo en la IP 192.168.1.140 la parte fija, que identifica a la red es 192.168.1.X (clase C) y la parte variable es 140. Estas partes variarán en función de la clase a la que la IP pertenezca.</p>
+  </li>
+  <li>
+    <p>Utilizamos la parte fija de la IP y además le añadimos la <strong>máscara de red</strong> tras un slash (<strong>/</strong>) que al ser de clase C esta tiene la forma: 255.255.255.0.</p>
+
+    <p>Este es el resultado de pasar las cuatro partes del número binario a decimal. Pasándolo a cifras significativas obtenemos que cada 255 son 8 bits y como son 3 partes es: 8*3=24 y por tanto el valor que define la máscara de red es 24. Si fuera de clase A sería 255.0.0.0 -&gt; 8 * 1 = 8 y si fuese de clase B sería de 16. Para más dudas repasar parte de redes.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211208104950.png" text-align="center" />
+  </div>
+
+    <p>En este caso, no hemos añadido ninguna especificacion del protocolo que Nmap utiliza para envíar paquetes a los puertos, por ejemplo: <strong>con -sP Nmap envía paquetes con ICMP</strong>, pero por defecto utilizará TCP.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="132-barrido-de-ips-en-una-red-con-nmap">1.3.2. Barrido de IPs en una red con Nmap.</h3>
+
+<p>En realidad, el comando introducido anteriormente es un caso particular del funcionamiento general del barrido de Nmap.  El barrido de red se hace especificando el dispositivo que pertenece a un red de la cual queremos hacer un barrido y la máscara de red.</p>
+
+<p>Además, la máscara puede ser un número distinto de 8, 16 o 24. Estos sólo expresan el número de bits de la IP que identifican a la red, el resto identifican a cada dispositivo.</p>
+
+<p>De forma que el número de bits restantes que identifican a cada dispositivo sigue la fórmula:</p>
+
+<pre><code class="language-default">32 - nmáscara = nbits dispositivo
+</code></pre>
+
+<p>Y como son bits, que pueden ser o 1 o 0, entonces el máximo número de dispositivos conectados a esa red es: <strong>2^(32 - nmascara)</strong>. De nuevo las matemáticas son claras: mayor clase (A, B, C), menor máscara (8, 16, 24), más dispositivos.</p>
+
+<p><br /></p>
+
+<h3 id="133-escaneo-de-una-ip-con-nmap">1.3.3. Escaneo de una IP con Nmap.</h3>
+
+<p>Cuando llevamos acabo un barrido escaneamos un conjunto de IPs mediante el mecanismo que hemos resaltado en la sección anterior. Sin embargo en muchos casos estamos interesados sólo en un dispositivo de IP conocida, por tanto conviene más hacer un escaneo particular de ese dispostivo antes que hacer un barrido de la red. Eso consumirá menos tiempo y recurso y nos permitirá utilizar modificadores que de otra forma serían inaccesibles en un barrido.</p>
+
+<p>Llevamos a cabo un escaneo pasándo como parámetro la IP asociada al dispositivo a Nmap.</p>
+
+<p>Hay factores, como los modificadores, los privilegios o la localización que pueden afectar a la calidad del escaneo, ya que en función de estos habrá más o menos elementos intermedios o más puertos accesibles.</p>
+
+<p><br /></p>
+
+<h3 id="134-modificadores-importantes">1.3.4. Modificadores importantes.</h3>
+
+<p>Existen modificadores que alteran el comportamiento de Nmap, entre los cuales encontramos:</p>
+
+<ul>
+  <li>
+    <p><strong>A</strong>: detección de versión de la aplicación y sistema operativo del dispositivo escaneado.</p>
+  </li>
+  <li>
+    <p><strong>T[0-5]</strong>: acelera el proceso, en función del nivel seleccionado se hace el escaneo más rápido o más despacio. Un escaneo agresivo puede afectar a los recursos de la máquina víctima y puede ser utilizado como ciberataque.</p>
+  </li>
+  <li>
+    <p><strong>s[P,S,T,U,N,F,X…]</strong>: sondeo ICMP, TCP SYN, TCP Connect, UDP, NULL, FIN, Xmas…</p>
+  </li>
+  <li>
+    <p><strong>sV</strong>: Informa de la versión del servicio del puerto escaneado.</p>
+  </li>
+  <li>
+    <p><strong>sL</strong>: Da una lista de todos los posibles IPs de una red, y su alguna IP está asociada a una página web, te lo dice. El número de ips proporcionados dependenderá de la clase de red.</p>
+  </li>
+  <li>
+    <p><strong>p</strong>: Con -p puedes asignar el rango de puertos que quieres analizar. Por defecto serán 1000, pero puedes expandir o contraer esta cantidad con -p, si sólo indicamos un valor, nmap escaneará el puerto asociado a ese valor.</p>
+  </li>
+</ul>
+
+<p>Por ejemplo:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211207094328.png" text-align="center" />
+</div>
+
+<p>En la imágen podemos observar el informe del escaneo y de los puertos.
+Te dice qué puertos están abiertos y la versión del sistema operativo.</p>
+
+<p><br /></p>
+
+<h2 id="14-scripts-nse">1.4. Scripts NSE.</h2>
+
+<p>Son scripts que añaden funcionalidades a nmap. Estos se pueden ver en su totalidad: https://nmap.org/nsedoc/</p>
+
+<p>Algunos de ellos están disponibles en tu propia máquina, otros hay que descargarlos. Los disponibles se pueden ver en la carpeta <strong>/user/share/nmap/scripts</strong>.</p>
+
+<p>Hay 12 que son los más utiles que pueden obtenerse en la página: https://research.securitum.com/nmap-and-12-useful-nse-scripts/</p>
+
+<p><br /></p>
+
+<h3 id="142-scripts-más-populares">1.4.2. Scripts más populares.</h3>
+
+<ul>
+  <li>
+    <p><strong>http-enum.nse</strong>: Enumera todos los directorios / carpetas de un sitio web. Es importante especificar que un sitio web tiene un sistema de ficheros parecido al de linux, en el que existe un directorio raiz (la página principal) del que luego derivan carpetas y subcarpetas.</p>
+  </li>
+  <li>
+    <p><strong>http-grep.nse</strong>: Busca información útil de la página web proporcionada. De manera predeterminada devuelve las direcciones de correo electrónico y las direcciones IP que se encuentran en todas las subpáginas descubiertas por el script.</p>
+  </li>
+  <li>
+    <p><strong>ssh-brute.nse</strong>: Utilizado para romper las contraseñas de servicios SSH con la entrada de texto predictivo. De forma predeterminada, utiliza su propia base de datos de usuarios y contraseñas aunque también puede pasar lo que nosotros le pidamos con los comandos userdb y passdb.</p>
+  </li>
+  <li>
+    <p><strong>dns-brute.nse</strong>: El script dns-brute intenta encontrar tantos subdominios como pruebe el host utilizando los nombres de subdominio utilizados con más frecuencia.</p>
+  </li>
+  <li>
+    <p><strong>http-config-backup.nse</strong>: El script http-config-backup envía muchas consultas al servidor web, tratando de obtener una copia de la configuración del CMS que dejó el usuario o el editor de texto.</p>
+  </li>
+  <li>
+    <p><strong>vulscan.nse</strong>: Escanea vulnerabilidades en la IP proporcionada.</p>
+  </li>
+  <li>
+    <p><strong>smb-enum-users.nse</strong>: La tarea del script smb-enum-users es enumerar todos los usuarios disponibles en el sistema de Windows escaneado. Este script utiliza el protocolo MSRPC (Microsoft RPC) y dos técnicas de enumeración:</p>
+
+    <ul>
+      <li>SAMR: esta técnica devuelve más información que el nombre del usuario, es mucho menos “ruidosa” que LSA y, debido a que utiliza una función dedicada, devolverá todas las cuentas existentes. Requiere privilegios mínimos de usuario (no requiere ningún permiso en Windows 2000);</li>
+      <li>LSA: además de los nombres de usuario, devuelve alias, grupos y cuentas del sistema. Requiere menos autorización de SAMR: se puede usar con privilegios de invitado, pero genera una gran cantidad de registros en el sistema escaneado.</li>
+    </ul>
+
+    <p>Cuando ejecutamos el script sin argumentos, utilizará las dos técnicas anteriores. Si desea limitar el escaneo a una técnica, simplemente use el argumento:</p>
+
+    <ul>
+      <li>samronly - para escaneo solo SAMR;</li>
+      <li>lsaonly: para escanear solo por LSA.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>http-wordpress-enum.nse</strong>: El script http-wordpress-enum, usando la base de datos wp-themes.lst verifica qué temas y complementos se han instalado en el sitio escaneado.</p>
+  </li>
+  <li>
+    <p><strong>firewalk.nse</strong>: El script Firewalk, utilizando la técnica de seguimiento de paquetes (traceroute) y el paso de TTL, conocido como firewalking, intenta detectar reglas de firewall / puerta de enlace. Los parámetros de escaneo se pueden controlar mediante los siguientes argumentos:</p>
+
+    <ul>
+      <li>firewalk.max-probed-ports: el número de puertos que se probarán para cada protocolo. Establecido en -1, examine todos los puertos filtrados;</li>
+      <li>firewalk.max-retries: la cantidad máxima de retransmisiones;</li>
+      <li>firewalk.recv-timeout: la duración del ciclo que recopila paquetes (en milisegundos);</li>
+      <li>firewalk.max-active-probes - número máximo de exploraciones paralelas;</li>
+      <li>firewalk.probe-timeout: validez de un solo escaneo (en milisegundos).</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>mysql-empty-password.nse</strong>: El script mysql-empty-password comprueba si es posible iniciar sesión en el servidor MySQL en la cuenta raíz o anónima utilizando una contraseña vacía.</p>
+  </li>
+  <li>
+    <p><strong>mysql-users.nse</strong>: El script mysql-users se usa para listar los usuarios disponibles en el servidor MySQL. Para listar, usaremos la cuenta root con una contraseña vacía, que descubrimos en el script anterior.</p>
+  </li>
+  <li>
+    <p><strong>mysql-brute.nse</strong>: El script mysql-brute se usa para romper los datos de acceso al servidor MySQL.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="2-análisis-de-vulnerabilidades">2. Análisis de Vulnerabilidades.</h1>
+
+<h2 id="21-antecedentes">2.1. Antecedentes.</h2>
+
+<ul>
+  <li>
+    <p><strong>Vulnerabilidad</strong>: Una vulnerabilidad es un fallo de configuración de un sistema que puede ser utilizado por un atacante para penetrar en dicho sistema.</p>
+  </li>
+  <li>
+    <p><strong>Debilidad</strong>: Una debilidad es un fallo de configuración que puede conducir a una vulnerabilidad. A menudo una vulnerabilidad es una concatenación de múltiples debilidades.</p>
+  </li>
+  <li>
+    <p><strong>Escaneo de vulnerabilidades</strong>: Un escaneo de vulnerabilidades es una prueba en la que se emplea un programa o aplicación que busca y reporta vulnerabilidades conocidas en un determinado sistema.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="22-escaneo-de-vulnerabilidades-con-scripts-de-nmap">2.2. Escaneo de vulnerabilidades con scripts de Nmap.</h2>
+
+<p>Podemos emplear distintos scripts de nmap para recabar información de la existencia de vulnerabilidades en la versión de los servicios que utilizan las aplicaciones que escuchan en los puertos.</p>
+
+<p>Existen fundamentalmente dos scripts de detección de vulnerabilidades con nmap: vulscan y vulners.</p>
+
+<p><br /></p>
+
+<h3 id="221-escaneo-de-vulnerabilidades-con-vulscan">2.2.1 Escaneo de vulnerabilidades con Vulscan.</h3>
+
+<h4 id="2211-instalación-de-vulscan">2.2.1.1. Instalación de Vulscan.</h4>
+
+<p>Vulscan es un script que detecta vulnerabilidades y puede descargarse desde github: https://github.com/scipag/vulscan</p>
+
+<p>Para instalarlo debemos acudir a la carpeta /usr/share/nmap/scripts y clonar de Github el paquete con <strong>git clone</strong>.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220211122509.png" text-align="center" />
+</div>
+
+<p>Debe de quedar de tal forma que dentro de la carpeta “scripts” haya una carpeta llamada “vulscan” que contenga nuestros archivos de scripts.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220211122527.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h4 id="2212-utilización-de-vulscan">2.2.1.2. Utilización de Vulscan.</h4>
+
+<p>Basta con añadir los modificadores -sV y –script=vulscan/vulscan.nse a Nmap:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sV</span> <span class="nt">--script</span><span class="o">=</span>vulscan/vulscan.nse &lt;IP&gt;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220211122936.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="222-escaneo-de-vulnerabilidades-con-vulners">2.2.2. Escaneo de vulnerabilidades con Vulners.</h3>
+
+<p>Se puede descargar de Github desde: https://github.com/vulnersCom/nmap-vulners aunque muchas veces es un script incluido por defecto en nuestra libreria de kali.</p>
+
+<p>Se utiliza añadiendo el script a Nmap:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">--script</span><span class="o">=</span>vulners.nse &lt;IP&gt;
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220211123730.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="23-escaneo-de-vulnerabilidades-con-openvas">2.3. Escaneo de vulnerabilidades con Openvas.</h2>
+<p>OpenVASS ofrece un escaneo de vulerabilidades ofreciendo una interfaz gráfica.</p>
+
+<p>Falla en versiones recientes de kali por incompatibilidades con la versión de la base de datos; no tiene disponible la versión 14 de Postgres.</p>
+
+<p>Asi que hay que utilizar Ubuntu.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211209124316.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211209124418.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211209124625.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="24-nikto">2.4. Nikto.</h2>
+<h3 id="241-qué-es-nikto">2.4.1. Qué es Nikto.</h3>
+
+<p><strong>Nikto</strong> es una herramienta enfocada en escanear servidores web de código abierto y uso gratuito.</p>
+
+<p><br /></p>
+
+<h3 id="242-instalación-de-nikto">2.4.2. Instalación de Nikto.</h3>
+
+<p>Nikto puede descargarse desde github como un script de perl y también como paquete en la apt de Kali linux.</p>
+
+<p><br /></p>
+
+<h1 id="3-ssh-y-nessus">3. SSH y Nessus.</h1>
+
+<h2 id="31-ssh">3.1. SSH.</h2>
+
+<h3 id="311-introducción">3.1.1. Introducción.</h3>
+
+<p>SSH es un protocolo que se utiliza para proveer un servicio de administración remota entre dos máquinas de manera cifrada. Dentro del servicio de SSH existen clientes que llevan a cabo peticiones de administración remota sobre otra máquina y servidores que son los que aceptan una petición de administración remota.</p>
+
+<p>Por defecto, el servicio SSH escucha en el puerto 22 siempre y cuando la máquina tenga activado el servicio <strong>ssh</strong>.</p>
+
+<p>Generalmente establecerás una conexión ssh desde la pseudoterminal. Para ello se necesitará tener ssh instalado en ambas máquinas, concretamente hay que estar seguros de que la máquina que ejerce de servidor tenga el servidor de ssh instalado y que la máquina que lleva el papel de cliente tenga el cliente de ssh instalado.</p>
+
+<p>Para hacer una conexión ssh necesitarás al menos dos elementos:</p>
+
+<ul>
+  <li>
+    <p>El host del servidor, esto es la dirección IP de la máquina a la que deseamos conectarnos aunque en algunos casos también podremos referirnos a esta IP mediante el dominio.</p>
+  </li>
+  <li>
+    <p>El nombre del usuario al que deseamos conectarnos, que puede coincidir o no con el usuario que tenemos actualmente. Si coincide puede no ser necesario especificarlo y si no coincide hay que especificar dicho cambio.</p>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh username@serverhost
+</code></pre></div></div>
+
+<p>Es probable que también necesites de un elemento de autorización como una contraseña , un código QR o una clave pública para tener acceso a la máquina.</p>
+
+<p><br /></p>
+
+<h3 id="312-conexión-con-contraseña">3.1.2. Conexión con contraseña.</h3>
+
+<p>Antes de iniciar una contraseña hay que asegurarse de dos cuestiones. En primer lugar, hay que asegurarse que ambas máquinas tienen ssh instalado. En concreto, hay que asegurarse de que la máquina a la que nos vamos a conectar tiene un servidro de ssh instalado y que la máquina desde la que hacemos la conexión tiene un cliente instalado.</p>
+
+<p>Por otra parte, también hay que comprobar si en ambas máquinas el proceso ‘ssh’ está activo y corriendo, de lo contrario la conexión será rechazada. Esto puede comprobarse mediante el comando ‘sudo service ssh status’ y debería de salir algo parecido a:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211211184638.png" text-align="center" />
+</div>
+
+<p>De lo contrario, se puede probar a iniciar el servicio con ‘sudo systemctl start ssh’ aunque el problema bien podría estribar en otra causa y ahí la solución es más compleja.</p>
+
+<p>Una vez que nos aseguramos de que ssh está presente en ambas máquinas y de que está activo y corriendo veámos cómo debemos proceder para poder conectarnos.</p>
+
+<p>Para llevar a cabo la conexión con credenciales de contraseña. Sencillamente escribimos:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──<span class="o">(</span>qvintvs㉿kali<span class="o">)</span>-[~]
+└─<span class="nv">$ </span>ssh root@192.168.1.139                                         
+The authenticity of host <span class="s1">'192.168.1.139 (192.168.1.139)'</span> can<span class="s1">'t be established.
+RSA key fingerprint is SHA256:j4PlB7z6NSG5/paFpGEt+18lnXUPGWlEJrfCjuN2xwc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '</span>192.168.1.139<span class="s1">' (RSA) to the list of known hosts.
+root@192.168.1.139'</span>s password: 
+Linux 2.6.20-BT-PwnSauce-NOSMP.
+bt ~ <span class="c"># </span>
+</code></pre></div></div>
+
+<p>Como es la primera vez que la máquina kali, que hace el papel de cliente, se conecta con la máquina servidor nos aparece un aviso que nos informa de que la autenticidad del host ‘192.168.1.139’ no ha podido ser establecida y nos da una huella de autenticación (fingerprint) en forma de clave pública RSA que se utilizará para cifrar la información esta y las próximas veces que ambas máquinas se conecten y nos pide confirmación de continuidad si confiamos en la máquina servidor.</p>
+
+<p>Seguidamente introducimos la contraseña del usuario a cuya máquina nos queremos conectar y tendríamos acceso.</p>
+
+<p><br /></p>
+
+<h3 id="313-acceso-con-clave">3.1.3. Acceso con clave.</h3>
+
+<p>Mediante el acceso con clave, el servidor no necesita de pedir una contraseña, lo cual es más interesante puesto que añade un peldaño de seguridad más.</p>
+
+<p>La clave se puede comprobar en el directorio oculto .ssh en tu directorio de trabajo.</p>
+
+<p>Si no hay ningún par de claves puede crearse mediante el comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──<span class="o">(</span>qvintvs㉿kali<span class="o">)</span>-[~]
+└─<span class="nv">$ </span>ssh-keygen                                                       
+Generating public/private rsa key pair.
+Enter file <span class="k">in </span>which to save the key <span class="o">(</span>/home/qvintvs/.ssh/id_rsa<span class="o">)</span>: <span class="o">(</span>en blanco lo enviará por defecto a .ssh<span class="o">)</span>
+Enter passphrase <span class="o">(</span>empty <span class="k">for </span>no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved <span class="k">in</span> /home/qvintvs/.ssh/id_rsa
+Your public key has been saved <span class="k">in</span> /home/qvintvs/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:8rUschLe9lzw6A7ZM22GfXrCSOEAgSbHgUelFeAsn2o qvintvs@kali
+The key<span class="s1">'s randomart image is:
++---[RSA 3072]----+
+|   ++==o         |
+|  oo*o.          |
+|  .=+  .         |
+|   o .  . .      |
+|    o o Soo.     |
+|   . . = =oO     |
+|  E   + O.OoB .  |
+| .     = *.*oo.  |
+|         .= .o   |
++----[SHA256]-----+
+                           
+</span></code></pre></div></div>
+
+<p>Nos pedirá que introduzcamos una contraseña para mayor seguridad pero que se puede dejar en blanco si se prefiere.</p>
+
+<p>Por otra parte, ahora hace falta mandar nuestra clave pública al servidor remoto sobre el que queremos hacer la conexión mediante el comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──<span class="o">(</span>qvintvs㉿kali<span class="o">)</span>-[~]
+└─<span class="nv">$ </span>ssh-copy-id &lt;IPsshserver&gt;
+/usr/bin/ssh-copy-id: INFO: Source of key<span class="o">(</span>s<span class="o">)</span> to be installed: <span class="s2">"/home/qvintvs/.ssh/id_rsa.pub"</span>
+/usr/bin/ssh-copy-id: INFO: attempting to log <span class="k">in </span>with the new key<span class="o">(</span>s<span class="o">)</span>, to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key<span class="o">(</span>s<span class="o">)</span> remain to be installed <span class="nt">--</span> <span class="k">if </span>you are prompted now it is to <span class="nb">install </span>the new keys
+&lt;IPsshserver&gt;<span class="s1">'s password: 
+stderr is not a tty - where are you?
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh '</span>root@192.168.1.139<span class="s1">'"
+and check to make sure that only the key(s) you wanted were added.
+
+                           
+</span></code></pre></div></div>
+
+<p>Nos pedirá que introduzcamos la contraseña del usuario al que nos queremos conectar y el proceso terminará satisfactoriamente.</p>
+
+<p>Por último, si ahora nos queremos volver a conectar a dicho usuario:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──<span class="o">(</span>qvintvs㉿kali<span class="o">)</span>-[~]
+└─<span class="nv">$ </span>ssh root@192.168.1.139                                           
+Enter passphrase <span class="k">for </span>key <span class="s1">'/home/qvintvs/.ssh/id_rsa'</span>: 
+Linux 2.6.20-BT-PwnSauce-NOSMP.
+bt ~ <span class="c"># </span>
+
+</code></pre></div></div>
+
+<p>Nos pedirá la contraseña para hacer uso de la clave que hemos introducido cuando construimos la clave y nos conecta con el host.Nexus es una herramienta producida por Tenable, una empresa. Puede escanear vulnerabilidades. Tiene una versión de prueba con la que puedes hacer 16 escaneos de IP.</p>
+
+<p>Lo importante para diferenciarlo de Openvas es que este último no te pide nada de la máquina que vas a analizar más allá de la IP, necesita una conectividad constante y puede provocar falsos positivos. Sin embargo con nexus puedes hacer el escaneo desde dentro de la máquina lo cual hará que tengas menos fallos. Aunque también puedes hacerlo al estilo Openvas, con credenciales o sin credenciales.</p>
+
+<p><br /></p>
+
+<h2 id="32-nessus">3.2. Nessus.</h2>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211210092148.png" text-align="center" />
+</div>
+
+<p>Para descargarse Nessus Essentials primero hay que logearse con tu correo electrónico,</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106232521.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106232545.png" text-align="center" />
+</div>
+
+<p>entonces te será facilitado un código de activación del producto que decidas descargate que por defecto será Nessus mediante el correo electrónico que hayas decido poner.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106232644.png" text-align="center" />
+</div>
+
+<p>De entre todas las descargas a nosotros evidentemente nos inte
+Una vez tienes el código de activación debes descargar el producto teniendo en cuenta el formato de tu sistema operativo (distro de linux, 32 bits, 64 bits, etc). Después nos vamos a la carpeta donde se halla efectuado la descarga e introducimos el comando:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>dpkg <span class="nt">-i</span> &lt;nombrearchivo&gt;.deb
+</code></pre></div></div>
+
+<p>Y tras instalarlo nos aparecerá el siguiente mensaje.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211210173121.png" text-align="center" />
+</div>
+
+<p>En el cual se nos informa de que el servicio de Nessus monta para nostros una aplicación web que carga en cierto puerto al que debemos conectarnos. Y tras acudir a la dirección IP indicada y meter el código de activación proporicionado al logearse debemos iniciar sesión con nombre de usuario y genrar un contraseña y esperar que se instalen unos plugins (un software especifico que ayudará al sistema operativo a manejar el programa, los plugins son a un programa o aplicación lo que los drivers son al hardware, son piezas de código que guían al sistema operativo en la gestión de un dispositivo).</p>
+
+<p><br /></p>
+
+<p>Tras la instalación de los plugins, iniciaremos sesión y se nos presentará la interfaz de Nessus.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106235123.png" text-align="center" />
+</div>
+
+<p>Desde New Scan podemos elegir el tipo de escaneo que podemos hacer, por ejemplo uno básico</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106235447.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106235544.png" text-align="center" />
+</div>
+
+<p>Desde la pestaña “Credentials” podemos definir si el ataque lo hacemos con permisos (white hat) sin permisos (black hat) qué tipo de permisos concedemos (public key, user:password, …)</p>
+
+<p>![[Pasted image 20220106235751.png]]</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220106235751.png" text-align="center" />
+</div>
+
+<p>Una vez completada la configuración, lo guardamos con save y una vez lo tengamos en la lista lo lanzamos para que el escaneo comience.</p>
+
+<p>Cuando este termina podemos pulsar sobre dicho escaneo para obtener una descripción de este y además podemos elegir tener un report sobre las vulnerabilidades obtenidas:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220107000329.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020220107000339.png" text-align="center" />
+</div>
+
+<p>Entre los distintos formatos de report podemos destacar entre uno completo (tipo ejecutivo, no muy técnico) y uno detallado.</p>
+
+<p><br /></p>
+
+<h1 id="4-ataque-mitm-con-ettercap">4. Ataque MiTM con Ettercap.</h1>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213092937.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213100718.png" text-align="center" />
+</div>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213105024.png" text-align="center" />
+</div>
+
+<h2 id="41-antecedentes">4.1. Antecedentes.</h2>
+
+<h2 id="411-ataque-de-man-in-the-middle">4.1.1. Ataque de Man in The Middle.</h2>
+
+<p>Denominamos como ataque de “Man in The Middle” a la interceptión de la información enviada entre dos A y B por un tercero situado en el medio C.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>					A <span class="nt">---------------</span> C <span class="nt">--------------</span> B
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="412-ettercap">4.1.2. Ettercap.</h3>
+
+<p>Ettercap es una herramienta de seguridad de código abierto y gratuita para ataques man-in-the-middle en LAN. Se puede utilizar para analizar protocolos de redes informáticas y auditorías de seguridad.</p>
+
+<p>Ettercap funciona poniendo la interfaz de red en modo promiscuo (https://en.wikipedia.org/wiki/Promiscuous_mode “Modo promiscuo”) y envenenando ARP (https://en.wikipedia.org/wiki/Arp_poisoning “Envenenamiento por arp”) las máquinas de destino. De ese modo, altera el direccionamiento de información de red y puede actuar como un ‘hombre intermedio’ y desencadenar varios ataques contra las víctimas. Ettercap tiene compatibilidad con complementos para que las funciones se puedan ampliar agregando nuevos complementos.</p>
+
+<p><br /></p>
+
+<h2 id="42-preparando-el-ataque">4.2. Preparando el ataque.</h2>
+
+<h3 id="421-preparando-las-máquinas">4.2.1. Preparando las máquinas.</h3>
+
+<p>Encendemos las máquinas y las ponemos en modo Red Nat y comprobamos la conectividad entre ellas con el comando ‘ping’ dos a dos con las tres.</p>
+
+<p>Seguidamente comprobamos las tablas arp de las tres tablas con el comando ‘arp -a’. Estas tablas contienen las direcciones IP con la que la máquina ha tenido alguna relación en la sesión en cuestión y las MAC de cada IP. Gracias a que hemos hecho el ping anteriormente, necesariamente estas tablas deben de contener al menos dos elementos.</p>
+
+<p>(Este comando, <strong>arp -a</strong>, a veces no funciona correctamente de forma que hay que insistir. De todas formas se trata de un comando antiguo y algunos distros ya no tienen arp -a. En dichas máquinas se puede utilizar el comando <strong>ip n</strong>. SOLO LO TIENEN LAS MÁQUINAS MODERNAS.)</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213095218.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h3 id="422-instalando-y-usando-ettercap">4.2.2. Instalando y usando Ettercap.</h3>
+
+<p>Instalamos ettercap-graphical. Lo buscamos en apt-cache como ettercap. Y se ejecuta con</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>ettercap <span class="nt">-G</span>
+</code></pre></div></div>
+
+<p>Hay que conocer los nombres de la tarjetas de red, eth0, lo, docker0,… Estas pueden conecerse mediante el comando ifconfig por ejemplo.</p>
+
+<p>Vamos a utilizar este software para suplantar la identidad de una tarjeta de MAC de una IP.</p>
+
+<p>En prime lugar ejecutamos el comando de arriba en la máquina y nos saldrá la siguiente interfaz:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213182455.png" text-align="center" />
+</div>
+
+<p>Una vez abierto esto, elejimos la tarjeta de red eth0 y le damos al primer botón arriba a la derecha y elejimos el modo promiscuo.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213182914.png" text-align="center" />
+</div>
+
+<p>Una vez elegido nos saldrá una nueva interfaz en la que llevamos los siguientes pasos:</p>
+
+<ul>
+  <li>En primer lugar, de izquierda a derecha, le damos al segundo botón de la izquierda para registrar todos los nuevos host visibles.</li>
+  <li>
+    <p>En segundo lugar le damos al segundo botón para elegir tarjets de la lista de los host.</p>
+
+    <ul>
+      <li>Target 1: DVL</li>
+      <li>Target 2: Metasplotaible2.</li>
+    </ul>
+  </li>
+  <li>En tercer lugar, le damos al tercer botón de arriba a la derecha para elegir el tipo de manipulación que queremos hacer, elegimos ARN poisoning.</li>
+</ul>
+
+<p>De esta forma, Ettercap cambia la MAC de la DVL y  Metasploitable por la de la kali, esto puede comprobarse viendo las MACs de cada IP con el comando arp -a en Metasplotaible:</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211213184149.png" text-align="center" />
+</div>
+
+<p>La segunda y tercera MAC son idénticas. Y si desde la DVL hiciéramos la misma operación la MAC de la Metasploitable y la Kali también serían idénticas. De esta forma, se tiene que toda la información que se envía desde la Metasplotaible hacia la DVL pasa por Kali y la Kali lo redirecciona a DVL y viceversa. De forma que el tráfico pasa por tu máquina y puede ser analizado con WireShark y se puede leer la conversación que hay entre ambas máquinas (siempre y cuando no esté cifrada).</p>
+
+<p><br /></p>
+
+<h1 id="5-wireshark">5. Wireshark</h1>
+
+<h2 id="51-qué-es-wireshark">5.1. Qué es Wireshark?</h2>
+
+<p>Wireshark es un analizador de paquetes de red que presenta la información que contienen dichos paquetes de la manera más detallada posible. Se puede entender a un analizador de paquetes de red como una herramienta de medida para examinar que es lo que está pasando dentro del “cable” de red.</p>
+
+<p><br /></p>
+
+<h1 id="52-cómo-funciona-wireshark">5.2. ¿Cómo funciona Wireshark?</h1>
+
+<p>Wireshark es una herramienta de análisis y rastreo de paqetes. Captura el tráfico de la red en la red local (<em>todo aquel que pase por la máquina, ya sea porque esta es la destinataria, la emisora o porque mediante alguna treta interceptamos la comunicación entre dos máquinas externas, de forma que los paquetes pasan por nuestra máquina</em>) y almacena esos datos para su análisis fuera de línea.</p>
+
+<p>Además le permite filtrar el registro antes de que comience la captura o durante el propio análisis. Así por ejemplo puede configurar un filtro para ver el tráfico TCP entre dos direcciones IP o puede configurarlo para que le muestre los paquetes enviados desde un dispositivo.</p>
+
+<p><br /></p>
+
+<h2 id="53-capturar-paquetes-de-datos-en-wireshark">5.3. Capturar paquetes de datos en Wireshark.</h2>
+
+<p>En primer lugar, cuando abres Wireshark tienes una pantalla que te muestra una lista de todas las conexiones de red que puedes monitorear listadas mediantes las interfaces de red activas: eth (ethernet: internet por cable), lo (loopack; un adapatador de wireshark para leer tráfico de la máquina propia), wlan (wifi), … en función de por dónde provenga la información de interés examinaremos una interfaz u otra.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211216114841.png" text-align="center" />
+</div>
+
+<p>Seleccionamos una y empezamos a capturar tráfico de red que atraviese esa conexión que WireShark nos mostrará por pantalla.</p>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211216120648.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<h2 id="54-analizando-paquetes-de-datos-en-wireshark">5.4. Analizando paquetes de datos en Wireshark.</h2>
+
+<p>Wireshark muestra tres paneles diferentes para inspeccionar la información de los paquetes de datos capturados. El panel superior muestra una lista de todos los paquetes de la captura. Cuando se “clicka” sobre un paquete los otros dos paneles inferiores cambian para mostrarle los detalles sobre el paquete seleccionado.</p>
+
+<p><br /></p>
+
+<h3 id="541-panel-superior-listado-de-paquetes">5.4.1. Panel Superior: Listado de paquetes.</h3>
+
+<div style="text-align:center">
+<img src="/assets/img/M2/Pasted%20image%2020211216130356.png" text-align="center" />
+</div>
+
+<p>Tal y como se puede ver en la imágen, la información que ofrece el panel superior está divido en columnas:</p>
+
+<ul>
+  <li>
+    <p><strong>No.</strong>: Este es el orden numérico del paquete que se capturó. El corchete indica que este paquete es parte de una conversación. (Una conversación de red es el tráfico entre dos puntos finales específicos. En este caso se refiere a una conversación IP, que sería todo el tráfico entre dos direcciones IP).</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216130703.png" text-align="center" />
+  </div>
+
+    <p>En este ejemplo concreto estamos capturando el tráfico entre dos máquinas y por tanto todos los paquetes del tráficos forman parte de una única conversación, pero si nuestra máquina fuese un servidor que pusiese en contacto varias máquinas, el corchete sería un marcador útil para seguir la conversación entre máquinas cuyos paquetes no son adyacentes en el panel).</p>
+
+    <p>Además de corchetes nos podemos encontrar diversas marcas:</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216132818.png" text-align="center" />
+  </div>
+  </li>
+  <li>
+    <p><strong>Time</strong>: Muestra el tiempo que ha pasado desde el inicio de la captura de tráfico hasta la captura del paquete en cuestión.</p>
+  </li>
+  <li>
+    <p><strong>Source</strong>: Esta es la dirección emisora del paquete.</p>
+  </li>
+  <li>
+    <p><strong>Destination</strong>: Esta la dirección para la que va dirigida el paquete.</p>
+  </li>
+  <li>
+    <p><strong>Protocolo</strong>: Este es el tipo de paquete, podría ser un paquete TCP, DNS, DHCPv6 (Protocolo de red para configurar host con IPv6) o ARP. Resulta conveniente observar que DNS es un protocolo de identificación de IPs con dominios y viceversa, pero los paquetes que están destinados a seguir este protocolo entre dos máquinas también viajan en TCP o UDP.</p>
+
+    <p>Es decir, recordamos que los paquetes viajan por la red con un conjunto de cabeceras (encapsulamiento) con información relativa al paquete. Wireshark analiza los paquetes que captura desencapsulando y procesando la información del paquete en cuestión. Este encapsulamiento se hace siguiendo una jerárquía siguiendo el modelo de red TCP/IP de forma que el encabezado que permite identificar a un paquete como TCP o UDP está después de el encabezado DNS por la capa del modelo de red a la que pertenecen cada uno de los dos protocolos. Por tanto, Wireshark lee antes que se trata de un paquete DNS que TCP y por tanto lo declara como un paquete DNS aunque también sea un paquete TCP. Esto mismo ocurre con paquetes pertenecientes a otros protocolos.</p>
+  </li>
+  <li>
+    <p><strong>Length</strong>: Esta columna muestra el tamaño de los paquetes en <strong>bytes</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Info</strong>: Esta columna muestra información adicional sobre el contenido del paquete, variará del tipo de paquete que sea.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="542-panel-central-detalles-del-paquete">5.4.2. Panel central: Detalles del paquete.</h3>
+
+<p>El panel central muestra información sobre el paquete seleccionado con el botón izquierdo en el panel del listado de paquetes de forma detallada. En concreto muestra protocolos y campos de protocolos del paquete seleccionado y a su vez esta información se muestra en forma de opciones desplegables.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M2/Pasted%20image%2020211216135756.png" text-align="center" />
+	</div>
+
+<p>Nos encontramos con cuatro protocolos analizados por Wireshark:</p>
+
+<ul>
+  <li>
+    <p><strong>Frame Protocol</strong>:</p>
+
+    <p>El “protocolo” frame no es un protocolo en sí mismo pero es utilizado por Wireshark como una campo en el que recopila información acerca de la captura del paquete como: peso del paquete en cable, peso del paquete capturado, tipo de encapsulación (wifi, ethernet,…), hora exacta de la captura del paquete, etc.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216140319.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Ethernet II</strong>:</p>
+
+    <p>Muestra la información que contiene el paquete en relación a su viaje por la parte de ethernet. Todos los paquetes tienen información relativa al cable por el que está pretendido que viajen. En principio estaba pensado que todos los paquetes viajasen mediante una conexión cableada, sin embargo con el surgimiento de la wifi existe la necesidad de adaptar los paquetes a esta uneva forma de conexión, sin emabargo se edifica sobre cimientos y por tanto la nueva adapatación simula un cable de red. Por ello, todos los paquetes, viajen o no viajen por cable, contienen información de conexión ethernet.</p>
+
+    <p>En este caso nos presenta las MACs de fuente y destino y el envoltorio.</p>
+
+    <p>![[]]</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216153547.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Internet Protocol</strong>:</p>
+
+    <p>Muestra la información del paquete en relación al protocolo IP: IPs, protocolo de transporte utilizado, etc.</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216153811.png" text-align="center" />
+  </div>
+
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>Protocolo de la capa de transporte</strong>:</p>
+
+    <p>Este protocolo variará en función de si ha sido transportado por TCP, UDP, ICMP…</p>
+
+    <div style="text-align:center">
+  <img src="/assets/img/M2/Pasted%20image%2020211216154559.png" text-align="center" />
+  </div>
+
+    <p>Generalmente ofrece el protocolo, el puerto, el tipo de paquete, su número de secuencia, de ack, etc.</p>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<h3 id="543-panel-inferior-paquete-de-bytes">5.4.3. Panel inferior: Paquete de Bytes.</h3>
+
+<p>Oferce información sobre como fue capturado el paquete en hexadecimal y una leve transcripción al ASCII, aquí es dónde podemos ver, si la información no está cifrada, parte de los mensajes envíados.</p>
+
+<p>Cuando está mirando un paquete que es parte de una conversación, puede hacer clic con el botón derecho en el paquete y seleccionar Seguir para ver solo los paquetes que son parte de esa conversación.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/M2/Pasted%20image%2020211216155411.png" text-align="center" />
+	</div>
+
+<p><br /></p>
+
+<h2 id="55-filtros-de-wireshark">5.5. Filtros de WireShark.</h2>
+
+<p>Wireshark posee filtros de captura que permite filtrar la información de acuerdo a un conjunto de condiciones. Existen diversos tipos de filtros, todos ellos se pueden encontrar en: https://www.wireshark.org/docs/wsug_html_chunked/ChWorkBuildDisplayFilterSection.html</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#redteam">redteam</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Ataques+a+Infraestructuras+y+Redes&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-01-Ataques_a_Infraestructuras_y_Redes%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2022-02-01-Ataques_a_Infraestructuras_y_Redes%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2022-02-01-Ataques_a_Infraestructuras_y_Redes%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2022-01-28-An%C3%A1lisis_de_Objetivos/" data-toggle="tooltip" data-placement="top" title="Análisis de Objetivos">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-02-02-Ataques_a_aplicaciones_web/" data-toggle="tooltip" data-placement="top" title="Ataque a aplicaciones web.">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="mailto:sanmillan.german@gmail.com" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/Qv1nTv5" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/Qvintvs1" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/german-sanmillan-68b308229/" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Qv1nTv5
+        &nbsp;&bull;&nbsp;
+      
+      2024
+
+      
+
+      
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,640 @@
+<h2 id="0-índice">0. Índice.</h2>
+<ul>
+  <li>1 Definición del concepto.</li>
+  <li>2 Planteamiento de la vulnerabilidad.</li>
+  <li>3 Planteamiento del ataque.
+    <ul>
+      <li>3.1. CSRF PoC Generator.</li>
+      <li>3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</li>
+    </ul>
+  </li>
+  <li>4 Previniendo ataques CSRF.
+    <ul>
+      <li>4.2. CSRF tokens.
+        <ul>
+          <li>4.2.1. Presentación.</li>
+          <li>4.2.2. Transmisión del token.</li>
+          <li>4.2.3. Tokens CSRF y ataques XSS.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>5 Vulnerabilidades comúnes.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1-definición-del-concepto">1. Definición del concepto.</h3>
+
+<p>La Cross-Site Request Forgery (CSRF) es un ataque en el que se produce el secuestro (apoderamiento de un bien ajeno) de una request de un usuario que se emplea para realizar una acción en favor de un tercero; el atacante.</p>
+
+<p>Con un poco de ayuda de ingeniería social (como enviar un enlace por correo electrónico o chat), un atacante puede hacer que un usuarios de una aplicación web envíe una request con la que consigue que se ejecuten acciones que el atacante elija. Un ataque CSRF exitoso puede obligar al usuario a realizar solicitudes de cambio de estado, como transferir fondos, cambiar su dirección de correo electrónico, etc. Si la víctima es una cuenta administrativa, el CSRF puede comprometer toda la aplicación web.</p>
+
+<p><br /></p>
+
+<h3 id="2-planteamiento-de-la-vulnerabilidad">2. Planteamiento de la vulnerabilidad.</h3>
+
+<p>Para que un CSRF attack pueda tener lugar hace falta que se den las siguientes condiciones:</p>
+
+<ul>
+  <li>
+    <p><strong>Acción relevante</strong>: Debe de haber una acción o funcionalidad relevante que el usuario pueda desempeñar y que el atacante quiera perpretar.</p>
+  </li>
+  <li>
+    <p><strong>Manejo de la sesión basada en cookies</strong>: Realizar la acción implica emitir una o más solicitudes HTTP, y <strong>la aplicación se basa únicamente en las cookies de sesión para identificar al usuario que realizó las solicitudes</strong>. No existe ningún otro mecanismo para realizar un seguimiento de las sesiones o validar las solicitudes de los usuarios.</p>
+  </li>
+  <li>
+    <p><strong>Valores de parámetros no impredecibles</strong>: Las solicitudes que realizan la acción no contienen ningún parámetro cuyos valores el atacante no pueda determinar o adivinar.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p>Por ejemplo, supongámos que una aplicación posee una función para cambiar el email cuyo uso pende de la siguiente request:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 30
+Cookie: session=yvthwsztyeQkAPzeQ5gHgTvlyxHfsAfE
+
+email=wiener@normal-user.com
+</code></pre>
+
+<p>Evaluemos que los parámetros son predecibles (email), la sesión se maneja a través de una cookie (session), y existe una funcionalidad que robar (/email/change).</p>
+
+<p>De esta forma, un atacante puede construir un sitio web con el siguiente contenido:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"https://vulnerable-website.com/email/change"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">value=</span><span class="s">"pwned@evil-user.net"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">submit</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>La request anterior consta de los siguientes elementos:</p>
+
+<ul>
+  <li>
+    <p><strong>&lt;form&gt;</strong>: La etiqueta HTML form permite instaurar una funcionalidad de interacción con un servidor, contiene los atributos <em>action</em> que establece la dirección del área del sitio web con el que se quiere interactuar, <em>method</em> con el que se establece el modo de request.</p>
+  </li>
+  <li>
+    <p><strong>&lt;input&gt;</strong>: La etiqueta <em>input</em> se encuentra como subetiqueta dentro de <em>form</em> y designa la forma que tiene el atributo que se encarga de mandar la información dentro de la página web al servidor externo. En este caso es un campo no visible para el usuario (hidden) que contiene un valor, el valor del email que se va a cambiar.</p>
+  </li>
+  <li>
+    <p><strong>&lt;script&gt;</strong>: Que nos permite introducir un script JavaScrtip pata enviar automáticamente la acción descrita dentro de la etiqueta form.</p>
+  </li>
+</ul>
+
+<p>De manera que si el atacante consigue hacer que la víctima visite este sitio web sucederan los siguientes eventos:</p>
+
+<ul>
+  <li>
+    <p>El navegador de la víctima desde la página del atacante llevará a cabo una request HTTP al sitio vulnerable.</p>
+  </li>
+  <li>
+    <p>Si el usuario está logeado en dicho sitio vulnerable, el propio navegador de la víctima incluirá la cookie de sesión del usuario en la request provocando que esta sea recibida como parte de la comunicación que mantienen el cliente y el servidor.</p>
+  </li>
+  <li>
+    <p>El sitio web vulnerable procesará la request de forma normal (como si la hubiera hecho el usuario) y cambia el email.</p>
+  </li>
+</ul>
+
+<p><strong>Aunque CSRF normalmente se describe en relación con el manejo de sesiones basado en cookies, también surge en otros contextos en los que la aplicación agrega automáticamente algunas credenciales de usuario a las solicitudes, como la autenticación básica HTTP y la autenticación basada en certificados.</strong></p>
+
+<p><br /></p>
+
+<h3 id="3-planteamiento-del-ataque">3. Planteamiento del ataque.</h3>
+
+<p>Para poder realizar un ataque CSRF necesitamos un exploit, en el caso anterior, la construcción del exploit requería de una página web pero esto puede ser muy engorroso.</p>
+
+<p>De esta forma, la forma más fácil de perpetrar este tipo de atauqe es meidante el Burp CSRF PoC generator. Esto nos generará un enlace que luego podremos compartir con la víctima. Compartiendo dicho enlace con la víctima</p>
+
+<p><br /></p>
+
+<h4 id="31-csrf-poc-generator">3.1. CSRF PoC Generator.</h4>
+
+<p>Esta es una herramienta que nos permite generar una <strong>prueba de concepto</strong> de un ataque CSRF sobre una request concreta.</p>
+
+<p>Para acceder a esta función, es necesario tener una URL que haya sido captada por Burp y sobre esta pulsar <strong>Engagement Tools &gt; Generate CSRF PoC</strong></p>
+
+<p>Por ejemplo tenemos una web que tiene una funcionalidad que cambia el email</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132247.png" text-align="center" />
+</div>
+
+<p>y supongámos también que tenemos una request de ejemplo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132305.png" text-align="center" />
+</div>
+
+<p>Entonces pulsamos la herramienta de burp y obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132530.png" text-align="center" />
+</div>
+
+<p>Que nos lleva a la interfaz de la herramienta:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132551.png" text-align="center" />
+</div>
+
+<p>Se puede observar un botón abajo del todo que se denomina “Test In Browser”, con él Burp nos proporcionará una URL para pegarla en el navegador y permitir hacer la request para comprobar la valía del exploit.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132645.png" text-align="center" />
+</div>
+
+<p>Y al pulsar sobre “Submit request”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220429132703.png" text-align="center" />
+</div>
+
+<p>Notemos que aquí vuelve a quedar recalcado el procedimiento, necesitamos conocer la request que perpetra la acción que queremos que el usuario haga por nosotros.</p>
+
+<p>Otra cosa que debemos recordar es que una cosa es probar el exploit y otra esperar a que el usuario clickee sobre la request para desencadenar el ataque. Esto se entenderá mejor en el siguiente laboratorio.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 1: CSRF vulnerability with no defenses</strong>.</p>
+
+<p>Este laboratorio contiene una funcionalidad vulnerable a un ataque CSRF. Para completar el laboratorio debemos construir HTML para utilizar en un ataque CSRF para cambiar el email del usuario.</p>
+
+<p>Nos encontramos en un laboratorio que tiene una funcionalidad para cambiar el email:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501114147.png" text-align="center" />
+</div>
+
+<p>Al explorar la request que hace uso de la funcionalidad encontramos que se cumplen todas las características que permiten un ataque CSRF:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501114305.png" text-align="center" />
+</div>
+
+<p>Ya que no hay parámetros con valores impredecibles, existe una funcionalidad concreta a explotar y además el manejo de la sesión se basa en cookies (sessión).</p>
+
+<p>De esta forma, procedemos a utilizar la herramienta <strong>Generate CSRF PoC</strong>. Sobre la request interceptada pulsamos botón derecho: Engagement Tools &gt; Generate CSRF PoC:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115030.png" text-align="center" />
+</div>
+
+<p>Pulsamos, el botón “Options” y pulsamos “Inclulde auto-submit script” y y le damos a “Regenerate” obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115622.png" text-align="center" />
+</div>
+
+<p>Este sería el HTML que nos permitiría hacer una request para el ataque CSRF. Copiamos el código y acudimos al laboratorio al botón “Got exploit server” y copiamos el código en el “body” y para completar el laboratorio dándo al botón “Deliver exploit to victim”, esto haría llegar la request a la víctima, la cual, pulsando el enlace daría inicio al ataque:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501115923.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<p>El principal incoveniente del laboratorio anterior consiste en no tener al menos un parámetro cuyo valor sea impredecible, <strong>más adelante veremos que la mejor forma de evitar un ataque CSRF es mediante la implementación de CSRF tokens</strong>.</p>
+
+<p><br /></p>
+
+<h4 id="32-cómo-compartir-un-exploit-csrf-xss-vs-csrf">3.2. Cómo compartir un exploit CSRF. XSS vs CSRF.</h4>
+
+<p>En el laboratorio anteior hemos dejado de lado el apartado de compartir el enlace que hemos generado gracias al Generate CSRF PoC.</p>
+
+<p>En esta sección vamos a ver que los métodos de distribución de ataques CSRF son los mismos que los de XSS reflected. Por lo general, el atacante coloca el HTML malicioso en un sitio web que controla y luego induce a las víctimas a visitar ese sitio web. Esto se puede hacer:</p>
+
+<ul>
+  <li>alimentando al usuario con un enlace al sitio web.</li>
+  <li>a través de un correo electrónico.</li>
+  <li>un mensaje en las redes sociales.</li>
+  <li>el ataque se coloca en un sitio web popular (por ejemplo, en un comentario de un usuario), es posible que simplemente esperen a que los usuarios visiten el sitio web.</li>
+</ul>
+
+<p><br /></p>
+
+<p>Conviene recordar que la principal diferencia entre un XSS y un CSRF attack consiste en el mecanismo, <strong>XSS permite ejecutar JavaScript arbitrario en el navegador del usuario mientras que CSRF es un mecanismo de usurpación de una request por parte de un atacante</strong>.</p>
+
+<p>Por lo general, el XSS tiene repercusiones más serias que el CSRF ya que el CSRF afecta a un subconjunto de acciones que el usuario puede realizar mientras que el XSS puede tomar control sobre la sesión del usuario. Además, el CSRF envía una request y en ese sentido es una vulnerabilidad unidireccional que no controla la respuesta mientras que el XSS es bidireccional.</p>
+
+<p><br /></p>
+
+<h3 id="4-previniendo-ataques-csrf">4. Previniendo ataques CSRF.</h3>
+
+<p>La forma más robusta de prevenir un ataque CSRF consiste en invalidar una de las tres condiciones que permiten que este se de. Repasando las tres condiciones, es evidente que lo más factible consiste en añadir un parámetro cuyo valor no se pueda predecir al cuerpo de la request. A esto lo denominamos CSRF token.</p>
+
+<p><br /></p>
+
+<h4 id="42-csrf-tokens">4.2. CSRF tokens.</h4>
+
+<h5 id="421-presentación">4.2.1. Presentación.</h5>
+
+<p>Un CSRF token is un único, secreto, impredecible, valor generado por el servidor para un cliente que quiera mantener una comunicación (secuencia de peticiones HTTP) con él.</p>
+
+<p>Cuando el cliente hace una request HTTP incluye en la misma el CSRF Token, el servidor al recibir la request verifica la validez del token y la rechaza si no es capaz de reconocerlo.</p>
+
+<p>De esta forma, los toknes son capaces de evitar los ataques CSRF debido a que el atacante no puede construir una request HTTP enteramente válida ya que no pueden hacerse con todos los parámetros necesarios.</p>
+
+<p><br /></p>
+
+<h5 id="422-transmisión-del-token">4.2.2. Transmisión del token.</h5>
+
+<p>Algo un poco parecido al token CSRF podría ser la session cookie, sin embargo, la razón por la que un atacante puede conseguir la session cooie es debido a que es el propio usuario el que envía la request pinchando la URL maliciosa en su navegador y es el propio navegador del usuario el que incluye dicha cookie, así y tanto en cuanto sea el usuario el que envía la request se seguirá incluyendo dicha cookie.</p>
+
+<p>La diferencia de la cookie session y el CSRF es que es último se transmite de una manera segura y secreta a través de su ciclo de vida. La manera más segura de hacerlo consiste en incluir el parámetro como un parámetro HTML oculto en la página desde la que se envía una request:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"csrf-token"</span> <span class="na">value=</span><span class="s">"CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Para mayor seguridad, <strong>el campo que contiene el token CSRF debe colocarse lo antes posible dentro del documento HTML, idealmente antes de cualquier campo de entrada no oculto y antes de cualquier ubicación donde los datos controlables por el usuario estén incrustados dentro del HTML</strong>. Esto mitiga varias técnicas en las que un atacante puede usar datos manipulados para manipular el documento HTML y capturar partes de su contenido.</p>
+
+<p>Un enfoque alternativo, de colocar el token en la cadena de consulta de URL, es algo menos seguro porque la cadena de consulta se registra en varias ubicaciones en el lado del cliente y del servidor es probable que se transmita a terceros dentro del encabezado HTTP Referer y se puede mostrar en pantalla dentro del navegador del usuario.</p>
+
+<p>Algunas aplicaciones transmiten tokens CSRF dentro de un encabezado de solicitud personalizado. Esto presenta una defensa adicional contra un atacante que logra predecir o capturar el token de otro usuario, porque los navegadores normalmente no permiten que se envíen encabezados personalizados entre dominios. Sin embargo, el enfoque limita la aplicación a realizar solicitudes protegidas por CSRF utilizando XHR (a diferencia de los formularios HTML) y podría considerarse demasiado complicado en muchas situaciones.</p>
+
+<p><strong>Los tokens CSRF no deben transmitirse dentro de las cookies</strong>.</p>
+
+<p>Cuando se genera <strong>un token CSRF, debe almacenarse en el lado del servidor dentro de los datos de la sesión del usuario</strong>. Cuando se recibe una solicitud posterior que requiere validación, la aplicación del lado del servidor debe verificar que la solicitud incluya un token que coincida con el valor que se almacenó en la sesión del usuario. Esta validación debe realizarse independientemente del método HTTP o del tipo de contenido de la solicitud. <strong>Si la solicitud no contiene ningún token, debe rechazarse de la misma manera que cuando hay un token no válido</strong>.</p>
+
+<p><br /></p>
+
+<h5 id="423-tokens-csrf-y-ataques-xss">4.2.3. Tokens CSRF y ataques XSS.</h5>
+
+<p>Los tokens CSRF pueden prevenir algunos ataques XSS.</p>
+
+<p>Consideremos un XSS reflected attack en el parámetro message de un sitio web vulnerable. Un ataque XSS tendría una forma de la siguiente URL:</p>
+
+<pre><code class="language-default">https://insecure-website.com/status?message=&lt;script&gt;/*+Bad+stuff+here...+*/&lt;/script&gt;
+</code></pre>
+
+<p>Ahora supongámos que el sitio web incluye un token CSRF.</p>
+
+<pre><code class="language-default">https://insecure-website.com/status?csrf-token=CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz&amp;message=&lt;script&gt;/*+Bad+stuff+here...+*/&lt;/script&gt;
+</code></pre>
+
+<p>La clave consiste en la forma en la que se distribuye el enlace que porta el script malicioso del reflected XSS. <strong>Al ser el token csrf único para cada session, el token csrf del enlace que porta el código malicioso es exclusivo de la sesión del atacante y no es válido para ningún otro usuario. De esta forma, aunque una víctima pulsara el enlace anterior, el servidor recibiría la request, revisaría el token csrf y terminaría descartando la request por invalidez de dicho token</strong>.</p>
+
+<p>Observemos que por un lado, esta medida de protección no sirve contra el stored XSS.</p>
+
+<p><br /></p>
+
+<h3 id="5-vulnerabilidades-comúnes">5. Vulnerabilidades comúnes.</h3>
+
+<p>Las vulnerabilidades CSRF más interesantes estriban en fallas durante la validación de tokens CSRF. En el ejemplo anterior, empleabamos la siguiente request en la que ahora incluimos un token CSRF:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /email/change HTTP/1.1 Host: vulnerable-website.com Content-Type: application/x-www-form-urlencoded Content-Length: 68 Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm csrf=WfF1szMUHhiokx9AHFply5L2xAOfjRkE<span class="err">&amp;</span>email=wiener@normal-user.com
+</code></pre></div></div>
+
+<p>Esto debería evitar los ataques CSRF porque viola las condiciones necesarias para una vulnerabilidad CSRF: la aplicación ya no depende únicamente de las cookies para el manejo de la sesión y la solicitud contiene un parámetro cuyo valor un atacante no puede determinar.</p>
+
+<p>Sin embargo, este mecanismo mal planteado puede dar lugar a varias formas en las que se puede romper la defensa, lo que significa que la aplicación sigue siendo vulnerable a CSRF en determinados contextos.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Validación del token CSRF depende del método de la request</strong></li>
+</ul>
+
+<p>Algunas aplicaciones validan correctamente el token cuando el método empleado en la petición es el HTTP-POST, sin embargo, no validan adecuadamente dicho parámetro con el GET. De esta forma, un atacante podría hacer la request, interceptarla con un proxy, cambiar el método de la petición y liberar la misma para perpetrar el ataque:</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 2: CSRF where token validation depends on request method</strong>.</p>
+
+<p>Este laboratorio posee una funcionalidad de cambio de email vulnerable a CSRF. El servidor bloquea determinados tipos de request pero no contempla todos los tipos de request.</p>
+
+<p>En primer lugar, nos logeamos como el usuario wiener:peter y exploramos dicha funcionalidad.</p>
+
+<p>Llevamos a cabo un intento de ataque CSRF, para hacerlo más realista modificamos el valor del parámetro correspondiente al token csrf.</p>
+
+<p>Interceptamos la request, fabricamos el HTML correspondiente y cambiamos el valor del csrf:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203416.png" text-align="center" />
+</div>
+
+<p>Copiamos el HTML en el servidor del exploit</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203148.png" text-align="center" />
+</div>
+
+<p>y le damos a “view exploit”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203315.png" text-align="center" />
+</div>
+
+<p>Como el csrf no coincide, el servidor rechaza la request. Ahora, sabemos que, por una cuestión de configuración, el servidor no procesa correctamente el parámetro csrf con un GET y por tanto procedemos de la siguiente manera.</p>
+
+<p>Interceptamos la request y cambiamos el método de la misma</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501203641.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501204006.png" text-align="center" />
+</div>
+
+<p>Le damos a Options &gt; autosubmit script y copiamos el HTML en el servidor del exploit y le damos a “view exploit”:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501204147.png" text-align="center" />
+</div>
+
+<p>Con lo que el ataque CSRF tiene éxito y completaríamos el laboratorio enviando el texto.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Validation os CSRF token depends on token being present</strong></li>
+</ul>
+
+<p>Algunas aplicaciones validan correctamente el token cuando se presenta el parámetro, sin embargo no validan si este no se presenta. En otras palabras, es vulnerable a un bypass basado en la desaparición del parámetro en la request.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 3: CSRF where token validation depends on token being present</strong></p>
+
+<p>Este laboratorio contiene una vulnearbilidad de CSRF sobre una funcionalidad de cambio de email.</p>
+
+<p>En primer lugar, accedemos al laboratorio y nos logeamos con nuestras credenciales. Seguidamente procedemos a cambiar nuestro email e interceptamos la request y sobre ella creamos un HTML para aplicarlo sobre un ataque CSRF a través del servidor exploit disponible desde el laboratorio. Para hacerlo más realista cambiamos el token csrf y el servidor rechaza la request.</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501211744.png" text-align="center" />
+</div>
+
+<p>Ahora repeitmos el proceso pero quitamos la etiqueta html que lleva el token csrf y copiamos el html:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220501211913.png" text-align="center" />
+</div>
+
+<p>Así, completaríamos el laboratorio pulsando el laboratorio “Deliver to victim”.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF token no se enlaca con la sesión del usuario</strong></li>
+</ul>
+
+<p>Algunas aplicaciones no comprueban que el token pertenezca a la misma sesión que la persona que está haciendo la petición. Sencillamente tiene un conjunto de tokens válidos que distribuyen indiscriminadamente. En este contexto, un atacante puede hacerse una cuenta en el sitio web para obtener un token valido y a partir de ahí generar un ataque CSRF.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 4: CSRF where token is not tied to user session</strong></p>
+
+<p>Este laboratorio contiene una funcionalidad de cambio de email vulnerable a un CSRF. La aplicación web a su vez no relaciona la sesión con el token csrf, poseen un conjunto de tokens validos.</p>
+
+<p>Así, como atacantes, utilizamos unas credenciales válidas para obener un token valido (sencillamente realizando nosotros mismos una request y creando un HTML a partir de ella) y lo distribuimos a la víctima. La clave está en que el HTML al estar construido a partir de una request HTTP fidedigna que contiene un token valido que sirve para cualquier otro usuario que se encuentre logeado en la aplicación web.</p>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF token is tied to a non-session cookie</strong></li>
+</ul>
+
+<p>Esta es una variante de la vulnerabilidad anterior también puede ocurrir que el token csrf esté ligado a una cookie diferente de la cookie session:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+Cookie: session=pSJYSScWKpmC60LpFOAHKixuFuM4uXWF;
+csrfKey=rZHCnSzEp8dbI6atzagGoSYyqJqTz5dv
+csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&amp;email=wiener@normal-user.com
+</code></pre>
+
+<p>En este caso se emplean dos cookies, uno para manejar la sesión y el otro para proteger el token csrf.</p>
+
+<p>Aunque un poco más dificil, <strong>esta situación sigue siendo vulnerable si el sitio web tiene algún comportamiento que permite a un atacante implantar una cookie en el navegador</strong>. El atacante puede logearse en la aplicaicón, obtener un token y una cookie acompasada y emplear dicha funcionalidad para colocar la cookie y el token en el navegador de la víctima.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 5: CSRF where token is tied to non-session cookie</strong></p>
+
+<p>Este laboratorio tiene una funcionalidad de cambio de email vulnerable a CSRF. Tiene un token que prevenie de los ataques CSRF, pero no está completamente integrado dentro del sistema de manejo de la sesión del sistema como vamos a comprobar. En primer lugar, nos logeamos con nuestras credenciales wiener:peter y procedemos a interceptar la request de cambiar el email y mandamos a BurpRepeater para hacer una serie de pruebas.</p>
+
+<p>Por un lado, procedemos a modificar la cookie session y observamos que la reacción del aplicación consiste en mandarte a la página de logeo porque no reconoce la sesión a la que va dirigida la request:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502183906.png" text-align="center" />
+</div>
+
+<p>Si la cookie csrfkey estuviera ligada al manejo de la sesión la respuesta sería la misma, sin embargo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502184033.png" text-align="center" />
+</div>
+
+<p>El envío de una cookie csrfkey falsa desemboca en el rechazo de la request por parte del servidor debido a la invalidez del token csrf. Podemos por tanto asumir que la cookie csrfkey determina el valor del token y por ende, el token csrf todavía sigue siendo transferible en la medida en la que lo es la cookie que lo acompaña.</p>
+
+<p><strong>En este punto es importante recordar que las cookies no se incorporan en el HTML cuando se craftea el CSRF, son incorporados por el navegador cuando se perpetra el ataque</strong></p>
+
+<p>Por tanto, hay que encontrar la forma de incorporar nuestra cookie csrfkey en el navegador de la víctima para conseguir el par cookie-token válido.</p>
+
+<p>Esto puede conseguirse mediante el parámetro:
+de la URL:</p>
+
+<pre><code class="language-default">Set-Cookie:%20csrfKey=value
+</code></pre>
+
+<p>Así, procedemos a generar el HTML del ataque CSRF del cambio de email:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502185657.png" text-align="center" />
+</div>
+
+<p>Y añadimos el elemento src HTML marcado por:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502185949.png" text-align="center" />
+</div>
+
+<p>Esto nos permitirá hacer la inyección de la cookie a través de la URL. Así, el html queda así</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516170123.png" text-align="center" />
+</div>
+
+<p>Y para probarlo cambiamos a la cuenta de carlos:montoya y acudimos al servidor del exploit, copiamos el html correspondiente como hemos hecho en citeriores intentos y modificamos la URL para añadir el parámetro en cuestion:</p>
+
+<p>(El laboratorio por Time-Out se tuvo que reiniciar y por eso el valor del csrfkey es distinto al del enseñado anteriormente, pero se trata del csrfkey)</p>
+
+<p>De esta forma, para comprobar la valía le damos a “view exploit” y de esa forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502191342.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>CSRF está duplicado en una cookie</strong></li>
+</ul>
+
+<p>En otra variante de que el token csrf no este ligado al manejo de la sesión del usuario, algunas aplicaciones no mantienen ningún registro del lado del servidor de los tokens que se han emitido, sino que duplican cada token dentro de una cookie y un parámetro de solicitud.</p>
+
+<p>Cuando se valida la solicitud posterior, la aplicación simplemente verifica que el token enviado en el parámetro de solicitud coincida con el valor enviado en la cookie. Esto a veces se denomina defensa de “doble envío” contra CSRF, y se recomienda porque es simple de implementar y evita la necesidad de cualquier estado del lado del servidor:</p>
+
+<pre><code class="language-default">POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+Cookie: session=1DQGdzYbOJQzLP7460tfyiv3do7MjyPw;
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&amp;email=wiener@normal-user.com
+</code></pre>
+
+<p>En esta situación, el atacante puede volver a realizar un ataque CSRF si el sitio web contiene alguna funcionalidad de configuración de cookies.</p>
+
+<p>Aquí, el atacante no necesita obtener un token válido propio. Simplemente inventan un token (quizás en el formato requerido, si hay necesidad), aprovechan el comportamiento de configuración de cookies para colocar su cookie en el navegador de la víctima y alimentan su token a la víctima en su ataque CSRF.</p>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 6: CSRF where token is duplicated in cookie</strong></p>
+
+<p>Este laboratorio tiene una funcionalidad vulnerable a CSRF. Intenta emplear una doble emisión de token CSRF. El mecanismo se basa en comparar ambos valores para asumir que el token CSRF es generado desde el sitio web y por el navegador del usuario. De esta manera en principio la request es infalsificable:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516180259.png" text-align="center" />
+</div>
+
+<p>Sin embargo, tal y como hemos visto anteriormente, podemos inyectar una cookie en la request que genera el sitio web del atacante añadiendo el elemento html:</p>
+
+<pre><code class="language-HTML">&lt;img src="$cookie-injection-url" onerror="document.forms[0].submit();"/&gt;
+</code></pre>
+
+<p>De esta forma, el HTML a generar sería de la siguiente forma:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220516181359.png" text-align="center" />
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li><strong>Defensas CSRF basadas en la cabecera Referer</strong></li>
+</ul>
+
+<p>Al margen de las defensas que emplean tokens de seguridad, algunas aplicaciones emplean la cabecera HTTP referer (que se utiliza para incluir en ella el valor de la página web linkeada al recursos sobre el que se basa la request). De esa forma, el servidor puede verificar que la request se origina dentro del dominio de la aplicación.</p>
+
+<p>Este método tiende a ser menos efectivo como veremos en los siguientes ejemplos.</p>
+
+<p>Por un lado, puede suceder que por una cuestíón de malconfiguración un sitio web se salte la validación de la cabecera Referer si este no se encuentra presente en la request. En esta clase de casos un atacante podría provocar un bypass simplemente indicando en el HTML al navegador de la víctima que no incluya la cabecera Referer al hacer la request, de esta forma, no quedará constancia de que la request se ha realizado desde otra página web.</p>
+
+<pre><code class="language-HTML">&lt;meta name="referrer" content="never"&gt;
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 7: CSRF where Referer validation depends on header being present</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad a un atacante de CSRF. Aunque intenta rechazar todas aquellas request que no provengan del dominio de la aplicación (cross domain requests) tiene una falla.</p>
+
+<p>En primer lugar, fabricamos un HTML a partir de una request HTTP de cambio de email y lo llevamos al servidor del exploit en el que intentamos ejecutar la request obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502203828.png" text-align="center" />
+</div>
+
+<p>De esta forma, sabemos que el principal obstáculo está en dicha cabecera. Añadimos al HTML el elemento:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502204111.png" text-align="center" />
+</div>
+
+<p>Para evitar que se incluya la cabecera Referer y le damos a “view exploit” obteniendo:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502204348.png" text-align="center" />
+</div>
+
+<p>Terminaríamos el laboratorio pulsando “Deliver to victim”.</p>
+
+<p><br /></p>
+
+<p>Otras aplicaciones validan la cabecera Referer de una manera muy básica. Por ejemplo, la aplicación valida que el dominio en el Referer es válido si comienza con el valor esperado, entonces el atacante puede colocarlo como un subdominio de su propio dominio y engañar al servidor:</p>
+
+<pre><code class="language-default">http://vulnerable-website.com.attacker-website.com/csrf-attack
+</code></pre>
+
+<p>También puede ocurrir que la aplicación de el visto bueno cuando comprueba que el valor del referer contiene en algún lado el nombre del dominio pudiéndo así falsear la dirección:</p>
+
+<pre><code class="language-default">http://attacker-website.com/csrf-attack?vulnerable-website.com
+</code></pre>
+
+<p><br /></p>
+
+<p><strong>Laboratorio 8: CSRF with broken Referer validation</strong></p>
+
+<p>Este laboratorio contiene una vulnerabilidad a un atacante de CSRF. Aunque intenta rechazar todas aquellas request que no provengan del dominio de la aplicación (cross domain requests) tiene una falla.</p>
+
+<p>En primer lugar, intentamos preparar un ataque CSRF y obtenemos el siguiente mensaje:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502210504.png" text-align="center" />
+</div>
+
+<p>De esta forma, tenemos que el problema es el referer y hace falta modificarlo.</p>
+
+<p>Para ello seguimos los siguientes pasos:</p>
+
+<ul>
+  <li>
+    <p>En primer lugar, empleamos la funcionalidad para cambiar el email e interceptamos la request.</p>
+  </li>
+  <li>
+    <p>Una vez con la request, cambiamos la cabecera Referer y ponemos una mal a propósito pero asegurándonos de que el nombre auténtico del dominio consta dentro del valor de la cabecera.</p>
+  </li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502211611.png" text-align="center" />
+</div>
+
+<ul>
+  <li>Y liberamos la request de forma que obtenemos:</li>
+</ul>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502211811.png" text-align="center" />
+</div>
+
+<p>Siguiendo estos pasos queda constancia de que la cabecera Referer no se procesa adecuadamente y portanto, podemos incluir el autentico dominio dentro de un dominio falso para perpetrar el ataque CSRF.</p>
+
+<p>De esta forma, a la hora de construir el HTML incluimos dentro del elemento script la línea de JavaScript:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span><span class="p">(</span><span class="dl">""</span><span class="p">,</span> <span class="dl">""</span><span class="p">,</span> <span class="dl">"</span><span class="s2">/?your-lab-id.web-security-academy.net</span><span class="dl">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>De esta forma en el servidor del exploit quedaría de la siguiente manera:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212652.png" text-align="center" />
+</div>
+
+<p>Sin embargo, si volvieramos a probar ocurriría que obtendríamos un error. Esto es debido a que, aunque la cabecera está correctamente ofuscada para el servidor que hostea la aplicación web, no es correcta para otros servidores por los que pasa la request, por ello hay que indicar en la cabecera que se trata de una cabecera refere insegura:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212713.png" text-align="center" />
+</div>
+
+<p>De esta forma, finalmente obtenemos:</p>
+
+<div style="text-align:center">
+	<img src="/assets/img/Burp/Pasted%20image%2020220502212632.png" text-align="center" />
+</div>
+

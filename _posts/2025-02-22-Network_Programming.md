@@ -4,9 +4,6 @@ title: Network Programming
 subtitle: Introduction to Network programming.
 tags: [C]
 ---
-
-# Network Programming in C.
-
 ## Network Programming Introduction.
 
 Network Programming in C involves writting applications that communicate over a network, mainly using *Sockets*.

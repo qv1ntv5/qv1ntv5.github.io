@@ -50,7 +50,7 @@ File descriptors are managed by the OS kernel, and they point to an entry in a *
 
 Supose we have the following line in C:
 
-```C
+```c
 int fd = open("test.txt", O_WRONLY | O_CREAT, 0644);
 ```
 The *open()* syscall returns a file descriptor (FD) which get stored in the *int fd* variable. Then, the kernel maps 'fd' to 'text.txt' in the FDT of that process. The value of the fd vinculated to 'text.txt' resource is the lowest value posible in the fd table, in this case, '3'.
@@ -93,7 +93,7 @@ Now that we briefly get on the FD in the OS. We can try to get in how this work 
 
 Consider the following line:
 
-```C
+```c
 int fd = open("file.txt", O_RDWR | O_CREAT, 0644);
 ```
 
@@ -134,7 +134,7 @@ int fd = open("file.txt", O_RDWR | O_CREAT, 0644);
 
 Now that we have a file descriptor pointing to a resource, the OS is ready to read or write from that resource. Consider the following line:
 
-```C
+```c
 char buffer[100];
 read(fd, buffer, 100);
 ```
@@ -148,7 +148,7 @@ In the line above, first we create an array with a size for 100 chars. Then:
 
 Till this is the read operation. Now lets consider the following line:
 
-```C
+```c
 write(fd, "Hello, World!", 13);
 ```
 
@@ -164,7 +164,7 @@ In this line, the following steps are performed:
 
 Now, consider that we want to close the resource throught the following line:
 
-```C
+```c
 close(fd);
 ```
 
@@ -182,7 +182,7 @@ When you call close(), a sys call is invoked and the system remove *fd* from FDT
 
 Dup() is a syscall described as follows:
 
-```C
+```c
 #include <unistd.h>
 
 int dup2(int oldfd, int newfd);
@@ -208,7 +208,7 @@ Lets see an example;
 
 Supose we have a C code; like the following:
 
-```C
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -243,7 +243,7 @@ The code above prepare a socket ready to listen income connections in every inte
 
 In this context, execve() would replace the process and socket by efectively spawning a shell. Lets see that, the program create a socket, which is a I/O file resource maintained by the kernel, not by the process it self, so when the process gets replaced with the spawn of a shell, the sockets still being available as a file descriptor, how ever, the new spawned shell have the defaults file descriptors assigned so is unavailable to used it. We can solve this by replacing in the process the default file descriptors through the socket:
 
-```C
+```c
 dup2(sockfd, 0);
 dup2(sockfd, 1);
 dup2(sockfd, 2);
@@ -253,7 +253,7 @@ This C code, replace for the current process the datastreams (input, output and 
 
 This is done by updataing in the FDT of the current process the pointers for 0,1 and 2 entries, which now points to sockfd in the GOFT. The global code would look like follows:
 
-```C
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -297,7 +297,7 @@ int main() {
 
 Lets now create a client code which would connect with the program above in order to send or receive data through the socket to the spawned shell to get fully interactive control of the program:
 
-```C
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -374,7 +374,7 @@ Lets break up this code.
 
 There is nothing special in this part:
 
-```C
+```c
 int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
 struct sockaddr_in server_addr;
@@ -403,7 +403,7 @@ int fcntl(int fd, int op, ... /* arg */ );
 
 The operation is determined by *op*. There is a third argument that could be required by the *op* value. In this case, the functionality of *fcntl* is described by the following line:
 
-```C
+```c
 fcntl(0, F_SETFL, O_NONBLOCK);
 ```
 
@@ -425,7 +425,7 @@ In order to prevent programs blocking or simply large waiting times, we use *fcn
 
 In order to handle I/O data transfer over the socket into the spawned shell we implement the following *while* loop:
 
-```C
+```c
 while (true) {
     fd_set fds;
     FD_ZERO(&fds);
@@ -490,7 +490,7 @@ As we said above: *select()* function is a multiplexing system call used for mon
 
 The function has the following prototype:
 
-```C
+```c
 #include <sys/select.h>
 
 int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
@@ -534,7 +534,7 @@ FD_SET(0, &fds);
 
 Then, the code waits for select to receive data from the socket or the keyboard:
 
-```C
+```c
 if (select(sockfd + 1, &fds, NULL, NULL, NULL) < 0) {
     perror("[-] Select error");
     break;

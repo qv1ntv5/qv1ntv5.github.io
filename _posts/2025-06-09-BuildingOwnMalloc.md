@@ -6,7 +6,8 @@ tags: [C]
 ---
 ### Defining the idea.
 
-Let's explain the code shown above. First, the central idea is we are implementing a custom memory allocator along with a free function which will allocate and deallocate memory from a static array wich will emulate a Heap.
+In this section we will built a custom malloc() function with also a free() and later a garbage collector.
+First, the central idea is that we are implementing a custom memory allocator along with a free function which will allocate and deallocate memory from a static array wich will emulate a Heap.
 
 <br>
 

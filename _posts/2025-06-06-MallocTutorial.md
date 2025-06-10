@@ -63,7 +63,10 @@ In C programming, from the allocator's point of view, the heap is a continuous s
 
 <br>
 
-![](image-1.png)
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-1.png' | relative_url }}" text-align="center"/>
+</div>
+
 
 <br>
 
@@ -73,7 +76,9 @@ Thus, when we call *malloc*, this functions gets a chunk from the unmapped heap 
 
 <br>
 
-![](image-2.png)
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-2.png' | relative_url }}" text-align="center"/>
+</div>
 
 <br>
 
@@ -112,7 +117,9 @@ Physical memory and virtual memory is organize in *pages* (frames for the physic
 
 <br>
 
-![](image-3.png)
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-3.png' | relative_url }}" text-align="center"/>
+</div>
 
 <br>
 
@@ -175,7 +182,13 @@ This can be achieved by adding a small block at the begining of each chunk conta
 
 This block would be before the pointer rlinked list in eturned by malloc that points now, not to the first address of the chunk (that englobes the metadata too), but of the data block:
 
-![](image-4.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-4.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 So our memory chunk allocated by malloc now consist of the data chunk of the requested size and also a small chunk of metadata.
 
@@ -208,7 +221,13 @@ We could think that the total size of the structure would be the amount of the s
 
 Then, we remember that, our procesor can only read a word's size in a cycle, so it would read 'a', 'b' and the two first bytes of 'c', lefting two bytes for the second cycle:
 
-![](image-5.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-5.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 Two cicles are required to access contents of variable 'c' and this is not efficient since is an unnecesary wastage of CPU cycles whenever we want to access to 'c' value. Is necesary to implement a way that makes the procesor to use the minimum number of CPU cycles to access a variable value. 
 
@@ -216,7 +235,13 @@ So the processor implements the *structure padding* mechanism, in which the proc
 
 Following the previous example, the efficent way to organize the data over the address we would be to create a empty space of two bytes between 'b' and 'c' variables. This would result to 'c' to be stored on a memory address location multiple of the word size (4 bytes).
 
-![](image-6.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-6.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 This initially would solve the problem and in fact change the size of the structure since we add the 2 bytes size of empty space for the padding:
 
@@ -340,7 +365,13 @@ Remembering what we said about *structure padding*, the same thing and for the s
 
 Since the pointer holds the first address in which data is stored, if this address is not aligned with a multiple of the size of the data type (for example an integer), the data may be fetched between several CPU cycles rather than just one, making more likely the need of more CPU cycles than required to access the data referenced by the pointer.
 
-![](image-7.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-7.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 
 In the image above, the only valid address for a pointer to an integer are 0x996, 0x1000 or 0x1004. Every other memory in this segment would lead to the need of at least two CPU cycles to read our integer. 
@@ -454,11 +485,23 @@ We just expand the heap as we see in previous sections and return NULL if sbrk f
 
 In the previous fit first algorithm, we just provide the first memory chunk that fit in the size, but this is not efficient since there is a wasted of a lot of space (request 2 bytes and find a block of 256 bytes):
 
-![](image-8.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/image-8.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 A first solution is to split blocks: when a chunk is wide enough to held the asked size plus a new chunk (at least BLOCK SIZE + 4, remember that 4 is in 32-bits system, our example, the word's size bytes, so 4 bytes is the minimum extra space we need to ensure a new chunk is available), we insert a new chunk in the list:
 
-![](image-9.png)
+<br>
+
+<div style="text-align:center">
+<img src="{{'assets/img/C/image-9.png' | relative_url }}" text-align="center"/>
+</div>
+
+<br>
 
 We can implement this split following the next two steps:
 

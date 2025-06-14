@@ -85,23 +85,6 @@ void initRomanTable(HashTable* table) {
     insert(table, 'M', 1000);
 }
 
-int romanToInt(HashTable* table, char* roman) {
-    int result = 0;
-    int len = strlen(roman);
-    
-    for (int i = 0; i < len; i++) {
-        int current = get(table, roman[i]);
-        
-        if (i + 1 < len && current < get(table, roman[i + 1])) {
-            result -= current;
-        } else {
-            result += current;
-        }
-    }
-    
-    return result;
-}
-
 void freeHashTable(HashTable* table) {
     for (int i = 0; i < TABLE_SIZE; i++) {
         Entry* entry = table->buckets[i];
@@ -114,21 +97,30 @@ void freeHashTable(HashTable* table) {
     free(table);
 }
 
+int romanToInt(HashTable* romanTable, char *string){
+
+    int total = 0;
+    for(int i = 0; i < strlen(string); i++){
+        int integer = get(romanTable, string[i]);
+        total += integer;
+    }
+
+    return total;
+}
+
 int main() {
     HashTable* romanTable = createHashTable();
     initRomanTable(romanTable);
     
-    char* testCases[] = {"III", "IV", "IX", "LVIII", "MCMXC", "MMCDXLIV"};
-    int numTests = sizeof(testCases) / sizeof(testCases[0]);
+    //For simplicity, we assume that the roman number is at maximum 5 roman num
+    char* romannumptr = (char*) malloc(sizeof(char)*5);
+
+    printf("Please, introduce a roman number, for example: LXVVI.\n");
+    scanf("%s", romannumptr);
+   
+    int romaninteger =  romanToInt(romanTable, romannumptr);
     
-    printf("Roman Numeral to Integer Conversion:\n");
-    printf("====================================\n");
-    
-    for (int i = 0; i < numTests; i++) {
-        int result = romanToInt(romanTable, testCases[i]);
-        printf("%-8s -> %d\n", testCases[i], result);
-    }
-    
+    printf("The roman number %s is equivalent to %d integer.\n", romannumptr, romaninteger);
     freeHashTable(romanTable);
     return 0;
 }

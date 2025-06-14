@@ -340,7 +340,9 @@ The function attemps to include a new entry in the array of the hashtable.
 
 <br>
 
-![](hashtable.png)
+<div style="text-align:center">
+<img src="{{ 'assets/img/C/hashtable.png' | relative_url }}" text-align="center"/>
+</div>
 
 <br>
 

@@ -112,7 +112,7 @@ int main() {
     HashTable* romanTable = createHashTable();
     initRomanTable(romanTable);
     
-    //For simplicity, we assume that the roman number is at maximum 5 roman num
+    //For simplicity, we assume that the roman number is at maximum 5 roman numerals.
     char* romannumptr = (char*) malloc(sizeof(char)*5);
 
     printf("Please, introduce a roman number, for example: LXVVI.\n");
@@ -220,7 +220,7 @@ Also, this allow us to pass the structure by reference which allows modification
 
 *In summary, when you create a large structure that will be accessed or modified in multiple places, it's more efficient and practical to work with a pointer to its memory address (i.e., pass around the pointer) rather than copying the entire structure each time.*
 
-In fact, always you want to pass to a function a value you want to modify, you pass the address memory in order to allow the function to access the actual value, otherway, a copy is passed to the value and then the function modifies a copy instead and the real value reamins without a touch.
+In fact, always you want to pass a value you want to modify to a function in C, you pass this value as a reference, this is, pass the address memory where the value is stored. This is in order to allow access to the actual value, otherway; a copy of this value is transfered and then the function does not modify the real value.
 
 <br>
 

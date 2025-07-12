@@ -678,5 +678,6 @@ This function considers a memory region '\[start, end\)' and treats each word as
 
 - Then, once mark_region() has finished, we evaluate the boolean value of each chunk in reachable_chunk array, mark_region had changed to *true* those that are reachable, if it is false it adds the chunk to the *to_free* list and calls free() for every element of that array efectively freeing the unreachable memory.
 
+To prove this program, we can find the complete code and a poc on the following repository: https://github.com/qv1ntv5/HeapAlloc-GC
 <br>
 

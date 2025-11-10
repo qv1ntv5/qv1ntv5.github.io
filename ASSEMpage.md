@@ -1,7 +1,7 @@
 ---
 layout: page
-title: C-Family Software Implementation Vulnerabilities
-subtitle: OpenSecurity Training 2 courses notes
+title: Assembly and Architecture Introduction.
+subtitle: Arch1001 OpenSecurity Training 2 courses notes
 ---
 
 {% assign posts = paginator.posts | default: site.posts %}

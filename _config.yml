@@ -26,8 +26,10 @@ navbar-links:
     - Blueteam: BLUETEAMBASICSpage
     - Net: REDESpage  # --- Con estos links ponemos page que mostrarán posts relacionados con un tag en conctreto. --- #
     - Git: 2022-11-17-GitBasics
-  Vulnerability Research:
+  Vuln Research:
     - CSoft: CSOFTpage
+  Assembly:
+    - Arch1001: assem
 
 # --- Logo --- #
 

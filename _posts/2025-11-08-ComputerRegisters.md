@@ -77,46 +77,46 @@ There also exists other names for this registers:
 
 #### 2.3. Viewing the most important registers.
 
-- 1. RAX (R0) - Accumulator. Primary arithmetic operations, function return values.
+1. RAX (R0) - Accumulator. Primary arithmetic operations, function return values.
 
     Evolution: AL/AH → AX → EAX → RAX
 
 
-- 2. RCX (R1) - Counter. Loop counter, shift/rotate operations.
+2. RCX (R1) - Counter. Loop counter, shift/rotate operations.
 
     Evolution: CL/CH → CX → ECX → RCX
 
 
-- 3. RDX (R2) - Data. I/O operations, extended arithmetic (with RAX for multiplication/division).
+3. RDX (R2) - Data. I/O operations, extended arithmetic (with RAX for multiplication/division).
 
     Evolution: DL/DH → DX → EDX → RDX
 
 
-- 4. RBX (R3) - Base. Base pointer for memory access (originally).
+4. RBX (R3) - Base. Base pointer for memory access (originally).
     
     Evolution: BL/BH → BX → EBX → RBX
 
 
-- 5. RSP (R4) - Stack Pointer. Points to the top of the stack.
+5. RSP (R4) - Stack Pointer. Points to the top of the stack.
 
     Evolution: SPL → SP → ESP → RSP
 
 
-- 6. RBP (R5) - Base Pointer. Stack frame base pointer.
+6. RBP (R5) - Base Pointer. Stack frame base pointer.
 
     Evolution: BPL → BP → EBP → RBP
 
 
-- 7. RSI (R6) - Source Index. Source pointer for string/memory operations
+7. RSI (R6) - Source Index. Source pointer for string/memory operations
 
     Evolution: SIL → SI → ESI → RSI
 
 
-- 8. RDI (R7) - Destination Index. Destination pointer for string/memory operations
+8. RDI (R7) - Destination Index. Destination pointer for string/memory operations
 
     Evolution: DIL → DI → EDI → RDI
 
-- 9. RIP (R16) - Instruction Pointer. Pointer to the next instruction to execute.
+9. RIP (R16) - Instruction Pointer. Pointer to the next instruction to execute.
 
     Evolution: IP → EIP → RIP
 

@@ -61,6 +61,12 @@ CALL register          ; Indirect call through register
 CALL [r/mX]            ; Indirect call through memory
 ```
 
+Note that CALL is equal to:
+
+```assem
+push RIP + jmp target
+```
+
 <br>
 
 ##### 2.1.2. RET.
@@ -75,6 +81,10 @@ RET performs two essential operations:
 It gets called simply with RET.
 
 Is worth to mention that RET's functionally is equivalent to POP RIP (pop out the next instruction of the stack, the address previously saved by CALL, and insert it in the destination) though you can't actually write POP RIP directly in most assemblers because RIP/EIP is a special register (not a general-purpouse register).
+
+```assem
+pop RIP + jmp RIP
+```
 
 <br>
 
@@ -158,6 +168,19 @@ Step 5: Back in main
 │ RAX: 30                             │  Has the result
 └─────────────────────────────────────┘
 ```
+
+<br>
+
+#### 2.3. Brief warning.
+
+Is worth to mention that, despite we warn about CALL and RET are equals to some instructions which manipulates RIP register:
+
+```assem
+CALL <==> push RIP + jmp target
+RET <==> pop RIP + jmp RIP
+```
+
+This lines can't be found the example above, this is because RIP is a very critic register as we see in our section dedicated to [registers](https://qv1ntv5.github.io/2025-11-08-ComputerRegisters/) and the CPU performs the action for us. We will se in other procedures, like *stackframe creation*, lines which manipulates special-purpouses registers as RBP or RSP because this are optional procedures established by compiler's convention.
 
 <br>
 

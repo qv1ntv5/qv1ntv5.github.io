@@ -186,6 +186,8 @@ This lines can't be found the example above, this is because RIP is a very criti
 
 ### 3. Two-Operand instructions sintax.
 
+#### 3.1. Syntax.
+
 There are two types of syntax in base of the flow of the assignation:
 
 - **Intel Syntax**: Destination <- Source (like in algebra, *y = x + 1*).
@@ -195,11 +197,65 @@ For now on, we gonna read in Intel syntax, but is worth to note that exists both
 
 <br>
 
+#### 3.2. CISC vs RISC Architectures.
+
+In the world of computers, "architecture" (specifically, Instruction Set Architecture or ISA) is like the basic vocabulary and grammar of a language that the CPU understands. When C code is compiled, the compiler translates this C code to a set of instructions that the CPU understand and is able to process, this is machine-code and the precise set of instructions or commands used to craft this byte-level code is the so called architecture.
+
+Assembly is a human-readable translation of the machine-code.
+
+In this context, this set of instructions can be:
+
+- RISC (Reduced Instruction Set Computer); small set of simple, highly optimized instructions.
+
+- CISC (Complex Instruction Set Computer); a large set of powerful, complex instructions 
+
+Regarding to our interests, there is a major distinction between CISC and RISC architectures on how they handle different size-architectures commands.
+
+- RISC; have different instructions for the same operation depending of the size being operated with.
+
+    ```assem
+    LDRB R1, [R2]    ; Load BYTE (8-bit) from memory address in R2
+    LDRH R1, [R2]    ; Load HALFWORD (16-bit) from memory address in R2  
+    LDR  R1, [R2]    ; Load WORD (32-bit) from memory address in R2
+    LDRD R1, R2, [R3] ; Load DOUBLEWORD (64-bit) from memory address in R3
+    ```
+
+- CISC use the same set of instructions despite the size and use directives to specify the amount of bits of an address that is being used in an operation. It allows using the same instruction with different operand sizes, if a directive specifying the size of the data in the operation is used in:
+
+    - Memory Operations with Immediate Values:
+
+
+        ```assem
+        MOV BYTE PTR [eax], 5     ; Write 1 byte
+        MOV WORD PTR [eax], 5     ; Write 2 bytes  
+        MOV DWORD PTR [eax], 5    ; Write 4 bytes
+        MOV QWORD PTR [eax], 5    ; Write 8 bytes
+        ```
+
+    - Memory Operations where Register Size isn't Clear:
+
+        ```assem
+        MOV [ebx], 10     ; Ambiguous: size unknown
+        MOV DWORD PTR [ebx], 10  ; Clear: 32-bit operation
+        ```
+
+        Size directives are only needed when the size cannot be inferred from the registers
+
+There are a lot of cases but the important thing is that this serve to us to introduce the size directives:
+
+    ```assem
+    BYTE PTR [r/mX];  Use one 1 byte from the address r/mX.
+    WORD PTR [r/mX]; Use 2 bytes from the address r/mX. 
+    DWORD PTR [r/mX]; Use 4 bytes from the address r/mX.
+    QWORD PTR [r/mX]; Use 8 bytes from the address r/mX.
+    ```
+
+
 ### 4. MOV - Move.
 
 #### 4.1. Definition.
 
-The MOV (move) instruction is one of the most fundamental and frequently used instructions in assembly language. Despite its name, it doesn't actually "move" data—it copies data from a source to a destination.
+The MOV (move) instruction is one of the most fundamental and frequently used instructions in assembly language. Despite its name, it doesn't actually "move" data it copies data from a source to a destination.
 
 <br>
 

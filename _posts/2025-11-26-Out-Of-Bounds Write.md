@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Out-Of-Bounds Write vulnerability.
+title: Out-Of-Bounds Write.
 subtitle: Notes from Out-Of-Bounds Write course from OST2.
 tags: [csoft]
 ---

@@ -77,44 +77,67 @@ There also exists other names for this registers:
 
 #### 2.3. Viewing the most important registers.
 
-#### 2.3.1. General-Purpouse registers.
+1. RAX (R0) - Accumulator. Primary arithmetic operations, function return values.
 
-These registers are primarily used for arithmetic, logic, data movement, and memory addressing. While they have historical "specialized" roles, a modern compiler or programmer can use them for almost any purpose.
+    Evolution: AL/AH → AX → EAX → RAX
 
-1. **RAX (Accumulator)**: The workhorse for arithmetic operations and function return values. While specialized, it's still considered general-purpose because you can store any value in it.
 
-2. **RCX (Counter)**: Traditionally used for loops (LOOP instruction, rep prefixes), but can hold any data or address.
+2. RCX (R1) - Counter. Loop counter, shift/rotate operations.
 
-3. **RDX (Data)**: Used in extended arithmetic operations (e.g., with RAX for multiply/divide) and I/O, but is fully general-purpose.
+    Evolution: CL/CH → CX → ECX → RCX
 
-4. **RBX (Base)**: A general-purpose data register. Its main distinction is that it's callee-saved, meaning functions must preserve its value.
 
-5. **RSI (Source Index)**: Used as the source pointer for string operations (movs, lods, cmps), but is a general-purpose register for holding data or addresses.
+3. RDX (R2) - Data. I/O operations, extended arithmetic (with RAX for multiplication/division).
 
-6. **RDI (Destination Index)**: Used as the destination pointer for string operations, but is otherwise a general-purpose register.
+    Evolution: DL/DH → DX → EDX → RDX
+
+
+4. RBX (R3) - Base. Base pointer for memory access (originally).
+    
+    Evolution: BL/BH → BX → EBX → RBX
+
+
+5. RSP (R4) - Stack Pointer. Points to the top of the stack.
+
+    Evolution: SPL → SP → ESP → RSP
+
+
+6. RBP (R5) - Base Pointer. Stack frame base pointer.
+
+    Evolution: BPL → BP → EBP → RBP
+
+
+7. RSI (R6) - Source Index. Source pointer for string/memory operations
+
+    Evolution: SIL → SI → ESI → RSI
+
+
+8. RDI (R7) - Destination Index. Destination pointer for string/memory operations
+
+    Evolution: DIL → DI → EDI → RDI
+
+9. RIP (R16) - Instruction Pointer. Pointer to the next instruction to execute.
+
+    Evolution: IP → EIP → RIP
 
 <br>
 
-#### 2.3.2. Special-Purpose Registers.
+#### 2.4. New-general-purpouse registers.
 
-These registers have a dedicated, hardware-defined function critical to program execution. We cannot use them for general arithmetic or to hold arbitrary data in the same way.
+When AMD designed the 64-bit extension, they added eight new general-purpose registers: R8 through R15. 
 
-1. **RSP (Stack Pointer)**
+Each of these can be accessed at different widths, just like the classic registers:
 
-    Points to the top of the current stack frame. It's managed automatically by instructions like CALL, RET, PUSH, and POP.
-    
-    If RSP gets wrongly manipulated, the program will almost certainly crash. While it can be manipulated directly (e.g., sub rsp, 16 to allocate space), it cannot be used as a scratch register like RAX or RCX.
+| Size   | r12 variant | Classic equivalent |
+|--------|-------------|--------------------|
+| 64-bit | r12         | rbx                |
+| 32-bit | r12d        | ebx                |
+| 16-bit | r12w        | bx                 |
+| 8-bit  | r12b        | bl                 |
 
-2. **RBP (Base Pointer)**
+So *r12b* is the lowest 8 bits of the *r12* register. The suffix indicates the width: 
 
-    Points to the base of the current stack frame to provide a stable reference for accessing local variables and parameters.
-
-    Its role is defined by software convention and is crucial for stack unwinding and debugging. While modern optimizations (-fomit-frame-pointer) can free it for general use, by default, it is considered a special-purpose stack management register.
-
-3. **RIP (Instruction Pointer)**
-
-    Holds the memory address of the next instruction to be executed, it controls the flow of execution of a program.
-    
-    This register is critic, it cannot directly be manipulated (read/write) as with the others. Its value is controlled entirely by the CPU through instruction execution, jumps, and calls.
-
-<br>
+- *b* for byte.
+- *w* for word. 
+- *d* for doubleword. 
+- no suffix for the full quadword.
